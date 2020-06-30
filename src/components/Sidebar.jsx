@@ -1,5 +1,6 @@
 import React from 'react';
+import StudentSidebar from '../pages/student/StudentSidebar';
 
 export default function Sidebar() {
-  return <div>Sidebar</div>;
+  return <StudentSidebar />;
 }
