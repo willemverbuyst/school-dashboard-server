@@ -9,6 +9,7 @@ import {
 } from '../appState/actions';
 
 export const LOGIN_SUCCESS_STUDENT = 'LOGIN_SUCCESS_STUDENT';
+export const LOG_OUT_STUDENT = 'LOG_OUT_STUDENT';
 
 const loginSuccessStudent = (userWithToken) => {
   return {
@@ -16,6 +17,8 @@ const loginSuccessStudent = (userWithToken) => {
     payload: userWithToken,
   };
 };
+
+export const logOutStudent = () => ({ type: LOG_OUT_STUDENT });
 
 export const loginStudent = (email, password, isStudent) => {
   return async (dispatch, getState) => {
