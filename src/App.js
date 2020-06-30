@@ -7,6 +7,8 @@ import Signup from './pages/Signup';
 
 import StudentMainPage from './pages/student/StudentMainPage';
 import TeacherMainPage from './pages/teacher/TeacherMainPage';
+import AddQuestionForm from './pages/teacher/AddQuestionForm';
+import ListOfQuestions from './pages/teacher/ListOfQuestions';
 
 import './App.css';
 
@@ -19,6 +21,16 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/students/:studentid" component={StudentMainPage} />
         <Route exact path="/teachers/:teacherid" component={TeacherMainPage} />
+        <Route
+          exact
+          path="/teachers/:teacherid/questions/add"
+          component={AddQuestionForm}
+        />
+        <Route
+          exact
+          path="/teachers/:teacherid/questions/list"
+          component={ListOfQuestions}
+        />
       </Switch>
     </div>
   );
