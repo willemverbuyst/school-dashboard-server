@@ -41,6 +41,7 @@ export default function BarChart({ labels, color, data }) {
                 autoSkip: true,
                 maxTicksLimit: 10,
                 beginAtZero: true,
+                display: false,
               },
               gridLines: {
                 display: false,
@@ -51,6 +52,11 @@ export default function BarChart({ labels, color, data }) {
             {
               gridLines: {
                 display: false,
+              },
+              ticks: {
+                fontSize: 18,
+                padding: 0,
+                fontColor: '#000',
               },
             },
           ],

@@ -23,39 +23,43 @@ export default function BarChart({ labels, color, data }) {
   });
 
   return (
-    <div style={{ width: '30vw', height: '30vh' }}>
-      <Line
-        data={chartData}
-        options={{
-          tooltips: false,
-          legend: {
-            display: false,
-          },
-          responsive: true,
-          title: { display: true },
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 10,
-                  beginAtZero: true,
-                },
-                gridLines: {
-                  display: false,
-                },
+    <Line
+      data={chartData}
+      options={{
+        tooltips: false,
+        legend: {
+          display: false,
+        },
+        responsive: true,
+        title: { display: true },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 10,
+                beginAtZero: true,
+                display: false,
               },
-            ],
-            xAxes: [
-              {
-                gridLines: {
-                  display: false,
-                },
+              gridLines: {
+                display: false,
               },
-            ],
-          },
-        }}
-      />
-    </div>
+            },
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+              ticks: {
+                fontSize: 18,
+                padding: 0,
+                fontColor: '#000',
+              },
+            },
+          ],
+        },
+      }}
+    />
   );
 }

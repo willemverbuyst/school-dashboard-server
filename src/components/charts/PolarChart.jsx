@@ -23,25 +23,21 @@ export default function ChartHomePage({ labels, color, data }) {
   });
 
   return (
-    <div style={{ width: '30vw', height: '30vh' }}>
-      <Polar
-        data={chartData}
-        options={{
-          tooltips: false,
-          legend: {
-            display: true,
-            position: 'bottom',
-          },
-          responsive: true,
-          title: { display: false },
-          scale: {
-            ticks: {
-              min: 0,
-              max: 100,
-            },
-          },
-        }}
-      />
-    </div>
+    <Polar
+      data={chartData}
+      options={{
+        tooltips: false,
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: { fontSize: 18 },
+        },
+        responsive: true,
+        title: { display: false },
+        scale: {
+          display: false,
+        },
+      }}
+    />
   );
 }

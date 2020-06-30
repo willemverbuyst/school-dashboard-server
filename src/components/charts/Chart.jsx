@@ -37,6 +37,7 @@ export default function DynamicChart() {
           tooltips: false,
           legend: {
             display: false,
+            labels: { fontSize: 16 },
           },
           responsive: true,
           title: { text: 'AVERAGE PER SUBJECT', display: true },

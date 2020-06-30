@@ -31,7 +31,7 @@ export default function Home() {
         >
           <Row justify="space-around">
             <Col>
-              <div style={{ width: '30vw', height: '30vh' }}>
+              <div style={{ width: '35vw', height: '35vh' }}>
                 <BarChart
                   labels={['Welcome', 'to', 'your', 'dashboard']}
                   color="rgba(0, 99, 132, 1)"
@@ -42,22 +42,26 @@ export default function Home() {
           </Row>
           <Row justify="space-around">
             <Col>
-              <PolarChart
-                labels={['Please', 'log', 'in']}
-                color={[
-                  'rgba(55, 99, 1, 1)',
-                  'rgba(2, 99, 132, 1)',
-                  'rgba(20, 200, 0, 1)',
-                ]}
-                data={[80, 56, 67]}
-              />
+              <div style={{ width: '35vw', height: '35vh' }}>
+                <PolarChart
+                  labels={['Please', 'log', 'in']}
+                  color={[
+                    'rgba(55, 99, 1, 1)',
+                    'rgba(2, 99, 132, 1)',
+                    'rgba(20, 200, 0, 1)',
+                  ]}
+                  data={[80, 56, 67]}
+                />
+              </div>
             </Col>
             <Col>
-              <LineChart
-                labels={['to', 'see', 'your', 'progress']}
-                color={['rgba(75, 192, 192, .6)']}
-                data={[45, 67, 56, 80]}
-              />
+              <div style={{ width: '35vw', height: '35vh' }}>
+                <LineChart
+                  labels={['to', 'see', 'your', 'progress']}
+                  color={['rgba(75, 192, 192, .6)']}
+                  data={[45, 67, 56, 80]}
+                />
+              </div>
             </Col>
           </Row>
         </Content>
