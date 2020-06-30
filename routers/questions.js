@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
+const studentAuthMiddleware = require('../auth/studentAuthMiddleware');
 const Question = require('../models').question;
 const Answer = require('../models').answer;
 
@@ -53,6 +54,29 @@ router.post('/', teacherAuthMiddleware, async (req, res, next) => {
     );
 
     res.status(201).send({ message: 'You have added a new question.' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// STUDENT get 3 random questions for a subject
+router.get('/3qtest/:id', studentAuthMiddleware, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const questions = await Question.findAll({
+      where: { subjectId: id },
+      include: [{ model: Answer }],
+    });
+    if (!questions) {
+      return res.status(404).send({
+        message: 'No questions for that subject found',
+      });
+    } else {
+      // https://stackoverflow.com/questions/19269545/how-to-get-n-no-elements-randomly-from-an-array
+      const shuffled = questions.sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 3);
+      res.send(selected);
+    }
   } catch (error) {
     next(error);
   }

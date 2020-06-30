@@ -21,7 +21,7 @@ router.post('/login', async (req, res, next) => {
         .send({ message: 'Please provide both email and password' });
     }
     // STUDENT
-    if (isStudent === 1) {
+    if (isStudent === 'true') {
       const student = await Student.findOne({
         where: { email },
       });
