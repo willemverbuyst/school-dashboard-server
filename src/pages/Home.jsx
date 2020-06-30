@@ -31,13 +31,33 @@ export default function Home() {
         >
           <Row justify="space-around">
             <Col>
-              <BarChart />
+              <div style={{ width: '30vw', height: '30vh' }}>
+                <BarChart
+                  labels={['Welcome', 'to', 'your', 'dashboard']}
+                  color="rgba(0, 99, 132, 1)"
+                  data={[80, 56, 67, 45]}
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row justify="space-around">
+            <Col>
+              <PolarChart
+                labels={['Please', 'log', 'in']}
+                color={[
+                  'rgba(55, 99, 1, 1)',
+                  'rgba(2, 99, 132, 1)',
+                  'rgba(20, 200, 0, 1)',
+                ]}
+                data={[80, 56, 67]}
+              />
             </Col>
             <Col>
-              <PolarChart />
-            </Col>
-            <Col>
-              <LineChart />
+              <LineChart
+                labels={['to', 'see', 'your', 'progress']}
+                color={['rgba(75, 192, 192, .6)']}
+                data={[45, 67, 56, 80]}
+              />
             </Col>
           </Row>
         </Content>

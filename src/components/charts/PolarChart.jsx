@@ -1,21 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Polar } from 'react-chartjs-2';
 
-export default function ChartHomePage() {
+export default function ChartHomePage({ labels, color, data }) {
   const [chartData, setChartData] = useState({});
 
   const chart = () => {
     setChartData({
-      labels: ['Please', 'log', 'in'],
+      labels: labels,
       datasets: [
         {
           label: { display: false },
-          data: [80, 56, 67],
-          backgroundColor: [
-            'rgba(55, 99, 1, 1)',
-            'rgba(2, 99, 132, 1)',
-            'rgba(20, 200, 0, 1)',
-          ],
+          data: data,
+          backgroundColor: color,
           borderWidth: 0,
         },
       ],
@@ -24,13 +20,14 @@ export default function ChartHomePage() {
 
   useEffect(() => {
     chart();
-  }, []);
+  });
 
   return (
     <div style={{ width: '30vw', height: '30vh' }}>
       <Polar
         data={chartData}
         options={{
+          tooltips: false,
           legend: {
             display: true,
             position: 'bottom',

@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-export default function BarChart() {
+export default function BarChart({ labels, color, data }) {
   const [chartData, setChartData] = useState({});
+  const bgColor = [];
+  for (let i = 0; i < labels.length; i++) bgColor.push(color);
 
   const chart = () => {
     setChartData({
-      labels: ['Welcome', 'to', 'your', 'dashboard'],
+      labels: labels,
       datasets: [
         {
           label: { display: false },
-          data: [80, 56, 67, 45],
-          backgroundColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 99, 132, 1)',
-          ],
+          data: data,
+          backgroundColor: bgColor,
           borderWidth: 0,
         },
       ],
@@ -25,41 +22,40 @@ export default function BarChart() {
 
   useEffect(() => {
     chart();
-  }, []);
+  });
 
   return (
-    <div style={{ width: '30vw', height: '30vh' }}>
-      <Bar
-        data={chartData}
-        options={{
-          legend: {
-            display: false,
-          },
-          responsive: true,
-          title: { display: true },
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 10,
-                  beginAtZero: true,
-                },
-                gridLines: {
-                  display: false,
-                },
+    <Bar
+      data={chartData}
+      options={{
+        tooltips: false,
+        legend: {
+          display: false,
+        },
+        responsive: true,
+        title: { display: true },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                autoSkip: true,
+                maxTicksLimit: 10,
+                beginAtZero: true,
               },
-            ],
-            xAxes: [
-              {
-                gridLines: {
-                  display: false,
-                },
+              gridLines: {
+                display: false,
               },
-            ],
-          },
-        }}
-      />
-    </div>
+            },
+          ],
+          xAxes: [
+            {
+              gridLines: {
+                display: false,
+              },
+            },
+          ],
+        },
+      }}
+    />
   );
 }

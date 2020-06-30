@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 
-export default function BarChart() {
+export default function BarChart({ labels, color, data }) {
   const [chartData, setChartData] = useState({});
 
   const chart = () => {
     setChartData({
-      labels: ['to', 'see', 'your', 'progress'],
+      labels: labels,
       datasets: [
         {
           label: { display: false },
-          data: [80, 56, 67, 45],
-          backgroundColor: ['rgba(75, 192, 192, .6)'],
+          data: data,
+          backgroundColor: color,
           borderWidth: 3,
         },
       ],
@@ -20,13 +20,14 @@ export default function BarChart() {
 
   useEffect(() => {
     chart();
-  }, []);
+  });
 
   return (
     <div style={{ width: '30vw', height: '30vh' }}>
       <Line
         data={chartData}
         options={{
+          tooltips: false,
           legend: {
             display: false,
           },
