@@ -27,15 +27,17 @@ export default function DynamicChart() {
 
   useEffect(() => {
     chart();
-  }, []);
+  });
 
   return (
     <div style={{ width: '60vw', height: '30vh' }}>
       <Bar
         data={chartData}
         options={{
+          tooltips: false,
           legend: {
             display: false,
+            labels: { fontSize: 16 },
           },
           responsive: true,
           title: { text: 'AVERAGE PER SUBJECT', display: true },
