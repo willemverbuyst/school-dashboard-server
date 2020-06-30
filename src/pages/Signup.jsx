@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllTeachers } from '../store/schoolInfo/actions';
+import { selectAllTeachers } from '../store/schoolInfo/selectors';
 import { Layout, Form, Input, Button, Radio, Select } from 'antd';
 const { Content } = Layout;
 const { Option } = Select;
 
 export default function Signup() {
+  const dispatch = useDispatch();
   const [status, setStatus] = useState(1);
   const [teacher, setTeacher] = useState(1);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // teacher will be fetched from the back with schoolInfo
-  const teachers = ['Fjodor', 'Sebastian'];
-  // id will come with the teacher objecjt
-  const id = 1;
+  const teachers = useSelector(selectAllTeachers);
 
-  // useEffect, to fetch all teachers to fill the selectbox
+  useEffect(() => {
+    dispatch(fetchAllTeachers);
+  }, [dispatch]);
 
   const handleChange = (value) => {
     setTeacher(value);
@@ -37,7 +40,7 @@ export default function Signup() {
           onChange={(e) => handleChange(e)}
         >
           {/* get id from backend later on */}
-          {teachers.map((name, i) => (
+          {teachers.map(({ name, id }, i) => (
             <Option key={i} value={id}>
               {name}
             </Option>

@@ -1,1 +1,7 @@
-// combine the reducers
+import { combineReducers } from 'redux';
+
+import schoolInfo from './schoolInfo/reducer';
+
+export default combineReducers({
+  schoolInfo,
+});
