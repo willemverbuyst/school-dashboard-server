@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const { Router } = require('express');
 const { toJWT } = require('../auth/jwt');
+const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
 const Teacher = require('../models').teacher;
 const Student = require('../models').student;
 const Subject = require('../models').subject;
@@ -104,6 +105,22 @@ router.post('/signup', async (req, res) => {
         .send({ message: 'There is an existing account with this email' });
     }
 
+    return res.status(400).send({ message: 'Something went wrong, sorry' });
+  }
+});
+
+/*** GET INFO USER IF THERE IS A TOKEN ***/
+// /teacher would be /me if there was only one 'user'
+router.get('/teacher', teacherAuthMiddleware, async (req, res) => {
+  try {
+    const students = await Student.findAll({ attributes: ['id', 'name'] });
+    const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
+
+    delete req.teacher.dataValues['password'];
+    return res
+      .status(200)
+      .send({ ...req.teacher.dataValues, students, subjects });
+  } catch (error) {
     return res.status(400).send({ message: 'Something went wrong, sorry' });
   }
 });
