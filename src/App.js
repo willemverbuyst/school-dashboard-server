@@ -9,6 +9,7 @@ import StudentMainPage from './pages/student/StudentMainPage';
 import StudentDoTest from './pages/student/StudentDoTest';
 import StudentSubjectDetails from './pages/student/StudentSubjectDetails';
 import TeacherMainPage from './pages/teacher/TeacherMainPage';
+import TeacherStudentDetails from './pages/teacher/TeacherStudentDetails';
 import AddQuestionForm from './pages/teacher/AddQuestionForm';
 import ListOfQuestions from './pages/teacher/ListOfQuestions';
 
@@ -33,6 +34,11 @@ function App() {
           component={StudentDoTest}
         />
         <Route exact path="/teachers/:teacherid" component={TeacherMainPage} />
+        <Route
+          exact
+          path="/teachers/:teacherid/students/:studentsid"
+          component={TeacherStudentDetails}
+        />
         <Route
           exact
           path="/teachers/:teacherid/questions/add"
