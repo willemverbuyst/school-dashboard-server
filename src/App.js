@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Layout } from 'antd';
 import BarAtTheTop from './components/BarAtThetop';
 import AlertBox from './components/AlertBox';
@@ -18,11 +18,22 @@ import TeacherSubjectDetails from './pages/teacher/TeacherSubjectDetails';
 import AddQuestionForm from './pages/teacher/AddQuestionForm';
 import ListOfQuestions from './pages/teacher/ListOfQuestions';
 import { selectAppLoading } from './store/appState/selectors';
+import { selectStudentToken } from './store/student/selectors';
+import { getStudentWithStoredToken } from './store/student/actions';
 
 import './App.css';
 
 function App() {
+  const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
+  const studentToken = useSelector(selectStudentToken);
+
+  useEffect(() => {
+    if (studentToken) {
+      dispatch(getStudentWithStoredToken());
+    }
+  }, [dispatch, studentToken]);
+
   return (
     <div>
       <BarAtTheTop />

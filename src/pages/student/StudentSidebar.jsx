@@ -1,26 +1,30 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import {
+  selectStudentSubjects,
+  selectStudentId,
+} from '../../store/student/selectors';
 import { Layout, Menu } from 'antd';
 
 const { Sider } = Layout;
 
 export default function SideBar() {
   const history = useHistory();
-  // data is hardcoded for now
-  const subjects = ['geography', 'history', 'math'];
-  const studentId = 1;
+  const subjects = useSelector(selectStudentSubjects);
+  const studentId = useSelector(selectStudentId);
 
   const goTo = (goto) => {
     history.push(goto);
   };
 
   const renderSubjectNav = () => {
-    return subjects.map((x, i) => (
+    return subjects.map(({ name, id }, i) => (
       <Menu.Item
         key={i + 2}
-        onClick={() => goTo(`/students/${studentId}/subjects/${i + 1}`)}
+        onClick={() => goTo(`/students/${studentId}/subjects/${id}`)}
       >
-        {x.charAt(0).toUpperCase() + x.slice(1)}
+        {name.charAt(0).toUpperCase() + name.slice(1)}
       </Menu.Item>
     ));
   };

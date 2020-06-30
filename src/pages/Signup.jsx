@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllTeachers } from '../store/schoolInfo/actions';
 import { selectAllTeachers } from '../store/schoolInfo/selectors';
+import { createStudent } from '../store/student/actions';
 import { Layout, Form, Input, Button, Radio, Select } from 'antd';
 const { Content } = Layout;
 const { Option } = Select;
 
 export default function Signup() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [status, setStatus] = useState(1);
   const [teacher, setTeacher] = useState(1);
@@ -24,7 +27,13 @@ export default function Signup() {
   };
 
   const createUser = () => {
-    console.log('user');
+    if (status === 1) {
+      dispatch(createStudent(status, name, email, password, teacher));
+      history.push(`/`);
+    } else {
+      console.log('create teacher');
+      //make logic for teacher
+    }
   };
 
   const renderExtraInput = () => {
@@ -39,7 +48,6 @@ export default function Signup() {
           style={{ width: 120, marginBottom: 15 }}
           onChange={(e) => handleChange(e)}
         >
-          {/* get id from backend later on */}
           {teachers.map(({ name, id }, i) => (
             <Option key={i} value={id}>
               {name}
