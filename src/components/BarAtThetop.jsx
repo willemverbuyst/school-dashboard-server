@@ -8,8 +8,8 @@ const { Header } = Layout;
 
 export default function BarAtThetop() {
   // get student and teacher from the redux store with selector
-  // const student = null;
-  const student = 'Sifan Hassan';
+  const student = null;
+  // const student = 'Sifan Hassan';
   // const teacher = 'Dostojewski';
   const teacher = null;
 
