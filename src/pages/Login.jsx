@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectStudentId } from '../store/student/selectors';
+import { loginStudent } from '../store/student/actions';
 
 import { Layout, Form, Input, Button, Radio } from 'antd';
 const { Content } = Layout;
 
 export default function Login() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [status, setStatus] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   // hardcoded for now, if someone if logged in go to their main page
-  const studentId = null;
+  const studentId = useSelector(selectStudentId);
   const teacherId = null;
-  // const studentId = 1;
-  // const teacherId = 1;
 
   useEffect(() => {
     if (studentId !== null) {
@@ -28,6 +30,9 @@ export default function Login() {
   function submitForm(event) {
     event.preventDefault();
     console.log('login', status, email, password);
+    status === 1
+      ? dispatch(loginStudent(email, password, status))
+      : console.log('person loggin in is teacher');
   }
 
   const layout = {
