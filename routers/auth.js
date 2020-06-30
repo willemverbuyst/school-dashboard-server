@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const { Router } = require('express');
 const { toJWT } = require('../auth/jwt');
 const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
+const studentAuthMiddleware = require('../auth/studentAuthMiddleware');
 const Teacher = require('../models').teacher;
 const Student = require('../models').student;
 const Subject = require('../models').subject;
@@ -120,6 +121,17 @@ router.get('/teacher', teacherAuthMiddleware, async (req, res) => {
     return res
       .status(200)
       .send({ ...req.teacher.dataValues, students, subjects });
+  } catch (error) {
+    return res.status(400).send({ message: 'Something went wrong, sorry' });
+  }
+});
+
+router.get('/student', studentAuthMiddleware, async (req, res) => {
+  try {
+    const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
+    // console.log(subjects);
+    delete req.student.dataValues['password'];
+    return res.status(200).send({ ...req.student.dataValues, subjects });
   } catch (error) {
     return res.status(400).send({ message: 'Something went wrong, sorry' });
   }
