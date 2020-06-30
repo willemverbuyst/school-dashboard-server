@@ -3,6 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectStudentToken } from '../../store/student/selectors';
 import Chart from '../../components/charts/Chart';
+import { Layout } from 'antd';
+
+const { Content } = Layout;
 
 export default function StudentMainPage() {
   const history = useHistory();
@@ -15,9 +18,13 @@ export default function StudentMainPage() {
   });
 
   return (
-    <div>
-      Student main page
-      <Chart />
-    </div>
+    <Layout>
+      <Layout style={{ padding: '24px', height: '92vh' }}>
+        <Content className="site-layout-background">
+          Student Main Page
+          <Chart />
+        </Content>
+      </Layout>
+    </Layout>
   );
 }

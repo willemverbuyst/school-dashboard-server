@@ -26,7 +26,7 @@ export default function ChartHomePage() {
   }, []);
 
   return (
-    <div style={{ width: '60vw', height: '30vh' }}>
+    <div style={{ width: '30vw', height: '30vh' }}>
       <Polar
         data={chartData}
         options={{
