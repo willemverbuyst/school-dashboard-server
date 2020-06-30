@@ -1,7 +1,8 @@
 import React from 'react';
-import { Layout } from 'antd';
 import { Switch, Route } from 'react-router-dom';
+import { Layout } from 'antd';
 import BarAtTheTop from './components/BarAtThetop';
+import AlertBox from './components/AlertBox';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -22,6 +23,7 @@ function App() {
   return (
     <div>
       <BarAtTheTop />
+      <AlertBox />
       <Layout>
         <Sidebar />
         <Switch>
