@@ -13,10 +13,7 @@ export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // teacher will be fetched from the back with schoolInfo
   const teachers = useSelector(selectAllTeachers);
-  // id will come with the teacher objecjt
-  const id = 1;
 
   console.log(teachers);
 
@@ -45,7 +42,7 @@ export default function Signup() {
           onChange={(e) => handleChange(e)}
         >
           {/* get id from backend later on */}
-          {teachers.map((name, i) => (
+          {teachers.map(({ name, id }, i) => (
             <Option key={i} value={id}>
               {name}
             </Option>
