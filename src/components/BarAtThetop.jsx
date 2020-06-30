@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
+import { selectStudentName } from '../store/student/selectors';
 import { Layout } from 'antd';
 
 const { Header } = Layout;
 
 export default function BarAtThetop() {
   // get student and teacher from the redux store with selector
-  const student = null;
-  // const student = 'Sifan Hassan';
+  const student = useSelector(selectStudentName);
   // const teacher = 'Dostojewski';
   const teacher = null;
 

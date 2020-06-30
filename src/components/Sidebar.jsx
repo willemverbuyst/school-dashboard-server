@@ -8,7 +8,6 @@ export default function SideBar() {
   const student = useSelector(selectStudentName);
   // const teacher = 'piet';
   const teacher = null;
-  // const student = 'sjaak';
 
   return student ? <StudentSidebar /> : teacher ? <TeacherSidebar /> : null;
 }
