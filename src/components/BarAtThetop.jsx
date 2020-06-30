@@ -1,16 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 import { Layout } from 'antd';
 
 const { Header } = Layout;
 
 export default function BarAtThetop() {
-  const student = null;
-  const teacher = 'Dostojewski';
+  // get student and teacher from the redux store with selector
+  // const student = null;
+  const student = 'Sifan Hassan';
+  // const teacher = 'Dostojewski';
+  const teacher = null;
 
   const renderLoginLogout = () => {
-    return <LoginButton />;
+    return student || teacher ? <LogoutButton /> : <LoginButton />;
   };
 
   const renderWelcome = () => {
