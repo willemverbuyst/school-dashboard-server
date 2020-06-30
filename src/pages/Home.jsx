@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectStudentId } from '../store/student/selectors';
-import ChartHomePage from '../components/charts/ChartHomePage';
+import PolarChart from '../components/charts/PolarChart';
+import BarChart from '../components/charts/BarChart';
+import LineChart from '../components/charts/LineChart';
 import { Layout, Row, Col } from 'antd';
 const { Content } = Layout;
 
@@ -27,25 +29,15 @@ export default function Home() {
             padding: 24,
           }}
         >
-          <Row>
-            <h2>Welcome to your dashboard</h2>
-          </Row>
-          <Row>
-            <h3>Please login or sign up</h3>
-          </Row>
-          <Row>
-            <h3>to see you progress</h3>
-          </Row>
-
           <Row justify="space-around">
             <Col>
-              <ChartHomePage />
+              <BarChart />
             </Col>
             <Col>
-              <ChartHomePage />
+              <PolarChart />
             </Col>
             <Col>
-              <ChartHomePage />
+              <LineChart />
             </Col>
           </Row>
         </Content>

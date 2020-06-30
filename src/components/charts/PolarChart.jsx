@@ -6,14 +6,15 @@ export default function ChartHomePage() {
 
   const chart = () => {
     setChartData({
+      labels: ['Please', 'log', 'in'],
       datasets: [
         {
           label: { display: false },
           data: [80, 56, 67],
           backgroundColor: [
-            'rgba(255, 99, 132, 1)',
+            'rgba(55, 99, 1, 1)',
             'rgba(2, 99, 132, 1)',
-            'rgba(200, 190, 50, 1)',
+            'rgba(20, 200, 0, 1)',
           ],
           borderWidth: 0,
         },
@@ -31,7 +32,8 @@ export default function ChartHomePage() {
         data={chartData}
         options={{
           legend: {
-            display: false,
+            display: true,
+            position: 'bottom',
           },
           responsive: true,
           title: { display: false },
