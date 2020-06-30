@@ -110,7 +110,7 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-/*** GET INFO USER IF THERE IS A TOKEN ***/
+/*** GET INFO USER IF THERE IS A JWT TOKEN ***/
 // /teacher would be /me if there was only one 'user'
 router.get('/teacher', teacherAuthMiddleware, async (req, res) => {
   try {
@@ -126,6 +126,7 @@ router.get('/teacher', teacherAuthMiddleware, async (req, res) => {
   }
 });
 
+// /student would be /me if there was only one 'user'
 router.get('/student', studentAuthMiddleware, async (req, res) => {
   try {
     const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
