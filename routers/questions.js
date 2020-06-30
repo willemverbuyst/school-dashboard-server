@@ -5,7 +5,7 @@ const Answer = require('../models').answer;
 
 const router = new Router();
 
-// TEACHER
+// TEACHER get all the questions for one subject
 router.get('/:id', teacherAuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -20,6 +20,39 @@ router.get('/:id', teacherAuthMiddleware, async (req, res, next) => {
     } else {
       res.send(questions);
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// TEACHER post a new question for a subject
+router.post('/', teacherAuthMiddleware, async (req, res, next) => {
+  const { subjectId, question, answer1, answer2, answer3, answer4 } = req.body;
+
+  if (!subjectId || !question || !answer1 || !answer2 || !answer3 || !answer4) {
+    return res
+      .status(400)
+      .send({ message: 'Please provide question, 4 answers and subject' });
+  }
+  try {
+    const newQuestion = await Question.create({
+      text: question,
+      subjectId,
+    });
+    const newCorrectAnswer = await Answer.create({
+      text: answer1,
+      correct: true,
+      questionId: newQuestion.id,
+    });
+    const newWrongsAnswers = [answer2, answer3, answer4].forEach((answer) =>
+      Answer.create({
+        text: answer,
+        correct: false,
+        questionId: newQuestion.id,
+      })
+    );
+
+    res.status(201).send({ message: 'You have added a new question.' });
   } catch (error) {
     next(error);
   }
