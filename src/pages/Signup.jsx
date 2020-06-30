@@ -15,8 +15,6 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const teachers = useSelector(selectAllTeachers);
 
-  console.log(teachers);
-
   useEffect(() => {
     dispatch(fetchAllTeachers);
   }, [dispatch]);
