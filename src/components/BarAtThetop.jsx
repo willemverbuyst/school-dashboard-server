@@ -6,9 +6,21 @@ import { Layout } from 'antd';
 const { Header } = Layout;
 
 export default function BarAtThetop() {
+  const student = null;
+  const teacher = 'Dostojewski';
+
   const renderLoginLogout = () => {
     return <LoginButton />;
   };
+
+  const renderWelcome = () => {
+    return student ? (
+      <div>Welcome {student}!</div>
+    ) : teacher ? (
+      <div>Welcome {teacher}!</div>
+    ) : null;
+  };
+
   return (
     <Header
       style={{
@@ -16,12 +28,13 @@ export default function BarAtThetop() {
         justifyContent: 'space-between',
         alignItems: 'center',
         minHeight: '8vh',
+        color: '#fff',
       }}
     >
       <Link style={{ color: '#fff' }} to="/">
         Dashboard
       </Link>
-      {/* {renderWelcome()} */}
+      {renderWelcome()}
       {renderLoginLogout()}
     </Header>
   );
