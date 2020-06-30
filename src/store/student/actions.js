@@ -77,3 +77,31 @@ export const getStudentWithStoredToken = () => {
 };
 
 export const logOutStudent = () => ({ type: LOG_OUT_STUDENT });
+
+export function createStudent(isStudent, name, email, password, teacherId) {
+  return async function thunk(dispatch, getState) {
+    dispatch(appLoading());
+    try {
+      const response = await axios.post(`${apiUrl}/signup`, {
+        isStudent,
+        name,
+        email,
+        password,
+        teacherId,
+      });
+
+      dispatch(loginSuccessStudent(response.data));
+      dispatch(showMessageWithTimeout('success', true, response.data.message));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage('danger', true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage('danger', true, error.message));
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+}
