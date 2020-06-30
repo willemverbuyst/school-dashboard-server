@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import LoginButton from './LoginButton';
 import { Layout } from 'antd';
 
 const { Header } = Layout;
 
 export default function BarAtThetop() {
+  const renderLoginLogout = () => {
+    return <LoginButton />;
+  };
   return (
     <Header
       style={{
@@ -18,8 +21,8 @@ export default function BarAtThetop() {
       <Link style={{ color: '#fff' }} to="/">
         Dashboard
       </Link>
-      {/* {renderWelcome()}
-      {renderLoginLogout()} */}
+      {/* {renderWelcome()} */}
+      {renderLoginLogout()}
     </Header>
   );
 }
