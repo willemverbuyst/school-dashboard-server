@@ -1,12 +1,14 @@
 import React from 'react';
-import { Layout } from 'antd';
 import { Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Layout } from 'antd';
 import BarAtTheTop from './components/BarAtThetop';
+import AlertBox from './components/AlertBox';
+import Spinner from './components/Spinner';
 import Sidebar from './components/Sidebar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-
 import StudentMainPage from './pages/student/StudentMainPage';
 import StudentDoTest from './pages/student/StudentDoTest';
 import StudentSubjectDetails from './pages/student/StudentSubjectDetails';
@@ -15,15 +17,19 @@ import TeacherStudentDetails from './pages/teacher/TeacherStudentDetails';
 import TeacherSubjectDetails from './pages/teacher/TeacherSubjectDetails';
 import AddQuestionForm from './pages/teacher/AddQuestionForm';
 import ListOfQuestions from './pages/teacher/ListOfQuestions';
+import { selectAppLoading } from './store/appState/selectors';
 
 import './App.css';
 
 function App() {
+  const isLoading = useSelector(selectAppLoading);
   return (
     <div>
       <BarAtTheTop />
+      <AlertBox />
       <Layout>
         <Sidebar />
+        {isLoading ? <Spinner /> : null}
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
