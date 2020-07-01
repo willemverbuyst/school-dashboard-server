@@ -27,7 +27,7 @@ export default function DynamicChart() {
 
   useEffect(() => {
     chart();
-  });
+  }, []);
 
   return (
     <div style={{ width: '60vw', height: '30vh' }}>

@@ -20,7 +20,7 @@ export default function BarChart({ labels, color, data }) {
 
   useEffect(() => {
     chart();
-  });
+  }, []);
 
   return (
     <Line
