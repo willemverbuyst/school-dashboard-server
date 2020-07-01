@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentId } from '../store/student/selectors';
 import { loginStudent } from '../store/student/actions';
-
+import { loginTeacher } from '../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio } from 'antd';
 const { Content } = Layout;
 
@@ -32,7 +32,7 @@ export default function Login() {
     console.log('login', status, email, password);
     status === 1
       ? dispatch(loginStudent(email, password, status))
-      : console.log('person loggin in is teacher');
+      : dispatch(loginTeacher(email, password, status));
   }
 
   const layout = {
