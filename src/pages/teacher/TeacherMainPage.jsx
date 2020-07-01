@@ -16,6 +16,7 @@ export default function TeacherMainPage() {
       history.push('/');
     }
   });
+
   return (
     <Layout>
       <Layout style={{ padding: '24px', height: '92vh' }}>

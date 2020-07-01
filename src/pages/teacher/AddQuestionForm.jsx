@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTeacherSubjects } from '../../store/teacher/selectors';
+import {
+  selectTeacherSubjects,
+  selectTeacherToken,
+} from '../../store/teacher/selectors';
 import { createQuestion } from '../../store/questions/actions';
 import { Layout, Form, Input, Button, Select } from 'antd';
 
@@ -8,6 +12,8 @@ const { Content } = Layout;
 const { Option } = Select;
 
 export default function Addquestion() {
+  const history = useHistory();
+  const token = useSelector(selectTeacherToken);
   const dispatch = useDispatch();
   const subjects = useSelector(selectTeacherSubjects);
   const [subject, setSubject] = useState(1);
@@ -16,6 +22,12 @@ export default function Addquestion() {
   const [answer2, setAnswer2] = useState('');
   const [answer3, setAnswer3] = useState('');
   const [answer4, setAnswer4] = useState('');
+
+  useEffect(() => {
+    if (token === null) {
+      history.push('/');
+    }
+  });
 
   const handleChange = (value) => {
     setSubject(value);
