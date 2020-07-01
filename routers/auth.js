@@ -46,7 +46,10 @@ router.post('/login', async (req, res, next) => {
 
       const token = toJWT({ teacherId: teacher.id });
       const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
-      const students = await Student.findAll({ attributes: ['id', 'name'] });
+      const students = await Student.findAll({
+        where: { teacherId: teacher.id },
+        attributes: ['id', 'name'],
+      });
 
       return res
         .status(200)
