@@ -33,7 +33,7 @@ export default function ListOfQuestions() {
 
   const renderQuestions = () => {
     return (
-      <Collapse defaultActiveKey={['0']}>
+      <Collapse>
         {questions.map(({ text, answers }, i) => (
           <Panel header={text} key={i}>
             <ol>
@@ -56,9 +56,17 @@ export default function ListOfQuestions() {
     );
   };
 
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 12 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 12 },
+  };
+
   const renderSubjectsSelector = () => {
     return (
-      <Form name="basic" initialValues={{ remember: true }}>
+      <Form {...layout} name="basic" initialValues={{ remember: true }}>
         <Form.Item
           label="Select a subject"
           name="subject"
@@ -76,10 +84,11 @@ export default function ListOfQuestions() {
             ))}
           </Select>
         </Form.Item>
-
-        <Button type="primary" htmlType="submit" onClick={getListOfQuestions}>
-          Show list
-        </Button>
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit" onClick={getListOfQuestions}>
+            Show list
+          </Button>
+        </Form.Item>
       </Form>
     );
   };
