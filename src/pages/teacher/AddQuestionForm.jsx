@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectTeacherSubjects } from '../../store/teacher/selectors';
+import { createQuestion } from '../../store/questions/actions';
 import { Layout, Form, Input, Button, Select } from 'antd';
 
 const { Content } = Layout;
 const { Option } = Select;
 
 export default function Addquestion() {
+  const dispatch = useDispatch();
   const subjects = useSelector(selectTeacherSubjects);
   const [subject, setSubject] = useState(1);
   const [question, setQuestion] = useState('');
@@ -21,6 +23,9 @@ export default function Addquestion() {
 
   const addQuestion = () => {
     console.log(subject, question, answer1, answer2, answer3, answer4);
+    dispatch(
+      createQuestion(subject, question, answer1, answer2, answer3, answer4)
+    );
   };
 
   const layout = {
