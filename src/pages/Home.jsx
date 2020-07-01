@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectStudentId } from '../store/student/selectors';
 import { selectTeacherId } from '../store/teacher/selectors';
-// import PolarChart from '../components/charts/PolarChart';
-// import BarChart from '../components/charts/BarChart';
-// import LineChart from '../components/charts/LineChart';
+import PolarChart from '../components/charts/PolarChart';
+import BarChart from '../components/charts/BarChart';
+import LineChart from '../components/charts/LineChart';
 import { Layout, Row, Col } from 'antd';
 const { Content } = Layout;
 
@@ -32,12 +32,12 @@ export default function Home() {
             padding: 24,
           }}
         >
-          {/* <Row justify="space-around">
+          <Row justify="space-around">
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
                 <BarChart
                   labels={['Welcome', 'to', 'your', 'dashboard']}
-                  color="#FF2694"
+                  color={['#FF2694', '#FF2694', '#FF2694', '#FF2694']}
                   data={[80, 56, 67, 45]}
                 />
               </div>
@@ -62,7 +62,7 @@ export default function Home() {
                 />
               </div>
             </Col>
-          </Row> */}
+          </Row>
         </Content>
       </Layout>
     </Layout>
