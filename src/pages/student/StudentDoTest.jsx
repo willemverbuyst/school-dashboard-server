@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentId } from '../../store/student/selectors';
-import { getMcQuestionsForTest, eraseTest } from '../../store/test/actions';
+import { getMcQuestionsForTest, submitTest } from '../../store/test/actions';
 import { select3mcQuestionsForSubject } from '../../store/test/selectors';
 import { Layout, Button, Row } from 'antd';
 import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
@@ -23,16 +23,18 @@ export default function StudentDoTest() {
   const [question3, setQuestion3] = useState(0);
 
   const onFinish = () => {
-    console.log(
-      'you have finished your test',
-      answer1,
-      answer2,
-      answer3,
-      question1,
-      question2,
-      question3
+    dispatch(
+      submitTest(
+        studentId,
+        subjectid,
+        question1,
+        question2,
+        question3,
+        answer1,
+        answer2,
+        answer3
+      )
     );
-    dispatch(eraseTest());
     history.push(`/students/${studentId}`);
   };
 

@@ -4,7 +4,7 @@ import {
   appLoading,
   appDoneLoading,
   setMessage,
-  // showMessageWithTimeout,
+  showMessageWithTimeout,
 } from '../appState/actions';
 
 export const FETCH_MC_QUESTIONS = 'FETCH_QUESTIONS';
@@ -45,5 +45,41 @@ export function getMcQuestionsForTest(id) {
 export function eraseTest() {
   return {
     type: ERASE_TEST,
+  };
+}
+
+export function submitTest(studentId, subjectId, q1, q2, q3, a1, a2, a3) {
+  return async function thunk(dispatch, getState) {
+    const token = getState().student.token;
+    dispatch(appLoading());
+    try {
+      const response = await axios.post(
+        `${apiUrl}/questions/3qtest`,
+        {
+          studentId,
+          subjectId,
+          q1,
+          q2,
+          q3,
+          a1,
+          a2,
+          a3,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      dispatch(showMessageWithTimeout('success', true, response.data.message));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage('danger', true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage('danger', true, error.message));
+      }
+      eraseTest();
+      dispatch(appDoneLoading());
+    }
   };
 }
