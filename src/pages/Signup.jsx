@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllTeachers } from '../store/schoolInfo/actions';
 import { selectAllTeachers } from '../store/schoolInfo/selectors';
 import { createStudent } from '../store/student/actions';
+import { createTeacher } from '../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio, Select } from 'antd';
 const { Content } = Layout;
 const { Option } = Select;
@@ -32,7 +33,8 @@ export default function Signup() {
       history.push(`/`);
     } else {
       console.log('create teacher');
-      //make logic for teacher
+      dispatch(createTeacher(status, name, email, password));
+      history.push(`/`);
     }
   };
 
