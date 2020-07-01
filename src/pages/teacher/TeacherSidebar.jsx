@@ -1,6 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
+import {
+  selectTeacherStudents,
+  selectTeacherSubjects,
+  selectTeacherId,
+} from '../../store/teacher/selectors';
 import { Layout, Menu } from 'antd';
 import {
   UserOutlined,
@@ -14,34 +19,32 @@ const { Sider } = Layout;
 
 export default function SideBar() {
   const history = useHistory();
-  const subjects = ['geography', 'history', 'math'];
-  const students = ['piet', 'sjaak', 'ann'];
-  const teacherId = 1;
-  // id will come with the subject from the back is hc for now
-  const id = 1;
+  const subjects = useSelector(selectTeacherSubjects);
+  const students = useSelector(selectTeacherStudents);
+  const teacherId = useSelector(selectTeacherId);
 
   const goTo = (goto) => {
     history.push(goto);
   };
 
   const renderSubjectNav = () => {
-    return subjects.map((subject, i) => (
+    return subjects.map(({ name, id }, i) => (
       <Menu.Item
         key={`sub2-${i + 1}`}
         onClick={() => goTo(`/teachers/${teacherId}/subjects/${id}`)}
       >
-        {subject.charAt(0).toUpperCase() + subject.slice(1)}
+        {name.charAt(0).toUpperCase() + name.slice(1)}
       </Menu.Item>
     ));
   };
 
   const renderStudentNav = () => {
-    return students.map((student, i) => (
+    return students.map(({ name, id }, i) => (
       <Menu.Item
         key={`sub3-${i + 1}`}
         onClick={() => goTo(`/teachers/${teacherId}/students/${id}`)}
       >
-        {student}
+        {name}
       </Menu.Item>
     ));
   };
