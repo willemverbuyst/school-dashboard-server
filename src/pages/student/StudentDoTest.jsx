@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentId } from '../../store/student/selectors';
@@ -15,11 +15,39 @@ export default function StudentDoTest() {
   const studentId = useSelector(selectStudentId);
   const { subjectid } = useParams();
   const questions = useSelector(select3mcQuestionsForSubject);
+  const [answer1, setAnswer1] = useState(0);
+  const [answer2, setAnswer2] = useState(0);
+  const [answer3, setAnswer3] = useState(0);
+  const [question1, setQuestion1] = useState(0);
+  const [question2, setQuestion2] = useState(0);
+  const [question3, setQuestion3] = useState(0);
 
   const onFinish = () => {
-    console.log('you have finished your test');
+    console.log(
+      'you have finished your test',
+      answer1,
+      answer2,
+      answer3,
+      question1,
+      question2,
+      question3
+    );
 
     history.push(`/students/${studentId}`);
+  };
+
+  const onPick = (e) => {
+    console.log(e);
+    if (e.questionNumber * 1 === 1) {
+      setQuestion1(e.questionId);
+      e.value === 1 || e.value % 4 === 1 ? setAnswer1(1) : setAnswer1(0);
+    } else if (e.questionNumber === 2) {
+      setQuestion2(e.questionId);
+      e.value === 1 || e.value % 4 === 1 ? setAnswer2(1) : setAnswer2(0);
+    } else {
+      setQuestion3(e.questionId);
+      e.value === 1 || e.value % 4 === 1 ? setAnswer3(1) : setAnswer3(0);
+    }
   };
 
   useEffect(() => {
@@ -34,8 +62,14 @@ export default function StudentDoTest() {
             hello student #{studentId}, a test for subject #{subjectid} arrrggh
           </Row>
           {questions
-            ? questions.map(({ text, answers }, i) => (
-                <MultipleChoiceQuestion key={i} text={text} answers={answers} />
+            ? questions.map(({ text, answers, id }, i) => (
+                <MultipleChoiceQuestion
+                  key={i}
+                  text={text}
+                  answers={answers}
+                  onPick={onPick}
+                  questionNumber={i + 1}
+                />
               ))
             : null}
 

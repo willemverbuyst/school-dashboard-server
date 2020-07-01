@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Radio, Form } from 'antd';
 
-export default function MultipleChoiceQuestion({ text, answers }) {
-  const [value, setValue] = useState('');
-
-  const mixedAnswers = answers.map((a) => a.text);
-
+export default function MultipleChoiceQuestion({
+  text,
+  answers,
+  onPick,
+  questionNumber,
+}) {
   const radioStyle = {
     display: 'block',
     height: '30px',
@@ -14,20 +15,18 @@ export default function MultipleChoiceQuestion({ text, answers }) {
 
   return (
     <Form.Item label={text}>
-      <br />
-      <Radio.Group onChange={(e) => setValue(e.target.value)} value={value}>
-        <Radio style={radioStyle} value={1}>
-          {mixedAnswers[0]}
-        </Radio>
-        <Radio style={radioStyle} value={2}>
-          {mixedAnswers[1]}
-        </Radio>
-        <Radio style={radioStyle} value={3}>
-          {mixedAnswers[2]}
-        </Radio>
-        <Radio style={radioStyle} value={4}>
-          {mixedAnswers[3]}
-        </Radio>
+      <Radio.Group onChange={(e) => onPick(e.target)}>
+        {answers.map(({ text, id, questionId }, i) => (
+          <Radio
+            key={i}
+            style={radioStyle}
+            value={id}
+            questionId={questionId}
+            questionNumber={questionNumber}
+          >
+            {text}
+          </Radio>
+        ))}
       </Radio.Group>
     </Form.Item>
   );
