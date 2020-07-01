@@ -3,6 +3,7 @@ import { Layout, Form, Button, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTeacherSubjects } from '../../store/teacher/selectors';
 import { getQuestionsForSubject } from '../../store/questions/actions';
+import { selectAllQuestionsForSubject } from '../../store/questions/selectors';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -10,10 +11,21 @@ const { Option } = Select;
 export default function ListOfQuestions() {
   const dispatch = useDispatch();
   const subjects = useSelector(selectTeacherSubjects);
+  const questions = useSelector(selectAllQuestionsForSubject);
   const [subject, setSubject] = useState('');
 
   const getListOfQuestions = () => {
     dispatch(getQuestionsForSubject(subject));
+  };
+
+  const renderQuestions = () => {
+    return (
+      <div>
+        {questions.map(({ text }, i) => (
+          <ol key={i}>{text}</ol>
+        ))}
+      </div>
+    );
   };
 
   const renderSubjectsSelector = () => {
@@ -58,6 +70,7 @@ export default function ListOfQuestions() {
             for that subject.
           </h3>
           {subjects ? renderSubjectsSelector() : null}
+          {questions ? renderQuestions() : null}
         </Content>
       </Layout>
     </Layout>
