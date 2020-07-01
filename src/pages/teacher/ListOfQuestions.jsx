@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Form, Button, Select } from 'antd';
+import { Layout, Form, Button, Select, Collapse } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTeacherSubjects } from '../../store/teacher/selectors';
 import { getQuestionsForSubject } from '../../store/questions/actions';
@@ -7,6 +7,7 @@ import { selectAllQuestionsForSubject } from '../../store/questions/selectors';
 
 const { Content } = Layout;
 const { Option } = Select;
+const { Panel } = Collapse;
 
 export default function ListOfQuestions() {
   const dispatch = useDispatch();
@@ -20,11 +21,26 @@ export default function ListOfQuestions() {
 
   const renderQuestions = () => {
     return (
-      <div>
-        {questions.map(({ text }, i) => (
-          <ol key={i}>{text}</ol>
+      <Collapse defaultActiveKey={['0']}>
+        {questions.map(({ text, answers }, i) => (
+          <Panel header={text} key={i}>
+            <ol>
+              {answers.map(({ text, correct }, i) => (
+                <li
+                  key={i}
+                  style={
+                    !correct
+                      ? { color: 'red' }
+                      : { color: 'green', fontWeight: 'bold' }
+                  }
+                >
+                  {text}
+                </li>
+              ))}
+            </ol>
+          </Panel>
         ))}
-      </div>
+      </Collapse>
     );
   };
 
