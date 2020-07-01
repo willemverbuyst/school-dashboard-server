@@ -96,8 +96,8 @@ router.post('/signup', async (req, res) => {
       delete newTeacher.dataValues['password'];
 
       const token = toJWT({ teacherId: newTeacher.id });
-
-      res.status(201).json({ token, ...newTeacher.dataValues });
+      const message = 'A new account is created for you';
+      res.status(201).json({ token, ...newTeacher.dataValues, message });
     }
   } catch (error) {
     if (error.name === 'SequelizeUniqueConstraintError') {
