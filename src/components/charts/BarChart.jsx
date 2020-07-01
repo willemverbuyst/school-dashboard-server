@@ -1,28 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-export default function BarChart({ labels, color, data }) {
-  const [chartData, setChartData] = useState({});
-  const bgColor = [];
-  for (let i = 0; i < labels.length; i++) bgColor.push(color);
-
-  const chart = () => {
-    setChartData({
-      labels: labels,
-      datasets: [
-        {
-          label: { display: false },
-          data: data,
-          backgroundColor: bgColor,
-          borderWidth: 0,
-        },
-      ],
-    });
+export default function BarChart({ labels, data, color }) {
+  const chartData = {
+    labels: labels,
+    datasets: [
+      {
+        label: { display: false },
+        data: data,
+        backgroundColor: color,
+        borderWidth: 0,
+      },
+    ],
   };
-
-  useEffect(() => {
-    chart();
-  }, []);
 
   return (
     <Bar

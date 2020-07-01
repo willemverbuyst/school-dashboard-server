@@ -35,11 +35,11 @@ export default function Login() {
   }
 
   const layout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 16 },
+    labelCol: { span: 8 },
+    wrapperCol: { span: 12 },
   };
   const tailLayout = {
-    wrapperCol: { offset: 4, span: 16 },
+    wrapperCol: { offset: 8, span: 12 },
   };
 
   return (
