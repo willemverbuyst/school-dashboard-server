@@ -35,7 +35,6 @@ export const loginTeacher = (email, password, isStudent) => {
       });
 
       dispatch(loginSuccessTeacher(response.data));
-      console.log(response.data);
       dispatch(showMessageWithTimeout('success', false, 'welcome back!', 1500));
       dispatch(appDoneLoading());
     } catch (error) {
