@@ -21,8 +21,9 @@ export default (state = initialState, action) => {
       localStorage.removeItem('teacher_token');
       return { ...initialState, token: null };
 
-    // case TOKEN_STILL_VALID_TEACHER:
-    //   return { ...state, ...action.payload };
+    case TOKEN_STILL_VALID_TEACHER:
+      console.log('in reducer');
+      return { ...state, ...action.payload };
 
     default:
       return state;

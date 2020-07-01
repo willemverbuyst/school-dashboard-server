@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentId } from '../store/student/selectors';
+import { selectTeacherId } from '../store/teacher/selectors';
 import { loginStudent } from '../store/student/actions';
 import { loginTeacher } from '../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio } from 'antd';
@@ -14,9 +15,8 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // hardcoded for now, if someone if logged in go to their main page
   const studentId = useSelector(selectStudentId);
-  const teacherId = null;
+  const teacherId = useSelector(selectTeacherId);
 
   useEffect(() => {
     if (studentId !== null) {

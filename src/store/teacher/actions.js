@@ -1,6 +1,6 @@
 import { apiUrl } from '../../config/constants';
 import axios from 'axios';
-
+import { selectTeacherToken } from './selectors';
 import {
   appLoading,
   appDoneLoading,
@@ -12,12 +12,17 @@ export const LOGIN_SUCCESS_TEACHER = 'LOGIN_SUCCESS_TEACHER';
 export const TOKEN_STILL_VALID_TEACHER = 'TOKEN_STILL_VALID_TEACHER';
 export const LOG_OUT_TEACHER = 'LOG_OUT_TEACHER';
 
-const loginSuccessTeacher = (userWithToken) => {
+const loginSuccessTeacher = (teacherWithToken) => {
   return {
     type: LOGIN_SUCCESS_TEACHER,
-    payload: userWithToken,
+    payload: teacherWithToken,
   };
 };
+
+const tokenStillValid = (teacherWithoutToken) => ({
+  type: TOKEN_STILL_VALID_TEACHER,
+  payload: teacherWithoutToken,
+});
 
 export const loginTeacher = (email, password, isStudent) => {
   return async (dispatch, getState) => {
@@ -41,6 +46,32 @@ export const loginTeacher = (email, password, isStudent) => {
         console.log(error.message);
         dispatch(setMessage('error', true, error.message));
       }
+      dispatch(appDoneLoading());
+    }
+  };
+};
+
+export const getTeacherWithStoredToken = () => {
+  return async (dispatch, getState) => {
+    const token = selectTeacherToken(getState());
+
+    if (token === null) return;
+
+    dispatch(appLoading());
+    try {
+      const response = await axios.get(`${apiUrl}/teacher`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      dispatch(tokenStillValid(response.data));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.message);
+      } else {
+        console.log(error);
+      }
+      dispatch(logOutTeacher());
       dispatch(appDoneLoading());
     }
   };

@@ -20,6 +20,7 @@ import ListOfQuestions from './pages/teacher/ListOfQuestions';
 import { selectAppLoading } from './store/appState/selectors';
 import { selectStudentToken } from './store/student/selectors';
 import { getStudentWithStoredToken } from './store/student/actions';
+import { getTeacherWithStoredToken } from './store/teacher/actions';
 
 import './App.css';
 
@@ -31,6 +32,8 @@ function App() {
   useEffect(() => {
     if (studentToken) {
       dispatch(getStudentWithStoredToken());
+    } else {
+      dispatch(getTeacherWithStoredToken());
     }
   }, [dispatch, studentToken]);
 
