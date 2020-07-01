@@ -10,9 +10,8 @@ export default function ListOfQuestions() {
   const subjects = useSelector(selectTeacherSubjects);
   const [subject, setSubject] = useState('');
 
-  const handleChange = (value) => {
-    console.log(value);
-    setSubject(value);
+  const getListOfQuestions = () => {
+    console.log('get list of questions for: ', subject);
   };
 
   const renderSubjectsSelector = () => {
@@ -26,7 +25,7 @@ export default function ListOfQuestions() {
           <Select
             value={subject}
             style={{ width: 120, marginBottom: 15 }}
-            onChange={(e) => handleChange(e)}
+            onChange={(e) => setSubject(e)}
           >
             {subjects.map(({ name, id }, i) => (
               <Option key={i} value={id}>
@@ -36,7 +35,7 @@ export default function ListOfQuestions() {
           </Select>
         </Form.Item>
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" onClick={getListOfQuestions}>
           Show list
         </Button>
       </Form>
@@ -52,6 +51,10 @@ export default function ListOfQuestions() {
             padding: 90,
           }}
         >
+          <h3>
+            Select a subject to get all the current questions in the database
+            for that subject.
+          </h3>
           {subjects ? renderSubjectsSelector() : null}
         </Content>
       </Layout>
