@@ -118,7 +118,7 @@ router.post('/signup', async (req, res) => {
 router.get('/teacher', teacherAuthMiddleware, async (req, res) => {
   try {
     const students = await Student.findAll({
-      where: { teacherId: teacher.id },
+      where: { teacherId: req.teacher.id },
       attributes: ['id', 'name'],
     });
     const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
