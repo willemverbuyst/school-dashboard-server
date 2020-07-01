@@ -45,3 +45,5 @@ export const loginTeacher = (email, password, isStudent) => {
     }
   };
 };
+
+export const logOutTeacher = () => ({ type: LOG_OUT_TEACHER });
