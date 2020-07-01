@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Layout, Form, Button, Select } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectTeacherSubjects } from '../../store/teacher/selectors';
+import { getQuestionsForSubject } from '../../store/questions/actions';
 
 const { Content } = Layout;
 const { Option } = Select;
 
 export default function ListOfQuestions() {
+  const dispatch = useDispatch();
   const subjects = useSelector(selectTeacherSubjects);
   const [subject, setSubject] = useState('');
 
   const getListOfQuestions = () => {
-    console.log('get list of questions for: ', subject);
+    dispatch(getQuestionsForSubject(subject));
   };
 
   const renderSubjectsSelector = () => {

@@ -12,11 +12,12 @@ export function questionsFetched(questions) {
 }
 
 export function getQuestionsForSubject(id) {
+  console.log(id);
   return async function thunk(dispatch, getState) {
     const token = getState().teacher.token;
     dispatch(appLoading());
     try {
-      const response = await axios.get(`${apiUrl}/tests/${id}`, {
+      const response = await axios.get(`${apiUrl}/questions/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const questions = response.data;
