@@ -19,7 +19,7 @@ export default function StudentMainPage() {
 
   return (
     <Layout>
-      <Layout style={{ padding: '24px', height: '92vh' }}>
+      <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           Student Main Page
           {/* <Chart /> */}
