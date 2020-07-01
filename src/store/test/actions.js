@@ -10,7 +10,6 @@ import {
 export const FETCH_MC_QUESTIONS = 'FETCH_QUESTIONS';
 
 export function questionsFetched(questions) {
-  console.log('is this thing called?', questions);
   return {
     type: FETCH_MC_QUESTIONS,
     payload: questions,
@@ -18,7 +17,6 @@ export function questionsFetched(questions) {
 }
 
 export function getMcQuestionsForTest(id) {
-  console.log('action is called');
   return async function thunk(dispatch, getState) {
     const token = getState().student.token;
     dispatch(appLoading());
@@ -29,7 +27,6 @@ export function getMcQuestionsForTest(id) {
       const questions = response.data;
 
       dispatch(questionsFetched(questions));
-      console.log(questions);
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
