@@ -29,7 +29,6 @@ export default function Login() {
 
   function submitForm(event) {
     event.preventDefault();
-    console.log('login', status, email, password);
     status === 1
       ? dispatch(loginStudent(email, password, status))
       : dispatch(loginTeacher(email, password, status));
