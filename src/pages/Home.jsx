@@ -2,22 +2,25 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectStudentId } from '../store/student/selectors';
-import PolarChart from '../components/charts/PolarChart';
-import BarChart from '../components/charts/BarChart';
-import LineChart from '../components/charts/LineChart';
+import { selectTeacherId } from '../store/teacher/selectors';
+// import PolarChart from '../components/charts/PolarChart';
+// import BarChart from '../components/charts/BarChart';
+// import LineChart from '../components/charts/LineChart';
 import { Layout, Row, Col } from 'antd';
 const { Content } = Layout;
 
 export default function Home() {
   const history = useHistory();
   const studentId = useSelector(selectStudentId);
+  const teacherId = useSelector(selectTeacherId);
 
   useEffect(() => {
     if (studentId) {
       history.push(`/students/${studentId}`);
     }
-
-    // make same logic happen for teacher
+    if (teacherId) {
+      history.push(`/teachers/${teacherId}`);
+    }
   });
 
   return (
@@ -29,7 +32,7 @@ export default function Home() {
             padding: 24,
           }}
         >
-          <Row justify="space-around">
+          {/* <Row justify="space-around">
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
                 <BarChart
@@ -59,7 +62,7 @@ export default function Home() {
                 />
               </div>
             </Col>
-          </Row>
+          </Row> */}
         </Content>
       </Layout>
     </Layout>

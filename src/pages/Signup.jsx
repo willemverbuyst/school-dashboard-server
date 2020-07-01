@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllTeachers } from '../store/schoolInfo/actions';
 import { selectAllTeachers } from '../store/schoolInfo/selectors';
 import { createStudent } from '../store/student/actions';
+import { createTeacher } from '../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio, Select } from 'antd';
 const { Content } = Layout;
 const { Option } = Select;
@@ -22,17 +23,14 @@ export default function Signup() {
     dispatch(fetchAllTeachers);
   }, [dispatch]);
 
-  const handleChange = (value) => {
-    setTeacher(value);
-  };
-
   const createUser = () => {
     if (status === 1) {
       dispatch(createStudent(status, name, email, password, teacher));
       history.push(`/`);
     } else {
       console.log('create teacher');
-      //make logic for teacher
+      dispatch(createTeacher(status, name, email, password));
+      history.push(`/`);
     }
   };
 
@@ -46,7 +44,7 @@ export default function Signup() {
         <Select
           value={teacher}
           style={{ width: 120, marginBottom: 15 }}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => setTeacher(e)}
         >
           {teachers.map(({ name, id }, i) => (
             <Option key={i} value={id}>

@@ -20,7 +20,7 @@ export default function ChartHomePage({ labels, color, data }) {
 
   useEffect(() => {
     chart();
-  });
+  }, []);
 
   return (
     <Polar
