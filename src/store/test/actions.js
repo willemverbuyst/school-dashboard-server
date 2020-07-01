@@ -8,6 +8,7 @@ import {
 } from '../appState/actions';
 
 export const FETCH_MC_QUESTIONS = 'FETCH_QUESTIONS';
+export const ERASE_TEST = 'ERASE_TEST';
 
 export function questionsFetched(questions) {
   return {
@@ -38,5 +39,11 @@ export function getMcQuestionsForTest(id) {
       }
       dispatch(appDoneLoading());
     }
+  };
+}
+
+export function eraseTest() {
+  return {
+    type: ERASE_TEST,
   };
 }
