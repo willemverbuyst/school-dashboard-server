@@ -87,9 +87,6 @@ router.get('/3qtest/:id', studentAuthMiddleware, async (req, res, next) => {
 router.post('/3qtest', studentAuthMiddleware, async (req, res, next) => {
   const { studentId, subjectId, q1, q2, q3, a1, a2, a3 } = req.body;
 
-  if (!studentId || !subjectId || !q1 || !q2 || !q3 || !a1 || !a2 || !a3) {
-    return res.status(400).send({ message: 'Test is incomplete!' });
-  }
   try {
     const newTest = await Test.create({
       question1: q1,
