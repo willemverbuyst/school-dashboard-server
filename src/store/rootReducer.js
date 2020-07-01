@@ -4,6 +4,7 @@ import schoolInfo from './schoolInfo/reducer';
 import student from './student/reducer';
 import teacher from './teacher/reducer';
 import questions from './questions/reducer';
+import test from './test/reducer';
 
 export default combineReducers({
   appState,
@@ -11,4 +12,5 @@ export default combineReducers({
   student,
   teacher,
   questions,
+  test,
 });
