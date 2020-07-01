@@ -23,10 +23,6 @@ export default function Signup() {
     dispatch(fetchAllTeachers);
   }, [dispatch]);
 
-  const handleChange = (value) => {
-    setTeacher(value);
-  };
-
   const createUser = () => {
     if (status === 1) {
       dispatch(createStudent(status, name, email, password, teacher));
@@ -48,7 +44,7 @@ export default function Signup() {
         <Select
           value={teacher}
           style={{ width: 120, marginBottom: 15 }}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => setTeacher(e)}
         >
           {teachers.map(({ name, id }, i) => (
             <Option key={i} value={id}>
