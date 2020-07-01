@@ -23,6 +23,14 @@ export default function Addquestion() {
     console.log(subject, question, answer1, answer2, answer3, answer4);
   };
 
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 12 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 12 },
+  };
+
   return (
     <Layout>
       <Layout style={{ padding: '24px', height: '92vh' }}>
@@ -32,10 +40,10 @@ export default function Addquestion() {
             padding: 90,
           }}
         >
-          <h3>
+          <h3 style={{ textAlign: 'center', padding: '2rem' }}>
             Select a subject and fill in the data to create a new question.
           </h3>
-          <Form name="basic" initialValues={{ remember: true }}>
+          <Form {...layout} name="basic" initialValues={{ remember: true }}>
             {subjects ? (
               <Form.Item
                 label="Select a subject"
@@ -114,10 +122,11 @@ export default function Addquestion() {
                 onChange={(e) => setAnswer4(e.target.value)}
               />
             </Form.Item>
-
-            <Button type="primary" htmlType="submit" onClick={addQuestion}>
-              Add question to the list
-            </Button>
+            <Form.Item {...tailLayout}>
+              <Button type="primary" htmlType="submit" onClick={addQuestion}>
+                Add question to the list
+              </Button>
+            </Form.Item>
           </Form>
         </Content>
       </Layout>
