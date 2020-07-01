@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Layout, Form, Button, Select, Collapse } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTeacherSubjects } from '../../store/teacher/selectors';
+import {
+  selectTeacherSubjects,
+  selectTeacherToken,
+} from '../../store/teacher/selectors';
 import { getQuestionsForSubject } from '../../store/questions/actions';
 import { selectAllQuestionsForSubject } from '../../store/questions/selectors';
 
@@ -13,7 +17,15 @@ export default function ListOfQuestions() {
   const dispatch = useDispatch();
   const subjects = useSelector(selectTeacherSubjects);
   const questions = useSelector(selectAllQuestionsForSubject);
-  const [subject, setSubject] = useState('');
+  const [subject, setSubject] = useState(1);
+  const history = useHistory();
+  const token = useSelector(selectTeacherToken);
+
+  useEffect(() => {
+    if (token === null) {
+      history.push('/');
+    }
+  });
 
   const getListOfQuestions = () => {
     dispatch(getQuestionsForSubject(subject));
