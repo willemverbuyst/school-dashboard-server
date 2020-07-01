@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentId } from '../../store/student/selectors';
+import { getMcQuestionsForTest } from '../../store/test/actions';
 import { Layout, Button, Row } from 'antd';
 import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
 
 const { Content } = Layout;
 
 export default function StudentDoTest() {
+  const dispatch = useDispatch();
   const studentId = useSelector(selectStudentId);
   const { subjectid } = useParams();
   const history = useHistory();
@@ -17,6 +19,10 @@ export default function StudentDoTest() {
 
     history.push(`/students/${studentId}`);
   };
+
+  useEffect(() => {
+    dispatch(getMcQuestionsForTest(subjectid));
+  }, [dispatch, subjectid]);
 
   return (
     <Layout>
