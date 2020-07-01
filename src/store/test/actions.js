@@ -69,6 +69,7 @@ export function submitTest(studentId, subjectId, q1, q2, q3, a1, a2, a3) {
       );
 
       dispatch(showMessageWithTimeout('success', true, response.data.message));
+      eraseTest();
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
@@ -78,7 +79,7 @@ export function submitTest(studentId, subjectId, q1, q2, q3, a1, a2, a3) {
         console.log(error.message);
         dispatch(setMessage('danger', true, error.message));
       }
-      eraseTest();
+
       dispatch(appDoneLoading());
     }
   };
