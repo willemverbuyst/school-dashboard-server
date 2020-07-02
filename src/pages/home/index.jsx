@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectStudentId } from '../store/student/selectors';
-import { selectTeacherId } from '../store/teacher/selectors';
-import PolarChart from '../components/charts/PolarChart';
-import BarChart from '../components/charts/BarChart';
-import LineChart from '../components/charts/LineChart';
+import { selectStudentId } from '../../store/student/selectors';
+import { selectTeacherId } from '../../store/teacher/selectors';
+import BarChartHome from './BarChartHome';
+import LineChartHome from './LineChartHome';
+import PolarChartHome from './PolarChartHome';
 import { Layout, Row, Col } from 'antd';
 const { Content } = Layout;
 
@@ -35,7 +35,7 @@ export default function Home() {
           <Row justify="space-around">
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
-                <BarChart
+                <BarChartHome
                   labels={['Welcome', 'to', 'your', 'dashboard']}
                   color={['#FF2694', '#FF2694', '#FF2694', '#FF2694']}
                   data={[80, 56, 67, 45]}
@@ -46,7 +46,7 @@ export default function Home() {
           <Row justify="space-around">
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
-                <PolarChart
+                <PolarChartHome
                   labels={['Please', 'log', 'in']}
                   color={['#B81D9D', '#D222E1', '#8F1CB8']}
                   data={[80, 56, 67]}
@@ -55,7 +55,7 @@ export default function Home() {
             </Col>
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
-                <LineChart
+                <LineChartHome
                   labels={['to', 'see', 'your', 'progress']}
                   color={['#A026FF']}
                   data={[45, 67, 56, 80]}
