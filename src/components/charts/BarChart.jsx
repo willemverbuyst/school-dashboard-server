@@ -21,9 +21,10 @@ export default function BarChart({ labels, data, color }) {
         tooltips: false,
         legend: {
           display: false,
+          labels: { fontSize: 16 },
         },
         responsive: true,
-        title: { display: true },
+        title: { text: 'TESTS RESULTS', display: true },
         scales: {
           yAxes: [
             {
@@ -31,7 +32,7 @@ export default function BarChart({ labels, data, color }) {
                 autoSkip: true,
                 maxTicksLimit: 10,
                 beginAtZero: true,
-                display: false,
+                stepSize: 1,
               },
               gridLines: {
                 display: false,
@@ -42,11 +43,6 @@ export default function BarChart({ labels, data, color }) {
             {
               gridLines: {
                 display: false,
-              },
-              ticks: {
-                fontSize: 18,
-                padding: 0,
-                fontColor: '#000',
               },
             },
           ],
