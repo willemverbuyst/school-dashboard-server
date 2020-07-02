@@ -7,10 +7,12 @@ import {
 } from '../../store/student/selectors';
 import { getResultsForStudentMain } from '../../store/studentMain/actions';
 import { selectResultsForStudentMain } from '../../store/studentMain/selectors';
-// import Doughnut from '../../components/charts/Dougnut';
+import DoughnutChart from '../../components/charts/DoughnutChart';
 import PolarChart from '../../components/charts/PolarChart';
+import BarChart from '../../components/charts/BarChart';
 
 import { Layout, Row, Col } from 'antd';
+import StudentSubjectDetails from './StudentSubjectDetails';
 
 const { Content } = Layout;
 
@@ -47,17 +49,36 @@ export default function StudentMainPage() {
             {renderPolar(subjectSorted)}
           </div>
         </Col>
+        <Col>{renderAveragePerSubject(subjectSorted)}</Col>
       </Row>
     );
   };
 
-  // const renderAverage = () => {
-  //   return <Doughnut />;
-  // };
-  // const renderAmountOfTests = () => {
-  //   const amount = results.length;
-  //   return <Row>You have done a total of {amount} tests so far</Row>;
-  // };
+  const renderAveragePerSubject = (subjectSorted) => {
+    const averages = subjectSorted.map((subject) =>
+      Math.round(
+        (subject.reduce((a, b) => a + b.result * 1, 0) / (subject.length * 3)) *
+          100
+      )
+    );
+    const subjectLabel = subjects.map((subject) => subject.name);
+    const color = [];
+    for (let i = 0; i < averages.length; i++) color.push('teal');
+    return (
+      <BarChart
+        data={averages}
+        labels={subjectLabel}
+        color={color}
+        title={'AVERAGE SCORE PER SUBJECT'}
+      />
+    );
+  };
+
+  //   <DoughnutChart
+  //   data={[30, 70]}
+  //   color={['teal', 'transparent']}
+  //   title={'AVERAGE SCORE'}
+  // />
 
   const renderPolar = (subjectSorted) => {
     const data = [];
@@ -77,10 +98,6 @@ export default function StudentMainPage() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          {/* <Row>
-            <Col>{results ? renderAverage() : null}</Col>
-          </Row>
-          <Row> {results ? renderAmountOfTests() : null}</Row> */}
           {results && subjects ? renderData() : null}
         </Content>
       </Layout>
