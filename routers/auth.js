@@ -117,10 +117,7 @@ router.post('/signup', async (req, res) => {
 // /teacher would be /me if there was only one 'user'
 router.get('/teacher', teacherAuthMiddleware, async (req, res) => {
   try {
-    const students = await Student.findAll({
-      where: { teacherId: req.teacher.id },
-      attributes: ['id', 'name'],
-    });
+    const students = await Student.findAll({ attributes: ['id', 'name'] });
     const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
 
     delete req.teacher.dataValues['password'];
