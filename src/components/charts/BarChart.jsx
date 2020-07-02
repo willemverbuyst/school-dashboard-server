@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-export default function BarChart({ labels, data, color }) {
+export default function BarChart({ labels, data, color, title }) {
   const chartData = {
     labels: labels,
     datasets: [
@@ -24,7 +24,7 @@ export default function BarChart({ labels, data, color }) {
           labels: { fontSize: 16 },
         },
         responsive: true,
-        title: { text: 'TESTS RESULTS', display: true },
+        title: { text: title, display: true },
         scales: {
           yAxes: [
             {

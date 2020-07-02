@@ -75,12 +75,21 @@ export default function StudentSubjectDetails() {
   };
 
   const renderChart = () => {
+    const subject = subjects.find((subject) => subject.id === subjectid * 1)
+      .name;
     const data = results.map(({ result }) => result);
     const color = [];
     for (let i = 0; i < results.length; i++) color.push('rgb(255, 99, 132)');
     const labels = results.map(({ at }) => moment(at).format('MMM Do YY'));
 
-    return <BarChart data={data} color={color} labels={labels} />;
+    return (
+      <BarChart
+        data={data}
+        color={color}
+        labels={labels}
+        title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
+      />
+    );
   };
 
   return (
@@ -102,10 +111,9 @@ export default function StudentSubjectDetails() {
           <Row>
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
-                {results[0] ? renderChart() : null}
+                {subjects && results[0] ? renderChart() : null}
               </div>
             </Col>
-            <Col>Extra</Col>
           </Row>
         </Content>
       </Layout>
