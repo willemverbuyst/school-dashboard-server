@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentId } from '../../store/student/selectors';
 import { getMcQuestionsForTest, submitTest } from '../../store/test/actions';
 import { select3mcQuestionsForSubject } from '../../store/test/selectors';
-import { Layout, Button, Row } from 'antd';
 import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
+import { Layout, Button, Row } from 'antd';
 
 const { Content } = Layout;
 
@@ -35,7 +35,7 @@ export default function StudentDoTest() {
         answer3
       )
     );
-    history.push(`/students/${studentId}`);
+    history.push(`/students/${studentId}/subjects/${subjectid}`);
   };
 
   const onPick = (e) => {
