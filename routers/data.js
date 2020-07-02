@@ -46,6 +46,7 @@ router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
   try {
     const subjects = await Subject.findAll();
+
     const tests = await Test.findAll({
       where: { studentId: id },
       attributes: ['answer1', 'answer2', 'answer3', 'subjectId'],
@@ -59,15 +60,22 @@ router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
     });
 
     const scores = subjects
-      .map((subject) =>
-        results
-          .filter((result) => result.subjectId === subject.dataValues.id)
-          .map((r) => r.result)
-      )
-      .map(
-        (score) => (score.reduce((a, b) => a + b, 0) / (score.length * 3)) * 100
-      )
-      .map((number) => Math.round(number));
+      .map((subject) => {
+        return {
+          subjectId: subject.id,
+          result: results
+            .filter((result) => result.subjectId === subject.dataValues.id)
+            .map((test) => test.result),
+        };
+      })
+      .map(({ subjectId, result }) => {
+        return {
+          subjectId: subjectId,
+          score: Math.round(
+            (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
+          ),
+        };
+      });
 
     res.send(scores);
   } catch (error) {
@@ -81,6 +89,7 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
     const students = await Student.findAll({
       where: { teacherId: req.teacher.id },
     });
+
     const tests = await Test.findAll({
       where: { subjectId: id },
       attributes: ['answer1', 'answer2', 'answer3', 'studentId'],
@@ -104,8 +113,8 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
       })
       .map(({ studentId, result }) => {
         return {
-          id: studentId,
-          result: Math.round(
+          studentId: studentId,
+          score: Math.round(
             (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
           ),
         };
