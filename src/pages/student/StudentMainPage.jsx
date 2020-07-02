@@ -10,9 +10,7 @@ import { selectResultsForStudentMain } from '../../store/studentMain/selectors';
 import DoughnutChart from '../../components/charts/DoughnutChart';
 import PolarChart from '../../components/charts/PolarChart';
 import BarChart from '../../components/charts/BarChart';
-
 import { Layout, Row, Col } from 'antd';
-import StudentSubjectDetails from './StudentSubjectDetails';
 
 const { Content } = Layout;
 
@@ -38,29 +36,51 @@ export default function StudentMainPage() {
     const subjectSorted = subjectIds.map((id) =>
       results.filter((result) => result.subject === id)
     );
-
-    return (
-      <Row>
-        <Col>
-          <Row>
-            You have done a total of {subjectSorted.flat().length} tests so far
-          </Row>
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {renderPolar(subjectSorted)}
-          </div>
-        </Col>
-        <Col>{renderAveragePerSubject(subjectSorted)}</Col>
-      </Row>
-    );
-  };
-
-  const renderAveragePerSubject = (subjectSorted) => {
     const averages = subjectSorted.map((subject) =>
       Math.round(
         (subject.reduce((a, b) => a + b.result * 1, 0) / (subject.length * 3)) *
           100
       )
     );
+
+    return (
+      <>
+        <Row>
+          <Col>
+            <div style={{ width: '35vw', height: '35vh' }}>
+              {renderAverage(averages)}{' '}
+            </div>
+          </Col>
+          <Col>
+            <div style={{ width: '35vw', height: '35vh' }}>
+              {renderAveragePerSubject(averages)}
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          You have done a total of {subjectSorted.flat().length} tests so far
+          <div style={{ width: '35vw', height: '35vh' }}>
+            {renderPolar(subjectSorted)}
+          </div>
+        </Row>
+      </>
+    );
+  };
+
+  const renderAverage = (averages) => {
+    const generalScore = Math.round(
+      averages.reduce((a, b) => a + b * 1, 0) / averages.length
+    );
+    return (
+      <DoughnutChart
+        data={[generalScore, 100 - generalScore]}
+        color={['blue', 'transparent']}
+        title={'AVERAGE SCORE'}
+      />
+    );
+  };
+
+  const renderAveragePerSubject = (averages) => {
     const subjectLabel = subjects.map((subject) => subject.name);
     const color = [];
     for (let i = 0; i < averages.length; i++) color.push('teal');
@@ -73,12 +93,6 @@ export default function StudentMainPage() {
       />
     );
   };
-
-  //   <DoughnutChart
-  //   data={[30, 70]}
-  //   color={['teal', 'transparent']}
-  //   title={'AVERAGE SCORE'}
-  // />
 
   const renderPolar = (subjectSorted) => {
     const data = [];
