@@ -59,14 +59,58 @@ router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
     });
 
     const scores = subjects
-      .map((subject) => subject.dataValues.id)
-      .map((el) =>
-        results.filter((result) => result.subjectId === el).map((r) => r.result)
+      .map((subject) =>
+        results
+          .filter((result) => result.subjectId === subject.dataValues.id)
+          .map((r) => r.result)
       )
       .map(
         (score) => (score.reduce((a, b) => a + b, 0) / (score.length * 3)) * 100
       )
       .map((number) => Math.round(number));
+
+    res.send(scores);
+  } catch (error) {
+    return res.status(400).send({ message: 'Something went wrong, sorry' });
+  }
+});
+
+router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const students = await Student.findAll({
+      where: { teacherId: req.teacher.id },
+    });
+    const tests = await Test.findAll({
+      where: { subjectId: id },
+      attributes: ['answer1', 'answer2', 'answer3', 'studentId'],
+    });
+
+    const results = tests.map((test) => {
+      return {
+        studentId: test.studentId,
+        result: test.answer1 + test.answer2 + test.answer3,
+      };
+    });
+
+    const scores = students
+      .map((student) => {
+        return {
+          studentId: student.id,
+          result: results
+            .filter((result) => result.studentId === student.dataValues.id)
+            .map((test) => test.result),
+        };
+      })
+      .map(({ studentId, result }) => {
+        return {
+          id: studentId,
+          result: Math.round(
+            (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
+          ),
+        };
+      });
+
     res.send(scores);
   } catch (error) {
     return res.status(400).send({ message: 'Something went wrong, sorry' });
