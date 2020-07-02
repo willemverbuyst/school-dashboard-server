@@ -58,10 +58,12 @@ export default function StudentMainPage() {
           </Col>
         </Row>
         <Row>
-          You have done a total of {subjectSorted.flat().length} tests so far
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {renderPolar(subjectSorted)}
-          </div>
+          <Col>
+            You have done a total of {subjectSorted.flat().length} tests so far
+            <div style={{ width: '35vw', height: '35vh' }}>
+              {renderPolar(subjectSorted)}
+            </div>
+          </Col>
         </Row>
       </>
     );
@@ -74,8 +76,8 @@ export default function StudentMainPage() {
     return (
       <DoughnutChart
         data={[generalScore, 100 - generalScore]}
-        color={['blue', 'transparent']}
-        title={'AVERAGE SCORE'}
+        color={['#8F1CB8', 'transparent']}
+        title={`YOUR HAVE A GENERAL SCORE OF ${generalScore}%`}
       />
     );
   };
@@ -90,6 +92,7 @@ export default function StudentMainPage() {
         labels={subjectLabel}
         color={color}
         title={'AVERAGE SCORE PER SUBJECT'}
+        max={100}
       />
     );
   };
