@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import { selectStudentId } from '../../store/student/selectors';
+import {
+  selectStudentId,
+  selectStudentSubjects,
+} from '../../store/student/selectors';
 import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
@@ -13,10 +16,11 @@ const { Content } = Layout;
 
 export default function StudentSubjectDetails() {
   const dispatch = useDispatch();
-  const studentId = useSelector(selectStudentId);
-  const results = useSelector(selectResultsForSubject);
   const { subjectid } = useParams();
   const history = useHistory();
+  const studentId = useSelector(selectStudentId);
+  const results = useSelector(selectResultsForSubject);
+  const subjects = useSelector(selectStudentSubjects);
 
   const goTo = (goto) => {
     history.push(goto);
@@ -25,6 +29,18 @@ export default function StudentSubjectDetails() {
   useEffect(() => {
     dispatch(getResultsForSubject(subjectid));
   }, [dispatch, subjectid]);
+
+  const renderAmount = () => {
+    const subject = subjects.find((subject) => subject.id === subjectid * 1)
+      .name;
+    return (
+      <>
+        <Row>You have done</Row>
+        <Row>{results.length}</Row>
+        <Row>tests for {subject}</Row>
+      </>
+    );
+  };
 
   const renderChart = () => {
     const data = results.map(({ result }) => result);
@@ -50,6 +66,7 @@ export default function StudentSubjectDetails() {
             </Button>
           </Row>
           <div style={{ width: '35vw', height: '35vh' }}>
+            {subjects && results ? renderAmount() : null}
             {results ? renderChart() : null}
           </div>
         </Content>
