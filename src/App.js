@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Layout } from 'antd';
 import BarAtTheTop from './components/BarAtThetop';
 import AlertBox from './components/AlertBox';
-import Spinner from './components/Spinner';
+// import Spinner from './components/Spinner';
 import Sidebar from './components/Sidebar';
-import Home from './pages/Home';
+import Home from './pages/home/';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import StudentMainPage from './pages/student/StudentMainPage';
@@ -17,7 +17,7 @@ import TeacherStudentDetails from './pages/teacher/TeacherStudentDetails';
 import TeacherSubjectDetails from './pages/teacher/TeacherSubjectDetails';
 import AddQuestionForm from './pages/teacher/AddQuestionForm';
 import ListOfQuestions from './pages/teacher/ListOfQuestions';
-import { selectAppLoading } from './store/appState/selectors';
+// import { selectAppLoading } from './store/appState/selectors';
 import { selectTeacherToken } from './store/teacher/selectors';
 import { getStudentWithStoredToken } from './store/student/actions';
 import { getTeacherWithStoredToken } from './store/teacher/actions';
@@ -26,7 +26,7 @@ import './App.css';
 
 function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectAppLoading);
+  // const isLoading = useSelector(selectAppLoading);
   const teacherToken = useSelector(selectTeacherToken);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function App() {
       <AlertBox />
       <Layout>
         <Sidebar />
-        {isLoading ? <Spinner /> : null}
+        {/* {isLoading ? <Spinner /> : null} */}
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
