@@ -5,6 +5,7 @@ const { PORT } = require('./config/constants');
 const schoolRouter = require('./routers/general');
 const authRouter = require('./routers/auth');
 const questionsRouter = require('./routers/questions');
+const dataRouter = require('./routers/data');
 
 const app = express();
 app.use(loggerMiddleWare('dev'));
@@ -23,6 +24,7 @@ if (process.env.DELAY) {
 app.use('/', authRouter);
 app.use('/school', schoolRouter);
 app.use('/questions', questionsRouter);
+app.use('/data', dataRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
