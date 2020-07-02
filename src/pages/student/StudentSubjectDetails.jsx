@@ -9,6 +9,7 @@ import {
 import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
+import DoughnutChart from '../../components/charts/DoughnutChart';
 import { Layout, Button, Row } from 'antd';
 
 // import StudentSubjectChart from './StudentSubjectChart';
@@ -35,7 +36,14 @@ export default function StudentSubjectDetails() {
     const average = Math.round(
       (data.reduce((a, b) => a + b, 0) / (data.length * 3)) * 100
     );
-    console.log(average);
+    const color = ['#A026FF', '#eee'];
+    return (
+      <DoughnutChart
+        color={color}
+        data={[average, 100 - average]}
+        title={`AVERAGE OF ${average}%`}
+      />
+    );
   };
 
   const renderAmount = () => {
@@ -74,7 +82,11 @@ export default function StudentSubjectDetails() {
         <Content className="site-layout-background">
           <div style={{ width: '35vw', height: '35vh' }}>
             {subjects && results[0] ? renderAmount() : null}
+          </div>
+          <div style={{ width: '35vw', height: '35vh' }}>
             {results[0] ? renderChart() : null}
+          </div>
+          <div style={{ width: '35vw', height: '35vh' }}>
             {results[0] ? renderAverage() : null}
           </div>
         </Content>
