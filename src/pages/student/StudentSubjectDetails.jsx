@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectStudentId } from '../../store/student/selectors';
+import { getResultsForSubject } from '../../store/testResults/actions';
 import { Layout, Button, Row } from 'antd';
 
 // import StudentSubjectChart from './StudentSubjectChart';
 const { Content } = Layout;
 
 export default function StudentSubjectDetails() {
+  const dispatch = useDispatch();
   const studentId = useSelector(selectStudentId);
   const { subjectid } = useParams();
   const history = useHistory();
@@ -15,6 +17,10 @@ export default function StudentSubjectDetails() {
   const goTo = (goto) => {
     history.push(goto);
   };
+
+  useEffect(() => {
+    dispatch(getResultsForSubject(subjectid));
+  }, [dispatch, subjectid]);
 
   return (
     <Layout>
