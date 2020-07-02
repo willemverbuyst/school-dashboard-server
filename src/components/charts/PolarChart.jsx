@@ -1,7 +1,7 @@
 import React from 'react';
 import { Polar } from 'react-chartjs-2';
 
-export default function ChartHomePage({ labels, color, data }) {
+export default function PolarChart({ labels, color, data }) {
   const chartData = {
     labels: labels,
     datasets: [
@@ -27,7 +27,19 @@ export default function ChartHomePage({ labels, color, data }) {
         responsive: true,
         title: { display: false },
         scale: {
-          display: false,
+          lineArc: true,
+          angleLines: {
+            color: 'rgba(204, 255, 51, 0.5)',
+          },
+          pointLabels: {
+            fontColor: 'ff6666',
+          },
+          gridLines: {
+            color: 'pink',
+          },
+          ticks: {
+            min: 0,
+          },
         },
       }}
     />
