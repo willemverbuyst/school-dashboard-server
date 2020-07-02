@@ -10,7 +10,7 @@ import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
 import DoughnutChart from '../../components/charts/DoughnutChart';
-import { Layout, Button, Row } from 'antd';
+import { Layout, Button, Row, Col } from 'antd';
 
 // import StudentSubjectChart from './StudentSubjectChart';
 const { Content } = Layout;
@@ -51,9 +51,16 @@ export default function StudentSubjectDetails() {
       .name;
     return (
       <>
+        <Row>
+          <h2>{subject.charAt(0).toUpperCase() + subject.slice(1)}</h2>
+        </Row>
         <Row>You have done</Row>
-        <Row>{results.length}</Row>
-        <Row>tests for {subject}</Row>
+        <Row>
+          <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
+            {results.length}
+          </span>
+        </Row>
+        <Row>tests so far</Row>
         <Row>
           <Button
             onClick={() =>
@@ -80,15 +87,26 @@ export default function StudentSubjectDetails() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {subjects && results[0] ? renderAmount() : null}
-          </div>
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {results[0] ? renderChart() : null}
-          </div>
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {results[0] ? renderAverage() : null}
-          </div>
+          <Row>
+            <Col>
+              <div style={{ width: '35vw', height: '35vh' }}>
+                {subjects && results[0] ? renderAmount() : null}
+              </div>
+            </Col>
+            <Col>
+              <div style={{ width: '35vw', height: '35vh' }}>
+                {results[0] ? renderAverage() : null}
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <div style={{ width: '35vw', height: '35vh' }}>
+                {results[0] ? renderChart() : null}
+              </div>
+            </Col>
+            <Col>Extra</Col>
+          </Row>
         </Content>
       </Layout>
     </Layout>
