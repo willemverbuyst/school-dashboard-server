@@ -3,6 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectStudentId } from '../../store/student/selectors';
 import { getResultsForSubject } from '../../store/testResults/actions';
+import { selectResultsForSubject } from '../../store/testResults/selectors';
+import BarChart from '../../components/charts/BarChart';
 import { Layout, Button, Row } from 'antd';
 
 // import StudentSubjectChart from './StudentSubjectChart';
@@ -11,6 +13,7 @@ const { Content } = Layout;
 export default function StudentSubjectDetails() {
   const dispatch = useDispatch();
   const studentId = useSelector(selectStudentId);
+  const results = useSelector(selectResultsForSubject);
   const { subjectid } = useParams();
   const history = useHistory();
 
@@ -21,6 +24,14 @@ export default function StudentSubjectDetails() {
   useEffect(() => {
     dispatch(getResultsForSubject(subjectid));
   }, [dispatch, subjectid]);
+
+  const renderChart = () => {
+    const data = results.map(({ result }) => result);
+    const color = [];
+    for (let i = 0; i < results.length; i++) color.push('rgb(255, 99, 132)');
+    const labels = ['t1', 't2', 't3'];
+    return <BarChart data={data} color={color} labels={labels} />;
+  };
 
   return (
     <Layout>
@@ -36,6 +47,9 @@ export default function StudentSubjectDetails() {
               Do a test
             </Button>
           </Row>
+          <div style={{ width: '35vw', height: '35vh' }}>
+            {results ? renderChart() : null}
+          </div>
         </Content>
       </Layout>
     </Layout>

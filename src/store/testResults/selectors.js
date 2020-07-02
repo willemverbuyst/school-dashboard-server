@@ -1,3 +1,3 @@
-export const selectAllQuestionsForSubject = (state) => {
+export const selectResultsForSubject = (state) => {
   return state.testResults.all;
 };
