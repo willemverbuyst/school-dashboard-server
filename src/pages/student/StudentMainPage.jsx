@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentToken } from '../../store/student/selectors';
+import { getResultsForStudentMain } from '../../store/studentMain/actions';
 
 import { Layout } from 'antd';
 
 const { Content } = Layout;
 
 export default function StudentMainPage() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const token = useSelector(selectStudentToken);
 
@@ -16,6 +18,10 @@ export default function StudentMainPage() {
       history.push('/');
     }
   });
+
+  useEffect(() => {
+    dispatch(getResultsForStudentMain());
+  }, [dispatch]);
 
   return (
     <Layout>
