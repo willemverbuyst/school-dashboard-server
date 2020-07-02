@@ -42,26 +42,35 @@ router.get('/:id', studentAuthMiddleware, async (req, res, next) => {
   }
 });
 
-// router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
-//   const { id } = req.params;
-//   const teacherId = req.teacher.id;
+router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const subjects = await Subject.findAll();
+    const tests = await Test.findAll({
+      where: { studentId: id },
+      attributes: ['answer1', 'answer2', 'answer3', 'subjectId'],
+    });
 
-//   try {
+    const results = tests.map((test) => {
+      return {
+        subjectId: test.subjectId,
+        result: test.answer1 + test.answer2 + test.answer3,
+      };
+    });
 
-//     const tests = await Test.findAll({
-//       Where: { subjectId: id },
-//       attributes: [
-//         [
-//           Test.sequelize.literal('GROUP(answer1 + answer2 + answer2)'),
-//           'result',
-//         ],
-//       ],
-//     });
-
-//     res.send(tests);
-//   } catch (error) {
-//     return res.status(400).send({ message: 'Something went wrong, sorry' });
-//   }
-// });
+    const scores = subjects
+      .map((subject) => subject.dataValues.id)
+      .map((el) =>
+        results.filter((result) => result.subjectId === el).map((r) => r.result)
+      )
+      .map(
+        (score) => (score.reduce((a, b) => a + b, 0) / (score.length * 3)) * 100
+      )
+      .map((number) => Math.round(number));
+    res.send(scores);
+  } catch (error) {
+    return res.status(400).send({ message: 'Something went wrong, sorry' });
+  }
+});
 
 module.exports = router;
