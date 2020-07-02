@@ -39,7 +39,6 @@ export default function StudentDoTest() {
   };
 
   const onPick = (e) => {
-    console.log(e);
     if (e.questionNumber * 1 === 1) {
       setQuestion1(e.questionId);
       e.value === 1 || e.value % 4 === 1 ? setAnswer1(1) : setAnswer1(0);

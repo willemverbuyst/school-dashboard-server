@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-export default function BarChart({ labels, data, color, title }) {
+export default function BarChart({ labels, data, color, title, max }) {
   const chartData = {
     labels: labels,
     datasets: [
@@ -33,6 +33,7 @@ export default function BarChart({ labels, data, color, title }) {
                 maxTicksLimit: 10,
                 beginAtZero: true,
                 stepSize: 1,
+                suggestedMax: max,
               },
               gridLines: {
                 display: false,

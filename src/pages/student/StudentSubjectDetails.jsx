@@ -88,6 +88,7 @@ export default function StudentSubjectDetails() {
         color={color}
         labels={labels}
         title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
+        max={3}
       />
     );
   };
