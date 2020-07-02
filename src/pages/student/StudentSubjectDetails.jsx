@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
 import { selectStudentId } from '../../store/student/selectors';
 import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
@@ -29,7 +30,8 @@ export default function StudentSubjectDetails() {
     const data = results.map(({ result }) => result);
     const color = [];
     for (let i = 0; i < results.length; i++) color.push('rgb(255, 99, 132)');
-    const labels = ['t1', 't2', 't3'];
+    const labels = results.map(({ at }) => moment(at).format('MMM Do YY'));
+
     return <BarChart data={data} color={color} labels={labels} />;
   };
 
