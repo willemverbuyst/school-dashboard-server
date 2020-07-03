@@ -67,7 +67,7 @@ export default function StudentSubjectDetails() {
               goTo(`/students/${studentId}/subjects/${subjectid}/test`)
             }
           >
-            Do a another test
+            Do a test
           </Button>
         </Row>
       </>
@@ -99,7 +99,24 @@ export default function StudentSubjectDetails() {
           <Row>
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
-                {subjects && results[0] ? renderAmount() : null}
+                {subjects && results[0] ? (
+                  renderAmount()
+                ) : (
+                  <>
+                    <h2>No results yet.</h2>
+                    <Row>
+                      <Button
+                        onClick={() =>
+                          goTo(
+                            `/students/${studentId}/subjects/${subjectid}/test`
+                          )
+                        }
+                      >
+                        Do a test
+                      </Button>
+                    </Row>
+                  </>
+                )}
               </div>
             </Col>
             <Col>
