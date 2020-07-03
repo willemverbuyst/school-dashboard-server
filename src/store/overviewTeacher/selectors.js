@@ -7,5 +7,9 @@ export const selectStudentOverview = (state) => {
 };
 
 export const selectMainOverview = (state) => {
-  return state.overViewTeacher.main;
+  return state.overViewTeacher.main.scores;
+};
+
+export const selectMainOverviewScatter = (state) => {
+  return state.overViewTeacher.main.tests;
 };

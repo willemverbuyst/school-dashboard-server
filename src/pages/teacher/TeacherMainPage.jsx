@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import BarChart from '../../components/charts/BarChart';
+import ScatterChart from '../../components/charts/ScatterChart';
 import {
   selectTeacherToken,
   selectTeacherId,
   selectTeacherSubjects,
 } from '../../store/teacher/selectors';
 import { getMainOverview } from '../../store/overviewTeacher/actions';
-import { selectMainOverview } from '../../store/overviewTeacher/selectors';
+import {
+  selectMainOverview,
+  selectMainOverviewScatter,
+} from '../../store/overviewTeacher/selectors';
 import { Layout } from 'antd';
 
 const { Content } = Layout;
@@ -20,6 +25,7 @@ export default function TeacherMainPage() {
   const id = useSelector(selectTeacherId);
   const mainPageData = useSelector(selectMainOverview);
   const subjects = useSelector(selectTeacherSubjects);
+  const tests = useSelector(selectMainOverviewScatter);
 
   useEffect(() => {
     if (token === null) {
@@ -47,11 +53,34 @@ export default function TeacherMainPage() {
     );
   };
 
+  const renderScatterChart = () => {
+    const color = [];
+    const data = [];
+    tests.forEach(({ subjectId, result, at }) => {
+      color.push('#A026FF');
+      data.push({ x: moment(at).format(), y: result });
+    });
+    return (
+      <ScatterChart
+        data={data}
+        color={color}
+        title={
+          'AT WHAT TIME OF THE DAY DO STUDENTS TESTS AND WHAT IS THEIR SCORE'
+        }
+      />
+    );
+  };
+
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          {mainPageData && subjects ? renderChartsMain() : null}
+          <div style={{ width: '35vw', height: '35vh' }}>
+            {mainPageData && subjects ? renderChartsMain() : null}
+          </div>
+          <div style={{ width: '35vw', height: '35vh' }}>
+            {tests && subjects ? renderScatterChart() : null}
+          </div>
         </Content>
       </Layout>
     </Layout>
