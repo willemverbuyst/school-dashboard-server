@@ -5,6 +5,7 @@ import moment from 'moment';
 import {
   selectStudentId,
   selectStudentSubjects,
+  selectStudentToken,
 } from '../../store/student/selectors';
 import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
@@ -12,24 +13,30 @@ import BarChart from '../../components/charts/BarChart';
 import DoughnutChart from '../../components/charts/DoughnutChart';
 import { Layout, Button, Row, Col } from 'antd';
 
-// import StudentSubjectChart from './StudentSubjectChart';
 const { Content } = Layout;
 
 export default function StudentSubjectDetails() {
   const dispatch = useDispatch();
   const { subjectid } = useParams();
   const history = useHistory();
+  const token = useSelector(selectStudentToken);
   const studentId = useSelector(selectStudentId);
   const results = useSelector(selectResultsForSubject);
   const subjects = useSelector(selectStudentSubjects);
 
-  const goTo = (goto) => {
-    history.push(goto);
-  };
+  useEffect(() => {
+    if (token === null) {
+      history.push('/');
+    }
+  });
 
   useEffect(() => {
     dispatch(getResultsForSubject(subjectid));
   }, [dispatch, subjectid]);
+
+  const goTo = (goto) => {
+    history.push(goto);
+  };
 
   const renderAverage = () => {
     const data = results.map(({ result }) => result);

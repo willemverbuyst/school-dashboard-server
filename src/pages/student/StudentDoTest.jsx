@@ -5,6 +5,7 @@ import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
 import {
   selectStudentId,
   selectStudentSubjects,
+  selectStudentToken,
 } from '../../store/student/selectors';
 import { getMcQuestionsForTest, submitTest } from '../../store/test/actions';
 import { select3mcQuestionsForSubject } from '../../store/test/selectors';
@@ -18,6 +19,7 @@ export default function StudentDoTest() {
   const history = useHistory();
   const studentId = useSelector(selectStudentId);
   const { subjectid } = useParams();
+  const token = useSelector(selectStudentToken);
   const questions = useSelector(select3mcQuestionsForSubject);
   const subjects = useSelector(selectStudentSubjects);
   const [answer1, setAnswer1] = useState(0);
@@ -26,6 +28,12 @@ export default function StudentDoTest() {
   const [question1, setQuestion1] = useState(0);
   const [question2, setQuestion2] = useState(0);
   const [question3, setQuestion3] = useState(0);
+
+  useEffect(() => {
+    if (token === null) {
+      history.push('/');
+    }
+  });
 
   const onFinish = () => {
     dispatch(
