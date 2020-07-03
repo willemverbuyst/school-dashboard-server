@@ -17,6 +17,10 @@ export default function TeacherMainPage() {
     }
   });
 
+  // useEffect(() => {
+  //   dispatch(getStudentForOverview(studentid));
+  // }, [dispatch, studentid]);
+
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
