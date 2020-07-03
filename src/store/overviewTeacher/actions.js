@@ -22,7 +22,6 @@ export function getSubjectForOverview(id) {
       const results = response.data;
 
       dispatch(resultsFetched(results));
-      console.log(results);
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {

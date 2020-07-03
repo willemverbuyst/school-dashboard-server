@@ -7,7 +7,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_OVERVIEW_FOR_SUBJECT:
-      return { ...state, all: action.payload };
+      return { ...state, subjects: action.payload };
     default:
       return state;
   }
