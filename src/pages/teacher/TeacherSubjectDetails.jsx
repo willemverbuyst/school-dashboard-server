@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSubjectForOverview } from '../../store/overviewTeacher/actions';
 import { selectSubjectOverview } from '../../store/overviewTeacher/selectors';
-import { selectTeacherStudents } from '../../store/teacher/selectors';
+import {
+  selectTeacherStudents,
+  selectTeacherToken,
+} from '../../store/teacher/selectors';
 import DoughnutChart from '../../components/charts/DoughnutChart';
 import BarChart from '../../components/charts/BarChart';
 import { Layout, Row, Col } from 'antd';
@@ -11,9 +14,17 @@ const { Content } = Layout;
 
 export default function TeacherSubjectDetails() {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const token = useSelector(selectTeacherToken);
   const { subjectid } = useParams();
   const results = useSelector(selectSubjectOverview);
   const students = useSelector(selectTeacherStudents);
+
+  useEffect(() => {
+    if (token === null) {
+      history.push('/');
+    }
+  });
 
   useEffect(() => {
     dispatch(getSubjectForOverview(subjectid));
