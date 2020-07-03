@@ -34,7 +34,6 @@ export default function TeacherSubjectDetails() {
   };
 
   const renderTestsBar = () => {
-    console.log(results);
     return results.map(({ tests, studentId }, i) => (
       <Col key={i}>
         <BarChart
@@ -52,7 +51,9 @@ export default function TeacherSubjectDetails() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
+          <Row>AVERAGE GRADES</Row>
           <Row>{results && students ? renderCharts() : null}</Row>
+          <Row>TESTS DONE</Row>
           <Row>{results && students ? renderTestsBar() : null}</Row>
         </Content>
       </Layout>
