@@ -43,8 +43,6 @@ export default function StudentMainPage() {
       )
     );
 
-    console.log(subjectSorted);
-
     return (
       <>
         <Row>
@@ -75,7 +73,6 @@ export default function StudentMainPage() {
     const generalScore = Math.round(
       averages.reduce((a, b) => a + b * 1, 0) / averages.length
     );
-    console.log(generalScore);
     if (!generalScore) {
       return <div>You have no general score yet</div>;
     } else {
