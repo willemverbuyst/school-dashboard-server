@@ -33,19 +33,19 @@ export default function TeacherStudentDetails() {
     ));
   };
 
-  // const renderTestsBar = () => {
-  //   return results.map(({ tests, subjectId }, i) => (
-  //     <Col key={i}>
-  //       <BarChart
-  //         data={[tests]}
-  //         color={['#8F1CB8']}
-  //         labels={[`${tests} tests`]}
-  //         title={``}
-  //         max={20}
-  //       />
-  //     </Col>
-  //   ));
-  // };
+  const renderTestsBar = () => {
+    return results.map(({ tests }, i) => (
+      <Col key={i}>
+        <BarChart
+          data={[tests]}
+          color={['#8F1CB8']}
+          labels={[`${tests} tests`]}
+          title={``}
+          max={20}
+        />
+      </Col>
+    ));
+  };
 
   return (
     <Layout>
@@ -54,7 +54,7 @@ export default function TeacherStudentDetails() {
           <Row>AVERAGE GRADES</Row>
           <Row>{results && subjects ? renderCharts() : null}</Row>
           <Row>TESTS DONE</Row>
-          {/* <Row>{results && students ? renderTestsBar() : null}</Row> */}
+          <Row>{results && subjects ? renderTestsBar() : null}</Row>
         </Content>
       </Layout>
     </Layout>
