@@ -32,7 +32,7 @@ export default function TeacherSubjectDetails() {
 
   const renderCharts = () => {
     return results.map(({ score, studentId }, i) => (
-      <Col key={i}>
+      <Col key={i} span={8}>
         <DoughnutChart
           data={[score, 100 - score]}
           color={['Teal', '#eee']}
@@ -46,7 +46,7 @@ export default function TeacherSubjectDetails() {
 
   const renderTestsBar = () => {
     return results.map(({ tests, studentId }, i) => (
-      <Col key={i}>
+      <Col key={i} span={8}>
         <BarChartTest
           data={[tests]}
           color={['Teal']}
@@ -62,10 +62,14 @@ export default function TeacherSubjectDetails() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <Row>AVERAGE GRADES</Row>
-          <Row>{results && students ? renderCharts() : null}</Row>
-          <Row>TESTS DONE</Row>
-          <Row>{results && students ? renderTestsBar() : null}</Row>
+          <Row style={{ height: '3rem' }}>AVERAGE GRADES</Row>
+          <Row style={{ height: '15rem' }}>
+            {results[0] && students[0] ? renderCharts() : null}
+          </Row>
+          <Row style={{ height: '3rem' }}>TESTS DONE</Row>
+          <Row style={{ height: '15rem' }}>
+            {results[0] && students[0] ? renderTestsBar() : null}
+          </Row>
         </Content>
       </Layout>
     </Layout>

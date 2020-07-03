@@ -14,7 +14,7 @@ import {
   selectMainOverview,
   selectMainOverviewScatter,
 } from '../../store/overviewTeacher/selectors';
-import { Layout } from 'antd';
+import { Layout, Row } from 'antd';
 
 const { Content } = Layout;
 
@@ -75,12 +75,12 @@ export default function TeacherMainPage() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {mainPageData && subjects ? renderChartsMain() : null}
-          </div>
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {tests && subjects ? renderScatterChart() : null}
-          </div>
+          <Row justify="center" style={{ height: '15rem' }}>
+            <div>{mainPageData && subjects ? renderChartsMain() : null}</div>
+          </Row>
+          <Row justify="center">
+            <div>{tests && subjects ? renderScatterChart() : null}</div>
+          </Row>
         </Content>
       </Layout>
     </Layout>

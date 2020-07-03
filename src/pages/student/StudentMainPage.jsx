@@ -46,12 +46,12 @@ export default function StudentMainPage() {
     return (
       <>
         <Row>
-          <Col>
+          <Col span={12}>
             <div style={{ width: '35vw', height: '35vh' }}>
               {renderAverage(averages)}
             </div>
           </Col>
-          <Col>
+          <Col span={12}>
             <div style={{ width: '35vw', height: '35vh' }}>
               {renderAveragePerSubject(averages)}
             </div>
