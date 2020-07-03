@@ -5,6 +5,7 @@ import { getSubjectForOverview } from '../../store/overviewTeacher/actions';
 import { selectSubjectOverview } from '../../store/overviewTeacher/selectors';
 import { selectTeacherStudents } from '../../store/teacher/selectors';
 import DoughnutChart from '../../components/charts/DoughnutChart';
+import BarChart from '../../components/charts/BarChart';
 import { Layout, Row, Col } from 'antd';
 const { Content } = Layout;
 
@@ -32,11 +33,27 @@ export default function TeacherSubjectDetails() {
     ));
   };
 
+  const renderTestsBar = () => {
+    console.log(results);
+    return results.map(({ tests, studentId }, i) => (
+      <Col key={i}>
+        <BarChart
+          data={[tests]}
+          color={['#8F1CB8']}
+          labels={[`${tests} tests`]}
+          title={``}
+          max={20}
+        />
+      </Col>
+    ));
+  };
+
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           <Row>{results && students ? renderCharts() : null}</Row>
+          <Row>{results && students ? renderTestsBar() : null}</Row>
         </Content>
       </Layout>
     </Layout>
