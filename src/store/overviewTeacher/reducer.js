@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
     case FETCH_OVERVIEW_FOR_SUBJECT:
       return { ...state, subjects: action.payload };
     case FETCH_OVERVIEW_FOR_STUDENT:
-      return { ...state, subjects: action.payload };
+      return { ...state, students: action.payload };
     default:
       return state;
   }

@@ -5,7 +5,7 @@ import { appLoading, appDoneLoading, setMessage } from '../appState/actions';
 export const FETCH_OVERVIEW_FOR_SUBJECT = 'FETCH_OVERVIEW_FOR_SUBJECT';
 export const FETCH_OVERVIEW_FOR_STUDENT = 'FETCH_OVERVIEW_FOR_STUDENT';
 
-export function resultsFetched(results) {
+export function subjectsFetched(results) {
   return {
     type: FETCH_OVERVIEW_FOR_SUBJECT,
     payload: results,
@@ -28,7 +28,7 @@ export function getSubjectForOverview(id) {
       });
       const results = response.data;
 
-      dispatch(resultsFetched(results));
+      dispatch(subjectsFetched(results));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
@@ -53,8 +53,7 @@ export function getStudentForOverview(id) {
       });
       const results = response.data;
 
-      dispatch(resultsFetched(results));
-      console.log(results);
+      dispatch(studentsFetched(results));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
