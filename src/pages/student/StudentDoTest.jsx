@@ -55,6 +55,18 @@ export default function StudentDoTest() {
     dispatch(getMcQuestionsForTest(subjectid));
   }, [dispatch, subjectid]);
 
+  const renderMCQ = () => {
+    return questions.map(({ text, answers }, i) => (
+      <MultipleChoiceQuestion
+        key={i}
+        text={text}
+        answers={answers}
+        onPick={onPick}
+        questionNumber={i + 1}
+      />
+    ));
+  };
+
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
@@ -62,18 +74,7 @@ export default function StudentDoTest() {
           <Row>
             hello student #{studentId}, a test for subject #{subjectid} arrrggh
           </Row>
-          {questions
-            ? questions.map(({ text, answers, id }, i) => (
-                <MultipleChoiceQuestion
-                  key={i}
-                  text={text}
-                  answers={answers}
-                  onPick={onPick}
-                  questionNumber={i + 1}
-                />
-              ))
-            : null}
-
+          {questions ? renderMCQ() : null}
           <Button onClick={onFinish}>Finish</Button>
         </Content>
       </Layout>
