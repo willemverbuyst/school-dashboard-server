@@ -14,20 +14,23 @@ export default function MultipleChoiceQuestion({
   };
 
   return (
-    <Form.Item label={text}>
-      <Radio.Group onChange={(e) => onPick(e.target)}>
-        {answers.map(({ text, id, questionId }, i) => (
-          <Radio
-            key={i}
-            style={radioStyle}
-            value={id}
-            questionId={questionId}
-            questionNumber={questionNumber}
-          >
-            {text}
-          </Radio>
-        ))}
-      </Radio.Group>
-    </Form.Item>
+    <>
+      {text}
+      <Form.Item>
+        <Radio.Group onChange={(e) => onPick(e.target)}>
+          {answers.map(({ text, id, questionId }, i) => (
+            <Radio
+              key={i}
+              style={radioStyle}
+              value={id}
+              questionId={questionId}
+              questionNumber={questionNumber}
+            >
+              {text}
+            </Radio>
+          ))}
+        </Radio.Group>
+      </Form.Item>
+    </>
   );
 }
