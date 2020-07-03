@@ -136,7 +136,14 @@ router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
     const subjects = await Subject.findAll();
 
     const tests = await Test.findAll({
-      attributes: ['answer1', 'answer2', 'answer3', 'studentId', 'subjectId'],
+      attributes: [
+        'answer1',
+        'answer2',
+        'answer3',
+        'studentId',
+        'subjectId',
+        'createdAt',
+      ],
     });
 
     const testsFiltered = tests
@@ -148,6 +155,7 @@ router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
         return {
           subjectId: test.subjectId,
           result: test.answer1 + test.answer2 + test.answer3,
+          at: test.createdAt,
         };
       });
 
@@ -167,7 +175,7 @@ router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
         };
       });
 
-    res.send({ subjects: scores });
+    res.send({ tests: testsFiltered, scores });
   } catch (error) {
     return res.status(400).send({ message: 'Something went wrong, sorry' });
   }
