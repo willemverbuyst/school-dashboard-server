@@ -128,4 +128,49 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
   }
 });
 
+router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
+  try {
+    const students = await Student.findAll({
+      where: { teacherId: req.teacher.id },
+    });
+    const subjects = await Subject.findAll();
+
+    const tests = await Test.findAll({
+      attributes: ['answer1', 'answer2', 'answer3', 'studentId', 'subjectId'],
+    });
+
+    const testsFiltered = tests
+      .filter(
+        (test) =>
+          students.map((student) => student.id).indexOf(test.studentId) >= 0
+      )
+      .map((test) => {
+        return {
+          subjectId: test.subjectId,
+          result: test.answer1 + test.answer2 + test.answer3,
+        };
+      });
+
+    const scores = subjects
+      .map((subject) =>
+        testsFiltered.filter((test) => test.subjectId === subject.id)
+      )
+      .map((subject) => {
+        return {
+          subjectId: subject.id,
+          length: subject.length,
+          result: Math.round(
+            (subject.map((sub) => sub.result).reduce((a, b) => a + b, 0) /
+              (subject.length * 3)) *
+              100
+          ),
+        };
+      });
+
+    res.send({ subjects: scores });
+  } catch (error) {
+    return res.status(400).send({ message: 'Something went wrong, sorry' });
+  }
+});
+
 module.exports = router;
