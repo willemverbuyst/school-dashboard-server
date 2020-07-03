@@ -74,6 +74,7 @@ router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
           score: Math.round(
             (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
           ),
+          tests: result.length,
         };
       });
 
@@ -117,6 +118,7 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
           score: Math.round(
             (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
           ),
+          tests: result.length,
         };
       });
 

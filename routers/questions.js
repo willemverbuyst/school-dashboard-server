@@ -74,9 +74,19 @@ router.get('/3qtest/:id', studentAuthMiddleware, async (req, res, next) => {
       });
     } else {
       // https://stackoverflow.com/questions/19269545/how-to-get-n-no-elements-randomly-from-an-array
-      const shuffled = questions.sort(() => 0.5 - Math.random());
-      const selected = shuffled.slice(0, 3);
-      res.send(selected);
+
+      const shuffled = questions
+        .map((question) => {
+          return {
+            answers: question.answers.sort(() => 0.5 - Math.random()),
+            id: question.id,
+            text: question.text,
+            subjectId: question.subjectId,
+          };
+        })
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3);
+      res.send(shuffled);
     }
   } catch (error) {
     next(error);
