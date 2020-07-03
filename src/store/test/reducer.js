@@ -1,4 +1,4 @@
-import { FETCH_MC_QUESTIONS, ERASE_TEST } from './actions';
+import { FETCH_MC_QUESTIONS } from './actions';
 
 const initialState = {
   all: [],
@@ -7,9 +7,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_MC_QUESTIONS:
-      return { ...state, all: state.all.concat(action.payload) };
-    case ERASE_TEST:
-      return initialState;
+      return { ...state, all: action.payload };
     default:
       return state;
   }
