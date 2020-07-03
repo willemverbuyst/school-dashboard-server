@@ -70,7 +70,7 @@ function App() {
           />
           <Route
             exact
-            path="/teachers/:teacherid/students/:studentsid"
+            path="/teachers/:teacherid/students/:studentid"
             component={TeacherStudentDetails}
           />
           <Route

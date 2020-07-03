@@ -7,6 +7,7 @@ import questions from './questions/reducer';
 import test from './test/reducer';
 import testResults from './testResults/reducer';
 import studentMain from './studentMain/reducer';
+import overViewTeacher from './overviewTeacher/reducer';
 
 export default combineReducers({
   appState,
@@ -17,4 +18,5 @@ export default combineReducers({
   test,
   testResults,
   studentMain,
+  overViewTeacher,
 });
