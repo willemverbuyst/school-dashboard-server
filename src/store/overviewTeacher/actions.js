@@ -19,9 +19,10 @@ export function getSubjectForOverview(id) {
       const response = await axios.get(`${apiUrl}/data/subjects/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const questions = response.data;
+      const results = response.data;
 
-      dispatch(resultsFetched(questions));
+      dispatch(resultsFetched(results));
+      console.log(results);
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
