@@ -8,7 +8,7 @@ import {
   selectTeacherToken,
 } from '../../store/teacher/selectors';
 import DoughnutChart from '../../components/charts/DoughnutChart';
-import BarChart from '../../components/charts/BarChart';
+import BarChartTest from '../../components/charts/BarChartTest';
 import { Layout, Row, Col } from 'antd';
 const { Content } = Layout;
 
@@ -47,12 +47,11 @@ export default function TeacherStudentDetails() {
   const renderTestsBar = () => {
     return results.map(({ tests }, i) => (
       <Col key={i}>
-        <BarChart
+        <BarChartTest
           data={[tests]}
           color={['#8F1CB8']}
           labels={[`${tests} tests`]}
           title={``}
-          max={20}
         />
       </Col>
     ));
