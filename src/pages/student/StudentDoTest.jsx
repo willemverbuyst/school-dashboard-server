@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectStudentId } from '../../store/student/selectors';
+import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
+import {
+  selectStudentId,
+  selectStudentSubjects,
+} from '../../store/student/selectors';
 import { getMcQuestionsForTest, submitTest } from '../../store/test/actions';
 import { select3mcQuestionsForSubject } from '../../store/test/selectors';
-import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
+
 import { Layout, Button, Row } from 'antd';
 
 const { Content } = Layout;
@@ -15,6 +19,7 @@ export default function StudentDoTest() {
   const studentId = useSelector(selectStudentId);
   const { subjectid } = useParams();
   const questions = useSelector(select3mcQuestionsForSubject);
+  const subjects = useSelector(selectStudentSubjects);
   const [answer1, setAnswer1] = useState(0);
   const [answer2, setAnswer2] = useState(0);
   const [answer3, setAnswer3] = useState(0);
@@ -56,25 +61,31 @@ export default function StudentDoTest() {
   }, [dispatch, subjectid]);
 
   const renderMCQ = () => {
-    return questions.map(({ text, answers }, i) => (
-      <MultipleChoiceQuestion
-        key={i}
-        text={text}
-        answers={answers}
-        onPick={onPick}
-        questionNumber={i + 1}
-      />
-    ));
+    return (
+      <>
+        <Row>This is a test for {getSubjectName()}.</Row>
+        {questions.map(({ text, answers }, i) => (
+          <MultipleChoiceQuestion
+            key={i}
+            text={text}
+            answers={answers}
+            onPick={onPick}
+            questionNumber={i + 1}
+          />
+        ))}
+      </>
+    );
+  };
+
+  const getSubjectName = () => {
+    return subjects.find((subject) => subject.id === subjectid * 1).name;
   };
 
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <Row>
-            hello student #{studentId}, a test for subject #{subjectid} arrrggh
-          </Row>
-          {questions ? renderMCQ() : null}
+          {questions && subjects ? renderMCQ() : null}
           <Button onClick={onFinish}>Finish</Button>
         </Content>
       </Layout>

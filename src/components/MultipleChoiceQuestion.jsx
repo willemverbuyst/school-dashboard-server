@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Radio, Form } from 'antd';
 
 export default function MultipleChoiceQuestion({
