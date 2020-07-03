@@ -5,3 +5,7 @@ export const selectSubjectOverview = (state) => {
 export const selectStudentOverview = (state) => {
   return state.overViewTeacher.students;
 };
+
+export const selectMainOverview = (state) => {
+  return state.overViewTeacher.main;
+};
