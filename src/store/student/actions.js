@@ -79,7 +79,7 @@ export const getStudentWithStoredToken = () => {
   };
 };
 
-export const studentLogginOut = () => {
+export const studentLoggingOut = () => {
   return function thunk(dispatch, getState) {
     dispatch(logOutStudent());
     dispatch(removeResults());

@@ -2,6 +2,7 @@ import {
   FETCH_OVERVIEW_FOR_SUBJECT,
   FETCH_OVERVIEW_FOR_STUDENT,
   FETCH_OVERVIEW_FOR_MAIN,
+  REMOVE_OVERVIEW,
 } from './actions';
 
 const initialState = {
@@ -18,6 +19,8 @@ export default (state = initialState, action) => {
       return { ...state, students: action.payload };
     case FETCH_OVERVIEW_FOR_MAIN:
       return { ...state, main: action.payload };
+    case REMOVE_OVERVIEW:
+      return initialState;
     default:
       return state;
   }

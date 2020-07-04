@@ -7,6 +7,8 @@ import {
   showMessageWithTimeout,
   setMessage,
 } from '../appState/actions';
+import { removeOverviewTeacher } from '../overviewTeacher/actions';
+import { removeListOfQuestions } from '../questions/actions';
 
 export const LOGIN_SUCCESS_TEACHER = 'LOGIN_SUCCESS_TEACHER';
 export const TOKEN_STILL_VALID_TEACHER = 'TOKEN_STILL_VALID_TEACHER';
@@ -23,6 +25,8 @@ const tokenStillValid = (teacherWithoutToken) => ({
   type: TOKEN_STILL_VALID_TEACHER,
   payload: teacherWithoutToken,
 });
+
+export const logOutTeacher = () => ({ type: LOG_OUT_TEACHER });
 
 export const loginTeacher = (email, password, isStudent) => {
   return async (dispatch, getState) => {
@@ -76,7 +80,13 @@ export const getTeacherWithStoredToken = () => {
   };
 };
 
-export const logOutTeacher = () => ({ type: LOG_OUT_TEACHER });
+export const teacherLoggingOut = () => {
+  return function thunk(dispatch, getState) {
+    dispatch(logOutTeacher());
+    dispatch(removeOverviewTeacher());
+    dispatch(removeListOfQuestions());
+  };
+};
 
 export const createTeacher = (isStudent, name, email, password) => {
   return async (dispatch, getState) => {

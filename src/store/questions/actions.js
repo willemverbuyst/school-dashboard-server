@@ -8,11 +8,18 @@ import {
 } from '../appState/actions';
 
 export const FETCH_QUESTIONS = 'FETCH_QUESTIONS';
+export const REMOVE_QUESTIONS = 'REMOVE_QUESTIONS';
 
 export function questionsFetched(questions) {
   return {
     type: FETCH_QUESTIONS,
     payload: questions,
+  };
+}
+
+export function removeListOfQuestions() {
+  return {
+    type: REMOVE_QUESTIONS,
   };
 }
 
