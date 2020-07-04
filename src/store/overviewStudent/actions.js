@@ -3,11 +3,18 @@ import { apiUrl } from '../../config/constants';
 import { appLoading, appDoneLoading, setMessage } from '../appState/actions';
 
 export const FETCH_RESULTS_FOR_STUDENT_MAIN = 'FETCH_RESULTS_FOR_STUDENT_MAIN';
+export const REMOVE_RESULTS_FOR_STUDENT_MAIN = 'ERASE_RESULTS_FOR_STUDENT_MAIN';
 
 export function resultsFetched(questions) {
   return {
     type: FETCH_RESULTS_FOR_STUDENT_MAIN,
     payload: questions,
+  };
+}
+
+export function removeResults() {
+  return {
+    type: REMOVE_RESULTS_FOR_STUDENT_MAIN,
   };
 }
 
@@ -22,6 +29,7 @@ export function getResultsForStudentMain(id) {
       const questions = response.data;
 
       dispatch(resultsFetched(questions));
+      console.log(response.data);
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {

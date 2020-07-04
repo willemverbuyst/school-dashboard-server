@@ -7,12 +7,19 @@ import {
   showMessageWithTimeout,
 } from '../appState/actions';
 
-export const FETCH_MC_QUESTIONS = 'FETCH_QUESTIONS';
+export const FETCH_MC_QUESTIONS = 'FETCH_MC_QUESTIONS';
+export const REMOVE_MC_QUESTIONS = 'REMOVE_MC_QUESTIONS';
 
 export function questionsFetched(questions) {
   return {
     type: FETCH_MC_QUESTIONS,
     payload: questions,
+  };
+}
+
+export function removeQuestions() {
+  return {
+    type: REMOVE_MC_QUESTIONS,
   };
 }
 

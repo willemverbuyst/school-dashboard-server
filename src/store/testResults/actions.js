@@ -3,11 +3,17 @@ import { apiUrl } from '../../config/constants';
 import { appLoading, appDoneLoading, setMessage } from '../appState/actions';
 
 export const FETCH_RESULTS_FOR_SUBJECT = 'FETCH_RESULTS_FOR_SUBJECT';
+export const REMOVE_RESULTS_FOR_SUBJECT = 'REMOVE_RESULTS_FOR_SUBJECT';
 
 export function resultsFetched(questions) {
   return {
     type: FETCH_RESULTS_FOR_SUBJECT,
     payload: questions,
+  };
+}
+export function removeDetailsStudent() {
+  return {
+    type: REMOVE_RESULTS_FOR_SUBJECT,
   };
 }
 

@@ -7,6 +7,9 @@ import {
   showMessageWithTimeout,
   setMessage,
 } from '../appState/actions';
+import { removeResults } from '../overviewStudent/actions';
+import { removeDetailsStudent } from '../testResults/actions';
+import { removeQuestions } from '../test/actions';
 
 export const LOGIN_SUCCESS_STUDENT = 'LOGIN_SUCCESS_STUDENT';
 export const TOKEN_STILL_VALID_STUDENT = 'TOKEN_STILL_VALID_STUDENT';
@@ -73,6 +76,15 @@ export const getStudentWithStoredToken = () => {
       dispatch(logOutStudent());
       dispatch(appDoneLoading());
     }
+  };
+};
+
+export const studentLogginOut = () => {
+  return function thunk(dispatch, getState) {
+    dispatch(logOutStudent());
+    dispatch(removeResults());
+    dispatch(removeDetailsStudent());
+    dispatch(removeQuestions());
   };
 };
 
