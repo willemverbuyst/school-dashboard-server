@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Layout, Form, Button, Select, Collapse } from 'antd';
+import { Layout, Form, Button, Select, Collapse, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectTeacherSubjects,
@@ -56,25 +56,17 @@ export default function ListOfQuestions() {
     );
   };
 
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 12 },
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 12 },
-  };
-
   const renderSubjectsSelector = () => {
     return (
-      <Form {...layout} name="basic" initialValues={{ remember: true }}>
+      <Form justify="center" name="basic" initialValues={{ remember: true }}>
         <Form.Item
-          label="Select a subject"
           name="subject"
           rules={[{ required: true, message: 'Please select a subject' }]}
         >
           <Select
+            placeholder="select a subject"
             value={subject}
-            style={{ width: 120, marginBottom: 15 }}
+            style={{ width: 160 }}
             onChange={(e) => setSubject(e)}
           >
             {subjects.map(({ name, id }, i) => (
@@ -84,8 +76,13 @@ export default function ListOfQuestions() {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit" onClick={getListOfQuestions}>
+        <Form.Item>
+          <Button
+            style={{ width: 160, backgroundColor: 'green', border: 'none' }}
+            type="primary"
+            htmlType="submit"
+            onClick={getListOfQuestions}
+          >
             Show list
           </Button>
         </Form.Item>
@@ -102,11 +99,13 @@ export default function ListOfQuestions() {
             padding: 90,
           }}
         >
-          <h3>
-            Select a subject to get all the current questions in the database
-            for that subject.
-          </h3>
-          {subjects ? renderSubjectsSelector() : null}
+          <Row justify="center" style={{ padding: '24px' }}>
+            {'Select a subject to get all the current questions in the database for that subject.'.toUpperCase()}
+          </Row>
+          <Row justify="center">
+            {subjects ? renderSubjectsSelector() : null}
+          </Row>
+
           {questions ? renderQuestions() : null}
         </Content>
       </Layout>
