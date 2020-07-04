@@ -7,7 +7,7 @@ import {
   selectTeacherId,
 } from '../../store/teacher/selectors';
 import { createQuestion } from '../../store/questions/actions';
-import { Layout, Form, Input, Button, Select } from 'antd';
+import { Layout, Form, Input, Button, Select, Row, Col } from 'antd';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -42,111 +42,117 @@ export default function Addquestion() {
     history.push(`/teachers/${teacherId}/questions/list`);
   };
 
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 12 },
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 12 },
-  };
-
   return (
     <Layout>
       <Layout style={{ padding: '24px', height: '92vh' }}>
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 90,
-          }}
-        >
-          <h3 style={{ textAlign: 'center', padding: '2rem' }}>
-            Select a subject and fill in the data to create a new question.
-          </h3>
-          <Form {...layout} name="basic" initialValues={{ remember: true }}>
-            {subjects ? (
-              <Form.Item
-                label="Select a subject"
-                name="subject"
-                rules={[{ required: true, message: 'Please select a subject' }]}
-              >
-                <Select
-                  value={subject}
-                  style={{ width: 120, marginBottom: 15 }}
-                  onChange={(e) => handleChange(e)}
-                >
-                  {subjects.map(({ name, id }, i) => (
-                    <Option key={i} value={id}>
-                      {name}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            ) : null}
+        <Content className="site-layout-background">
+          <Row justify="center" style={{ padding: '24px' }}>
+            {'Select a subject and fill in the data to create a new question.'.toUpperCase()}
+          </Row>
 
-            <Form.Item
-              label="Question"
-              name="Question"
-              rules={[{ required: true, message: 'Please input a question!' }]}
-            >
-              <Input
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Correct answer"
-              name="Correct answer"
-              rules={[
-                { required: true, message: 'Please input the correct answer' },
-              ]}
-            >
-              <Input
-                value={answer1}
-                onChange={(e) => setAnswer1(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Wrong answer #1"
-              name="Wrong answer #1"
-              rules={[
-                { required: true, message: 'Please input a wrong answer' },
-              ]}
-            >
-              <Input
-                value={answer2}
-                onChange={(e) => setAnswer2(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Wrong answer #2"
-              name="Wrong answer #2"
-              rules={[
-                { required: true, message: 'Please input a wrong answer' },
-              ]}
-            >
-              <Input
-                value={answer3}
-                onChange={(e) => setAnswer3(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item
-              label="Wrong answer #3"
-              name="Wrong answer #3"
-              rules={[
-                { required: true, message: 'Please input a wrong answer' },
-              ]}
-            >
-              <Input
-                value={answer4}
-                onChange={(e) => setAnswer4(e.target.value)}
-              />
-            </Form.Item>
-            <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="submit" onClick={addQuestion}>
-                Add question to the list
-              </Button>
-            </Form.Item>
-          </Form>
+          <Row justify="center">
+            <Col style={{ width: 650 }}>
+              <Form name="basic" initialValues={{ remember: true }}>
+                {subjects ? (
+                  <Form.Item
+                    name="subject"
+                    rules={[
+                      { required: true, message: 'Please select a subject' },
+                    ]}
+                  >
+                    <Select
+                      placeholder="select a subject"
+                      value={subject}
+                      onChange={(e) => handleChange(e)}
+                    >
+                      {subjects.map(({ name, id }, i) => (
+                        <Option key={i} value={id}>
+                          {name}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                ) : null}
+
+                <Form.Item
+                  name="Question"
+                  rules={[
+                    { required: true, message: 'Please input a question!' },
+                  ]}
+                >
+                  <Input
+                    placeholder="Question"
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="Correct answer"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input the correct answer',
+                    },
+                  ]}
+                >
+                  <Input
+                    placeholder="Correct answer"
+                    value={answer1}
+                    onChange={(e) => setAnswer1(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="Wrong answer #1"
+                  rules={[
+                    { required: true, message: 'Please input a wrong answer' },
+                  ]}
+                >
+                  <Input
+                    placeholder="Wrong answer #1"
+                    value={answer2}
+                    onChange={(e) => setAnswer2(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="Wrong answer #2"
+                  rules={[
+                    { required: true, message: 'Please input a wrong answer' },
+                  ]}
+                >
+                  <Input
+                    placeholder="Wrong answer #2"
+                    value={answer3}
+                    onChange={(e) => setAnswer3(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="Wrong answer #3"
+                  rules={[
+                    { required: true, message: 'Please input a wrong answer' },
+                  ]}
+                >
+                  <Input
+                    placeholder="Wrong answer #3"
+                    value={answer4}
+                    onChange={(e) => setAnswer4(e.target.value)}
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <Button
+                    style={{
+                      backgroundColor: 'green',
+                      border: 'none',
+                    }}
+                    type="primary"
+                    htmlType="submit"
+                    onClick={addQuestion}
+                  >
+                    Add question to the list
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Col>
+          </Row>
         </Content>
       </Layout>
     </Layout>
