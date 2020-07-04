@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Prompt } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
 import {
@@ -91,6 +91,10 @@ export default function StudentDoTest() {
 
   return (
     <Layout>
+      {/* <Prompt
+        when={formNotFilled}
+        message="You have unsaved changes, are you sure you want to leave?"
+      /> */}
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           {questions && subjects ? renderMCQ() : null}

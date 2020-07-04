@@ -11,6 +11,7 @@ import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
 import DoughnutChart from '../../components/charts/DoughnutChart';
+import DoTestButton from '../../components/DoTestButton';
 import { Layout, Button, Row, Col } from 'antd';
 
 const { Content } = Layout;
@@ -58,30 +59,23 @@ export default function StudentSubjectDetails() {
       .name;
     return (
       <>
-        <Row>
-          <h2>{subject.charAt(0).toUpperCase() + subject.slice(1)}</h2>
-        </Row>
-        <Row>You have done</Row>
-        <Row>
-          <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
-            {results.length}
-          </span>
-        </Row>
-        <Row>tests so far</Row>
-        <Row>
-          <Button
-            onClick={() =>
-              goTo(`/students/${studentId}/subjects/${subjectid}/test`)
-            }
-          >
-            Do a test
-          </Button>
-        </Row>
+        <Col span={6}>
+          <Row>
+            <h2>{subject.charAt(0).toUpperCase() + subject.slice(1)}</h2>
+          </Row>
+          <Row>You have done</Row>
+          <Row>
+            <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
+              {results.length}
+            </span>
+          </Row>
+          <Row>tests so far</Row>
+        </Col>
       </>
     );
   };
 
-  const renderChart = () => {
+  const renderBarChart = () => {
     const subject = subjects.find((subject) => subject.id === subjectid * 1)
       .name;
     const data = results.map(({ result }) => result);
@@ -99,12 +93,23 @@ export default function StudentSubjectDetails() {
     );
   };
 
+  const renderTestButton = () => {
+    return (
+      <DoTestButton
+        onClick={() =>
+          goTo(`/students/${studentId}/subjects/${subjectid}/test`)
+        }
+        text="Do a test"
+      />
+    );
+  };
+
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           <Row>
-            <Col>
+            <Col span={12}>
               <div style={{ width: '35vw', height: '35vh' }}>
                 {subjects && results[0] ? (
                   renderAmount()
@@ -126,18 +131,19 @@ export default function StudentSubjectDetails() {
                 )}
               </div>
             </Col>
-            <Col>
+            <Col span={12}>
               <div style={{ width: '35vw', height: '35vh' }}>
                 {results[0] ? renderAverage() : null}
               </div>
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col span={12}>
               <div style={{ width: '35vw', height: '35vh' }}>
-                {subjects && results[0] ? renderChart() : null}
+                {subjects && results[0] ? renderBarChart() : null}
               </div>
             </Col>
+            <Col span={12}>{renderTestButton()}</Col>
           </Row>
         </Content>
       </Layout>
