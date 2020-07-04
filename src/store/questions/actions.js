@@ -9,6 +9,7 @@ import {
 
 export const FETCH_QUESTIONS = 'FETCH_QUESTIONS';
 export const REMOVE_QUESTIONS = 'REMOVE_QUESTIONS';
+export const ADD_QUESTION = 'ADD_QUESTION';
 
 export function questionsFetched(questions) {
   return {
@@ -21,6 +22,10 @@ export function removeListOfQuestions() {
   return {
     type: REMOVE_QUESTIONS,
   };
+}
+
+export function addQuestionToList(question) {
+  return { type: ADD_QUESTION, payload: question };
 }
 
 export function getQuestionsForSubject(id) {
@@ -74,6 +79,17 @@ export function createQuestion(
       );
 
       dispatch(showMessageWithTimeout('success', true, response.data.message));
+      dispatch(
+        addQuestionToList({
+          text: question,
+          answers: [
+            { text: answer1, correct: true },
+            { text: answer2, correct: false },
+            { text: answer1, correct: false },
+            { text: answer1, correct: false },
+          ],
+        })
+      );
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {

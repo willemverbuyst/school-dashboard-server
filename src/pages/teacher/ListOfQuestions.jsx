@@ -17,7 +17,7 @@ export default function ListOfQuestions() {
   const dispatch = useDispatch();
   const subjects = useSelector(selectTeacherSubjects);
   const questions = useSelector(selectAllQuestionsForSubject);
-  const [subject, setSubject] = useState(1);
+  const [subject, setSubject] = useState(0);
   const history = useHistory();
   const token = useSelector(selectTeacherToken);
 
