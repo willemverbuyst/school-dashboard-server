@@ -12,7 +12,7 @@ import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
 import DoughnutChart from '../../components/charts/DoughnutChart';
 import DoTestButton from '../../components/DoTestButton';
-import { Layout, Button, Row, Col } from 'antd';
+import { Layout, Button, Row, Col, Card } from 'antd';
 
 const { Content } = Layout;
 
@@ -46,11 +46,13 @@ export default function StudentSubjectDetails() {
     );
     const color = ['#A026FF', '#eee'];
     return average ? (
-      <DoughnutChart
-        color={color}
-        data={[average, 100 - average]}
-        title={`AVERAGE OF ${average}%`}
-      />
+      <Card
+        title={`Your average is ${average}%`}
+        bordered={false}
+        style={{ width: 300, height: 250, textAlign: 'center' }}
+      >
+        <DoughnutChart color={color} data={[average, 100 - average]} />
+      </Card>
     ) : null;
   };
 
@@ -58,18 +60,44 @@ export default function StudentSubjectDetails() {
     const subject = subjects.find((subject) => subject.id === subjectid * 1)
       .name;
     return (
-      <>
-        <Row>
-          <h2>{subject.charAt(0).toUpperCase() + subject.slice(1)}</h2>
-        </Row>
-        <Row>You have done</Row>
-        <Row>
-          <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
-            {results.length}
-          </span>
-        </Row>
-        <Row>tests so far</Row>
-      </>
+      <Card
+        title={subject.charAt(0).toUpperCase() + subject.slice(1)}
+        bordered={false}
+        style={{ width: 300, height: 250, textAlign: 'center' }}
+      >
+        <p>You have done</p>
+        <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
+          {results.length}
+        </span>
+        <p>tests so far</p>
+      </Card>
+    );
+  };
+
+  const renderTestButton = () => {
+    return (
+      <Card
+        title="Did you study?"
+        bordered={false}
+        style={{
+          width: 300,
+          height: 250,
+          textAlign: 'center',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onClick={() =>
+            goTo(`/students/${studentId}/subjects/${subjectid}/test`)
+          }
+        >
+          Do a test
+        </div>
+      </Card>
     );
   };
 
@@ -91,23 +119,12 @@ export default function StudentSubjectDetails() {
     ) : null;
   };
 
-  const renderTestButton = () => {
-    return (
-      <DoTestButton
-        onClick={() =>
-          goTo(`/students/${studentId}/subjects/${subjectid}/test`)
-        }
-        text="Do a test"
-      />
-    );
-  };
-
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <Row>
-            <Col span={8}>
+          <Row justify="space-around">
+            <Col>
               <div>
                 {subjects && results ? (
                   renderAmount()
@@ -129,12 +146,10 @@ export default function StudentSubjectDetails() {
                 )}
               </div>
             </Col>
-            <Col span={8}>
+            <Col>
               <div>{results ? renderAverage() : null}</div>
             </Col>
-            <Col span={8} justify="center">
-              {renderTestButton()}
-            </Col>
+            <Col>{renderTestButton()}</Col>
           </Row>
           <Row justify="center">
             <Col>

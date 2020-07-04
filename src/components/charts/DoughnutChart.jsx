@@ -1,7 +1,7 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
-export default function DoughnutChart({ data, color, title }) {
+export default function DoughnutChart({ data, color, title = '' }) {
   const chartData = {
     datasets: [
       {
