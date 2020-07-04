@@ -27,6 +27,7 @@ export function getMcQuestionsForTest(id) {
   return async function thunk(dispatch, getState) {
     const token = getState().student.token;
     dispatch(appLoading());
+    dispatch(removeQuestions());
     try {
       const response = await axios.get(`${apiUrl}/questions/3qtest/${id}`, {
         headers: { Authorization: `Bearer ${token}` },

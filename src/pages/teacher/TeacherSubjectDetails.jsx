@@ -45,7 +45,7 @@ export default function TeacherSubjectDetails() {
   };
 
   const renderTestsBar = () => {
-    return results.map(({ tests, studentId }, i) => (
+    return results.map(({ tests }, i) => (
       <Col key={i} span={8}>
         <BarChartTest
           data={[tests]}
@@ -64,11 +64,11 @@ export default function TeacherSubjectDetails() {
         <Content className="site-layout-background">
           <Row style={{ height: '3rem' }}>AVERAGE GRADES</Row>
           <Row style={{ height: '15rem' }}>
-            {results[0] && students[0] ? renderCharts() : null}
+            {results && students ? renderCharts() : null}
           </Row>
           <Row style={{ height: '3rem' }}>TESTS DONE</Row>
           <Row style={{ height: '15rem' }}>
-            {results[0] && students[0] ? renderTestsBar() : null}
+            {results && students ? renderTestsBar() : null}
           </Row>
         </Content>
       </Layout>

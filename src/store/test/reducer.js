@@ -1,7 +1,7 @@
 import { FETCH_MC_QUESTIONS, REMOVE_MC_QUESTIONS } from './actions';
 
 const initialState = {
-  all: [],
+  all: null,
 };
 
 export default (state = initialState, action) => {

@@ -4,7 +4,7 @@ import {
 } from './actions';
 
 const initialState = {
-  all: [],
+  all: null,
 };
 
 export default (state = initialState, action) => {

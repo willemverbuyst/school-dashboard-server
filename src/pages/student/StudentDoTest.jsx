@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory, Prompt } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
 import {
@@ -36,6 +36,10 @@ export default function StudentDoTest() {
     }
   });
 
+  useEffect(() => {
+    dispatch(getMcQuestionsForTest(subjectid));
+  }, [dispatch, subjectid]);
+
   const onFinish = () => {
     setTestDone(true);
     dispatch(
@@ -50,10 +54,18 @@ export default function StudentDoTest() {
         answer3
       )
     );
+    setAnswer1(0);
+    setAnswer2(0);
+    setAnswer3(0);
   };
 
   const goToMain = () => {
     history.push(`/students/${studentId}/subjects/${subjectid}`);
+  };
+
+  const doAnotherTest = () => {
+    setTestDone(false);
+    dispatch(getMcQuestionsForTest(subjectid));
   };
 
   const onPick = (e) => {
@@ -68,10 +80,6 @@ export default function StudentDoTest() {
       e.value === 1 || e.value % 4 === 1 ? setAnswer3(1) : setAnswer3(0);
     }
   };
-
-  useEffect(() => {
-    dispatch(getMcQuestionsForTest(subjectid));
-  }, [dispatch, subjectid]);
 
   const renderMCQ = () => {
     return (
@@ -96,10 +104,6 @@ export default function StudentDoTest() {
 
   return (
     <Layout>
-      {/* <Prompt
-        when={testNotDone}
-        message="You have not completed your test. If you leave you will have zero points for this test!"
-      /> */}
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           {questions && subjects ? renderMCQ() : null}
@@ -107,11 +111,7 @@ export default function StudentDoTest() {
           {testDone ? (
             <>
               <p>Do another test?</p>
-              <Button
-                onClick={() => dispatch(getMcQuestionsForTest(subjectid))}
-              >
-                yes
-              </Button>
+              <Button onClick={doAnotherTest}>yes</Button>
               <Button onClick={goToMain}>no</Button>
             </>
           ) : null}

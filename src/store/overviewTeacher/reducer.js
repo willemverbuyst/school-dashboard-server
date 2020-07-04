@@ -6,8 +6,8 @@ import {
 } from './actions';
 
 const initialState = {
-  subjects: [],
-  students: [],
+  subjects: null,
+  students: null,
   main: [],
 };
 

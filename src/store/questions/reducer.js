@@ -1,7 +1,7 @@
 import { FETCH_QUESTIONS, REMOVE_QUESTIONS } from './actions';
 
 const initialState = {
-  all: [],
+  all: null,
 };
 
 export default (state = initialState, action) => {

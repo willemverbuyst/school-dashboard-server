@@ -45,13 +45,13 @@ export default function StudentSubjectDetails() {
       (data.reduce((a, b) => a + b, 0) / (data.length * 3)) * 100
     );
     const color = ['#A026FF', '#eee'];
-    return (
+    return average ? (
       <DoughnutChart
         color={color}
         data={[average, 100 - average]}
         title={`AVERAGE OF ${average}%`}
       />
-    );
+    ) : null;
   };
 
   const renderAmount = () => {
@@ -59,18 +59,16 @@ export default function StudentSubjectDetails() {
       .name;
     return (
       <>
-        <Col span={6}>
-          <Row>
-            <h2>{subject.charAt(0).toUpperCase() + subject.slice(1)}</h2>
-          </Row>
-          <Row>You have done</Row>
-          <Row>
-            <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
-              {results.length}
-            </span>
-          </Row>
-          <Row>tests so far</Row>
-        </Col>
+        <Row>
+          <h2>{subject.charAt(0).toUpperCase() + subject.slice(1)}</h2>
+        </Row>
+        <Row>You have done</Row>
+        <Row>
+          <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
+            {results.length}
+          </span>
+        </Row>
+        <Row>tests so far</Row>
       </>
     );
   };
@@ -83,14 +81,14 @@ export default function StudentSubjectDetails() {
     for (let i = 0; i < results.length; i++) color.push('rgb(255, 99, 132)');
     const labels = results.map(({ at }) => moment(at).format('MMM Do YY'));
 
-    return (
+    return color[0] ? (
       <BarChart
         data={data}
         color={color}
         labels={labels}
         title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
       />
-    );
+    ) : null;
   };
 
   const renderTestButton = () => {
@@ -109,9 +107,9 @@ export default function StudentSubjectDetails() {
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           <Row>
-            <Col span={12}>
-              <div style={{ width: '35vw', height: '35vh' }}>
-                {subjects && results[0] ? (
+            <Col span={8}>
+              <div>
+                {subjects && results ? (
                   renderAmount()
                 ) : (
                   <>
@@ -131,19 +129,19 @@ export default function StudentSubjectDetails() {
                 )}
               </div>
             </Col>
-            <Col span={12}>
-              <div style={{ width: '35vw', height: '35vh' }}>
-                {results[0] ? renderAverage() : null}
-              </div>
+            <Col span={8}>
+              <div>{results ? renderAverage() : null}</div>
+            </Col>
+            <Col span={8} justify="center">
+              {renderTestButton()}
             </Col>
           </Row>
-          <Row>
-            <Col span={12}>
-              <div style={{ width: '35vw', height: '35vh' }}>
-                {subjects && results[0] ? renderBarChart() : null}
+          <Row justify="center">
+            <Col>
+              <div style={{ width: '50vw', height: '15vh' }}>
+                {subjects && results ? renderBarChart() : null}
               </div>
             </Col>
-            <Col span={12}>{renderTestButton()}</Col>
           </Row>
         </Content>
       </Layout>
