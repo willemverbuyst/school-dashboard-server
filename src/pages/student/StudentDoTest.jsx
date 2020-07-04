@@ -28,6 +28,7 @@ export default function StudentDoTest() {
   const [question1, setQuestion1] = useState(0);
   const [question2, setQuestion2] = useState(0);
   const [question3, setQuestion3] = useState(0);
+  const [testDone, setTestDone] = useState(false);
 
   useEffect(() => {
     if (token === null) {
@@ -36,6 +37,7 @@ export default function StudentDoTest() {
   });
 
   const onFinish = () => {
+    setTestDone(true);
     dispatch(
       submitTest(
         studentId,
@@ -48,6 +50,9 @@ export default function StudentDoTest() {
         answer3
       )
     );
+  };
+
+  const goToMain = () => {
     history.push(`/students/${studentId}/subjects/${subjectid}`);
   };
 
@@ -92,13 +97,24 @@ export default function StudentDoTest() {
   return (
     <Layout>
       {/* <Prompt
-        when={formNotFilled}
-        message="You have unsaved changes, are you sure you want to leave?"
+        when={testNotDone}
+        message="You have not completed your test. If you leave you will have zero points for this test!"
       /> */}
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           {questions && subjects ? renderMCQ() : null}
-          <Button onClick={onFinish}>Finish</Button>
+          {!testDone ? <Button onClick={onFinish}>Finish</Button> : null}
+          {testDone ? (
+            <>
+              <p>Do another test?</p>
+              <Button
+                onClick={() => dispatch(getMcQuestionsForTest(subjectid))}
+              >
+                yes
+              </Button>
+              <Button onClick={goToMain}>no</Button>
+            </>
+          ) : null}
         </Content>
       </Layout>
     </Layout>

@@ -29,7 +29,6 @@ export function getResultsForStudentMain(id) {
       const questions = response.data;
 
       dispatch(resultsFetched(questions));
-      console.log(response.data);
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
