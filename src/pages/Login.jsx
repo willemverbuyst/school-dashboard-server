@@ -14,7 +14,6 @@ export default function Login() {
   const [status, setStatus] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const studentId = useSelector(selectStudentId);
   const teacherId = useSelector(selectTeacherId);
 

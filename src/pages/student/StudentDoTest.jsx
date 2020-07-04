@@ -5,6 +5,7 @@ import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
 import {
   selectStudentId,
   selectStudentSubjects,
+  selectStudentToken,
 } from '../../store/student/selectors';
 import { getMcQuestionsForTest, submitTest } from '../../store/test/actions';
 import { select3mcQuestionsForSubject } from '../../store/test/selectors';
@@ -18,6 +19,7 @@ export default function StudentDoTest() {
   const history = useHistory();
   const studentId = useSelector(selectStudentId);
   const { subjectid } = useParams();
+  const token = useSelector(selectStudentToken);
   const questions = useSelector(select3mcQuestionsForSubject);
   const subjects = useSelector(selectStudentSubjects);
   const [answer1, setAnswer1] = useState(0);
@@ -26,8 +28,20 @@ export default function StudentDoTest() {
   const [question1, setQuestion1] = useState(0);
   const [question2, setQuestion2] = useState(0);
   const [question3, setQuestion3] = useState(0);
+  const [testDone, setTestDone] = useState(false);
+
+  useEffect(() => {
+    if (token === null) {
+      history.push('/');
+    }
+  });
+
+  useEffect(() => {
+    dispatch(getMcQuestionsForTest(subjectid));
+  }, [dispatch, subjectid]);
 
   const onFinish = () => {
+    setTestDone(true);
     dispatch(
       submitTest(
         studentId,
@@ -40,7 +54,18 @@ export default function StudentDoTest() {
         answer3
       )
     );
+    setAnswer1(0);
+    setAnswer2(0);
+    setAnswer3(0);
+  };
+
+  const goToMain = () => {
     history.push(`/students/${studentId}/subjects/${subjectid}`);
+  };
+
+  const doAnotherTest = () => {
+    setTestDone(false);
+    dispatch(getMcQuestionsForTest(subjectid));
   };
 
   const onPick = (e) => {
@@ -55,10 +80,6 @@ export default function StudentDoTest() {
       e.value === 1 || e.value % 4 === 1 ? setAnswer3(1) : setAnswer3(0);
     }
   };
-
-  useEffect(() => {
-    dispatch(getMcQuestionsForTest(subjectid));
-  }, [dispatch, subjectid]);
 
   const renderMCQ = () => {
     return (
@@ -86,7 +107,14 @@ export default function StudentDoTest() {
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           {questions && subjects ? renderMCQ() : null}
-          <Button onClick={onFinish}>Finish</Button>
+          {!testDone ? <Button onClick={onFinish}>Finish</Button> : null}
+          {testDone ? (
+            <>
+              <p>Do another test?</p>
+              <Button onClick={doAnotherTest}>yes</Button>
+              <Button onClick={goToMain}>no</Button>
+            </>
+          ) : null}
         </Content>
       </Layout>
     </Layout>

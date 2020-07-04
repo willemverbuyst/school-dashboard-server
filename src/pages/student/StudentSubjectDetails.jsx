@@ -5,31 +5,39 @@ import moment from 'moment';
 import {
   selectStudentId,
   selectStudentSubjects,
+  selectStudentToken,
 } from '../../store/student/selectors';
 import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
 import DoughnutChart from '../../components/charts/DoughnutChart';
+import DoTestButton from '../../components/DoTestButton';
 import { Layout, Button, Row, Col } from 'antd';
 
-// import StudentSubjectChart from './StudentSubjectChart';
 const { Content } = Layout;
 
 export default function StudentSubjectDetails() {
   const dispatch = useDispatch();
   const { subjectid } = useParams();
   const history = useHistory();
+  const token = useSelector(selectStudentToken);
   const studentId = useSelector(selectStudentId);
   const results = useSelector(selectResultsForSubject);
   const subjects = useSelector(selectStudentSubjects);
 
-  const goTo = (goto) => {
-    history.push(goto);
-  };
+  useEffect(() => {
+    if (token === null) {
+      history.push('/');
+    }
+  });
 
   useEffect(() => {
     dispatch(getResultsForSubject(subjectid));
   }, [dispatch, subjectid]);
+
+  const goTo = (goto) => {
+    history.push(goto);
+  };
 
   const renderAverage = () => {
     const data = results.map(({ result }) => result);
@@ -37,13 +45,13 @@ export default function StudentSubjectDetails() {
       (data.reduce((a, b) => a + b, 0) / (data.length * 3)) * 100
     );
     const color = ['#A026FF', '#eee'];
-    return (
+    return average ? (
       <DoughnutChart
         color={color}
         data={[average, 100 - average]}
         title={`AVERAGE OF ${average}%`}
       />
-    );
+    ) : null;
   };
 
   const renderAmount = () => {
@@ -61,20 +69,11 @@ export default function StudentSubjectDetails() {
           </span>
         </Row>
         <Row>tests so far</Row>
-        <Row>
-          <Button
-            onClick={() =>
-              goTo(`/students/${studentId}/subjects/${subjectid}/test`)
-            }
-          >
-            Do a test
-          </Button>
-        </Row>
       </>
     );
   };
 
-  const renderChart = () => {
+  const renderBarChart = () => {
     const subject = subjects.find((subject) => subject.id === subjectid * 1)
       .name;
     const data = results.map(({ result }) => result);
@@ -82,12 +81,23 @@ export default function StudentSubjectDetails() {
     for (let i = 0; i < results.length; i++) color.push('rgb(255, 99, 132)');
     const labels = results.map(({ at }) => moment(at).format('MMM Do YY'));
 
-    return (
+    return color[0] ? (
       <BarChart
         data={data}
         color={color}
         labels={labels}
         title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
+      />
+    ) : null;
+  };
+
+  const renderTestButton = () => {
+    return (
+      <DoTestButton
+        onClick={() =>
+          goTo(`/students/${studentId}/subjects/${subjectid}/test`)
+        }
+        text="Do a test"
       />
     );
   };
@@ -97,9 +107,9 @@ export default function StudentSubjectDetails() {
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           <Row>
-            <Col>
-              <div style={{ width: '35vw', height: '35vh' }}>
-                {subjects && results[0] ? (
+            <Col span={8}>
+              <div>
+                {subjects && results ? (
                   renderAmount()
                 ) : (
                   <>
@@ -119,16 +129,17 @@ export default function StudentSubjectDetails() {
                 )}
               </div>
             </Col>
-            <Col>
-              <div style={{ width: '35vw', height: '35vh' }}>
-                {results[0] ? renderAverage() : null}
-              </div>
+            <Col span={8}>
+              <div>{results ? renderAverage() : null}</div>
+            </Col>
+            <Col span={8} justify="center">
+              {renderTestButton()}
             </Col>
           </Row>
-          <Row>
+          <Row justify="center">
             <Col>
-              <div style={{ width: '35vw', height: '35vh' }}>
-                {subjects && results[0] ? renderChart() : null}
+              <div style={{ width: '50vw', height: '15vh' }}>
+                {subjects && results ? renderBarChart() : null}
               </div>
             </Col>
           </Row>

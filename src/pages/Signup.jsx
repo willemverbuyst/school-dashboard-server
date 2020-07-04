@@ -28,7 +28,6 @@ export default function Signup() {
       dispatch(createStudent(status, name, email, password, teacher));
       history.push(`/`);
     } else {
-      console.log('create teacher');
       dispatch(createTeacher(status, name, email, password));
       history.push(`/`);
     }

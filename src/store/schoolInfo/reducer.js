@@ -1,7 +1,7 @@
 import { FETCH_TEACHERS } from './actions';
 
 const initialState = {
-  teachers: [],
+  teachers: null,
 };
 
 export default (state = initialState, action) => {

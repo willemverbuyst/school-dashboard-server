@@ -5,6 +5,7 @@ import { appLoading, appDoneLoading, setMessage } from '../appState/actions';
 export const FETCH_OVERVIEW_FOR_SUBJECT = 'FETCH_OVERVIEW_FOR_SUBJECT';
 export const FETCH_OVERVIEW_FOR_STUDENT = 'FETCH_OVERVIEW_FOR_STUDENT';
 export const FETCH_OVERVIEW_FOR_MAIN = 'FETCH_OVERVIEW_FOR_MAIN';
+export const REMOVE_OVERVIEW = 'REMOVE_OVERVIEW';
 
 export function subjectsFetched(results) {
   return {
@@ -24,6 +25,12 @@ export function mainFetched(results) {
   return {
     type: FETCH_OVERVIEW_FOR_MAIN,
     payload: results,
+  };
+}
+
+export function removeOverviewTeacher(results) {
+  return {
+    type: REMOVE_OVERVIEW,
   };
 }
 

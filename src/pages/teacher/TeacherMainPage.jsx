@@ -14,7 +14,7 @@ import {
   selectMainOverview,
   selectMainOverviewScatter,
 } from '../../store/overviewTeacher/selectors';
-import { Layout } from 'antd';
+import { Layout, Row } from 'antd';
 
 const { Content } = Layout;
 
@@ -43,13 +43,15 @@ export default function TeacherMainPage() {
     for (let i = 0; i < data.length; i++) color.push('rgb(255, 99, 132)');
     const labels = subjects.map(({ name }) => name);
 
-    return (
+    return data[0] ? (
       <BarChart
         data={data}
         color={color}
         labels={labels}
         title={`AVERAGES PER SUBJECT`}
       />
+    ) : (
+      <p>YOU HAVE NO DATA TO DISPLAY YET</p>
     );
   };
 
@@ -60,7 +62,7 @@ export default function TeacherMainPage() {
       color.push('#A026FF');
       data.push({ x: moment(at).format(), y: result });
     });
-    return (
+    return data[0] ? (
       <ScatterChart
         data={data}
         color={color}
@@ -68,19 +70,19 @@ export default function TeacherMainPage() {
           'AT WHAT TIME OF THE DAY DO STUDENTS TESTS AND WHAT IS THEIR SCORE'
         }
       />
-    );
+    ) : null;
   };
 
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {mainPageData && subjects ? renderChartsMain() : null}
-          </div>
-          <div style={{ width: '35vw', height: '35vh' }}>
-            {tests && subjects ? renderScatterChart() : null}
-          </div>
+          <Row justify="center" style={{ height: '15rem' }}>
+            <div>{mainPageData && subjects ? renderChartsMain() : null}</div>
+          </Row>
+          <Row justify="center">
+            <div>{tests && subjects ? renderScatterChart() : null}</div>
+          </Row>
         </Content>
       </Layout>
     </Layout>

@@ -6,7 +6,7 @@ import teacher from './teacher/reducer';
 import questions from './questions/reducer';
 import test from './test/reducer';
 import testResults from './testResults/reducer';
-import studentMain from './studentMain/reducer';
+import overviewStudent from './overviewStudent/reducer';
 import overViewTeacher from './overviewTeacher/reducer';
 
 export default combineReducers({
@@ -17,6 +17,6 @@ export default combineReducers({
   questions,
   test,
   testResults,
-  studentMain,
+  overviewStudent,
   overViewTeacher,
 });

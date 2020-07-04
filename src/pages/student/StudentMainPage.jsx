@@ -5,8 +5,8 @@ import {
   selectStudentToken,
   selectStudentSubjects,
 } from '../../store/student/selectors';
-import { getResultsForStudentMain } from '../../store/studentMain/actions';
-import { selectResultsForStudentMain } from '../../store/studentMain/selectors';
+import { getResultsForStudentMain } from '../../store/overviewStudent/actions';
+import { selectResultsForStudentMain } from '../../store/overviewStudent/selectors';
 import DoughnutChart from '../../components/charts/DoughnutChart';
 import PolarChart from '../../components/charts/PolarChart';
 import BarChart from '../../components/charts/BarChart';
@@ -46,12 +46,12 @@ export default function StudentMainPage() {
     return (
       <>
         <Row>
-          <Col>
+          <Col span={12}>
             <div style={{ width: '35vw', height: '35vh' }}>
               {renderAverage(averages)}
             </div>
           </Col>
-          <Col>
+          <Col span={12}>
             <div style={{ width: '35vw', height: '35vh' }}>
               {renderAveragePerSubject(averages)}
             </div>

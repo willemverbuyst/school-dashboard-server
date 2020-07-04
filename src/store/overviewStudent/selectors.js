@@ -1,3 +1,3 @@
 export const selectResultsForStudentMain = (state) => {
-  return state.studentMain.all;
+  return state.overviewStudent.all;
 };

@@ -23,7 +23,7 @@ export default function DoughnutChart({ data, color, title }) {
           labels: { fontSize: 16 },
         },
         responsive: true,
-        title: { text: title, display: true },
+        title: { text: title, display: true, padding: 15, fontSize: 14 },
       }}
     />
   );

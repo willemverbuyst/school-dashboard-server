@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import { selectStudentName } from '../store/student/selectors';
@@ -25,6 +26,10 @@ export default function BarAtThetop() {
     ) : null;
   };
 
+  const renderDate = () => {
+    return moment().format('MMMM Do YYYY, dddd');
+  };
+
   return (
     <Header
       style={{
@@ -38,6 +43,7 @@ export default function BarAtThetop() {
       <Link style={{ color: '#fff' }} to="/">
         Dashboard
       </Link>
+      {renderDate()}
       {renderWelcome()}
       {renderLoginLogout()}
     </Header>

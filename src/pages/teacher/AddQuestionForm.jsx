@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectTeacherSubjects,
   selectTeacherToken,
+  selectTeacherId,
 } from '../../store/teacher/selectors';
 import { createQuestion } from '../../store/questions/actions';
 import { Layout, Form, Input, Button, Select } from 'antd';
@@ -13,8 +14,9 @@ const { Option } = Select;
 
 export default function Addquestion() {
   const history = useHistory();
-  const token = useSelector(selectTeacherToken);
   const dispatch = useDispatch();
+  const token = useSelector(selectTeacherToken);
+  const teacherId = useSelector(selectTeacherId);
   const subjects = useSelector(selectTeacherSubjects);
   const [subject, setSubject] = useState(1);
   const [question, setQuestion] = useState('');
@@ -34,10 +36,10 @@ export default function Addquestion() {
   };
 
   const addQuestion = () => {
-    console.log(subject, question, answer1, answer2, answer3, answer4);
     dispatch(
       createQuestion(subject, question, answer1, answer2, answer3, answer4)
     );
+    history.push(`/teachers/${teacherId}/questions/list`);
   };
 
   const layout = {
