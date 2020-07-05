@@ -45,25 +45,12 @@ export default function StudentMainPage() {
 
     return (
       <>
-        <Row>
-          <Col span={12}>
-            <div style={{ width: '35vw', height: '35vh' }}>
-              {renderAverage(averages)}
-            </div>
-          </Col>
-          <Col span={12}>
-            <div style={{ width: '35vw', height: '35vh' }}>
-              {renderAveragePerSubject(averages)}
-            </div>
-          </Col>
+        <Row justify="space-around">
+          <Col style={{ width: 450 }}>{renderAverage(averages)}</Col>
+          <Col style={{ width: 450 }}>{renderAveragePerSubject(averages)}</Col>
         </Row>
-        <Row>
-          <Col>
-            You have done a total of {subjectSorted.flat().length} tests so far
-            <div style={{ width: '35vw', height: '35vh' }}>
-              {renderPolar(subjectSorted)}
-            </div>
-          </Col>
+        <Row justify="center" style={{ paddingTop: 80 }}>
+          <Col style={{ width: 650 }}>{renderPolar(subjectSorted)}</Col>
         </Row>
       </>
     );
@@ -89,7 +76,7 @@ export default function StudentMainPage() {
   const renderAveragePerSubject = (averages) => {
     const subjectLabel = subjects.map((subject) => subject.name);
     const color = [];
-    for (let i = 0; i < averages.length; i++) color.push('teal');
+    for (let i = 0; i < averages.length; i++) color.push('#008080');
     return (
       <BarChart
         data={averages}
@@ -112,7 +99,16 @@ export default function StudentMainPage() {
         '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6)
       )
     );
-    return <PolarChart data={data} labels={labels} color={color} />;
+    return (
+      <PolarChart
+        data={data}
+        labels={labels}
+        color={color}
+        title={`You have done a total of ${
+          subjectSorted.flat().length
+        } tests so far`.toUpperCase()}
+      />
+    );
   };
 
   return (

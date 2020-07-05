@@ -56,8 +56,6 @@ export default function StudentSubjectDetails() {
   };
 
   const renderAmount = () => {
-    const subject = subjects.find((subject) => subject.id === subjectid * 1)
-      .name;
     return (
       <Col
         style={{
