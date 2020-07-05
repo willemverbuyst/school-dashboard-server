@@ -20,7 +20,6 @@ export default function DoughnutChart({ data, color, title = '' }) {
         tooltips: false,
         legend: {
           display: false,
-          labels: { fontSize: 16 },
         },
         responsive: true,
         title: { text: title, display: true, padding: 15, fontSize: 14 },

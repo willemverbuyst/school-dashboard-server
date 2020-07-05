@@ -46,7 +46,7 @@ export default function TeacherMainPage() {
     const labels = subjects.map(({ name }) => name);
 
     return data[0] ? (
-      <Col style={{ width: 450 }}>
+      <Col style={{ width: 450, paddingBottom: 80 }}>
         <BarChart
           data={data}
           color={color}
@@ -67,7 +67,7 @@ export default function TeacherMainPage() {
       data.push({ x: moment(at).format(), y: result });
     });
     return data[0] ? (
-      <Col style={{ width: 450 }}>
+      <Col style={{ width: 450, paddingBottom: 80 }}>
         <ScatterChart
           data={data}
           color={color}
@@ -90,7 +90,7 @@ export default function TeacherMainPage() {
     const data = Object.values(reducedTests);
 
     return data[0] ? (
-      <Col style={{ width: 450 }}>
+      <Col style={{ width: 450, paddingBottom: 80 }}>
         <LineChart
           data={data}
           color="#B81D9D"
@@ -111,7 +111,7 @@ export default function TeacherMainPage() {
     const data = Object.values(reducedTests);
 
     return data[0] ? (
-      <Col style={{ width: 450 }}>
+      <Col style={{ width: 450, paddingBottom: 80 }}>
         <PieChart
           data={data}
           color={['#EEE', '#B81D9D', '#D222E1', '#8F1CB8']}
@@ -126,7 +126,7 @@ export default function TeacherMainPage() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <Row justify="space-around" style={{ paddingBottom: 65 }}>
+          <Row justify="space-around">
             {mainPageData && subjects ? renderChartsMain() : null}
             {tests && subjects ? renderPieChart() : null}
           </Row>

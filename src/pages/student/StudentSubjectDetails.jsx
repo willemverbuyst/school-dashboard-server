@@ -45,7 +45,7 @@ export default function StudentSubjectDetails() {
     );
     const color = ['#A026FF', '#eee'];
     return average ? (
-      <Col style={{ width: 450 }}>
+      <Col style={{ width: 450, paddingBottom: 80 }}>
         <DoughnutChart
           color={color}
           data={[average, 100 - average]}
@@ -64,6 +64,7 @@ export default function StudentSubjectDetails() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          paddingBottom: 80,
         }}
       >
         <div style={{ fontSize: '1.4rem' }}>You have done</div>
@@ -98,6 +99,7 @@ export default function StudentSubjectDetails() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          paddingBottom: 80,
         }}
       >
         <Button
@@ -148,7 +150,7 @@ export default function StudentSubjectDetails() {
             {results ? renderAverage() : null}
             {renderTestButton()}
           </Row>
-          <Row justify="center" style={{ paddingTop: 80 }}>
+          <Row justify="center">
             {subjects && results ? renderBarChart() : null}
           </Row>
         </Content>

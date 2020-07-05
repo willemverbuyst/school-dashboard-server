@@ -21,7 +21,6 @@ export default function LineChart({ labels, data, color, title, max }) {
         tooltips: false,
         legend: {
           display: false,
-          labels: { fontSize: 16 },
         },
         responsive: true,
         title: { text: title, display: true, padding: 15, fontSize: 14 },

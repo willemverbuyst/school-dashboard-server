@@ -21,7 +21,7 @@ export default function PieChart({ labels, data, color, title = '' }) {
         legend: {
           display: true,
           position: 'bottom',
-          labels: { fontSize: 14 },
+          labels: { fontSize: 12 },
         },
         responsive: true,
         title: { text: title, display: true, padding: 15, fontSize: 14 },

@@ -22,7 +22,7 @@ export default function PolarChart({ labels, color, data, title }) {
         legend: {
           display: true,
           position: 'bottom',
-          labels: { fontSize: 18 },
+          labels: { fontSize: 12 },
         },
         responsive: true,
         title: { text: title, display: true, padding: 15, fontSize: 14 },

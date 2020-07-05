@@ -46,10 +46,14 @@ export default function StudentMainPage() {
     return (
       <>
         <Row justify="space-around">
-          <Col style={{ width: 450 }}>{renderAverage(averages)}</Col>
-          <Col style={{ width: 450 }}>{renderAveragePerSubject(averages)}</Col>
+          <Col style={{ width: 450, paddingBottom: 80 }}>
+            {renderAverage(averages)}
+          </Col>
+          <Col style={{ width: 450, paddingBottom: 80 }}>
+            {renderAveragePerSubject(averages)}
+          </Col>
         </Row>
-        <Row justify="center" style={{ paddingTop: 80 }}>
+        <Row justify="center">
           <Col style={{ width: 650 }}>{renderPolar(subjectSorted)}</Col>
         </Row>
       </>
