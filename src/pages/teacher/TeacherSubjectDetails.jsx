@@ -35,7 +35,7 @@ export default function TeacherSubjectDetails() {
       <Col key={i} style={{ width: 350 }}>
         <DoughnutChart
           data={[score, 100 - score]}
-          color={['Teal', '#eee']}
+          color={['#008080', '#eee']}
           title={`${
             students.find((student) => student.id === studentId).name
           } ${score}%`}
@@ -49,7 +49,7 @@ export default function TeacherSubjectDetails() {
       <Col key={i} style={{ width: 350 }}>
         <BarChartTest
           data={[tests]}
-          color={['Teal']}
+          color={['#008080']}
           labels={[`${tests} tests`]}
           title={``}
           max={20}

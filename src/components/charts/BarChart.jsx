@@ -23,7 +23,7 @@ export default function BarChart({ labels, data, color, title, max }) {
           display: false,
           labels: { fontSize: 16 },
         },
-        // responsive: true,
+        responsive: true,
         title: { text: title, display: true },
         scales: {
           yAxes: [

@@ -78,7 +78,7 @@ export default function ListOfQuestions() {
         </Form.Item>
         <Form.Item>
           <Button
-            style={{ width: 160, backgroundColor: 'green', border: 'none' }}
+            style={{ width: 160, backgroundColor: '#B81D9D', border: 'none' }}
             type="primary"
             htmlType="submit"
             onClick={getListOfQuestions}

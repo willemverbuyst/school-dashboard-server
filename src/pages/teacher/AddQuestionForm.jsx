@@ -140,7 +140,7 @@ export default function Addquestion() {
                 <Form.Item>
                   <Button
                     style={{
-                      backgroundColor: 'green',
+                      backgroundColor: '#B81D9D',
                       border: 'none',
                     }}
                     type="primary"
