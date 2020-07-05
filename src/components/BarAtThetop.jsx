@@ -40,7 +40,15 @@ export default function BarAtThetop() {
         color: '#fff',
       }}
     >
-      <Link style={{ color: '#fff' }} to="/">
+      <Link
+        style={{
+          color: '#fff',
+          fontFamily: 'Sriracha',
+          fontSize: '2rem',
+          transform: 'rotate(-5deg)',
+        }}
+        to="/"
+      >
         Dashboard
       </Link>
       {renderDate()}
