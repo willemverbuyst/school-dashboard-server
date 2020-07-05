@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BarChart from '../../components/charts/BarChart';
 import ScatterChart from '../../components/charts/ScatterChart';
 import LineChart from '../../components/charts/LineChart';
+import PieChart from '../../components/charts/PieChart';
 import {
   selectTeacherToken,
   selectTeacherId,
@@ -45,7 +46,7 @@ export default function TeacherMainPage() {
     const labels = subjects.map(({ name }) => name);
 
     return data[0] ? (
-      <Col style={{ width: 650 }}>
+      <Col style={{ width: 450 }}>
         <BarChart
           data={data}
           color={color}
@@ -92,9 +93,30 @@ export default function TeacherMainPage() {
       <Col style={{ width: 450 }}>
         <LineChart
           data={data}
-          color="#4BC0E7"
+          color="#B81D9D"
           title={'TESTS OVER TIME'}
           labels={labels}
+        />
+      </Col>
+    ) : null;
+  };
+
+  const renderPieChart = () => {
+    const reducedTests = tests
+      .map((test) => test.result)
+      .reduce(function (prev, cur) {
+        prev[cur] = (prev[cur] || 0) + 1;
+        return prev;
+      }, {});
+    const data = Object.values(reducedTests);
+
+    return data[0] ? (
+      <Col style={{ width: 450 }}>
+        <PieChart
+          data={data}
+          color={['#EEE', '#B81D9D', '#D222E1', '#8F1CB8']}
+          title={'TESTS'}
+          labels={['0/3', '1/3', '2/3', '3/3']}
         />
       </Col>
     ) : null;
@@ -104,8 +126,9 @@ export default function TeacherMainPage() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <Row justify="center">
+          <Row justify="space-around" style={{ paddingBottom: 65 }}>
             {mainPageData && subjects ? renderChartsMain() : null}
+            {tests && subjects ? renderPieChart() : null}
           </Row>
           <Row justify="space-around">
             {tests && subjects ? renderScatterChart() : null}

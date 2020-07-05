@@ -25,7 +25,7 @@ export default function ScatterChart({ data, color, title }) {
           labels: { fontSize: 16 },
         },
         responsive: true,
-        title: { text: title, display: true, padding: 30, fontSize: 14 },
+        title: { text: title, display: true, padding: 15, fontSize: 14 },
         scales: {
           yAxes: [
             {

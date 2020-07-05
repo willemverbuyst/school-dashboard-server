@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-export default function BarChart({ labels, data, color, title, max }) {
+export default function LineChart({ labels, data, color, title, max }) {
   const chartData = {
     labels: labels,
     datasets: [
@@ -24,7 +24,7 @@ export default function BarChart({ labels, data, color, title, max }) {
           labels: { fontSize: 16 },
         },
         responsive: true,
-        title: { text: title, display: true },
+        title: { text: title, display: true, padding: 15, fontSize: 14 },
         scales: {
           yAxes: [
             {
