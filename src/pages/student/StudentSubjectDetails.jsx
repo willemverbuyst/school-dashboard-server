@@ -11,8 +11,7 @@ import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
 import DoughnutChart from '../../components/charts/DoughnutChart';
-import DoTestButton from '../../components/DoTestButton';
-import { Layout, Button, Row, Col, Card } from 'antd';
+import { Layout, Button, Row, Col } from 'antd';
 
 const { Content } = Layout;
 
@@ -46,13 +45,13 @@ export default function StudentSubjectDetails() {
     );
     const color = ['#A026FF', '#eee'];
     return average ? (
-      <Card
-        title={`Your average is ${average}%`}
-        bordered={false}
-        style={{ width: 300, height: 250, textAlign: 'center' }}
-      >
-        <DoughnutChart color={color} data={[average, 100 - average]} />
-      </Card>
+      <Col style={{ width: 450 }}>
+        <DoughnutChart
+          color={color}
+          data={[average, 100 - average]}
+          title={`YOUR AVERAGE IS ${average}%`}
+        />
+      </Col>
     ) : null;
   };
 
@@ -60,44 +59,65 @@ export default function StudentSubjectDetails() {
     const subject = subjects.find((subject) => subject.id === subjectid * 1)
       .name;
     return (
-      <Card
-        title={subject.charAt(0).toUpperCase() + subject.slice(1)}
-        bordered={false}
-        style={{ width: 300, height: 250, textAlign: 'center' }}
+      <Col
+        style={{
+          width: 300,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
-        <p>You have done</p>
-        <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
+        <div style={{ fontSize: '1.4rem' }}>You have done</div>
+        <div style={{ fontSize: '4rem', fontWeight: 'bold' }}>
           {results.length}
-        </span>
-        <p>tests so far</p>
-      </Card>
+        </div>
+        <div style={{ fontSize: '1.4rem' }}>tests so far</div>
+      </Col>
     );
   };
 
-  const renderTestButton = () => {
+  const renderNoTestsYet = () => {
     return (
-      <Card
-        title="Did you study?"
-        bordered={false}
-        style={{
-          width: 300,
-          height: 250,
-          textAlign: 'center',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+      <Col>
+        <h2>No results yet.</h2>
+        <Button
           onClick={() =>
             goTo(`/students/${studentId}/subjects/${subjectid}/test`)
           }
         >
           Do a test
-        </div>
-      </Card>
+        </Button>
+      </Col>
+    );
+  };
+
+  const renderTestButton = () => {
+    return (
+      <Col
+        style={{
+          width: 300,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Button
+          shape="circle"
+          onClick={() =>
+            goTo(`/students/${studentId}/subjects/${subjectid}/test`)
+          }
+          style={{
+            height: 120,
+            width: 120,
+            border: '2px solid #B81D9D',
+            color: '#B81D9D',
+            fontSize: '1.4rem',
+          }}
+        >
+          Do a test
+        </Button>
+      </Col>
     );
   };
 
@@ -110,12 +130,14 @@ export default function StudentSubjectDetails() {
     const labels = results.map(({ at }) => moment(at).format('MMM Do YY'));
 
     return color[0] ? (
-      <BarChart
-        data={data}
-        color={color}
-        labels={labels}
-        title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
-      />
+      <Col style={{ width: 650 }}>
+        <BarChart
+          data={data}
+          color={color}
+          labels={labels}
+          title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
+        />
+      </Col>
     ) : null;
   };
 
@@ -124,39 +146,12 @@ export default function StudentSubjectDetails() {
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           <Row justify="space-around">
-            <Col>
-              <div>
-                {subjects && results ? (
-                  renderAmount()
-                ) : (
-                  <>
-                    <h2>No results yet.</h2>
-                    <Row>
-                      <Button
-                        onClick={() =>
-                          goTo(
-                            `/students/${studentId}/subjects/${subjectid}/test`
-                          )
-                        }
-                      >
-                        Do a test
-                      </Button>
-                    </Row>
-                  </>
-                )}
-              </div>
-            </Col>
-            <Col>
-              <div>{results ? renderAverage() : null}</div>
-            </Col>
-            <Col>{renderTestButton()}</Col>
+            {subjects && results ? renderAmount() : renderNoTestsYet()}
+            {results ? renderAverage() : null}
+            {renderTestButton()}
           </Row>
-          <Row justify="center">
-            <Col>
-              <div style={{ width: '50vw', height: '15vh' }}>
-                {subjects && results ? renderBarChart() : null}
-              </div>
-            </Col>
+          <Row justify="center" style={{ paddingTop: 80 }}>
+            {subjects && results ? renderBarChart() : null}
           </Row>
         </Content>
       </Layout>
