@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Prompt } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
 import {
@@ -29,6 +29,7 @@ export default function StudentDoTest() {
   const [question2, setQuestion2] = useState(0);
   const [question3, setQuestion3] = useState(0);
   const [testDone, setTestDone] = useState(false);
+  const [blockNavigation, setBlockNavigation] = useState(true);
 
   useEffect(() => {
     if (token === null) {
@@ -57,6 +58,7 @@ export default function StudentDoTest() {
     setAnswer1(0);
     setAnswer2(0);
     setAnswer3(0);
+    setBlockNavigation(false);
   };
 
   const goToMain = () => {
@@ -64,6 +66,7 @@ export default function StudentDoTest() {
   };
 
   const doAnotherTest = () => {
+    setBlockNavigation(true);
     setTestDone(false);
     dispatch(getMcQuestionsForTest(subjectid));
   };
@@ -99,6 +102,10 @@ export default function StudentDoTest() {
 
   return (
     <Layout>
+      <Prompt
+        when={blockNavigation}
+        message="You have not finished you test, are you sure you want to leave?"
+      />
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           {questions && subjects ? renderMCQ() : null}
