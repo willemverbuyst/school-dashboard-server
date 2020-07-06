@@ -31,6 +31,14 @@ module.exports = {
           updatedAt: new Date(),
           teacherId: 1,
         },
+        {
+          name: 'Naomi Klein',
+          email: 'naomi@klein.com',
+          password: bcrypt.hashSync('123', SALT_ROUNDS),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          teacherId: 2,
+        },
       ],
       {}
     );
