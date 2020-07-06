@@ -43,7 +43,7 @@ export default function StudentMainPage() {
       )
     );
 
-    return (
+    return results[0] ? (
       <>
         <Row justify="space-around">
           <Col style={{ width: 450, paddingBottom: 80 }}>
@@ -57,6 +57,8 @@ export default function StudentMainPage() {
           <Col style={{ width: 650 }}>{renderPolar(subjectSorted)}</Col>
         </Row>
       </>
+    ) : (
+      <>No data yet</>
     );
   };
 
@@ -64,17 +66,13 @@ export default function StudentMainPage() {
     const generalScore = Math.round(
       averages.reduce((a, b) => a + b * 1, 0) / averages.length
     );
-    if (!generalScore) {
-      return <div>You have no general score yet</div>;
-    } else {
-      return (
-        <DoughnutChart
-          data={[generalScore, 100 - generalScore]}
-          color={['#8F1CB8', '#eee']}
-          title={`YOUR HAVE A GENERAL SCORE OF ${generalScore}%`}
-        />
-      );
-    }
+    return (
+      <DoughnutChart
+        data={[generalScore, 100 - generalScore]}
+        color={['#8F1CB8', '#eee']}
+        title={`YOUR HAVE A GENERAL SCORE OF ${generalScore}%`}
+      />
+    );
   };
 
   const renderAveragePerSubject = (averages) => {
