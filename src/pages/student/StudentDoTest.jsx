@@ -149,7 +149,18 @@ export default function StudentDoTest() {
     <Layout>
       <NavigationPrompt
         beforeConfirm={(clb) => {
-          console.log('dont');
+          dispatch(
+            submitTest(
+              studentId,
+              subjectid,
+              question1,
+              question2,
+              question3,
+              answer1,
+              answer2,
+              answer3
+            )
+          );
           clb();
         }}
         when={blockNavigation}
