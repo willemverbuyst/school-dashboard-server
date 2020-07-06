@@ -42,43 +42,35 @@ router.get('/:id', studentAuthMiddleware, async (req, res, next) => {
   }
 });
 
+// DATA FOR TEACHER
 router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
   try {
-    const subjects = await Subject.findAll();
-
-    const tests = await Test.findAll({
-      where: { studentId: id },
-      attributes: ['answer1', 'answer2', 'answer3', 'subjectId'],
+    const subjects = await Subject.findAll({
+      attributes: ['id'],
+      include: [
+        {
+          model: Test,
+          where: { studentId: id },
+          attributes: ['answer1', 'answer2', 'answer3'],
+        },
+      ],
     });
 
-    const results = tests.map((test) => {
+    const results = subjects.map((subject) => {
       return {
-        subjectId: test.subjectId,
-        result: test.answer1 + test.answer2 + test.answer3,
+        subjectId: subject.id,
+        score: Math.round(
+          (subject.tests
+            .map((test) => test.answer1 + test.answer2 + test.answer3)
+            .reduce((a, b) => a + b, 0) /
+            (subject.tests.length * 3)) *
+            100
+        ),
+        tests: subject.tests.length,
       };
     });
-
-    const scores = subjects
-      .map((subject) => {
-        return {
-          subjectId: subject.id,
-          result: results
-            .filter((result) => result.subjectId === subject.dataValues.id)
-            .map((test) => test.result),
-        };
-      })
-      .map(({ subjectId, result }) => {
-        return {
-          subjectId: subjectId,
-          score: Math.round(
-            (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
-          ),
-          tests: result.length,
-        };
-      });
-
-    res.send(scores);
+    res.send(results);
   } catch (error) {
     return res.status(400).send({ message: 'Something went wrong, sorry' });
   }
@@ -112,38 +104,6 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
         tests: student.tests.length,
       };
     });
-
-    // const tests = await Test.findAll({
-    //   where: { subjectId: id },
-    //   attributes: ['answer1', 'answer2', 'answer3', 'studentId'],
-    // });
-
-    // const results = tests.map((test) => {
-    //   return {
-    //     studentId: test.studentId,
-    //     result: test.answer1 + test.answer2 + test.answer3,
-    //   };
-    // });
-
-    // const scores = students
-    //   .map((student) => {
-    //     return {
-    //       studentId: student.id,
-    //       result: results
-    //         .filter((result) => result.studentId === student.dataValues.id)
-    //         .map((test) => test.result),
-    //     };
-    //   })
-    //   .map(({ studentId, result }) => {
-    //     return {
-    //       studentId: studentId,
-    //       score: Math.round(
-    //         (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
-    //       ),
-    //       tests: result.length,
-    //     };
-    //   });
-
     res.send(results);
   } catch (error) {
     return res.status(400).send({ message: 'Something went wrong, sorry' });
