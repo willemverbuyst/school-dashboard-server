@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio, Form } from 'antd';
+import { Radio, Form, Row, Col } from 'antd';
 
 export default function MultipleChoiceQuestion({
   text,
@@ -15,22 +15,28 @@ export default function MultipleChoiceQuestion({
 
   return (
     <>
-      {text}
-      <Form.Item>
-        <Radio.Group onChange={(e) => onPick(e.target)}>
-          {answers.map(({ text, id, questionId }, i) => (
-            <Radio
-              key={i}
-              style={radioStyle}
-              value={id}
-              questionId={questionId}
-              questionNumber={questionNumber}
-            >
-              {text}
-            </Radio>
-          ))}
-        </Radio.Group>
-      </Form.Item>
+      <Row>
+        <Col>{text}</Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Item>
+            <Radio.Group onChange={(e) => onPick(e.target)}>
+              {answers.map(({ text, id, questionId }, i) => (
+                <Radio
+                  key={i}
+                  style={radioStyle}
+                  value={id}
+                  questionId={questionId}
+                  questionNumber={questionNumber}
+                >
+                  {text}
+                </Radio>
+              ))}
+            </Radio.Group>
+          </Form.Item>
+        </Col>
+      </Row>
     </>
   );
 }
