@@ -18,7 +18,6 @@ import TeacherSubjectDetails from './pages/teacher/TeacherSubjectDetails';
 import AddQuestionForm from './pages/teacher/AddQuestionForm';
 import ListOfQuestions from './pages/teacher/ListOfQuestions';
 import { selectAppLoading } from './store/appState/selectors';
-import { selectTeacherToken } from './store/teacher/selectors';
 import { getStudentWithStoredToken } from './store/student/actions';
 import { getTeacherWithStoredToken } from './store/teacher/actions';
 
@@ -27,15 +26,11 @@ import './App.css';
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
-  const teacherToken = useSelector(selectTeacherToken);
 
   useEffect(() => {
-    if (teacherToken) {
-      dispatch(getTeacherWithStoredToken());
-    } else {
-      dispatch(getStudentWithStoredToken());
-    }
-  }, [dispatch, teacherToken]);
+    dispatch(getTeacherWithStoredToken());
+    dispatch(getStudentWithStoredToken());
+  }, [dispatch]);
 
   return (
     <div>
