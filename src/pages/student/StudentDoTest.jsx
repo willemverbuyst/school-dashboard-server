@@ -96,6 +96,47 @@ export default function StudentDoTest() {
             questionNumber={i + 1}
           />
         ))}
+        {!testDone ? (
+          <Button
+            style={{
+              width: 160,
+              backgroundColor: '#B81D9D',
+              border: 'none',
+              color: '#fff',
+            }}
+            onClick={onFinish}
+          >
+            Finish
+          </Button>
+        ) : null}
+        {testDone ? (
+          <>
+            <p>{'You want to take another test?'.toUpperCase()}</p>
+            <Button
+              style={{
+                width: 160,
+                backgroundColor: '#4BC0E7',
+                border: 'none',
+                color: '#fff',
+                marginRight: 20,
+              }}
+              onClick={doAnotherTest}
+            >
+              yes
+            </Button>
+            <Button
+              style={{
+                width: 160,
+                backgroundColor: '#B81D9D',
+                border: 'none',
+                color: '#fff',
+              }}
+              onClick={goToMain}
+            >
+              no
+            </Button>
+          </>
+        ) : null}
       </>
     );
   };
@@ -105,51 +146,11 @@ export default function StudentDoTest() {
       <Prompt
         when={blockNavigation}
         message="You have not finished you test, are you sure you want to leave?"
+        onCancel={() => console.log('ok')}
       />
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           {questions && subjects ? renderMCQ() : null}
-          {!testDone ? (
-            <Button
-              style={{
-                width: 160,
-                backgroundColor: '#B81D9D',
-                border: 'none',
-                color: '#fff',
-              }}
-              onClick={onFinish}
-            >
-              Finish
-            </Button>
-          ) : null}
-          {testDone ? (
-            <>
-              <p>{'You want to take another test?'.toUpperCase()}</p>
-              <Button
-                style={{
-                  width: 160,
-                  backgroundColor: '#4BC0E7',
-                  border: 'none',
-                  color: '#fff',
-                  marginRight: 20,
-                }}
-                onClick={doAnotherTest}
-              >
-                yes
-              </Button>
-              <Button
-                style={{
-                  width: 160,
-                  backgroundColor: '#B81D9D',
-                  border: 'none',
-                  color: '#fff',
-                }}
-                onClick={goToMain}
-              >
-                no
-              </Button>
-            </>
-          ) : null}
         </Content>
       </Layout>
     </Layout>

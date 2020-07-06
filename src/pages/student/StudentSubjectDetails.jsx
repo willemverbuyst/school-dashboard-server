@@ -76,21 +76,6 @@ export default function StudentSubjectDetails() {
     );
   };
 
-  const renderNoTestsYet = () => {
-    return (
-      <Col>
-        <h2>No results yet.</h2>
-        <Button
-          onClick={() =>
-            goTo(`/students/${studentId}/subjects/${subjectid}/test`)
-          }
-        >
-          Do a test
-        </Button>
-      </Col>
-    );
-  };
-
   const renderTestButton = () => {
     return (
       <Col
@@ -146,9 +131,9 @@ export default function StudentSubjectDetails() {
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           <Row justify="space-around">
-            {subjects && results ? renderAmount() : renderNoTestsYet()}
-            {results ? renderAverage() : null}
-            {renderTestButton()}
+            {subjects && results ? renderAmount() : null}
+            {subjects && results ? renderAverage() : null}
+            {subjects && results ? renderTestButton() : null}
           </Row>
           <Row justify="center">
             {subjects && results ? renderBarChart() : null}
