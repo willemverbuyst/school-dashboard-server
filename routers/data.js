@@ -89,40 +89,62 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
   try {
     const students = await Student.findAll({
       where: { teacherId: req.teacher.id },
+      attributes: ['id'],
+      include: [
+        {
+          model: Test,
+          where: { subjectId: id },
+          attributes: ['answer1', 'answer2', 'answer3'],
+        },
+      ],
     });
 
-    const tests = await Test.findAll({
-      where: { subjectId: id },
-      attributes: ['answer1', 'answer2', 'answer3', 'studentId'],
-    });
-
-    const results = tests.map((test) => {
+    const results = students.map((student) => {
       return {
-        studentId: test.studentId,
-        result: test.answer1 + test.answer2 + test.answer3,
+        studentId: student.id,
+        score: Math.round(
+          (student.tests
+            .map((test) => test.answer1 + test.answer2 + test.answer3)
+            .reduce((a, b) => a + b, 0) /
+            (student.tests.length * 3)) *
+            100
+        ),
+        tests: student.tests.length,
       };
     });
 
-    const scores = students
-      .map((student) => {
-        return {
-          studentId: student.id,
-          result: results
-            .filter((result) => result.studentId === student.dataValues.id)
-            .map((test) => test.result),
-        };
-      })
-      .map(({ studentId, result }) => {
-        return {
-          studentId: studentId,
-          score: Math.round(
-            (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
-          ),
-          tests: result.length,
-        };
-      });
+    // const tests = await Test.findAll({
+    //   where: { subjectId: id },
+    //   attributes: ['answer1', 'answer2', 'answer3', 'studentId'],
+    // });
 
-    res.send(scores);
+    // const results = tests.map((test) => {
+    //   return {
+    //     studentId: test.studentId,
+    //     result: test.answer1 + test.answer2 + test.answer3,
+    //   };
+    // });
+
+    // const scores = students
+    //   .map((student) => {
+    //     return {
+    //       studentId: student.id,
+    //       result: results
+    //         .filter((result) => result.studentId === student.dataValues.id)
+    //         .map((test) => test.result),
+    //     };
+    //   })
+    //   .map(({ studentId, result }) => {
+    //     return {
+    //       studentId: studentId,
+    //       score: Math.round(
+    //         (result.reduce((a, b) => a + b, 0) / (result.length * 3)) * 100
+    //       ),
+    //       tests: result.length,
+    //     };
+    //   });
+
+    res.send(results);
   } catch (error) {
     return res.status(400).send({ message: 'Something went wrong, sorry' });
   }
