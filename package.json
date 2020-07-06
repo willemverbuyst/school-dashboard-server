@@ -4,6 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
+    "dev": "env DELAY=1000 npx nodemon .",
+    "initdev": "npm run migrate && npm run seed",
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "resetDB": "npx sequelize-cli db:migrate:undo:all && npm run initdev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "wv",
@@ -18,5 +24,8 @@
     "pg": "^8.2.1",
     "sequelize": "^6.2.3",
     "sequelize-cli": "^6.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
