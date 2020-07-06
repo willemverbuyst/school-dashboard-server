@@ -88,23 +88,28 @@ export function getMainOverview(id) {
   return async function thunk(dispatch, getState) {
     const token = getState().teacher.token;
     dispatch(appLoading());
-    try {
-      const response = await axios.get(`${apiUrl}/data/teacher/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const results = response.data;
+    const dataMain = getState().overViewTeacher.main;
+    if (dataMain.length < 1) {
+      try {
+        const response = await axios.get(`${apiUrl}/data/teacher/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const results = response.data;
 
-      dispatch(mainFetched(results));
-      dispatch(appDoneLoading());
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.message);
-        dispatch(setMessage('danger', true, error.response.data.message));
-      } else {
-        console.log(error.message);
-        dispatch(setMessage('danger', true, error.message));
+        dispatch(mainFetched(results));
+        dispatch(appDoneLoading());
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response.data.message);
+          dispatch(setMessage('danger', true, error.response.data.message));
+        } else {
+          console.log(error.message);
+          dispatch(setMessage('danger', true, error.message));
+        }
+        dispatch(appDoneLoading());
       }
-      dispatch(appDoneLoading());
     }
+    dispatch(appDoneLoading());
+    return;
   };
 }
