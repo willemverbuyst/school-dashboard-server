@@ -115,7 +115,7 @@ export default function StudentSubjectDetails() {
             fontSize: '1.4rem',
           }}
         >
-          Do a test
+          Take a test
         </Button>
       </Col>
     );

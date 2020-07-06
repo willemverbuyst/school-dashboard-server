@@ -72,7 +72,7 @@ export default function TeacherMainPage() {
           data={data}
           color={color}
           title={
-            'AT WHAT TIME OF THE DAY DO STUDENTS TESTS AND WHAT IS THEIR SCORE'
+            'AT WHAT TIME OF THE DAY STUDENTS TAKE TESTS AND WHAT IS THEIR SCORE'
           }
         />
       </Col>

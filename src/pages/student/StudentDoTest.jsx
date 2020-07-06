@@ -117,7 +117,7 @@ export default function StudentDoTest() {
           ) : null}
           {testDone ? (
             <>
-              <p>{'You want to do another test?'.toUpperCase()}</p>
+              <p>{'You want to take another test?'.toUpperCase()}</p>
               <Button
                 style={{
                   width: 160,
