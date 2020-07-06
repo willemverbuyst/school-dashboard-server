@@ -112,38 +112,42 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
 
 router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
   try {
+    // query to get all tests for scatter-chart
     const students = await Student.findAll({
       where: { teacherId: req.teacher.id },
-    });
-    const subjects = await Subject.findAll();
-
-    const tests = await Test.findAll({
-      attributes: [
-        'answer1',
-        'answer2',
-        'answer3',
-        'studentId',
-        'subjectId',
-        'createdAt',
+      attributes: ['id'],
+      include: [
+        {
+          model: Test,
+          attributes: [
+            'answer1',
+            'answer2',
+            'answer3',
+            'subjectId',
+            'createdAt',
+          ],
+        },
       ],
     });
 
-    const testsFiltered = tests
-      .filter(
-        (test) =>
-          students.map((student) => student.id).indexOf(test.studentId) >= 0
+    const allTests = students
+      .map((student) =>
+        student.tests.map((test) => {
+          return {
+            subjectId: test.subjectId,
+            result: test.answer1 + test.answer2 + test.answer3,
+            at: test.createdAt,
+          };
+        })
       )
-      .map((test) => {
-        return {
-          subjectId: test.subjectId,
-          result: test.answer1 + test.answer2 + test.answer3,
-          at: test.createdAt,
-        };
-      });
+      .flat();
+
+    // query to get average per subject
+    const subjects = await Subject.findAll();
 
     const scores = subjects
       .map((subject) =>
-        testsFiltered.filter((test) => test.subjectId === subject.id)
+        allTests.filter((test) => test.subjectId === subject.id)
       )
       .map((subject) => {
         return {
@@ -157,7 +161,7 @@ router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
         };
       });
 
-    res.send({ tests: testsFiltered, scores });
+    res.send({ tests: allTests, scores });
   } catch (error) {
     return res.status(400).send({ message: 'Something went wrong, sorry' });
   }
