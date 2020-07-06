@@ -145,7 +145,7 @@ export default function StudentDoTest() {
     <Layout>
       <Prompt
         when={blockNavigation}
-        message="You have not finished you test, are you sure you want to leave?"
+        message="You have not finished your test, are you sure you want to leave?"
         onCancel={() => console.log('ok')}
       />
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>

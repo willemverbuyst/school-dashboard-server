@@ -66,13 +66,13 @@ export default function StudentMainPage() {
     const generalScore = Math.round(
       averages.reduce((a, b) => a + b * 1, 0) / averages.length
     );
-    return (
+    return generalScore ? (
       <DoughnutChart
         data={[generalScore, 100 - generalScore]}
         color={['#8F1CB8', '#eee']}
         title={`YOUR HAVE A GENERAL SCORE OF ${generalScore}%`}
       />
-    );
+    ) : null;
   };
 
   const renderAveragePerSubject = (averages) => {

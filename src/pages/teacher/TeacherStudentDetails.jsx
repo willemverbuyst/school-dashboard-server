@@ -45,12 +45,16 @@ export default function TeacherStudentDetails() {
   };
 
   const renderTestsBar = () => {
-    return results.map(({ tests }, i) => (
+    return results.map(({ tests, subjectId }, i) => (
       <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
         <BarChartTest
           data={[tests]}
           color={['#8F1CB8']}
-          labels={[`${tests} tests`]}
+          labels={[
+            `${
+              subjects.find((subject) => subject.id === subjectId).name
+            }: ${tests} tests`,
+          ]}
           title={``}
         />
       </Col>
