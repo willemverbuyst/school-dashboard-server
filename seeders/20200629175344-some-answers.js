@@ -230,14 +230,14 @@ module.exports = {
           questionId: 8,
         },
         {
-          text: '1943',
+          text: '1512',
           correct: true,
           createdAt: new Date(),
           updatedAt: new Date(),
           questionId: 9,
         },
         {
-          text: '1512',
+          text: '1943',
           correct: false,
           createdAt: new Date(),
           updatedAt: new Date(),
