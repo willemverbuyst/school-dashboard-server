@@ -71,16 +71,16 @@ export default function SideBar() {
         </SubMenu>
         <SubMenu key="sub4" icon={<DatabaseOutlined />} title="Questions">
           <Menu.Item
-            key="sub4-1"
-            onClick={() => goTo(`/teachers/${teacherId}/questions/add`)}
-          >
-            Add
-          </Menu.Item>
-          <Menu.Item
             key="sub4-2"
             onClick={() => goTo(`/teachers/${teacherId}/questions/list`)}
           >
             List
+          </Menu.Item>
+          <Menu.Item
+            key="sub4-1"
+            onClick={() => goTo(`/teachers/${teacherId}/questions/add`)}
+          >
+            Add
           </Menu.Item>
         </SubMenu>
       </Menu>

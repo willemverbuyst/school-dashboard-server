@@ -5,7 +5,7 @@ import { fetchAllTeachers } from '../store/schoolInfo/actions';
 import { selectAllTeachers } from '../store/schoolInfo/selectors';
 import { createStudent } from '../store/student/actions';
 import { createTeacher } from '../store/teacher/actions';
-import { Layout, Form, Input, Button, Radio, Select } from 'antd';
+import { Layout, Form, Input, Button, Radio, Select, Row, Col } from 'antd';
 const { Content } = Layout;
 const { Option } = Select;
 
@@ -36,13 +36,13 @@ export default function Signup() {
   const renderExtraInput = () => {
     return status === 1 ? (
       <Form.Item
-        label="Select your teacher"
         name="Teacher"
         rules={[{ required: true, message: 'Please select your teacher!' }]}
       >
         <Select
+          placeholder="Select your teacher"
           value={teacher}
-          style={{ width: 120, marginBottom: 15 }}
+          style={{ width: 350 }}
           onChange={(e) => setTeacher(e)}
         >
           {teachers.map(({ name, id }, i) => (
@@ -55,14 +55,6 @@ export default function Signup() {
     ) : null;
   };
 
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 12 },
-  };
-  const tailLayout = {
-    wrapperCol: { offset: 8, span: 12 },
-  };
-
   return (
     <Layout style={{ padding: '24px', height: '92vh' }}>
       <Content
@@ -71,57 +63,72 @@ export default function Signup() {
           padding: 90,
         }}
       >
-        <Form {...layout} name="basic" initialValues={{ remember: true }}>
-          <Form.Item {...tailLayout}>
-            <Radio.Group
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-            >
-              <Radio value={1}>Student</Radio>
-              <Radio value={2}>Teacher</Radio>
-            </Radio.Group>
-          </Form.Item>
+        <Row justify="center">
+          <Col style={{ width: 350 }}>
+            <Form name="basic" initialValues={{ remember: true }}>
+              <Form.Item>
+                <Radio.Group
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                >
+                  <Radio value={1}>Student</Radio>
+                  <Radio value={2}>Teacher</Radio>
+                </Radio.Group>
+              </Form.Item>
 
-          {teachers ? renderExtraInput() : null}
+              {teachers ? renderExtraInput() : null}
 
-          <Form.Item
-            label="Full name"
-            name="Full name"
-            rules={[
-              { required: true, message: 'Please input your full name!' },
-            ]}
-          >
-            <Input value={name} onChange={(e) => setName(e.target.value)} />
-          </Form.Item>
-          <Form.Item
-            label="Email"
-            name="Email"
-            rules={[{ required: true, message: 'Please input your email!' }]}
-          >
-            <Input value={email} onChange={(e) => setEmail(e.target.value)} />
-          </Form.Item>
+              <Form.Item
+                name="Full name"
+                rules={[
+                  { required: true, message: 'Please input your full name!' },
+                ]}
+              >
+                <Input
+                  placeholder="Full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item
+                name="Email"
+                rules={[
+                  { required: true, message: 'Please input your email!' },
+                ]}
+              >
+                <Input
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  { required: true, message: 'Please input your password!' },
+                ]}
+              >
+                <Input.Password
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Item>
 
-          <Form.Item {...tailLayout}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={() => createUser()}
-            >
-              Signup
-            </Button>
-          </Form.Item>
-        </Form>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={() => createUser()}
+                  style={{ backgroundColor: '#B81D9D', border: 'none' }}
+                >
+                  Signup
+                </Button>
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
       </Content>
     </Layout>
   );

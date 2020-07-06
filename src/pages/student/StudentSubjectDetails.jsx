@@ -11,7 +11,6 @@ import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
 import DoughnutChart from '../../components/charts/DoughnutChart';
-import DoTestButton from '../../components/DoTestButton';
 import { Layout, Button, Row, Col } from 'antd';
 
 const { Content } = Layout;
@@ -46,30 +45,79 @@ export default function StudentSubjectDetails() {
     );
     const color = ['#A026FF', '#eee'];
     return average ? (
-      <DoughnutChart
-        color={color}
-        data={[average, 100 - average]}
-        title={`AVERAGE OF ${average}%`}
-      />
+      <Col style={{ width: 450, paddingBottom: 80 }}>
+        <DoughnutChart
+          color={color}
+          data={[average, 100 - average]}
+          title={`YOUR AVERAGE IS ${average}%`}
+        />
+      </Col>
     ) : null;
   };
 
   const renderAmount = () => {
-    const subject = subjects.find((subject) => subject.id === subjectid * 1)
-      .name;
     return (
-      <>
-        <Row>
-          <h2>{subject.charAt(0).toUpperCase() + subject.slice(1)}</h2>
-        </Row>
-        <Row>You have done</Row>
-        <Row>
-          <span style={{ fontSize: '3.3rem', fontWeight: 'bold' }}>
-            {results.length}
-          </span>
-        </Row>
-        <Row>tests so far</Row>
-      </>
+      <Col
+        style={{
+          width: 300,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingBottom: 80,
+        }}
+      >
+        <div style={{ fontSize: '1.4rem' }}>You have done</div>
+        <div style={{ fontSize: '4rem', fontWeight: 'bold' }}>
+          {results.length}
+        </div>
+        <div style={{ fontSize: '1.4rem' }}>tests so far</div>
+      </Col>
+    );
+  };
+
+  const renderNoTestsYet = () => {
+    return (
+      <Col>
+        <h2>No results yet.</h2>
+        <Button
+          onClick={() =>
+            goTo(`/students/${studentId}/subjects/${subjectid}/test`)
+          }
+        >
+          Do a test
+        </Button>
+      </Col>
+    );
+  };
+
+  const renderTestButton = () => {
+    return (
+      <Col
+        style={{
+          width: 300,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingBottom: 80,
+        }}
+      >
+        <Button
+          shape="circle"
+          onClick={() =>
+            goTo(`/students/${studentId}/subjects/${subjectid}/test`)
+          }
+          style={{
+            height: 120,
+            width: 120,
+            border: '2px solid #B81D9D',
+            color: '#B81D9D',
+            fontSize: '1.4rem',
+          }}
+        >
+          Take a test
+        </Button>
+      </Col>
     );
   };
 
@@ -82,66 +130,28 @@ export default function StudentSubjectDetails() {
     const labels = results.map(({ at }) => moment(at).format('MMM Do YY'));
 
     return color[0] ? (
-      <BarChart
-        data={data}
-        color={color}
-        labels={labels}
-        title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
-      />
+      <Col style={{ width: 650 }}>
+        <BarChart
+          data={data}
+          color={color}
+          labels={labels}
+          title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
+        />
+      </Col>
     ) : null;
-  };
-
-  const renderTestButton = () => {
-    return (
-      <DoTestButton
-        onClick={() =>
-          goTo(`/students/${studentId}/subjects/${subjectid}/test`)
-        }
-        text="Do a test"
-      />
-    );
   };
 
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <Row>
-            <Col span={8}>
-              <div>
-                {subjects && results ? (
-                  renderAmount()
-                ) : (
-                  <>
-                    <h2>No results yet.</h2>
-                    <Row>
-                      <Button
-                        onClick={() =>
-                          goTo(
-                            `/students/${studentId}/subjects/${subjectid}/test`
-                          )
-                        }
-                      >
-                        Do a test
-                      </Button>
-                    </Row>
-                  </>
-                )}
-              </div>
-            </Col>
-            <Col span={8}>
-              <div>{results ? renderAverage() : null}</div>
-            </Col>
-            <Col span={8} justify="center">
-              {renderTestButton()}
-            </Col>
+          <Row justify="space-around">
+            {subjects && results ? renderAmount() : renderNoTestsYet()}
+            {results ? renderAverage() : null}
+            {renderTestButton()}
           </Row>
           <Row justify="center">
-            <Col>
-              <div style={{ width: '50vw', height: '15vh' }}>
-                {subjects && results ? renderBarChart() : null}
-              </div>
-            </Col>
+            {subjects && results ? renderBarChart() : null}
           </Row>
         </Content>
       </Layout>

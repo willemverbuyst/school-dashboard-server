@@ -1,22 +1,21 @@
 import React from 'react';
-import { Scatter } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
-export default function ScatterChart({ data, color, title }) {
+export default function LineChart({ labels, data, color, title, max }) {
   const chartData = {
-    labels: { display: false },
+    labels: labels,
     datasets: [
       {
         label: { display: false },
         data: data,
         backgroundColor: color,
         borderWidth: 0,
-        pointRadius: 5,
       },
     ],
   };
 
   return (
-    <Scatter
+    <Line
       data={chartData}
       options={{
         tooltips: false,
@@ -30,8 +29,10 @@ export default function ScatterChart({ data, color, title }) {
             {
               ticks: {
                 autoSkip: true,
+                maxTicksLimit: 10,
                 beginAtZero: true,
                 stepSize: 1,
+                suggestedMax: max,
               },
               gridLines: {
                 display: false,
@@ -43,8 +44,6 @@ export default function ScatterChart({ data, color, title }) {
               gridLines: {
                 display: false,
               },
-              type: 'time',
-              time: { parser: 'YYYY/MM/DD HH:mm:ss' },
             },
           ],
         },

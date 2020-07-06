@@ -10,7 +10,7 @@ import {
 import { getMcQuestionsForTest, submitTest } from '../../store/test/actions';
 import { select3mcQuestionsForSubject } from '../../store/test/selectors';
 
-import { Layout, Button, Row } from 'antd';
+import { Layout, Button } from 'antd';
 
 const { Content } = Layout;
 
@@ -84,7 +84,6 @@ export default function StudentDoTest() {
   const renderMCQ = () => {
     return (
       <>
-        <Row>This is a test for {getSubjectName()}.</Row>
         {questions.map(({ text, answers }, i) => (
           <MultipleChoiceQuestion
             key={i}
@@ -98,21 +97,50 @@ export default function StudentDoTest() {
     );
   };
 
-  const getSubjectName = () => {
-    return subjects.find((subject) => subject.id === subjectid * 1).name;
-  };
-
   return (
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           {questions && subjects ? renderMCQ() : null}
-          {!testDone ? <Button onClick={onFinish}>Finish</Button> : null}
+          {!testDone ? (
+            <Button
+              style={{
+                width: 160,
+                backgroundColor: '#B81D9D',
+                border: 'none',
+                color: '#fff',
+              }}
+              onClick={onFinish}
+            >
+              Finish
+            </Button>
+          ) : null}
           {testDone ? (
             <>
-              <p>Do another test?</p>
-              <Button onClick={doAnotherTest}>yes</Button>
-              <Button onClick={goToMain}>no</Button>
+              <p>{'You want to take another test?'.toUpperCase()}</p>
+              <Button
+                style={{
+                  width: 160,
+                  backgroundColor: '#4BC0E7',
+                  border: 'none',
+                  color: '#fff',
+                  marginRight: 20,
+                }}
+                onClick={doAnotherTest}
+              >
+                yes
+              </Button>
+              <Button
+                style={{
+                  width: 160,
+                  backgroundColor: '#B81D9D',
+                  border: 'none',
+                  color: '#fff',
+                }}
+                onClick={goToMain}
+              >
+                no
+              </Button>
             </>
           ) : null}
         </Content>

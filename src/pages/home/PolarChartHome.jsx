@@ -9,7 +9,7 @@ export default function PolarChartHome({ labels, color, data }) {
         label: { display: false },
         data: data,
         backgroundColor: color,
-        borderWidth: 0,
+        borderWidth: 4,
       },
     ],
   };
