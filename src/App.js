@@ -17,10 +17,10 @@ import TeacherStudentDetails from './pages/teacher/TeacherStudentDetails';
 import TeacherSubjectDetails from './pages/teacher/TeacherSubjectDetails';
 import AddQuestionForm from './pages/teacher/AddQuestionForm';
 import ListOfQuestions from './pages/teacher/ListOfQuestions';
+import AddSubject from './pages/teacher/AddSubject';
 import { selectAppLoading } from './store/appState/selectors';
 import { getStudentWithStoredToken } from './store/student/actions';
 import { getTeacherWithStoredToken } from './store/teacher/actions';
-
 import './App.css';
 
 function App() {
@@ -82,6 +82,11 @@ function App() {
             exact
             path="/teachers/:teacherid/questions/list"
             component={ListOfQuestions}
+          />
+          <Route
+            exact
+            path="/teachers/:teacherid/subject/add"
+            component={AddSubject}
           />
         </Switch>
       </Layout>

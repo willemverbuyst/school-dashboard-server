@@ -80,7 +80,13 @@ export default function SideBar() {
             key="sub4-1"
             onClick={() => goTo(`/teachers/${teacherId}/questions/add`)}
           >
-            Add
+            Add Question
+          </Menu.Item>
+          <Menu.Item
+            key="sub4-3"
+            onClick={() => goTo(`/teachers/${teacherId}/subject/add`)}
+          >
+            Add Subject
           </Menu.Item>
         </SubMenu>
       </Menu>
