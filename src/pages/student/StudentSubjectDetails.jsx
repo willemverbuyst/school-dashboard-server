@@ -136,7 +136,7 @@ export default function StudentSubjectDetails() {
               Scores Low to High
             </Radio.Button>
             <Radio.Button style={{ marginRight: 5 }} value="highestFirst">
-              Scores Low to High
+              Scores High to Low
             </Radio.Button>
           </Radio.Group>
         </Row>
