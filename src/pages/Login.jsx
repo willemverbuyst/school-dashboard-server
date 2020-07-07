@@ -6,6 +6,7 @@ import { selectTeacherId } from '../store/teacher/selectors';
 import { loginStudent } from '../store/student/actions';
 import { loginTeacher } from '../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio, Row, Col } from 'antd';
+
 const { Content } = Layout;
 
 export default function Login() {

@@ -7,6 +7,7 @@ import BarChartHome from './BarChartHome';
 import LineChartHome from './LineChartHome';
 import PolarChartHome from './PolarChartHome';
 import { Layout, Row, Col } from 'antd';
+
 const { Content } = Layout;
 
 export default function Home() {

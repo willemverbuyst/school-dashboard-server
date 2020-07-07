@@ -3,7 +3,6 @@ import { useParams, useHistory } from 'react-router-dom';
 import NavigationPrompt from 'react-router-navigation-prompt';
 import { useDispatch, useSelector } from 'react-redux';
 import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
-
 import {
   selectStudentId,
   selectStudentSubjects,
@@ -11,7 +10,6 @@ import {
 } from '../../store/student/selectors';
 import { getMcQuestionsForTest, submitTest } from '../../store/test/actions';
 import { select3mcQuestionsForSubject } from '../../store/test/selectors';
-
 import { Layout, Button, Modal } from 'antd';
 
 const { Content } = Layout;
@@ -85,8 +83,6 @@ export default function StudentDoTest() {
       e.value === 1 || e.value % 4 === 1 ? setAnswer3(1) : setAnswer3(0);
     }
   };
-
-  // history.block(() => 'try to leave');
 
   const renderMCQ = () => {
     return (
