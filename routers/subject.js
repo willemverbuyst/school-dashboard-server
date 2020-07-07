@@ -16,7 +16,9 @@ router.post('/', teacherAuthMiddleware, async (req, res, next) => {
       name: subject,
     });
 
-    res.status(201).send({ message: 'You have added a new subject.' });
+    res
+      .status(201)
+      .send({ newSubject, message: 'You have added a new subject.' });
   } catch (error) {
     next(error);
   }
