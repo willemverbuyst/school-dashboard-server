@@ -20,6 +20,7 @@ export default function TeacherSubjectDetails() {
   const results = useSelector(selectSubjectOverview);
   const students = useSelector(selectTeacherStudents);
   const [selectionAverage, setSelectionAverage] = useState('name');
+  const [selectionTests, setSelectionTests] = useState('name');
 
   useEffect(() => {
     if (token === null) {
@@ -32,36 +33,29 @@ export default function TeacherSubjectDetails() {
   }, [dispatch, subjectid]);
 
   const renderCharts = () => {
-    if (selectionAverage === 'name') {
-      console.log('sort by name');
-      return [...results]
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map(({ score, name }, i) => (
-          <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
-            <DoughnutChart
-              data={[score, 100 - score]}
-              color={['#008080', '#eee']}
-              title={`${name} ${score}%`}
-            />
-          </Col>
-        ));
-    } else {
-      return [...results]
-        .sort((a, b) => b.score - a.score)
-        .map(({ score, name }, i) => (
-          <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
-            <DoughnutChart
-              data={[score, 100 - score]}
-              color={['#008080', '#eee']}
-              title={`${name} ${score}%`}
-            />
-          </Col>
-        ));
-    }
+    const sortedResults =
+      selectionAverage === 'name'
+        ? [...results].sort((a, b) => a.name.localeCompare(b.name))
+        : [...results].sort((a, b) => b.score - a.score);
+
+    return sortedResults.map(({ score, name }, i) => (
+      <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
+        <DoughnutChart
+          data={[score, 100 - score]}
+          color={['#008080', '#eee']}
+          title={`${name} ${score}%`}
+        />
+      </Col>
+    ));
   };
 
   const renderTestsBar = () => {
-    return results.map(({ tests, name }, i) => (
+    const sortedResults =
+      selectionTests === 'name'
+        ? [...results].sort((a, b) => a.name.localeCompare(b.name))
+        : [...results].sort((a, b) => b.tests - a.tests);
+
+    return sortedResults.map(({ tests, name }, i) => (
       <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
         <BarChartTest
           data={[tests]}
@@ -94,7 +88,18 @@ export default function TeacherSubjectDetails() {
           <Row justify={'space-around'}>
             {results && students ? renderCharts() : null}
           </Row>
-          <Row style={{ paddingBottom: 35 }}>TESTS DONE</Row>
+          <Row style={{ paddingBottom: 35 }}>
+            TESTS DONE{' '}
+            <Radio.Group
+              size="small"
+              onChange={(e) => setSelectionTests(e.target.value)}
+              defaultValue="name"
+              style={{ marginLeft: 40 }}
+            >
+              <Radio.Button value="name">Name</Radio.Button>
+              <Radio.Button value="amount">Amount of Tests</Radio.Button>
+            </Radio.Group>
+          </Row>
           <Row justify={'space-around'}>
             {results && students ? renderTestsBar() : null}
           </Row>
