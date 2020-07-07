@@ -11,7 +11,7 @@ import {
   selectTeacherToken,
 } from '../../store/teacher/selectors';
 
-import { Layout, Row, Col, Radio } from 'antd';
+import { Layout, Row, Col } from 'antd';
 
 const { Content } = Layout;
 
@@ -96,6 +96,8 @@ export default function TeacherSubjectDetails() {
               results={results}
               selectStudentAverage={selectStudentAverage}
               onClick={() => setSelectStudentAverage('')}
+              placeholder="Select a student"
+              textBtn="All students"
             />
           ) : null}
           <Row justify={'space-around'}>
@@ -112,6 +114,8 @@ export default function TeacherSubjectDetails() {
               results={results}
               selectStudentAverage={selectStudentTests}
               onClick={() => setSelectStudentTests('')}
+              placeholder="Select a student"
+              textBtn="All students"
             />
           ) : null}
           <Row justify={'space-around'}>
