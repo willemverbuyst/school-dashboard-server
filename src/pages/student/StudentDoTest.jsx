@@ -152,9 +152,9 @@ export default function StudentDoTest() {
               question1,
               question2,
               question3,
-              answer1,
-              answer2,
-              answer3
+              0,
+              0,
+              0
             )
           );
           clb();
