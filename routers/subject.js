@@ -4,7 +4,7 @@ const Subject = require('../models').subject;
 
 const router = new Router();
 
-// TEACHER post a new question for a subject
+// TEACHER post a new subject
 router.post('/', teacherAuthMiddleware, async (req, res, next) => {
   const { subject } = req.body;
 
