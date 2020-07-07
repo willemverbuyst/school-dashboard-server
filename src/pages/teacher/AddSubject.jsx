@@ -5,11 +5,10 @@ import {
   selectTeacherToken,
   selectTeacherId,
 } from '../../store/teacher/selectors';
-// import { createSubject } from '../../store/questions/actions';
-import { Layout, Form, Input, Button, Select, Row, Col } from 'antd';
+import { createSubject } from '../../store/teacher/actions';
+import { Layout, Form, Input, Button, Row, Col } from 'antd';
 
 const { Content } = Layout;
-const { Option } = Select;
 
 export default function AddSubject() {
   const history = useHistory();
@@ -25,11 +24,8 @@ export default function AddSubject() {
   });
 
   const addSubject = () => {
-    console.log(subject);
-    // dispatch(
-    //   createSubject(subject)
-    // );
-    // history.push(`/teachers/${teacherId}/questions/list`);
+    dispatch(createSubject(subject));
+    history.push(`/teachers/${teacherId}/`);
   };
 
   return (

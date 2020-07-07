@@ -114,3 +114,30 @@ export const createTeacher = (isStudent, name, email, password) => {
     }
   };
 };
+
+export function createSubject(subject) {
+  return async function thunk(dispatch, getState) {
+    const token = getState().teacher.token;
+    dispatch(appLoading());
+    try {
+      const response = await axios.post(
+        `${apiUrl}/subject`,
+        {
+          subject,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      dispatch(showMessageWithTimeout('success', true, response.data.message));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage('danger', true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage('danger', true, error.message));
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+}
