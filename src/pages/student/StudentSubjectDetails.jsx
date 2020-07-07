@@ -127,7 +127,17 @@ export default function StudentSubjectDetails() {
 
     return color[0] ? (
       <>
-        <Row style={{ paddingBottom: 15 }}>
+        <Row justify="center">
+          <Col style={{ width: 650 }}>
+            <BarChart
+              data={data}
+              color={color}
+              labels={labels}
+              title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
+            />
+          </Col>
+        </Row>
+        <Row style={{ paddingTop: 15 }} justify="center">
           <Radio.Group size="small" onChange={(e) => setRadio(e.target.value)}>
             <Radio.Button style={{ marginRight: 5 }} value="date">
               Scores by data
@@ -139,16 +149,6 @@ export default function StudentSubjectDetails() {
               Scores High to Low
             </Radio.Button>
           </Radio.Group>
-        </Row>
-        <Row justify="center">
-          <Col style={{ width: 650 }}>
-            <BarChart
-              data={data}
-              color={color}
-              labels={labels}
-              title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
-            />
-          </Col>
         </Row>
       </>
     ) : null;
