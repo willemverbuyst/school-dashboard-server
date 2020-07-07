@@ -9,8 +9,10 @@ import {
 } from '../../store/teacher/selectors';
 import DoughnutChart from '../../components/charts/DoughnutChart';
 import BarChartTest from '../../components/charts/BarChartTest';
-import { Layout, Row, Col, Radio } from 'antd';
+import { Layout, Row, Col, Radio, Select, Button } from 'antd';
+
 const { Content } = Layout;
+const { Option } = Select;
 
 export default function TeacherSubjectDetails() {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ export default function TeacherSubjectDetails() {
   const students = useSelector(selectTeacherStudents);
   const [selectionAverage, setSelectionAverage] = useState('name');
   const [selectionTests, setSelectionTests] = useState('name');
+  const [selectStudentAverage, setSelectStudentAverage] = useState('');
 
   useEffect(() => {
     if (token === null) {
@@ -37,8 +40,11 @@ export default function TeacherSubjectDetails() {
       selectionAverage === 'name'
         ? [...results].sort((a, b) => a.name.localeCompare(b.name))
         : [...results].sort((a, b) => b.score - a.score);
+    const filteredResults = selectStudentAverage
+      ? sortedResults.filter((result) => result.name === selectStudentAverage)
+      : sortedResults;
 
-    return sortedResults.map(({ score, name }, i) => (
+    return filteredResults.map(({ score, name }, i) => (
       <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
         <DoughnutChart
           data={[score, 100 - score]}
@@ -83,6 +89,26 @@ export default function TeacherSubjectDetails() {
               <Radio.Button value="name">Name</Radio.Button>
               <Radio.Button value="average">Average</Radio.Button>
             </Radio.Group>
+            {results ? (
+              <Select
+                size="small"
+                style={{ width: 160 }}
+                placeholder="Select a student"
+                value={selectStudentAverage || undefined}
+                onChange={(e) => setSelectStudentAverage(e)}
+              >
+                {results.map(({ name }, i) => (
+                  <Option key={i} value={name}>
+                    {name}
+                  </Option>
+                ))}
+              </Select>
+            ) : null}
+            {selectStudentAverage ? (
+              <Button size="small" onClick={() => setSelectStudentAverage('')}>
+                All students
+              </Button>
+            ) : null}
           </Row>
 
           <Row justify={'space-around'}>
