@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
@@ -11,7 +11,7 @@ import { getResultsForSubject } from '../../store/testResults/actions';
 import { selectResultsForSubject } from '../../store/testResults/selectors';
 import BarChart from '../../components/charts/BarChart';
 import DoughnutChart from '../../components/charts/DoughnutChart';
-import { Layout, Button, Row, Col } from 'antd';
+import { Layout, Button, Row, Col, Radio } from 'antd';
 
 const { Content } = Layout;
 
@@ -23,6 +23,7 @@ export default function StudentSubjectDetails() {
   const studentId = useSelector(selectStudentId);
   const results = useSelector(selectResultsForSubject);
   const subjects = useSelector(selectStudentSubjects);
+  const [radio, setRadio] = useState('date');
 
   useEffect(() => {
     if (token === null) {
@@ -45,7 +46,7 @@ export default function StudentSubjectDetails() {
     );
     const color = ['#A026FF', '#eee'];
     return average ? (
-      <Col style={{ width: 450, paddingBottom: 80 }}>
+      <Col style={{ width: 450, paddingBottom: 60 }}>
         <DoughnutChart
           color={color}
           data={[average, 100 - average]}
@@ -64,7 +65,7 @@ export default function StudentSubjectDetails() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          paddingBottom: 80,
+          paddingBottom: 60,
         }}
       >
         <div style={{ fontSize: '1.4rem' }}>You have done</div>
@@ -84,7 +85,7 @@ export default function StudentSubjectDetails() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          paddingBottom: 80,
+          paddingBottom: 60,
         }}
       >
         <Button
@@ -109,20 +110,47 @@ export default function StudentSubjectDetails() {
   const renderBarChart = () => {
     const subject = subjects.find((subject) => subject.id === subjectid * 1)
       .name;
-    const data = results.map(({ result }) => result);
+
+    const sortedData =
+      radio === 'date'
+        ? results.sort((a, b) => new Date(a.at) - new Date(b.at))
+        : radio === 'lowestFirst'
+        ? results.sort((a, b) => a.result - b.result)
+        : radio === 'highestFirst'
+        ? results.sort((a, b) => b.result - a.result)
+        : results;
+
+    const data = sortedData.map(({ result }) => result);
     const color = [];
     for (let i = 0; i < results.length; i++) color.push('rgb(255, 99, 132)');
     const labels = results.map(({ at }) => moment(at).format('MMM Do YY'));
 
     return color[0] ? (
-      <Col style={{ width: 650 }}>
-        <BarChart
-          data={data}
-          color={color}
-          labels={labels}
-          title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
-        />
-      </Col>
+      <>
+        <Row style={{ paddingBottom: 15 }}>
+          <Radio.Group size="small" onChange={(e) => setRadio(e.target.value)}>
+            <Radio.Button style={{ marginRight: 5 }} value="date">
+              Scores by data
+            </Radio.Button>
+            <Radio.Button style={{ marginRight: 5 }} value="lowestFirst">
+              Scores Low to High
+            </Radio.Button>
+            <Radio.Button style={{ marginRight: 5 }} value="highestFirst">
+              Scores Low to High
+            </Radio.Button>
+          </Radio.Group>
+        </Row>
+        <Row justify="center">
+          <Col style={{ width: 650 }}>
+            <BarChart
+              data={data}
+              color={color}
+              labels={labels}
+              title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
+            />
+          </Col>
+        </Row>
+      </>
     ) : null;
   };
 
@@ -135,9 +163,7 @@ export default function StudentSubjectDetails() {
             {subjects && results ? renderAverage() : null}
             {subjects && results ? renderTestButton() : null}
           </Row>
-          <Row justify="center">
-            {subjects && results ? renderBarChart() : null}
-          </Row>
+          {subjects && results ? renderBarChart() : null}
         </Content>
       </Layout>
     </Layout>

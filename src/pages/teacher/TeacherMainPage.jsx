@@ -55,7 +55,7 @@ export default function TeacherMainPage() {
         />
       </Col>
     ) : (
-      <p>YOU HAVE NO DATA TO DISPLAY YET</p>
+      <p>YOU DON'T HAVE ENOUGH DATA YET TO DISPLAY AVERAGE</p>
     );
   };
 
@@ -110,7 +110,7 @@ export default function TeacherMainPage() {
       }, {});
     const data = Object.values(reducedTests);
 
-    return data[0] ? (
+    return !data[0] ? null : data.length > 3 ? (
       <Col style={{ width: 450, paddingBottom: 80 }}>
         <PieChart
           data={data}
@@ -119,7 +119,9 @@ export default function TeacherMainPage() {
           labels={['0/3', '1/3', '2/3', '3/3']}
         />
       </Col>
-    ) : null;
+    ) : (
+      <p>YOU DON'T HAVE ENOUGH DATA YET TO DISPLAY TEST RATIO</p>
+    );
   };
 
   return (
