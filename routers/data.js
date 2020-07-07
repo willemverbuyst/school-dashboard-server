@@ -7,6 +7,7 @@ const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
 
 const router = new Router();
 
+// STUDENT info for main page
 router.get('/main', studentAuthMiddleware, async (req, res, next) => {
   const studentId = req.student.id;
 
@@ -27,6 +28,7 @@ router.get('/main', studentAuthMiddleware, async (req, res, next) => {
   }
 });
 
+// STUDENT info for one subject
 router.get('/:id', studentAuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
   const studentId = req.student.id;
@@ -42,12 +44,12 @@ router.get('/:id', studentAuthMiddleware, async (req, res, next) => {
   }
 });
 
-// DATA FOR TEACHER
+// TEACHER data per student
 router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
   try {
     const subjects = await Subject.findAll({
-      attributes: ['id'],
+      attributes: ['id', 'name'],
       include: [
         {
           model: Test,
@@ -60,6 +62,7 @@ router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
     const results = subjects.map((subject) => {
       return {
         subjectId: subject.id,
+        name: subject.name,
         score: Math.round(
           (subject.tests
             .map((test) => test.answer1 + test.answer2 + test.answer3)
@@ -76,12 +79,13 @@ router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
   }
 });
 
+// TEACHER data per subject
 router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
   const { id } = req.params;
   try {
     const students = await Student.findAll({
       where: { teacherId: req.teacher.id },
-      attributes: ['id'],
+      attributes: ['id', 'name'],
       include: [
         {
           model: Test,
@@ -94,6 +98,7 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
     const results = students.map((student) => {
       return {
         studentId: student.id,
+        name: student.name,
         score: Math.round(
           (student.tests
             .map((test) => test.answer1 + test.answer2 + test.answer3)
@@ -110,6 +115,7 @@ router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
   }
 });
 
+// TEACHER data for main page
 router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
   try {
     // query to get all tests for scatter-chart
