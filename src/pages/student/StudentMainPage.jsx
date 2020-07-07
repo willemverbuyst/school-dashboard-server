@@ -72,7 +72,9 @@ export default function StudentMainPage() {
         color={['#8F1CB8', '#eee']}
         title={`YOUR HAVE A GENERAL SCORE OF ${generalScore}%`}
       />
-    ) : null;
+    ) : (
+      <p>YOU DON'T HAVE ENOUGH DATA YET TO DISPLAY AVERAGE</p>
+    );
   };
 
   const renderAveragePerSubject = (averages) => {

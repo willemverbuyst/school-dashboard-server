@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import DoughnutChart from '../../components/charts/DoughnutChart';
+import BarChartTest from '../../components/charts/BarChartTest';
+import SortAndSelect from '../../components/SortAndSelect';
 import { getSubjectForOverview } from '../../store/overviewTeacher/actions';
 import { selectSubjectOverview } from '../../store/overviewTeacher/selectors';
 import {
   selectTeacherStudents,
   selectTeacherToken,
 } from '../../store/teacher/selectors';
-import DoughnutChart from '../../components/charts/DoughnutChart';
-import BarChartTest from '../../components/charts/BarChartTest';
+
 import { Layout, Row, Col } from 'antd';
+
 const { Content } = Layout;
 
 export default function TeacherSubjectDetails() {
@@ -19,6 +22,10 @@ export default function TeacherSubjectDetails() {
   const { subjectid } = useParams();
   const results = useSelector(selectSubjectOverview);
   const students = useSelector(selectTeacherStudents);
+  const [selectionAverage, setSelectionAverage] = useState('name');
+  const [selectionTests, setSelectionTests] = useState('name');
+  const [selectStudentAverage, setSelectStudentAverage] = useState('');
+  const [selectStudentTests, setSelectStudentTests] = useState('');
 
   useEffect(() => {
     if (token === null) {
@@ -31,31 +38,42 @@ export default function TeacherSubjectDetails() {
   }, [dispatch, subjectid]);
 
   const renderCharts = () => {
-    return results.map(({ score, studentId }, i) => (
+    const sortedResults =
+      selectionAverage === 'name'
+        ? [...results].sort((a, b) => a.name.localeCompare(b.name))
+        : [...results].sort((a, b) => b.score - a.score);
+
+    const filteredResults = selectStudentAverage
+      ? sortedResults.filter((result) => result.name === selectStudentAverage)
+      : sortedResults;
+
+    return filteredResults.map(({ score, name }, i) => (
       <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
         <DoughnutChart
           data={[score, 100 - score]}
           color={['#008080', '#eee']}
-          title={`${
-            students.find((student) => student.id === studentId).name
-          } ${score}%`}
+          title={`${name} ${score}%`}
         />
       </Col>
     ));
   };
 
   const renderTestsBar = () => {
-    console.log(students);
-    return results.map(({ tests, studentId }, i) => (
+    const sortedResults =
+      selectionTests === 'name'
+        ? [...results].sort((a, b) => a.name.localeCompare(b.name))
+        : [...results].sort((a, b) => b.tests - a.tests);
+
+    const filteredResults = selectStudentTests
+      ? sortedResults.filter((result) => result.name === selectStudentTests)
+      : sortedResults;
+
+    return filteredResults.map(({ tests, name }, i) => (
       <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
         <BarChartTest
           data={[tests]}
           color={['#008080']}
-          labels={[
-            `${
-              students.find((student) => student.id === studentId).name
-            }: ${tests} tests`,
-          ]}
+          labels={[`${name}: ${tests} tests`]}
           title={''}
           max={20}
         />
@@ -67,11 +85,39 @@ export default function TeacherSubjectDetails() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <Row style={{ paddingBottom: 35 }}>AVERAGE GRADES</Row>
+          {results ? (
+            <SortAndSelect
+              title="AVERAGE GRADES"
+              radio1="Name"
+              radio2="Average"
+              onChangeRadio={setSelectionAverage}
+              value={selectStudentAverage || undefined}
+              onChangeSelection={setSelectStudentAverage}
+              results={results}
+              selectStudentData={selectStudentAverage}
+              onClick={() => setSelectStudentAverage('')}
+              placeholder="Select a student"
+              textBtn="All students"
+            />
+          ) : null}
           <Row justify={'space-around'}>
             {results && students ? renderCharts() : null}
           </Row>
-          <Row style={{ paddingBottom: 35 }}>TESTS DONE</Row>
+          {results ? (
+            <SortAndSelect
+              title="TESTS DONE"
+              radio1="Name"
+              radio2="Amount"
+              onChangeRadio={setSelectionTests}
+              value={selectStudentTests || undefined}
+              onChangeSelection={setSelectStudentTests}
+              results={results}
+              selectStudentData={selectStudentTests}
+              onClick={() => setSelectStudentTests('')}
+              placeholder="Select a student"
+              textBtn="All students"
+            />
+          ) : null}
           <Row justify={'space-around'}>
             {results && students ? renderTestsBar() : null}
           </Row>
