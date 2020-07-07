@@ -7,6 +7,7 @@ const schoolRouter = require('./routers/general');
 const authRouter = require('./routers/auth');
 const questionsRouter = require('./routers/questions');
 const dataRouter = require('./routers/data');
+const subjectRouter = require('./routers/subject');
 
 const app = express();
 app.use(loggerMiddleWare('dev'));
@@ -26,6 +27,7 @@ app.use('/', authRouter);
 app.use('/school', schoolRouter);
 app.use('/questions', questionsRouter);
 app.use('/data', dataRouter);
+app.use('/subject', subjectRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
