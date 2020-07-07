@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSubjectForOverview } from '../../store/overviewTeacher/actions';
@@ -9,7 +9,7 @@ import {
 } from '../../store/teacher/selectors';
 import DoughnutChart from '../../components/charts/DoughnutChart';
 import BarChartTest from '../../components/charts/BarChartTest';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, Radio } from 'antd';
 const { Content } = Layout;
 
 export default function TeacherSubjectDetails() {
@@ -19,6 +19,7 @@ export default function TeacherSubjectDetails() {
   const { subjectid } = useParams();
   const results = useSelector(selectSubjectOverview);
   const students = useSelector(selectTeacherStudents);
+  const [selectionAverage, setSelectionAverage] = useState('name');
 
   useEffect(() => {
     if (token === null) {
@@ -31,31 +32,41 @@ export default function TeacherSubjectDetails() {
   }, [dispatch, subjectid]);
 
   const renderCharts = () => {
-    return results.map(({ score, studentId }, i) => (
-      <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
-        <DoughnutChart
-          data={[score, 100 - score]}
-          color={['#008080', '#eee']}
-          title={`${
-            students.find((student) => student.id === studentId).name
-          } ${score}%`}
-        />
-      </Col>
-    ));
+    if (selectionAverage === 'name') {
+      console.log('sort by name');
+      return [...results]
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(({ score, name }, i) => (
+          <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
+            <DoughnutChart
+              data={[score, 100 - score]}
+              color={['#008080', '#eee']}
+              title={`${name} ${score}%`}
+            />
+          </Col>
+        ));
+    } else {
+      return [...results]
+        .sort((a, b) => b.score - a.score)
+        .map(({ score, name }, i) => (
+          <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
+            <DoughnutChart
+              data={[score, 100 - score]}
+              color={['#008080', '#eee']}
+              title={`${name} ${score}%`}
+            />
+          </Col>
+        ));
+    }
   };
 
   const renderTestsBar = () => {
-    console.log(students);
-    return results.map(({ tests, studentId }, i) => (
+    return results.map(({ tests, name }, i) => (
       <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
         <BarChartTest
           data={[tests]}
           color={['#008080']}
-          labels={[
-            `${
-              students.find((student) => student.id === studentId).name
-            }: ${tests} tests`,
-          ]}
+          labels={[`${name}: ${tests} tests`]}
           title={''}
           max={20}
         />
@@ -67,7 +78,19 @@ export default function TeacherSubjectDetails() {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <Row style={{ paddingBottom: 35 }}>AVERAGE GRADES</Row>
+          <Row style={{ paddingBottom: 35 }}>
+            AVERAGE GRADES
+            <Radio.Group
+              size="small"
+              onChange={(e) => setSelectionAverage(e.target.value)}
+              defaultValue="name"
+              style={{ marginLeft: 40 }}
+            >
+              <Radio.Button value="name">Name</Radio.Button>
+              <Radio.Button value="average">Average</Radio.Button>
+            </Radio.Group>
+          </Row>
+
           <Row justify={'space-around'}>
             {results && students ? renderCharts() : null}
           </Row>
