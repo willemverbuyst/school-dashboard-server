@@ -13,6 +13,7 @@ import { removeListOfQuestions } from '../questions/actions';
 export const LOGIN_SUCCESS_TEACHER = 'LOGIN_SUCCESS_TEACHER';
 export const TOKEN_STILL_VALID_TEACHER = 'TOKEN_STILL_VALID_TEACHER';
 export const LOG_OUT_TEACHER = 'LOG_OUT_TEACHER';
+export const ADD_SUBJECT = 'ADD_SUBJECT';
 
 const loginSuccessTeacher = (teacherWithToken) => {
   return {
@@ -24,6 +25,11 @@ const loginSuccessTeacher = (teacherWithToken) => {
 const tokenStillValid = (teacherWithoutToken) => ({
   type: TOKEN_STILL_VALID_TEACHER,
   payload: teacherWithoutToken,
+});
+
+const addSubject = (subject) => ({
+  type: ADD_SUBJECT,
+  payload: subject,
 });
 
 export const logOutTeacher = () => ({ type: LOG_OUT_TEACHER });
@@ -127,6 +133,7 @@ export function createSubject(subject) {
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      dispatch(addSubject(response.data.newSubject));
       dispatch(showMessageWithTimeout('success', true, response.data.message));
       dispatch(appDoneLoading());
     } catch (error) {

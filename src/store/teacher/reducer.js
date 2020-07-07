@@ -2,6 +2,7 @@ import {
   LOG_OUT_TEACHER,
   LOGIN_SUCCESS_TEACHER,
   TOKEN_STILL_VALID_TEACHER,
+  ADD_SUBJECT,
 } from './actions';
 
 const initialState = {
@@ -23,6 +24,10 @@ export default (state = initialState, action) => {
 
     case TOKEN_STILL_VALID_TEACHER:
       return { ...state, ...action.payload };
+
+    case ADD_SUBJECT:
+      console.log(action.payload);
+      return { ...state, subjects: [...state.subjects, action.payload] };
 
     default:
       return state;
