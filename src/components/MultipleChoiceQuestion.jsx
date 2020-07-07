@@ -7,12 +7,6 @@ export default function MultipleChoiceQuestion({
   onPick,
   questionNumber,
 }) {
-  const radioStyle = {
-    display: 'block',
-    height: '30px',
-    lineHeight: '30px',
-  };
-
   return (
     <>
       <Row>
@@ -25,7 +19,11 @@ export default function MultipleChoiceQuestion({
               {answers.map(({ text, id, questionId }, i) => (
                 <Radio
                   key={i}
-                  style={radioStyle}
+                  style={{
+                    display: 'block',
+                    height: '30px',
+                    lineHeight: '30px',
+                  }}
                   value={id}
                   questionId={questionId}
                   questionNumber={questionNumber}

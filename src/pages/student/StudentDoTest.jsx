@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory, Prompt } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import NavigationPrompt from 'react-router-navigation-prompt';
 import { useDispatch, useSelector } from 'react-redux';
 import MultipleChoiceQuestion from '../../components/MultipleChoiceQuestion';
 import {
@@ -9,8 +10,7 @@ import {
 } from '../../store/student/selectors';
 import { getMcQuestionsForTest, submitTest } from '../../store/test/actions';
 import { select3mcQuestionsForSubject } from '../../store/test/selectors';
-
-import { Layout, Button } from 'antd';
+import { Layout, Button, Modal } from 'antd';
 
 const { Content } = Layout;
 
@@ -143,11 +143,38 @@ export default function StudentDoTest() {
 
   return (
     <Layout>
-      <Prompt
+      <NavigationPrompt
+        beforeConfirm={(clb) => {
+          dispatch(
+            submitTest(
+              studentId,
+              subjectid,
+              question1,
+              question2,
+              question3,
+              0,
+              0,
+              0
+            )
+          );
+          clb();
+        }}
         when={blockNavigation}
-        message="You have not finished you test, are you sure you want to leave?"
-        onCancel={() => console.log('ok')}
-      />
+      >
+        {({ onConfirm, onCancel }) => (
+          <Modal
+            visible
+            show={true}
+            title="Are you sure you want to leave?"
+            onCancel={onCancel}
+            onOk={onConfirm}
+          >
+            <div>
+              If you leave this page your test score will be set to zero!
+            </div>
+          </Modal>
+        )}
+      </NavigationPrompt>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
           {questions && subjects ? renderMCQ() : null}

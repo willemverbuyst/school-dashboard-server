@@ -16,9 +16,11 @@ export default (state = initialState, action) => {
     case LOGIN_SUCCESS_TEACHER:
       localStorage.setItem('teacher_token', action.payload.token);
       return { ...state, ...action.payload };
+
     case LOG_OUT_TEACHER:
       localStorage.removeItem('teacher_token');
       return { ...initialState, token: null };
+
     case TOKEN_STILL_VALID_TEACHER:
       return { ...state, ...action.payload };
 
