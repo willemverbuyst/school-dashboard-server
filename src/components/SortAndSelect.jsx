@@ -11,7 +11,7 @@ export default function SortAndSelect({
   value,
   onChangeSelection,
   results,
-  selectStudentAverage,
+  selectStudentData,
   onClick,
   placeholder,
   textBtn,
@@ -44,7 +44,7 @@ export default function SortAndSelect({
           </Option>
         ))}
       </Select>
-      {selectStudentAverage ? (
+      {selectStudentData ? (
         <Button size="small" onClick={onClick}>
           {textBtn}
         </Button>

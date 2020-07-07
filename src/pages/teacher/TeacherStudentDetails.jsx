@@ -58,16 +58,21 @@ export default function TeacherStudentDetails() {
   };
 
   const renderTestsBar = () => {
-    return results.map(({ tests, subjectId }, i) => (
+    const sortedResults =
+      selectionTests === 'name'
+        ? [...results].sort((a, b) => a.name.localeCompare(b.name))
+        : [...results].sort((a, b) => b.tests - a.tests);
+
+    const filteredResults = selectSubjectTests
+      ? sortedResults.filter((result) => result.name === selectSubjectTests)
+      : sortedResults;
+
+    return filteredResults.map(({ tests, name }, i) => (
       <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
         <BarChartTest
           data={[tests]}
           color={['#8F1CB8']}
-          labels={[
-            `${
-              subjects.find((subject) => subject.id === subjectId).name
-            }: ${tests} tests`,
-          ]}
+          labels={[`${name}: ${tests} tests`]}
           title={``}
         />
       </Col>
@@ -87,7 +92,7 @@ export default function TeacherStudentDetails() {
               value={selectSubjectAverage || undefined}
               onChangeSelection={setSelectSubjectAverage}
               results={results}
-              selectStudentAverage={selectSubjectAverage}
+              selectStudentData={selectSubjectAverage}
               onClick={() => setSelectSubjectAverage('')}
               placeholder="Select a subject"
               textBtn="All subjects"
@@ -96,7 +101,21 @@ export default function TeacherStudentDetails() {
           <Row justify={'space-around'}>
             {results && subjects ? renderCharts() : null}
           </Row>
-          <Row style={{ paddingBottom: 35 }}>TESTS DONE</Row>
+          {results ? (
+            <SortAndSelect
+              title="TESTS DONE"
+              radio1="Name"
+              radio2="Amount"
+              onChangeRadio={setSelectionTests}
+              value={selectSubjectTests || undefined}
+              onChangeSelection={setSelectSubjectTests}
+              results={results}
+              selectStudentData={selectSubjectTests}
+              onClick={() => setSelectSubjectTests('')}
+              placeholder="Select a subject"
+              textBtn="All subjects"
+            />
+          ) : null}
           <Row justify={'space-around'}>
             {results && subjects ? renderTestsBar() : null}
           </Row>

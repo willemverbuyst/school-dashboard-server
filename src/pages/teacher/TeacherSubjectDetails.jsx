@@ -94,7 +94,7 @@ export default function TeacherSubjectDetails() {
               value={selectStudentAverage || undefined}
               onChangeSelection={setSelectStudentAverage}
               results={results}
-              selectStudentAverage={selectStudentAverage}
+              selectStudentData={selectStudentAverage}
               onClick={() => setSelectStudentAverage('')}
               placeholder="Select a student"
               textBtn="All students"
@@ -112,7 +112,7 @@ export default function TeacherSubjectDetails() {
               value={selectStudentTests || undefined}
               onChangeSelection={setSelectStudentTests}
               results={results}
-              selectStudentAverage={selectStudentTests}
+              selectStudentData={selectStudentTests}
               onClick={() => setSelectStudentTests('')}
               placeholder="Select a student"
               textBtn="All students"
