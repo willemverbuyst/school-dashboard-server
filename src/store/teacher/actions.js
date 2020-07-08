@@ -13,6 +13,7 @@ import { removeListOfQuestions } from '../questions/actions';
 export const LOGIN_SUCCESS_TEACHER = 'LOGIN_SUCCESS_TEACHER';
 export const TOKEN_STILL_VALID_TEACHER = 'TOKEN_STILL_VALID_TEACHER';
 export const LOG_OUT_TEACHER = 'LOG_OUT_TEACHER';
+export const ADD_SUBJECT = 'ADD_SUBJECT';
 
 const loginSuccessTeacher = (teacherWithToken) => {
   return {
@@ -24,6 +25,11 @@ const loginSuccessTeacher = (teacherWithToken) => {
 const tokenStillValid = (teacherWithoutToken) => ({
   type: TOKEN_STILL_VALID_TEACHER,
   payload: teacherWithoutToken,
+});
+
+const addSubject = (subject) => ({
+  type: ADD_SUBJECT,
+  payload: subject,
 });
 
 export const logOutTeacher = () => ({ type: LOG_OUT_TEACHER });
@@ -114,3 +120,31 @@ export const createTeacher = (isStudent, name, email, password) => {
     }
   };
 };
+
+export function createSubject(subject) {
+  return async function thunk(dispatch, getState) {
+    const token = getState().teacher.token;
+    dispatch(appLoading());
+    try {
+      const response = await axios.post(
+        `${apiUrl}/subject`,
+        {
+          subject,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      dispatch(addSubject(response.data.newSubject));
+      dispatch(showMessageWithTimeout('success', true, response.data.message));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage('danger', true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage('danger', true, error.message));
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+}

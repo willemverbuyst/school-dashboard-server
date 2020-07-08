@@ -140,7 +140,7 @@ export default function StudentSubjectDetails() {
         <Row style={{ paddingTop: 15 }} justify="center">
           <Radio.Group size="small" onChange={(e) => setRadio(e.target.value)}>
             <Radio.Button style={{ marginRight: 5 }} value="date">
-              Scores by data
+              Scores by date
             </Radio.Button>
             <Radio.Button style={{ marginRight: 5 }} value="lowestFirst">
               Scores Low to High
