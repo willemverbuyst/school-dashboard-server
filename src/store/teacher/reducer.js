@@ -26,8 +26,11 @@ export default (state = initialState, action) => {
       return { ...state, ...action.payload };
 
     case ADD_SUBJECT:
-      console.log(action.payload);
-      return { ...state, subjects: [...state.subjects, action.payload] };
+      if (state.subjects) {
+        return { ...state, subjects: [...state.subjects, action.payload] };
+      } else {
+        return { ...state, subjects: [action.payload] };
+      }
 
     default:
       return state;

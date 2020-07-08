@@ -69,12 +69,12 @@ export default function SideBar() {
         <SubMenu key="sub3" icon={<UserOutlined />} title="Students">
           {students ? renderStudentNav() : null}
         </SubMenu>
-        <SubMenu key="sub4" icon={<DatabaseOutlined />} title="Questions">
+        <SubMenu key="sub4" icon={<DatabaseOutlined />} title="Admin">
           <Menu.Item
             key="sub4-2"
             onClick={() => goTo(`/teachers/${teacherId}/questions/list`)}
           >
-            List
+            List Questions
           </Menu.Item>
           <Menu.Item
             key="sub4-1"
