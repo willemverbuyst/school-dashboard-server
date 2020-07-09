@@ -18,7 +18,7 @@ Student: jack@sparrow.com, 123
 
 ## Who am I?
 
-I am part of class #40, attending an 11 week JavaScript bootcamp at Codaisseur.
+I am part of class #40, attending an 11 week JavaScript bootcamp at [Codaisseur](https://codaisseur.com/).
 
 For seven weeks the teachers at Codaisseur have been teaching us a variety of [skills](https://willemverbuyst.github.io/threeJS-react-list/) to prepare us for a career in full-stack web-development. This project is the fruit of this. We got two weeks to build a project from scratch showcasing the techniques we have learned and explore some _terra icognita_.
 
@@ -46,7 +46,7 @@ For seven weeks the teachers at Codaisseur have been teaching us a variety of [s
 - React
 - Redux
 - Chart.js
-- AntDesign
+- Ant Design
 
 ### Back-end
 
@@ -58,7 +58,7 @@ For seven weeks the teachers at Codaisseur have been teaching us a variety of [s
 ## <a name="goals"></a>Goals
 
 - The goal was to create an application with React and Redux, and build a server with Express and Sequelize.
-- Explore new technology independently like Chart.js
+- Explore new technology independently like Chart.js and a css framework like Ant Design.
 - Practice good preparation with the use of wireframes, data models and user stories.
 - Follow disciplined Git usage, i.e. make use of commits, branching and pull requests.
 
@@ -92,9 +92,9 @@ For seven weeks the teachers at Codaisseur have been teaching us a variety of [s
 
 ## <a name="gitWorkflow"></a>Git workflow
 
-Work on the development branch. Create a new branch for each feature and commit regularly. Push to github and make a pullrequest to the development branch. When project was finished I merged it into the master for deployment.
+Work on the development branch. Create a new branch for each feature and commit regularly. Push to github and make a pull request to the development branch. When project was finished I merged it into the master for deployment.
 
-Click the link to a sample of a pull request.
+Click the link for a sample of a pull request.
 
 [Feat data teacher](https://github.com/willemverbuyst/school-dashboard-frontend/pull/21)
 
@@ -105,7 +105,7 @@ The repository for the backend can be found [here](https://github.com/willemverb
 This is a REST-ful API using Express.js.
 
 The database is built using Postgres and Sequelize.
-The data model. link
+Have a look at the data [models](https://app.lucidchart.com/invitations/accept/d09a0ec5-92f6-4ac7-b203-e96f708609db).
 
 ## <a name="installation"></a>Installation
 
@@ -118,7 +118,7 @@ When you want to use this dashboard you will also have to install the server. Th
 You will start with an empty dashboard. Steps to build up this dashboard.
 
 4. Teacher(s) sign up.
-5. Teacher add subject(s)
-6. Teacher add questions for that subject
+5. Teacher(s) add subject(s)
+6. Teacher(s) add questions for that subject
 7. Students sign up
 8. Students do tests
