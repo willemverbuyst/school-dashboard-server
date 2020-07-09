@@ -1,68 +1,124 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dashboard
 
-## Available Scripts
+## What is this and who am I?
 
-In the project directory, you can run:
+In short: this is a dashboard where students and teachers can keep track of grades and progress for multiple subjects/students. For the details on the functionality see the [user stories](#userStories).
 
-### `npm start`
+A live version of the dashboard with dummy data can be found [here](https://compassionate-raman-97ce78.netlify.app/).
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Log in with:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Teacher: fjodor@dostojewski.com, 123
 
-### `npm test`
+Teacher: sebastian@bach.com, 123
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Student: sifan@hassan.com, 123
 
-### `npm run build`
+Student: jack@sparrow.com, 123
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Who am I?
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+I am part of class #40, attending an 11 week JavaScript bootcamp at Codaisseur.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+For seven weeks the teachers at Codaisseur have been teaching us a variety of [skills](https://willemverbuyst.github.io/threeJS-react-list/) to prepare us for a career in full-stack web-development. This project is the fruit of this. We got two weeks to build a project from scratch showcasing the techniques we have learned and explore some _terra icognita_.
 
-### `npm run eject`
+## Table of contents
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [App demos](#appDemos)
+- [Technologies used](#technologiesUsed)
+- [Goals](#goals)
+- [User stories](#userStories)
+- [Data models / wireframes / project board](#models-wireframe-projectboard)
+- [Git workflow](#gitWorkflow)
+- [Server repository](#serverRepo)
+- [Installation](#installation)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## <a name="appDemos"></a>App demos
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![](./src/img/dashboard-home.png)
+![](./src/img/dashboard-student.gif)
+![](./src/img/dashboard-teacher.gif)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## <a name="technologiesUsed"></a>Technologies used
 
-## Learn More
+### Front-end
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- React
+- Redux
+- Chart.js
+- AntDesign
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Back-end
 
-### Code Splitting
+- Sequelize
+- PostgreSQL
+- Server with Express
+- Authorization middleware
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## <a name="goals"></a>Goals
 
-### Analyzing the Bundle Size
+- The goal was to create an application with React and Redux, and build a server with Express and Sequelize.
+- Explore new technology independently like Chart.js
+- Practice good preparation with the use of wireframes, data models and user stories.
+- Follow disciplined Git usage, i.e. make use of commits, branching and pull requests.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## <a name="userStories"></a>User stories
 
-### Making a Progressive Web App
+### As a student ...
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- As a student I want to sign up/login in order to use the dashboard and see my grades/progress.
+- When logged in I will see an overview (sidebar) of the classes I am attending.
+- On the main page I will see a chart with my average grade for each subject.
+  -By clicking on a subject in the sidebar I will see an overview of all my scores (per test) for that subject.
+- On this details page there is a button to do a test for that subject.
+- I will see a 'finish test' button, and get a display of a message with the result.
 
-### Advanced Configuration
+### As a teacher ...
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- As a teacher I want to sign up/login in order to use the dashboard and see my student details.
+- When logged in, I will get an overview with all my students and subjects that I am teaching (sidebar).
+- On the main page I will see a chart with the average grade for the subjects.
+- I can use the links in the sidebar to see the details for a student, or subject.
+- I can click a link in the sidebar to see the list of existing mc questions for a subject and add a mc question.
+- As a teacher I can add a subject
 
-### Deployment
+## <a name="models-wireframe-projectboard"></a>Data models / wireframes / project board
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+[Data models](https://app.lucidchart.com/invitations/accept/d09a0ec5-92f6-4ac7-b203-e96f708609db)
 
-### `npm run build` fails to minify
+[Wireframes](https://drive.google.com/file/d/1CMpn7W91WxH8KU1kURMbLTiAyhFeMNgq/view?usp=sharing)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+[Project board](https://github.com/willemverbuyst/school-dashboard-frontend/projects/1)
+
+## <a name="gitWorkflow"></a>Git workflow
+
+Work on the development branch. Create a new branch for each feature and commit regularly. Push to github and make a pullrequest to the development branch. When project was finished I merged it into the master for deployment.
+
+Click the link to a sample of a pull request.
+
+[Feat data teacher](https://github.com/willemverbuyst/school-dashboard-frontend/pull/21)
+
+## <a name="serverRepo"></a>Server repository
+
+The repository for the backend can be found [here](https://github.com/willemverbuyst/school-dashboard-backend).
+
+This is a REST-ful API using Express.js.
+
+The database is built using Postgres and Sequelize.
+The data model. link
+
+## <a name="installation"></a>Installation
+
+When you want to use this dashboard you will also have to install the server. The server details can be found [here](https://github.com/willemverbuyst/school-dashboard-backend).
+
+1. Clone the repo
+2. Run npm install (to install all the dependencies)
+3. In the config folder(link) add the link to your server.
+
+You will start with an empty dashboard. Steps to build up this dashboard.
+
+4. Teacher(s) sign up.
+5. Teacher add subject(s)
+6. Teacher add questions for that subject
+7. Students sign up
+8. Students do tests
