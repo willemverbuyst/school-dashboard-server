@@ -49,4 +49,18 @@ describe('appState', () => {
       expect(clearMessage().payload).toBeUndefined();
     });
   });
+  describe('if given apploading', () => {
+    test('should return an action type APP_LOADING', () => {
+      const expected = {
+        type: APP_LOADING,
+      };
+      expect(appLoading()).toEqual(expected);
+    });
+    test('should return an action type LOADING no payload', () => {
+      const expected = {
+        type: APP_LOADING,
+      };
+      expect(appLoading().payload).toBeUndefined();
+    });
+  });
 });
