@@ -16,6 +16,11 @@ describe('userReducer', () => {
       const newState = reducer(undefined, { type: 'RANDOM' });
       expect(newState).toEqual(initialState);
     });
+    test('returns the inital state', () => {
+      const newState = reducer(undefined, { type: 'RANDOM' });
+      expect(newState.loading).toBe(false);
+      expect(newState.message).toBeNull;
+    });
   });
   describe('when given a SET_MESSAGE action type', () => {
     test('returns a new state with the payload containing correct values', () => {
