@@ -9,6 +9,7 @@ import {
   SET_MESSAGE,
   CLEAR_MESSAGE,
 } from '../actions';
+import axios from 'axios';
 
 describe('appState', () => {
   describe('if given set message with text, variant and dismissable', () => {
@@ -56,11 +57,51 @@ describe('appState', () => {
       };
       expect(appLoading()).toEqual(expected);
     });
-    test('should return an action type LOADING no payload', () => {
+    test('should return an action type LOADING and no payload', () => {
       const expected = {
         type: APP_LOADING,
       };
       expect(appLoading().payload).toBeUndefined();
+    });
+  });
+  describe('if given appDoneloading', () => {
+    test('should return an action type APP_DONE_LOADING', () => {
+      const expected = {
+        type: APP_DONE_LOADING,
+      };
+      expect(appDoneLoading()).toEqual(expected);
+    });
+    test('should return an action type LOADING and no payload', () => {
+      const expected = {
+        type: APP_DONE_LOADING,
+      };
+      expect(appDoneLoading().payload).toBeUndefined();
+    });
+  });
+});
+
+jest.mock('axios');
+
+describe('showMessageWithTimeout', () => {
+  describe('when called', () => {
+    test('should dispatch an action set message', async () => {
+      const variant = 'test_variant';
+      const dismissable = 'test_dismissable';
+      const text = 'test_text';
+      const timeOutMilliSeconds = 1000;
+      axios.get.mockImplementationOnce(() => Promise.resolve());
+      const dispatch = jest.fn();
+      const getState = jest.fn().mockReturnValueOnce([]);
+      showMessageWithTimeout(
+        variant,
+        dismissable,
+        text,
+        timeOutMilliSeconds
+      )(dispatch);
+      expect(dispatch).toHaveBeenCalledWith(
+        setMessage(variant, dismissable, text)
+      );
+      expect(dispatch).toHaveBeenCalledTimes(1);
     });
   });
 });
