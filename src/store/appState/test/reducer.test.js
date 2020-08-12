@@ -36,4 +36,22 @@ describe('userReducer', () => {
       expect(newState.loading).toBe(false);
     });
   });
+  describe('when given APP_LOADING action type', () => {
+    test('returns a new state with loading set to true', () => {
+      const action = { type: APP_LOADING };
+      const newState = reducer(initialState, action);
+      expect(newState).toEqual({ loading: true, message: null });
+      expect(newState.loading).toBe(true);
+    });
+  });
+  describe('when given APP_DONE_LOADING action type', () => {
+    test('returns a new state with loading set to false', () => {
+      const action1 = { type: APP_LOADING };
+      const action2 = { type: APP_DONE_LOADING };
+      const newState = reducer(initialState, action1);
+      const newDoneState = reducer(newState, action2);
+      expect(newState).toEqual({ loading: true, message: null });
+      expect(newDoneState.loading).toBe(false);
+    });
+  });
 });
