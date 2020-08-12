@@ -26,9 +26,9 @@ export function getResultsForStudentMain(id) {
       const response = await axios.get(`${apiUrl}/data/main`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const questions = response.data;
+      const results = response.data;
 
-      dispatch(resultsFetched(questions));
+      dispatch(resultsFetched(results));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
