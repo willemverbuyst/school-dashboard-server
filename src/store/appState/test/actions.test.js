@@ -35,4 +35,18 @@ describe('appState', () => {
       );
     });
   });
+  describe('if given clear message', () => {
+    test('should return an action object with type CLEAR_MESSAGE and no payload', () => {
+      const expected = {
+        type: CLEAR_MESSAGE,
+      };
+      expect(clearMessage()).toEqual(expected);
+    });
+    test('should return an action object with type CLEAR_MESSAGE and payload undefined', () => {
+      const expected = {
+        type: CLEAR_MESSAGE,
+      };
+      expect(clearMessage().payload).toBeUndefined();
+    });
+  });
 });
