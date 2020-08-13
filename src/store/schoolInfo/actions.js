@@ -4,7 +4,7 @@ import { appLoading, appDoneLoading, setMessage } from '../appState/actions';
 
 export const FETCH_TEACHERS = 'FETCH_TEACHERS';
 
-export function teacherssFetched(teachers) {
+export function teachersFetched(teachers) {
   return {
     type: FETCH_TEACHERS,
     payload: teachers,
@@ -17,7 +17,7 @@ export async function fetchAllTeachers(dispatch, getState) {
     const response = await axios.get(`${apiUrl}/school/teachers`, {});
     const teachers = response.data;
 
-    dispatch(teacherssFetched(teachers));
+    dispatch(teachersFetched(teachers));
     dispatch(appDoneLoading());
   } catch (error) {
     if (error.response) {
