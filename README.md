@@ -8,13 +8,7 @@ A live version of the dashboard with dummy data can be found [here](https://comp
 
 ### Log in with:
 
-Teacher: fjodor@dostojewski.com, 123
-
-Teacher: sebastian@bach.com, 123
-
-Student: sifan@hassan.com, 123
-
-Student: jack@sparrow.com, 123
+Contact me for log in credentials.
 
 ## Who am I?
 
