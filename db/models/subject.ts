@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '.';
 import Question from './question';
+import Test from './test';
 
 interface SubjectAttributes {
   id: string;
@@ -36,13 +37,18 @@ Subject.hasMany(Question, {
   as: 'questions',
 });
 
-// Subject.hasMany(Test, {
-//   sourceKey: 'id',
-//   foreignKey: 'testId',
-//   as: 'tests',
-// });
+Subject.hasMany(Test, {
+  sourceKey: 'id',
+  foreignKey: 'testId',
+  as: 'tests',
+});
 
 Question.belongsTo(Subject, {
+  foreignKey: 'subjectId',
+  as: 'subject',
+});
+
+Test.belongsTo(Subject, {
   foreignKey: 'subjectId',
   as: 'subject',
 });
