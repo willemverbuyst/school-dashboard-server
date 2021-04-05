@@ -18,7 +18,7 @@ interface TeacherInstance
   updatedAt?: Date;
 }
 
-const Teacher = sequelize.define<TeacherInstance>('Teacher', {
+const Teacher = sequelize.define<TeacherInstance>('teacher', {
   id: {
     allowNull: false,
     autoIncrement: false,

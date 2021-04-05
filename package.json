@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:*",
     "dev": "env DELAY=1000 npx nodemon .",
     "initdev": "npm run migrate && npm run seed",
     "migrate": "npx sequelize-cli db:migrate",
@@ -28,6 +30,7 @@
     "sequelize-cli": "^6.1.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.11",
     "nodemon": "^2.0.4"
   }
 }
