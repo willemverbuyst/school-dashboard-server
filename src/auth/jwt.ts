@@ -1,12 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config/secrets';
 
-function toJWT(data: string) {
-  return jwt.sign(data, jwtSecret, { expiresIn: '2h' });
-}
+export const toJWT = (data: { teacherId: any }) =>
+  jwt.sign(data, jwtSecret, { expiresIn: '2h' });
 
-function toData(token: string) {
-  return jwt.verify(token, jwtSecret);
-}
-
-module.exports = { toJWT, toData };
+export const toData = (token: string) => jwt.verify(token, jwtSecret);
