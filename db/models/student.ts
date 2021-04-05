@@ -37,6 +37,9 @@ Student.hasMany(Test, {
   as: 'tests',
 });
 
-export default Student;
+Test.belongsTo(Student, {
+  foreignKey: 'studentId',
+  as: 'student',
+});
 
-// student.belongsTo(models.teacher);
+export default Student;

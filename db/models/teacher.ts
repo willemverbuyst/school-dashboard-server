@@ -36,3 +36,10 @@ Teacher.hasMany(Student, {
   foreignKey: 'studentId',
   as: 'students',
 });
+
+Student.belongsTo(Teacher, {
+  foreignKey: 'teacherId',
+  as: 'teacher',
+});
+
+export default Teacher;

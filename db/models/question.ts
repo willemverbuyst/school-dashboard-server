@@ -43,8 +43,3 @@ Answer.belongsTo(Question, {
 });
 
 export default Question;
-
-// static associate(models) {
-//   question.belongsTo(models.subject);
-//   question.hasMany(models.answer);
-// }

@@ -55,8 +55,3 @@ const Test = sequelize.define<TestInstance>('Test', {
 });
 
 export default Test;
-
-// static associate(models) {
-//   test.belongsTo(models.subject);
-//   test.belongsTo(models.student);
-// }
