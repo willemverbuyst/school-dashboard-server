@@ -1,11 +1,11 @@
-const { Router } = require('express');
-const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
-const Subject = require('../models').subject;
+import { NextFunction, Request, Router, Response } from 'express';
+// const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
+import Subject from '../db/models/subject';
 
-const router = new Router();
+const router = Router();
 
 // TEACHER post a new subject
-router.post('/', teacherAuthMiddleware, async (req, res, next) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   const { subject } = req.body;
 
   if (!subject) {
@@ -24,4 +24,4 @@ router.post('/', teacherAuthMiddleware, async (req, res, next) => {
   }
 });
 
-module.exports = router;
+export { router };

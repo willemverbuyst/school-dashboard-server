@@ -4,6 +4,7 @@ import loggerMiddleWare from 'morgan';
 import corsMiddleWare from 'cors';
 import { PORT } from './config/constant';
 import { router as schoolRouter } from './routers/general';
+import { router as subjectRouter } from './routers/subjects';
 
 dotenv.config({ path: __dirname + '/.env' });
 
@@ -24,6 +25,7 @@ if (process.env.DELAY) {
 }
 
 app.use('/school', schoolRouter);
+app.use('/subjects', subjectRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
