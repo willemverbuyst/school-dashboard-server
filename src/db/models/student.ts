@@ -18,7 +18,7 @@ interface StudentInstance
   updatedAt?: Date;
 }
 
-const Student = sequelize.define<StudentInstance>('Student', {
+const Student = sequelize.define<StudentInstance>('student', {
   id: {
     allowNull: false,
     autoIncrement: false,

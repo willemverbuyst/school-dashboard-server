@@ -9,7 +9,7 @@ schoolRouter.get(
   '/teachers',
   async (_req: Request, res: Response, next: NextFunction) => {
     try {
-      const teachers = await Teacher.findAll();
+      const teachers = await Teacher.findAll({ attributes: ['id', 'name'] });
 
       res.send(teachers);
     } catch (error) {

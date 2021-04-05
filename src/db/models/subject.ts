@@ -17,7 +17,7 @@ interface SubjectInstance
   updatedAt?: Date;
 }
 
-const Subject = sequelize.define<SubjectInstance>('Subject', {
+const Subject = sequelize.define<SubjectInstance>('subject', {
   id: {
     allowNull: false,
     autoIncrement: false,

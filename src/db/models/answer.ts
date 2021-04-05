@@ -16,7 +16,7 @@ interface AnswerInstance
   updatedAt?: Date;
 }
 
-const Answer = sequelize.define<AnswerInstance>('Answer', {
+const Answer = sequelize.define<AnswerInstance>('answer', {
   id: {
     allowNull: false,
     autoIncrement: false,

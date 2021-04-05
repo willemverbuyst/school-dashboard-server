@@ -20,7 +20,7 @@ interface TestInstance
   updatedAt?: Date;
 }
 
-const Test = sequelize.define<TestInstance>('Test', {
+const Test = sequelize.define<TestInstance>('test', {
   id: {
     allowNull: false,
     autoIncrement: false,

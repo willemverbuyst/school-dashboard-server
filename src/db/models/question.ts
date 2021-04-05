@@ -17,7 +17,7 @@ interface QuestionInstance
   updatedAt?: Date;
 }
 
-const Question = sequelize.define<QuestionInstance>('Question', {
+const Question = sequelize.define<QuestionInstance>('question', {
   id: {
     allowNull: false,
     autoIncrement: false,
