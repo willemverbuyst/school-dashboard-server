@@ -19,7 +19,7 @@ interface AnswerInstance
 const Answer = sequelize.define<AnswerInstance>('answer', {
   id: {
     allowNull: false,
-    autoIncrement: false,
+    autoIncrement: true,
     primaryKey: true,
     type: DataTypes.UUID,
     unique: true,

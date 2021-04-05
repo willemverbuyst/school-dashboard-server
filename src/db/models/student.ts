@@ -21,7 +21,7 @@ interface StudentInstance
 const Student = sequelize.define<StudentInstance>('student', {
   id: {
     allowNull: false,
-    autoIncrement: false,
+    autoIncrement: true,
     primaryKey: true,
     type: DataTypes.UUID,
     unique: true,

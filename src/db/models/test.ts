@@ -23,7 +23,7 @@ interface TestInstance
 const Test = sequelize.define<TestInstance>('test', {
   id: {
     allowNull: false,
-    autoIncrement: false,
+    autoIncrement: true,
     primaryKey: true,
     type: DataTypes.UUID,
     unique: true,
