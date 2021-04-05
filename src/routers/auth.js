@@ -3,9 +3,9 @@ const { Router } = require('express');
 const { toJWT } = require('../auth/jwt');
 const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
 const studentAuthMiddleware = require('../auth/studentAuthMiddleware');
-const Teacher = require('../models').teacher;
-const Student = require('../models').student;
-const Subject = require('../models').subject;
+const Teacher = require('./db/models').teacher;
+const Student = require('./db/models').student;
+const Subject = require('./db/models').subject;
 const { SALT_ROUNDS } = require('../config/constants');
 
 const router = new Router();
