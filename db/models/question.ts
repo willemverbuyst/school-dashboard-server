@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '.';
+import Answer from './answer';
 
 interface QuestionAttributes {
   id: string;
@@ -30,8 +31,18 @@ const Question = sequelize.define<QuestionInstance>('Question', {
   },
 });
 
+Question.hasMany(Answer, {
+  sourceKey: 'id',
+  foreignKey: 'answerId',
+  as: 'answers',
+});
+
+Answer.belongsTo(Question, {
+  foreignKey: 'questionId',
+  as: 'question',
+});
+
 export default Question;
-('use strict');
 
 // static associate(models) {
 //   question.belongsTo(models.subject);
