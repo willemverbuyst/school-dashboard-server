@@ -6,7 +6,7 @@ import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import Teacher from '../db/models/teacher';
 import Student from '../db/models/student';
 import Subject from '../db/models/subject';
-// import { SALT_ROUNDS } from '../config/constant';
+import { SALT_ROUNDS } from '../config/constant';
 import { RequestWithBody } from '../interfaces/Requests';
 
 const router = Router();
@@ -70,56 +70,54 @@ router.post(
 );
 
 /*** SIGNUP ***/
-// router.post('/signup', async (req, res) => {
-//   const { isStudent, name, email, password, teacherId } = req.body;
-//   if (!email || !password || !name || !isStudent) {
-//     return res
-//       .status(400)
-//       .send({ message: 'Please provide an email, password and a name' });
-//   }
-//   try {
-//     // STUDENT
-//     if (isStudent === 1) {
-//       const newStudent = await Student.create({
-//         email,
-//         password: bcrypt.hashSync(password, SALT_ROUNDS),
-//         name,
-//         teacherId,
-//       });
+router.post('/signup', async (req: RequestWithBody, res: Response) => {
+  const { isStudent, name, email, password, teacherId } = req.body;
+  if (!email || !password || !name || !isStudent) {
+    return res
+      .status(400)
+      .send({ message: 'Please provide an email, password and a name' });
+  }
+  try {
+    // STUDENT
+    if (Number(isStudent) === 1) {
+      const newStudent = await Student.create({
+        email,
+        password: bcrypt.hashSync(password, SALT_ROUNDS),
+        name,
+        teacherId: Number(teacherId),
+      }).then((data) => data?.get({ plain: true }));
 
-//       delete newStudent.dataValues['password']; // don't send back the password hash
+      newStudent.password = 'password'; // don't send back the password hash
 
-//       const token = toJWT({ studentId: newStudent.id });
+      const token = toJWT({ studentId: newStudent.id });
 
-//       const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
-//       const message = 'A new account is created for you';
-//       res
-//         .status(201)
-//         .json({ token, ...newStudent.dataValues, subjects, message });
-//       // TEACHER
-//     } else {
-//       const newTeacher = await Teacher.create({
-//         email,
-//         password: bcrypt.hashSync(password, SALT_ROUNDS),
-//         name,
-//       });
+      const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
+      const message = 'A new account is created for you';
+      res.status(201).json({ token, ...newStudent, subjects, message });
+      // TEACHER
+    } else {
+      const newTeacher = await Teacher.create({
+        email,
+        password: bcrypt.hashSync(password, SALT_ROUNDS),
+        name,
+      }).then((data) => data?.get({ plain: true }));
 
-//       delete newTeacher.dataValues['password'];
+      newTeacher.password = 'password';
 
-//       const token = toJWT({ teacherId: newTeacher.id });
-//       const message = 'A new account is created for you';
-//       res.status(201).json({ token, ...newTeacher.dataValues, message });
-//     }
-//   } catch (error) {
-//     if (error.name === 'SequelizeUniqueConstraintError') {
-//       return res
-//         .status(400)
-//         .send({ message: 'There is an existing account with this email' });
-//     }
+      const token = toJWT({ teacherId: newTeacher.id });
+      const message = 'A new account is created for you';
+      res.status(201).json({ token, ...newTeacher, message });
+    }
+  } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res
+        .status(400)
+        .send({ message: 'There is an existing account with this email' });
+    }
 
-//     return res.status(400).send({ message: 'Something went wrong, sorry' });
-//   }
-// });
+    return res.status(400).send({ message: 'Something went wrong, sorry' });
+  }
+});
 
 /*** GET INFO USER IF THERE IS A JWT TOKEN ***/
 // /teacher would be /me if there was only one 'user'
