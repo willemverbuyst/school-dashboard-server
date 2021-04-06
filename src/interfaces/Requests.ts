@@ -6,10 +6,10 @@ export interface RequestWithBody extends Request {
 
 export interface RequestWithBodyAndTeacher extends Request {
   body: { [key: string]: string | undefined };
-  teacher: any;
+  teacher?: any;
 }
 
 export interface RequestWithBodyAndStudent extends Request {
   body: { [key: string]: string | undefined };
-  student: any;
+  student?: any;
 }
