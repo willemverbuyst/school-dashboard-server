@@ -27,27 +27,30 @@ router.post(
       if (Number(isStudent) === 1) {
         const student = await Student.findOne({
           where: { email },
-        });
-        // if (!student || !bcrypt.compareSync(password, student.password)) {
-        //   return res.status(400).send({
-        //     message: 'Student with that email not found or password incorrect',
-        //   });
-        // }
-        // const token = toJWT({ studentId: student.id });
-        // const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
+        }).then((data) => data?.get({ plain: true }));
 
-        // delete student.dataValues['password']// don't send back the password hash
-        // return res.status(200).send({ token, ...student, subjects });
-        return res.status(200).send({ student });
+        if (!student || !bcrypt.compareSync(password, student.password)) {
+          return res.status(400).send({
+            message: 'Student with that email not found or password incorrect',
+          });
+        }
+        const token = toJWT({ studentId: student.id });
+        const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
+
+        student.password = 'password'; // don't send back the password hash
+        return res.status(200).send({ token, student, subjects });
+
         // TEACHER
       } else {
-        const teacher = await Teacher.findOne({ where: { email } });
+        const teacher = await Teacher.findOne({
+          where: { email },
+        }).then((data) => data?.get({ plain: true }));
+
         if (!teacher || !bcrypt.compareSync(password, teacher.password)) {
           return res.status(400).send({
             message: 'Teacher with that email not found or password incorrect',
           });
         }
-        // delete teacher.dataValues['password'];
 
         const token = toJWT({ teacherId: teacher.id });
         const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
@@ -56,6 +59,7 @@ router.post(
           attributes: ['id', 'name'],
         });
 
+        teacher.password = 'password'; // don't send back the password hash
         return res.status(200).send({ token, ...teacher, subjects, students });
       }
     } catch (error) {
