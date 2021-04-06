@@ -6,12 +6,12 @@ export interface RequestWithBody extends Request {
   student?: any;
 }
 
-export interface RequestWithBodyAndTeacher extends Request {
-  body: { [key: string]: string | undefined };
-  teacher?: any;
-}
+// export interface RequestWithBodyAndTeacher extends Request {
+//   body: { [key: string]: string | undefined };
+//   teacher?: any;
+// }
 
-export interface RequestWithBodyAndStudent extends Request {
-  body: { [key: string]: string | undefined };
-  student?: any;
-}
+// export interface RequestWithBodyAndStudent extends Request {
+//   body: { [key: string]: string | undefined };
+//   student?: any;
+// }

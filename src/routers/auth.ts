@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import { NextFunction, Response, Router } from 'express';
 import { toJWT } from '../auth/jwt';
-// import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
-// import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
+import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
+import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import Teacher from '../db/models/teacher';
 import Student from '../db/models/student';
 import Subject from '../db/models/subject';
@@ -38,7 +38,7 @@ router.post(
         const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
 
         student.password = 'password'; // don't send back the password hash
-        return res.status(200).send({ token, student, subjects });
+        return res.status(200).send({ token, ...student, subjects });
 
         // TEACHER
       } else {
@@ -123,33 +123,39 @@ router.post(
 
 /*** GET INFO USER IF THERE IS A JWT TOKEN ***/
 // /teacher would be /me if there was only one 'user'
-// router.get('/teacher', teacherAuthMiddleware, async (req, res) => {
-//   try {
-//     const students = await Student.findAll({
-//       where: { teacherId: req.teacher.dataValues.id },
-//       attributes: ['id', 'name'],
-//     });
-//     const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
+router.get(
+  '/teacher',
+  teacherAuthMiddleware,
+  async (req: RequestWithBody, res: Response) => {
+    try {
+      const students = await Student.findAll({
+        where: { teacherId: req.teacher.id },
+        attributes: ['id', 'name'],
+      });
+      const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
 
-//     delete req.teacher.dataValues['password'];
-//     return res
-//       .status(200)
-//       .send({ ...req.teacher.dataValues, students, subjects });
-//   } catch (error) {
-//     return res.status(400).send({ message: 'Something went wrong, sorry' });
-//   }
-// });
+      req.teacher.password = 'password';
+      return res.status(200).send({ ...req.teacher, students, subjects });
+    } catch (error) {
+      return res.status(400).send({ message: 'Something went wrong, sorry' });
+    }
+  }
+);
 
 // /student would be /me if there was only one 'user'
-// router.get('/student', studentAuthMiddleware, async (req, res) => {
-//   try {
-//     const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
-//     // console.log(subjects);
-//     delete req.student.dataValues['password'];
-//     return res.status(200).send({ ...req.student.dataValues, subjects });
-//   } catch (error) {
-//     return res.status(400).send({ message: 'Something went wrong, sorry' });
-//   }
-// });
+router.get(
+  '/student',
+  studentAuthMiddleware,
+  async (req: RequestWithBody, res: Response) => {
+    try {
+      const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
+
+      req.student.password = 'password'; // don't send back the password hash
+      return res.status(200).send({ ...req.student, subjects });
+    } catch (error) {
+      return res.status(400).send({ message: 'Something went wrong, sorry' });
+    }
+  }
+);
 
 export { router };

@@ -1,10 +1,10 @@
 import { NextFunction, Response } from 'express';
 import Student from '../db/models/student';
 import { toData } from './jwt';
-import { RequestWithBodyAndStudent } from '../interfaces/Requests';
+import { RequestWithBody } from '../interfaces/Requests';
 
 export const auth = async (
-  req: RequestWithBodyAndStudent,
+  req: RequestWithBody,
   res: Response,
   next: NextFunction
 ) => {
@@ -22,12 +22,13 @@ export const auth = async (
     const data = toData(auth[1]);
     const student = await Student.findByPk(
       (<{ studentId: number }>data).studentId
-    );
+    ).then((data) => data?.get({ plain: true }));
 
     if (!student) {
       return res.status(404).send({ message: 'Student does not exist' });
+    } else {
+      req.student = student;
     }
-    req.student = student;
 
     return next();
   } catch (error) {
