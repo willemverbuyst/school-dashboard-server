@@ -1,14 +1,17 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '.';
+import Student from './student';
 
 interface TestAttributes {
-  id: string;
+  id: number;
   question1: number;
   question2: number;
   question3: number;
   answer1: number;
   answer2: number;
   answer3: number;
+  studentId: number;
+  subjectId: number;
 }
 
 interface TestCreationAttributes extends Optional<TestAttributes, 'id'> {}
@@ -49,6 +52,14 @@ const Test = sequelize.define<TestInstance>('test', {
     type: DataTypes.INTEGER,
   },
   answer3: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+  },
+  studentId: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+  },
+  subjectId: {
     allowNull: false,
     type: DataTypes.INTEGER,
   },

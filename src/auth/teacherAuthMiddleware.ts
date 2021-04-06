@@ -1,10 +1,10 @@
 import { NextFunction, Response } from 'express';
 import Teacher from '../db/models/teacher';
 import { toData } from './jwt';
-import { RequestTeacher } from '../interfaces/Request';
+import { RequestWithBody } from '../interfaces/Requests';
 
 export const auth = async (
-  req: RequestTeacher,
+  req: RequestWithBody,
   res: Response,
   next: NextFunction
 ) => {
@@ -19,16 +19,15 @@ export const auth = async (
   } else {
     try {
       const data = toData(auth[1]);
-
       const teacher = await Teacher.findByPk(
         (<{ teacherId: number }>data).teacherId
-      );
+      ).then((data) => data?.get({ plain: true }));
 
       if (!teacher) {
         return res.status(404).send({ message: 'Teacher does not exist' });
+      } else {
+        req.teacher = teacher;
       }
-
-      req.teacher = teacher;
 
       return next();
     } catch (error) {

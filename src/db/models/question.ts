@@ -3,7 +3,8 @@ import { sequelize } from '.';
 import Answer from './answer';
 
 interface QuestionAttributes {
-  id: string;
+  id: number;
+  subjectId: number;
   text: string;
 }
 
@@ -25,6 +26,10 @@ const Question = sequelize.define<QuestionInstance>('question', {
     type: DataTypes.UUID,
     unique: true,
   },
+  subjectId: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
+  },
   text: {
     allowNull: false,
     type: DataTypes.STRING,
@@ -33,7 +38,7 @@ const Question = sequelize.define<QuestionInstance>('question', {
 
 Question.hasMany(Answer, {
   sourceKey: 'id',
-  foreignKey: 'answerId',
+  foreignKey: 'questionId',
   as: 'answers',
 });
 

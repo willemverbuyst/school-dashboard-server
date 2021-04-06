@@ -1,13 +1,14 @@
 import { NextFunction, Router, Response } from 'express';
-// const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
+import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
 import Subject from '../db/models/subject';
-import { RequestWithBody } from '../interfaces/Request';
+import { RequestWithBody } from '../interfaces/Requests';
 
 const router = Router();
 
 // TEACHER post a new subject
 router.post(
   '/',
+  teacherAuthMiddleware,
   async (req: RequestWithBody, res: Response, next: NextFunction) => {
     const { subject } = req.body;
 

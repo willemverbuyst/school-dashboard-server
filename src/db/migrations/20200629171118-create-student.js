@@ -9,17 +9,21 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
       },
       email: {
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
         unique: true,
       },
       password: {
-        type: Sequelize.STRING,
         allowNull: false,
+        type: Sequelize.STRING,
+      },
+      teacherId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
