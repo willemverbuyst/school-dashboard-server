@@ -3,6 +3,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import loggerMiddleWare from 'morgan';
 import corsMiddleWare from 'cors';
 import { PORT } from './config/constant';
+import { router as authRouter } from './routers/auth';
 import { router as schoolRouter } from './routers/general';
 import { router as subjectRouter } from './routers/subjects';
 
@@ -24,6 +25,7 @@ if (process.env.DELAY) {
   });
 }
 
+app.use('/', authRouter);
 app.use('/school', schoolRouter);
 app.use('/subjects', subjectRouter);
 

@@ -3,11 +3,11 @@ import Student from '../db/models/student';
 import { toData } from './jwt';
 import { RequestWithBodyAndStudent } from '../interfaces/Requests';
 
-async function auth(
+export const auth = async (
   req: RequestWithBodyAndStudent,
   res: Response,
   next: NextFunction
-) {
+) => {
   const auth =
     req.headers.authorization && req.headers.authorization.split(' ');
 
@@ -50,6 +50,4 @@ async function auth(
         });
     }
   }
-}
-
-module.exports = auth;
+};

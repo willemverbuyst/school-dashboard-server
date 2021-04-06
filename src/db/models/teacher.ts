@@ -3,7 +3,7 @@ import { sequelize } from '.';
 import Student from './student';
 
 interface TeacherAttributes {
-  id: string;
+  id: number;
   email: string;
   name: string;
   password: string;
@@ -31,11 +31,11 @@ const Teacher = sequelize.define<TeacherInstance>('teacher', {
   password: { type: DataTypes.STRING, allowNull: false },
 });
 
-Teacher.hasMany(Student, {
-  sourceKey: 'id',
-  foreignKey: 'studentId',
-  as: 'students',
-});
+// Teacher.hasMany(Student, {
+//   sourceKey: 'id',
+//   foreignKey: 'studentId',
+//   as: 'students',
+// });
 
 Student.belongsTo(Teacher, {
   foreignKey: 'teacherId',

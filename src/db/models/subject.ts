@@ -4,7 +4,7 @@ import Question from './question';
 import Test from './test';
 
 interface SubjectAttributes {
-  id: string;
+  id: number;
   name: string;
 }
 
@@ -33,13 +33,13 @@ const Subject = sequelize.define<SubjectInstance>('subject', {
 
 Subject.hasMany(Question, {
   sourceKey: 'id',
-  foreignKey: 'questionId',
+  foreignKey: 'subjectId',
   as: 'questions',
 });
 
 Subject.hasMany(Test, {
   sourceKey: 'id',
-  foreignKey: 'testId',
+  foreignKey: 'subjectId',
   as: 'tests',
 });
 

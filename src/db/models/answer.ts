@@ -2,7 +2,8 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '.';
 
 interface AnswerAttributes {
-  id: string;
+  id: number;
+  questionId: number;
   text: string;
   correct: boolean;
 }
@@ -23,6 +24,10 @@ const Answer = sequelize.define<AnswerInstance>('answer', {
     primaryKey: true,
     type: DataTypes.UUID,
     unique: true,
+  },
+  questionId: {
+    allowNull: false,
+    type: DataTypes.INTEGER,
   },
   text: {
     allowNull: false,

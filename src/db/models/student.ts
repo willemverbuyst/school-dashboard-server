@@ -3,10 +3,11 @@ import { sequelize } from '.';
 import Test from './test';
 
 interface StudentAttributes {
-  id: string;
+  id: number;
   email: string;
   name: string;
   password: string;
+  teacherId: number;
 }
 
 interface StudentCreationAttributes extends Optional<StudentAttributes, 'id'> {}
@@ -26,14 +27,15 @@ const Student = sequelize.define<StudentInstance>('student', {
     type: DataTypes.UUID,
     unique: true,
   },
-  name: { type: DataTypes.STRING, allowNull: false },
+  name: { type: DataTypes.INTEGER, allowNull: false },
   email: { type: DataTypes.STRING, allowNull: false, unique: true },
   password: { type: DataTypes.STRING, allowNull: false },
+  teacherId: { type: DataTypes.INTEGER, allowNull: false },
 });
 
 Student.hasMany(Test, {
   sourceKey: 'id',
-  foreignKey: 'testId',
+  foreignKey: 'studentId',
   as: 'tests',
 });
 
