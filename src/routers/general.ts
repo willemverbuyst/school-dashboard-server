@@ -1,5 +1,4 @@
 import { NextFunction, Request, Router, Response } from 'express';
-
 import Teacher from '../db/models/teacher';
 
 const router = Router();
