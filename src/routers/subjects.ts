@@ -1,7 +1,7 @@
 import { NextFunction, Router, Response } from 'express';
 // const teacherAuthMiddleware = require('../auth/teacherAuthMiddleware');
 import Subject from '../db/models/subject';
-import { RequestWithBody } from '../interfaces/Request';
+import { RequestWithBody } from '../interfaces/Requests';
 
 const router = Router();
 

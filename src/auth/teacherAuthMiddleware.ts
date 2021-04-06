@@ -1,10 +1,10 @@
 import { NextFunction, Response } from 'express';
 import Teacher from '../db/models/teacher';
 import { toData } from './jwt';
-import { RequestTeacher } from '../interfaces/Request';
+import { RequestWithBodyAndTeacher } from '../interfaces/Requests';
 
 export const auth = async (
-  req: RequestTeacher,
+  req: RequestWithBodyAndTeacher,
   res: Response,
   next: NextFunction
 ) => {
