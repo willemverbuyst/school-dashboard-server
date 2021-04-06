@@ -1,11 +1,13 @@
 import { NextFunction, Router, Response } from 'express';
 import Teacher from '../db/models/teacher';
 import { RequestWithBody } from '../interfaces/Requests';
+import Subject from '../db/models/subject';
 import Test from '../db/models/test';
 // const Subject = require('../models').subject;
 // const Student = require('../models').student;
 import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
+import { SubjectWithAnswers, ITest } from '../interfaces/Subject';
 
 const router = Router();
 
@@ -55,39 +57,64 @@ router.get(
 );
 
 // TEACHER data per student
-// router.get('/students/:id', teacherAuthMiddleware, async (req, res, next) => {
-//   const { id } = req.params;
-//   try {
-//     const subjects = await Subject.findAll({
-//       attributes: ['id', 'name'],
-//       include: [
-//         {
-//           model: Test,
-//           where: { studentId: id },
-//           attributes: ['answer1', 'answer2', 'answer3'],
-//         },
-//       ],
-//     });
+router.get(
+  '/students/:id',
+  teacherAuthMiddleware,
+  async (req: RequestWithBody, res: Response, _next: NextFunction) => {
+    const { id } = req.params;
 
-//     const results = subjects.map((subject) => {
-//       return {
-//         subjectId: subject.id,
-//         name: subject.name,
-//         score: Math.round(
-//           (subject.tests
-//             .map((test) => test.answer1 + test.answer2 + test.answer3)
-//             .reduce((a, b) => a + b, 0) /
-//             (subject.tests.length * 3)) *
-//             100
-//         ),
-//         tests: subject.tests.length,
-//       };
-//     });
-//     res.send(results);
-//   } catch (error) {
-//     return res.status(400).send({ message: 'Something went wrong, sorry' });
-//   }
-// });
+    try {
+      const tests = await Test.findAll({
+        attributes: ['answer1', 'answer2', 'answer3'],
+        where: { studentId: Number(id) },
+        include: [Test.associations.subject],
+      });
+
+      const t = tests.map((test: any) => {
+        return {
+          name: test.subject.name,
+          score: test.answer1 + test.answer2 + test.answer3,
+          subjectId: test.subject.id,
+        };
+      });
+      // const subjectsWithAnswers = await Test.findAll
+      //   {
+      //     attributes: ['answer1', 'answer2', 'answer3'],
+      //     where: { studentId: id },
+      //     // // include: Subject,
+      //     include: Test.associations.subject,
+      //   }
+      //   //   {
+      //   //     model: Subject,
+      //   //     // attributes: ['id', 'name'],
+      //   //   },
+      //   // ],
+      // );
+
+      // const results = subjectsWithAnswers.map((subject) => {
+      //   return {
+      //     subjectId: subject.id,
+      //     name: subject.name,
+      //     score: Math.round(
+      //       (subject.tests
+      //         .map(
+      //           (test: { answer1: number; answer2: number; answer3: number }) =>
+      //             test.answer1 + test.answer2 + test.answer3
+      //         )
+      //         .reduce((a: number, b: number) => a + b, 0) /
+      //         (subject.tests.length * 3)) *
+      //         100
+      //     ),
+      //     tests: subject.tests.length,
+      //   };
+      // });
+      console.log(t.length);
+      res.send(t);
+    } catch (error) {
+      return res.status(400).send({ message: 'Something went wrong, sorry' });
+    }
+  }
+);
 
 // TEACHER data per subject
 // router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {

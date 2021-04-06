@@ -1,7 +1,7 @@
 import { NextFunction, Router, Response } from 'express';
 import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
 import Subject from '../db/models/subject';
-import { RequestWithBodyAndTeacher } from '../interfaces/Requests';
+import { RequestWithBody } from '../interfaces/Requests';
 
 const router = Router();
 
@@ -9,7 +9,7 @@ const router = Router();
 router.post(
   '/',
   teacherAuthMiddleware,
-  async (req: RequestWithBodyAndTeacher, res: Response, next: NextFunction) => {
+  async (req: RequestWithBody, res: Response, next: NextFunction) => {
     const { subject } = req.body;
 
     if (subject) {
