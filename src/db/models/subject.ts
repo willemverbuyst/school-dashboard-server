@@ -31,24 +31,24 @@ const Subject = sequelize.define<SubjectInstance>('subject', {
   },
 });
 
-Subject.hasMany(Question, {
-  sourceKey: 'id',
-  foreignKey: 'subjectId',
-  as: 'questions',
-});
-
 Subject.hasMany(Test, {
   sourceKey: 'id',
   foreignKey: 'subjectId',
   as: 'tests',
 });
 
-Question.belongsTo(Subject, {
+Test.belongsTo(Subject, {
   foreignKey: 'subjectId',
   as: 'subject',
 });
 
-Test.belongsTo(Subject, {
+Subject.hasMany(Question, {
+  sourceKey: 'id',
+  foreignKey: 'subjectId',
+  as: 'questions',
+});
+
+Question.belongsTo(Subject, {
   foreignKey: 'subjectId',
   as: 'subject',
 });

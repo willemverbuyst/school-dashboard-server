@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '.';
 import Student from './student';
+import Subject from './subject';
 
 interface TestAttributes {
   id: number;
@@ -57,11 +58,11 @@ const Test = sequelize.define<TestInstance>('test', {
   },
   studentId: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
   },
   subjectId: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
   },
 });
 
