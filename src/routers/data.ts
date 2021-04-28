@@ -8,6 +8,7 @@ import Test from '../db/models/test';
 import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
 import { SubjectWithAnswers, ITest } from '../interfaces/Subject';
+import Student from '../db/models/student';
 
 const router = Router();
 
@@ -64,52 +65,34 @@ router.get(
     const { id } = req.params;
 
     try {
-      const tests = await Test.findAll({
-        attributes: ['answer1', 'answer2', 'answer3'],
-        where: { studentId: Number(id) },
-        include: [Test.associations.subject],
+      const subjects = await Subject.findAll({
+        attributes: ['id', 'name'],
+        include: {
+          model: Test,
+          as: 'tests',
+          where: { studentId: id },
+          attributes: ['answer1', 'answer2', 'answer3'],
+        },
       });
 
-      const t = tests.map((test: any) => {
+      const results = subjects.map((subject: any) => {
         return {
-          name: test.subject.name,
-          score: test.answer1 + test.answer2 + test.answer3,
-          subjectId: test.subject.id,
+          subjectId: subject.id,
+          name: subject.name,
+          score: Math.round(
+            (subject.tests
+              .map(
+                (test: { answer1: number; answer2: number; answer3: number }) =>
+                  test.answer1 + test.answer2 + test.answer3
+              )
+              .reduce((a: number, b: number) => a + b, 0) /
+              (subject.tests.length * 3)) *
+              100
+          ),
+          tests: subject.tests.length,
         };
       });
-      // const subjectsWithAnswers = await Test.findAll
-      //   {
-      //     attributes: ['answer1', 'answer2', 'answer3'],
-      //     where: { studentId: id },
-      //     // // include: Subject,
-      //     include: Test.associations.subject,
-      //   }
-      //   //   {
-      //   //     model: Subject,
-      //   //     // attributes: ['id', 'name'],
-      //   //   },
-      //   // ],
-      // );
-
-      // const results = subjectsWithAnswers.map((subject) => {
-      //   return {
-      //     subjectId: subject.id,
-      //     name: subject.name,
-      //     score: Math.round(
-      //       (subject.tests
-      //         .map(
-      //           (test: { answer1: number; answer2: number; answer3: number }) =>
-      //             test.answer1 + test.answer2 + test.answer3
-      //         )
-      //         .reduce((a: number, b: number) => a + b, 0) /
-      //         (subject.tests.length * 3)) *
-      //         100
-      //     ),
-      //     tests: subject.tests.length,
-      //   };
-      // });
-      console.log(t.length);
-      res.send(t);
+      res.send(results);
     } catch (error) {
       return res.status(400).send({ message: 'Something went wrong, sorry' });
     }
