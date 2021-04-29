@@ -1,6 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '.';
-import Student from './student';
 
 interface TestAttributes {
   id: number;

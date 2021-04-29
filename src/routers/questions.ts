@@ -40,37 +40,59 @@ router.get(
 );
 
 // TEACHER post a new question for a subject
-// router.post('/', teacherAuthMiddleware, async (req, res, next) => {
-//   const { subjectId, question, answer1, answer2, answer3, answer4 } = req.body;
+router.post(
+  '/',
+  teacherAuthMiddleware,
+  async (req: RequestWithBody, res: Response, next: NextFunction) => {
+    const {
+      subjectId,
+      question,
+      answer1,
+      answer2,
+      answer3,
+      answer4,
+    } = req.body;
 
-//   if (!subjectId || !question || !answer1 || !answer2 || !answer3 || !answer4) {
-//     return res
-//       .status(400)
-//       .send({ message: 'Please provide question, 4 answers and subject' });
-//   }
-//   try {
-//     const newQuestion = await Question.create({
-//       text: question,
-//       subjectId,
-//     });
-//     const newCorrectAnswer = await Answer.create({
-//       text: answer1,
-//       correct: true,
-//       questionId: newQuestion.id,
-//     });
-//     const newWrongsAnswers = [answer2, answer3, answer4].forEach((answer) =>
-//       Answer.create({
-//         text: answer,
-//         correct: false,
-//         questionId: newQuestion.id,
-//       })
-//     );
+    console.log(subjectId, question, answer1, answer2, answer3, answer4);
 
-//     res.status(201).send({ message: 'You have added a new question.' });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    if (
+      !subjectId ||
+      !question ||
+      !answer1 ||
+      !answer2 ||
+      !answer3 ||
+      !answer4
+    ) {
+      return res
+        .status(400)
+        .send({ message: 'Please provide question, 4 answers and subject' });
+    }
+    try {
+      const newQuestion = await Question.create({
+        text: question,
+        subjectId: Number(subjectId),
+      });
+      // Create correct answer
+      await Answer.create({
+        text: answer1,
+        correct: true,
+        questionId: newQuestion.id,
+      });
+      // Create 3 wrong answers
+      const newWrongsAnswers = [answer2, answer3, answer4].forEach((answer) =>
+        Answer.create({
+          text: answer,
+          correct: false,
+          questionId: newQuestion.id,
+        })
+      );
+
+      res.status(201).send({ message: 'You have added a new question.' });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 // STUDENT get 3 random questions for a subject
 // router.get('/3qtest/:id', studentAuthMiddleware, async (req, res, next) => {
