@@ -133,28 +133,30 @@ router.get(
 );
 
 // STUDENT post the results of his 3q test
-// router.post('/3qtest', studentAuthMiddleware, async (req, res, next) => {
-//   const { studentId, subjectId, q1, q2, q3, a1, a2, a3 } = req.body;
+router.post('/3qtest', studentAuthMiddleware, async (req, res, next) => {
+  const { q1, q2, q3, a1, a2, a3, studentId, subjectId } = req.body;
 
-//   try {
-//     const newTest = await Test.create({
-//       question1: q1,
-//       question2: q2,
-//       question3: q3,
-//       answer1: a1,
-//       answer2: a2,
-//       answer3: a3,
-//       subjectId,
-//       studentId,
-//     });
+  console.log('input', q1, q2, q3, a1, a2, a3, studentId, subjectId);
 
-//     const result = a1 * 1 + a2 * 1 + a3 * 1;
-//     res.status(201).send({
-//       message: `You have finished your test with a score of ${result}/3`,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+  try {
+    await Test.create({
+      question1: Number(q1),
+      question2: Number(q2),
+      question3: Number(q3),
+      answer1: Number(a1),
+      answer2: Number(a2),
+      answer3: Number(a3),
+      subjectId: Number(subjectId),
+      studentId: Number(studentId),
+    });
+
+    const result = Number(a1) + Number(a2) + Number(a3);
+    res.status(201).send({
+      message: `You have finished your test with a score of ${result}/3`,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { router };
