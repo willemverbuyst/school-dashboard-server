@@ -7,6 +7,7 @@ import Subject from '../db/models/subject';
 import Test from '../db/models/test';
 import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
+import Teacher from '../db/models/teacher';
 
 const router = Router();
 
@@ -95,37 +96,41 @@ router.post(
 );
 
 // STUDENT get 3 random questions for a subject
-// router.get('/3qtest/:id', studentAuthMiddleware, async (req, res, next) => {
-//   const { id } = req.params;
-//   try {
-//     const questions = await Question.findAll({
-//       where: { subjectId: id },
-//       include: [{ model: Answer }],
-//     });
-//     if (!questions) {
-//       return res.status(404).send({
-//         message: 'No questions for that subject found',
-//       });
-//     } else {
-//       // https://stackoverflow.com/questions/19269545/how-to-get-n-no-elements-randomly-from-an-array
+router.get(
+  '/3qtest/:id',
+  studentAuthMiddleware,
+  async (req: RequestWithBody, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    try {
+      const questions = await Question.findAll({
+        where: { subjectId: id },
+        include: { model: Answer, as: 'answers' },
+      });
+      if (!questions) {
+        return res.status(404).send({
+          message: 'No questions for that subject found',
+        });
+      } else {
+        // https://stackoverflow.com/questions/19269545/how-to-get-n-no-elements-randomly-from-an-array
 
-//       const shuffled = questions
-//         .map((question) => {
-//           return {
-//             answers: question.answers.sort(() => 0.5 - Math.random()),
-//             id: question.id,
-//             text: question.text,
-//             subjectId: question.subjectId,
-//           };
-//         })
-//         .sort(() => 0.5 - Math.random())
-//         .slice(0, 3);
-//       res.send(shuffled);
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+        const shuffled = questions
+          .map((question: any) => {
+            return {
+              answers: question.answers.sort(() => 0.5 - Math.random()),
+              id: question.id,
+              text: question.text,
+              subjectId: question.subjectId,
+            };
+          })
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 3);
+        res.send(shuffled);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 // STUDENT post the results of his 3q test
 // router.post('/3qtest', studentAuthMiddleware, async (req, res, next) => {
