@@ -100,40 +100,50 @@ router.get(
 );
 
 // TEACHER data per subject
-// router.get('/subjects/:id', teacherAuthMiddleware, async (req, res, next) => {
-//   const { id } = req.params;
-//   try {
-//     const students = await Student.findAll({
-//       where: { teacherId: req.teacher.id },
-//       attributes: ['id', 'name'],
-//       include: [
-//         {
-//           model: Test,
-//           where: { subjectId: id },
-//           attributes: ['answer1', 'answer2', 'answer3'],
-//         },
-//       ],
-//     });
+router.get(
+  '/subjects/:id',
+  teacherAuthMiddleware,
+  async (req: RequestWithBody, res: Response, _next: NextFunction) => {
+    const { id } = req.params;
+    const teacherId = req.teacher.id;
 
-//     const results = students.map((student) => {
-//       return {
-//         studentId: student.id,
-//         name: student.name,
-//         score: Math.round(
-//           (student.tests
-//             .map((test) => test.answer1 + test.answer2 + test.answer3)
-//             .reduce((a, b) => a + b, 0) /
-//             (student.tests.length * 3)) *
-//             100
-//         ),
-//         tests: student.tests.length,
-//       };
-//     });
-//     res.send(results);
-//   } catch (error) {
-//     return res.status(400).send({ message: 'Something went wrong, sorry' });
-//   }
-// });
+    try {
+      const students = await Student.findAll({
+        where: { teacherId },
+        attributes: ['id', 'name'],
+        include: [
+          {
+            model: Test,
+            as: 'tests',
+            where: { subjectId: id },
+            attributes: ['answer1', 'answer2', 'answer3'],
+          },
+        ],
+      });
+
+      const results = students.map((student: any) => {
+        return {
+          studentId: student.id,
+          name: student.name,
+          score: Math.round(
+            (student.tests
+              .map(
+                (test: { answer1: number; answer2: number; answer3: number }) =>
+                  test.answer1 + test.answer2 + test.answer3
+              )
+              .reduce((a: number, b: number) => a + b, 0) /
+              (student.tests.length * 3)) *
+              100
+          ),
+          tests: student.tests.length,
+        };
+      });
+      res.send(results);
+    } catch (error) {
+      return res.status(400).send({ message: 'Something went wrong, sorry' });
+    }
+  }
+);
 
 // TEACHER data for main page
 // router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
