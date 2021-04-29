@@ -29,7 +29,7 @@ module.exports = {
           password: bcrypt.hashSync('123', SALT_ROUNDS),
           createdAt: new Date(),
           updatedAt: new Date(),
-          teacherId: 1,
+          teacherId: 2,
         },
         {
           name: 'Naomi Klein',

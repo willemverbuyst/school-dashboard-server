@@ -1,14 +1,12 @@
 import { NextFunction, Router, Response } from 'express';
 import Teacher from '../db/models/teacher';
 import { RequestWithBody } from '../interfaces/Requests';
+import Student from '../db/models/student';
 import Subject from '../db/models/subject';
 import Test from '../db/models/test';
-// const Subject = require('../models').subject;
-// const Student = require('../models').student;
 import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
 import { SubjectWithAnswers, ITest } from '../interfaces/Subject';
-import Student from '../db/models/student';
 
 const router = Router();
 
@@ -146,61 +144,59 @@ router.get(
 );
 
 // TEACHER data for main page
-// router.get('/teacher/:id', teacherAuthMiddleware, async (req, res, next) => {
-//   try {
-//     // query to get all tests for scatter-chart
-//     const students = await Student.findAll({
-//       where: { teacherId: req.teacher.id },
-//       attributes: ['id'],
-//       include: [
-//         {
-//           model: Test,
-//           attributes: [
-//             'answer1',
-//             'answer2',
-//             'answer3',
-//             'subjectId',
-//             'createdAt',
-//           ],
-//         },
-//       ],
-//     });
+router.get(
+  '/teacher/:id',
+  teacherAuthMiddleware,
+  async (req: RequestWithBody, res: Response, _next: NextFunction) => {
+    const teacherId = req.teacher.id;
 
-//     const allTests = students
-//       .map((student) =>
-//         student.tests.map((test) => {
-//           return {
-//             subjectId: test.subjectId,
-//             result: test.answer1 + test.answer2 + test.answer3,
-//             at: test.createdAt,
-//           };
-//         })
-//       )
-//       .flat();
+    try {
+      const tests = await Test.findAll({
+        attributes: ['subjectId', 'answer1', 'answer2', 'answer3', 'createdAt'],
+        include: [
+          {
+            model: Student,
+            as: 'student',
+            where: { teacherId },
+            attributes: ['id', 'teacherId'],
+          },
+        ],
+      });
 
-//     // query to get average per subject
-//     const subjects = await Subject.findAll();
+      const allTests = tests.map((test: any) => {
+        return {
+          subjectId: test.subjectId,
+          result: test.answer1 + test.answer2 + test.answer3,
+          at: test.createdAt,
+        };
+      });
 
-//     const scores = subjects
-//       .map((subject) =>
-//         allTests.filter((test) => test.subjectId === subject.id)
-//       )
-//       .map((subject) => {
-//         return {
-//           subjectId: subject.id,
-//           length: subject.length,
-//           result: Math.round(
-//             (subject.map((sub) => sub.result).reduce((a, b) => a + b, 0) /
-//               (subject.length * 3)) *
-//               100
-//           ),
-//         };
-//       });
+      // Query to get average per subject
+      const subjects = await Subject.findAll();
 
-//     res.send({ tests: allTests, scores });
-//   } catch (error) {
-//     return res.status(400).send({ message: 'Something went wrong, sorry' });
-//   }
-// });
+      const scores = subjects
+        .map((subject) =>
+          allTests.filter((test) => test.subjectId === subject.id)
+        )
+        .map((subject: any) => {
+          return {
+            subjectId: subject.id,
+            length: subject.length,
+            result: Math.round(
+              (subject
+                .map((sub: any) => sub.result)
+                .reduce((a: number, b: number) => a + b, 0) /
+                (subject.length * 3)) *
+                100
+            ),
+          };
+        });
+
+      res.send({ tests: allTests, scores });
+    } catch (error) {
+      return res.status(400).send({ message: 'Something went wrong, sorry' });
+    }
+  }
+);
 
 export { router };
