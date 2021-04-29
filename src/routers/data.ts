@@ -1,12 +1,10 @@
 import { NextFunction, Router, Response } from 'express';
-import Teacher from '../db/models/teacher';
 import { RequestWithBody } from '../interfaces/Requests';
 import Student from '../db/models/student';
 import Subject from '../db/models/subject';
 import Test from '../db/models/test';
 import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
-import { SubjectWithAnswers, ITest } from '../interfaces/Subject';
 
 const router = Router();
 
