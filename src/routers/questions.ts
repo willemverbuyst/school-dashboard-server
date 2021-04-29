@@ -2,12 +2,9 @@ import { NextFunction, Router, Response } from 'express';
 import { RequestWithBody } from '../interfaces/Requests';
 import Answer from '../db/models/answer';
 import Question from '../db/models/question';
-import Student from '../db/models/student';
-import Subject from '../db/models/subject';
 import Test from '../db/models/test';
 import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
-import Teacher from '../db/models/teacher';
 
 const router = Router();
 
