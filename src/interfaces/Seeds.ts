@@ -22,3 +22,11 @@ export interface Question {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface Answer {
+  text: string;
+  correct: boolean;
+  questionId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
