@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import { SALT_ROUNDS } from '../config/constant';
-import { Teacher } from '../interfaces/Seeds';
+import { User } from '../interfaces/Seeds';
 
-export const teachers: Teacher[] = [
+export const teachers: User[] = [
   {
     name: 'Fjodor Dostojewski',
     email: 'fjodor@dostojewski.com',
