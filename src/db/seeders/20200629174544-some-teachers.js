@@ -1,5 +1,5 @@
 'use strict';
-const { teachers: teacherSeed } = require('../../../build/park/teachers');
+const { teachers: teacherSeed } = require('../../../build/dummyData/teachers');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

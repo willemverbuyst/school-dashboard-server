@@ -1,5 +1,5 @@
 'use strict';
-const { subjects: subjectSeed } = require('../../../build/park/subjects');
+const { subjects: subjectSeed } = require('../../../build/dummyData/subjects');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
