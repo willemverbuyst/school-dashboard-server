@@ -1,28 +1,9 @@
 'use strict';
+const { subjects: subjectSeed } = require('../../../build/park/subjects');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert(
-      'subjects',
-      [
-        {
-          name: 'geography',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          name: 'history',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          name: 'math',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      {}
-    );
+    await queryInterface.bulkInsert('subjects', subjectSeed, {});
   },
 
   down: async (queryInterface, Sequelize) => {
