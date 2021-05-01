@@ -11,7 +11,7 @@ interface TeacherAttributes {
 
 interface TeacherCreationAttributes extends Optional<TeacherAttributes, 'id'> {}
 
-interface TeacherInstance
+export interface TeacherInstance
   extends Model<TeacherAttributes, TeacherCreationAttributes>,
     TeacherAttributes {
   createdAt?: Date;
