@@ -30,3 +30,16 @@ export interface Answer {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface Test {
+  question1: number;
+  question2: number;
+  question3: number;
+  answer1: number;
+  answer2: number;
+  answer3: number;
+  createdAt: Date;
+  updatedAt: Date;
+  subjectId: number;
+  studentId: number;
+}
