@@ -7,6 +7,7 @@ import { AppRouter } from './AppRouter';
 import './controllers/auth/LoginController';
 import './controllers/auth/SignupController';
 import './controllers/auth/ValidUserController';
+import './controllers/general/TeacherController';
 
 const app = express();
 
