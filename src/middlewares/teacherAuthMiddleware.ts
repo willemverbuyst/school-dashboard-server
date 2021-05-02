@@ -3,7 +3,7 @@ import { toData } from '../auth/jwt';
 import { RequestWithBody } from '../interfaces/Requests';
 import Teacher from '../db/models/teacher';
 
-export async function authStudentMiddleWare(
+export async function teacherAuthMiddleWare(
   req: RequestWithBody,
   res: Response,
   next: NextFunction

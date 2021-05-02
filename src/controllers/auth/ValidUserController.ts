@@ -1,12 +1,15 @@
 import { NextFunction, Response } from 'express';
 import Student from '../../db/models/student';
 import { RequestWithBody } from '../../interfaces/Requests';
-import { controller, get } from '../decorators';
+import { controller, get, use } from '../decorators';
 import Subject from '../../db/models/subject';
+import { studentAuthMiddleWare } from '../../middlewares/studentAuthMiddleware';
+import { teacherAuthMiddleWare } from '../../middlewares/teacherAuthMiddleware';
 
 @controller('')
 class ValidUserController {
   @get('/teacher')
+  @use(teacherAuthMiddleWare)
   async getValidTeacher(
     req: RequestWithBody,
     res: Response,
@@ -29,6 +32,7 @@ class ValidUserController {
 
   // /student would be /me if there was only one 'user'
   @get('/student')
+  @use(studentAuthMiddleWare)
   async getValidStudent(
     req: RequestWithBody,
     res: Response,
