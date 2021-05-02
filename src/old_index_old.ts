@@ -1,12 +1,15 @@
+import * as dotenv from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
 import loggerMiddleWare from 'morgan';
 import corsMiddleWare from 'cors';
 import { PORT } from './config/constants';
-import { AppRouter } from './AppRouter';
+import { router as authRouter } from './routers/auth';
+import { router as dataRouter } from './routers/data';
+import { router as questionsRouter } from './routers/questions';
+import { router as schoolRouter } from './routers/general';
+import { router as subjectsRouter } from './routers/subjects';
 
-import './controllers/auth/LoginController';
-import './controllers/auth/SignupController';
-import './controllers/auth/ValidUserController';
+dotenv.config({ path: __dirname + '/.env' });
 
 const app = express();
 
@@ -24,7 +27,11 @@ if (process.env.DELAY) {
   });
 }
 
-app.use(AppRouter.getInstance());
+app.use('/', authRouter);
+app.use('/data', dataRouter);
+app.use('/questions', questionsRouter);
+app.use('/school', schoolRouter);
+app.use('/subjects', subjectsRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

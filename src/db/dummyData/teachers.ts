@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import { SALT_ROUNDS } from '../config/constant';
-import { User } from '../interfaces/Seeds';
+import { SALT_ROUNDS } from '../../config/constants';
+import { User } from '../../interfaces/Seeds';
 
 export const teachers: User[] = [
   {

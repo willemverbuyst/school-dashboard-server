@@ -6,7 +6,7 @@ import { auth as studentAuthMiddleware } from '../auth/studentAuthMiddleware';
 import Teacher from '../db/models/teacher';
 import Student from '../db/models/student';
 import Subject from '../db/models/subject';
-import { SALT_ROUNDS } from '../config/constant';
+import { SALT_ROUNDS } from '../config/constants';
 import { RequestWithBody } from '../interfaces/Requests';
 
 const router = Router();

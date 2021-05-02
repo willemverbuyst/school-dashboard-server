@@ -1,4 +1,4 @@
-import { Answer } from '../interfaces/Seeds';
+import { Answer } from '../../interfaces/Seeds';
 
 export const answers: Answer[] = [
   {
