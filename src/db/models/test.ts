@@ -56,11 +56,11 @@ const Test = sequelize.define<TestInstance>('test', {
   },
   studentId: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
   },
   subjectId: {
     allowNull: false,
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
   },
 });
 
