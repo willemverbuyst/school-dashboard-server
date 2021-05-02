@@ -1,4 +1,4 @@
-import { Subject } from '../interfaces/Seeds';
+import { Subject } from '../../interfaces/Seeds';
 
 export const subjects: Subject[] = [
   {

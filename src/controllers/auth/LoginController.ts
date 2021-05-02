@@ -3,14 +3,19 @@ import bcrypt from 'bcrypt';
 import { toJWT } from '../../auth/jwt';
 import Student from '../../db/models/student';
 import { RequestWithBody } from '../../interfaces/Requests';
-import { controller, get, post } from '../decorators';
+import { bodyValidator, controller, get, post } from '../decorators';
 import Teacher from '../../db/models/teacher';
 import Subject from '../../db/models/subject';
 
 @controller('')
 class LoginController {
+  @get('/test')
+  getTest(_req: Request, res: Response): void {
+    res.send('testing');
+  }
+
   @post('/login')
-  // @bodyValidator('email', 'password')
+  @bodyValidator('email', 'password')
   async postLogin(
     req: RequestWithBody,
     res: Response,

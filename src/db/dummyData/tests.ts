@@ -1,4 +1,4 @@
-import { Test } from '../interfaces/Seeds';
+import { Test } from '../../interfaces/Seeds';
 
 export const tests: Test[] = [
   {
