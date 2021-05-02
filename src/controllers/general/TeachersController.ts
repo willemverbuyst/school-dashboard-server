@@ -4,9 +4,9 @@ import { RequestWithBody } from '../../interfaces/Requests';
 import { controller, get } from '../decorators';
 
 @controller('')
-class TeacherController {
-  @get('/teachers')
-  async postLogin(
+class TeachersController {
+  @get('/general/teachers')
+  async getTeachers(
     _req: RequestWithBody,
     res: Response,
     next: NextFunction
