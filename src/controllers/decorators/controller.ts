@@ -4,22 +4,24 @@ import { AppRouter } from '../../AppRouter';
 import { MetadataKeys } from './MetadataKeys';
 import { Methods } from './Methods';
 
-function bodyValidators(keys: string): RequestHandler {
-  return function (req: Request, res: Response, next: NextFunction) {
-    if (!req.body) {
-      res.status(422).send('Invalid request');
+const bodyValidators = (keys: string): RequestHandler => (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
+  if (!req.body) {
+    res.status(422).send('Invalid request');
+    return;
+  }
+  for (let key of keys) {
+    if (!req.body[key]) {
+      res.status(422).send(`Missing property: ${key}`);
       return;
     }
-    for (let key of keys) {
-      if (!req.body[key]) {
-        res.status(422).send(`Missing property: ${key}`);
-        return;
-      }
-    }
+  }
 
-    next();
-  };
-}
+  next();
+};
 
 export function controller(routePrefix: string) {
   return function (target: Function) {

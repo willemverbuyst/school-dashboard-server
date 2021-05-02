@@ -3,19 +3,19 @@ import Student from '../../db/models/student';
 import { RequestWithBody } from '../../interfaces/Requests';
 import { controller, get, use } from '../decorators';
 import Subject from '../../db/models/subject';
-import { studentAuthMiddleWare } from '../../middlewares/studentAuthMiddleware';
-import { teacherAuthMiddleWare } from '../../middlewares/teacherAuthMiddleware';
+import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware';
+import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware';
 
 @controller('')
 class ValidUserController {
+  // /teacher would be /me if there was only one 'user'
   @get('/teacher')
-  @use(teacherAuthMiddleWare)
+  @use(teacherAuthMiddleware)
   async getValidTeacher(
     req: RequestWithBody,
     res: Response,
     _next: NextFunction
   ): Promise<void> {
-    // /teacher would be /me if there was only one 'user'
     try {
       const students = await Student.findAll({
         where: { teacherId: req.teacher.id },
@@ -32,7 +32,7 @@ class ValidUserController {
 
   // /student would be /me if there was only one 'user'
   @get('/student')
-  @use(studentAuthMiddleWare)
+  @use(studentAuthMiddleware)
   async getValidStudent(
     req: RequestWithBody,
     res: Response,
