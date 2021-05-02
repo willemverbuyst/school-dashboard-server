@@ -8,6 +8,7 @@ import { teacherAuthMiddleWare } from '../../middlewares/teacherAuthMiddleware';
 
 @controller('')
 class ValidUserController {
+  // /teacher would be /me if there was only one 'user'
   @get('/teacher')
   @use(teacherAuthMiddleWare)
   async getValidTeacher(
@@ -15,7 +16,6 @@ class ValidUserController {
     res: Response,
     _next: NextFunction
   ): Promise<void> {
-    // /teacher would be /me if there was only one 'user'
     try {
       const students = await Student.findAll({
         where: { teacherId: req.teacher.id },

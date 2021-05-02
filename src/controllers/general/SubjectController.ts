@@ -6,7 +6,8 @@ import { bodyValidator, controller, post, use } from '../decorators';
 
 @controller('')
 class SubjectController {
-  @post('/subjects')
+  // TEACHER post a new subject
+  @post('/general/subjects')
   @bodyValidator('subject')
   @use(teacherAuthMiddleWare)
   async postSubject(
@@ -14,7 +15,6 @@ class SubjectController {
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    // TEACHER post a new subject
     const { subject } = req.body;
 
     if (subject) {

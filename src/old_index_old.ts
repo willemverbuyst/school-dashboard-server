@@ -5,7 +5,6 @@ import corsMiddleWare from 'cors';
 import { PORT } from './config/constants';
 import { router as dataRouter } from './routers/data';
 import { router as questionsRouter } from './routers/questions';
-import { router as subjectsRouter } from './routers/subjects';
 
 dotenv.config({ path: __dirname + '/.env' });
 
@@ -27,7 +26,6 @@ if (process.env.DELAY) {
 
 app.use('/data', dataRouter);
 app.use('/questions', questionsRouter);
-app.use('/subjects', subjectsRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

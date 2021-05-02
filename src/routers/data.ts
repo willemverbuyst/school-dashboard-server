@@ -9,49 +9,49 @@ import { auth as teacherAuthMiddleware } from '../auth/teacherAuthMiddleware';
 const router = Router();
 
 // STUDENT info for main page
-router.get(
-  '/main',
-  studentAuthMiddleware,
-  async (req: RequestWithBody, res: Response, _next: NextFunction) => {
-    const studentId = req.student.id;
+// router.get(
+//   '/main',
+//   studentAuthMiddleware,
+//   async (req: RequestWithBody, res: Response, _next: NextFunction) => {
+//     const studentId = req.student.id;
 
-    try {
-      const tests = await Test.findAll({ where: { studentId } });
-      const results = tests.map(
-        ({ answer1, answer2, answer3, createdAt, subjectId }) => {
-          return {
-            result: answer1 + answer2 + answer3,
-            at: createdAt,
-            subject: subjectId,
-          };
-        }
-      );
-      res.send(results);
-    } catch (error) {
-      return res.status(400).send({ message: 'Something went wrong, sorry' });
-    }
-  }
-);
+//     try {
+//       const tests = await Test.findAll({ where: { studentId } });
+//       const results = tests.map(
+//         ({ answer1, answer2, answer3, createdAt, subjectId }) => {
+//           return {
+//             result: answer1 + answer2 + answer3,
+//             at: createdAt,
+//             subject: subjectId,
+//           };
+//         }
+//       );
+//       res.send(results);
+//     } catch (error) {
+//       return res.status(400).send({ message: 'Something went wrong, sorry' });
+//     }
+//   }
+// );
 
 // STUDENT info for one subject
-router.get(
-  '/:id',
-  studentAuthMiddleware,
-  async (req: RequestWithBody, res: Response, _next: NextFunction) => {
-    const { id } = req.params;
-    const studentId = req.student.id;
+// router.get(
+//   '/:id',
+//   studentAuthMiddleware,
+//   async (req: RequestWithBody, res: Response, _next: NextFunction) => {
+//     const { id } = req.params;
+//     const studentId = req.student.id;
 
-    try {
-      const tests = await Test.findAll({ where: { studentId, subjectId: id } });
-      const results = tests.map(({ answer1, answer2, answer3, createdAt }) => {
-        return { result: answer1 + answer2 + answer3, at: createdAt };
-      });
-      res.send(results);
-    } catch (error) {
-      return res.status(400).send({ message: 'Something went wrong, sorry' });
-    }
-  }
-);
+//     try {
+//       const tests = await Test.findAll({ where: { studentId, subjectId: id } });
+//       const results = tests.map(({ answer1, answer2, answer3, createdAt }) => {
+//         return { result: answer1 + answer2 + answer3, at: createdAt };
+//       });
+//       res.send(results);
+//     } catch (error) {
+//       return res.status(400).send({ message: 'Something went wrong, sorry' });
+//     }
+//   }
+// );
 
 // TEACHER data per student
 router.get(
