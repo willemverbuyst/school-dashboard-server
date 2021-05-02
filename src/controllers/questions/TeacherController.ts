@@ -7,7 +7,7 @@ import { bodyValidator, controller, get, post, use } from '../decorators';
 
 @controller('')
 class TeachersController {
-  // TEACHER get all the questions for one subject
+  // Get all the questions for one subject
   @get('/questions/:id')
   @use(teacherAuthMiddleware)
   async getQuestionsForSubject(
@@ -38,7 +38,7 @@ class TeachersController {
     }
   }
 
-  // TEACHER post a new question for a subject
+  // Post a new question for a subject
   @post('/questions')
   @bodyValidator(
     'subjectId',

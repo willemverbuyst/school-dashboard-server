@@ -6,7 +6,7 @@ import { controller, get, use } from '../decorators';
 
 @controller('')
 class SubjectController {
-  // STUDENT info for main page
+  // STUDENT, info for main page
   @get('/data/student/main')
   @use(studentAuthMiddleware)
   async getStudentMain(
@@ -33,7 +33,7 @@ class SubjectController {
     }
   }
 
-  // STUDENT info for one subject
+  // STUDENT, info for one subject
   @get('/data/student/subjects/:id')
   @use(studentAuthMiddleware)
   async getSubjectForStudent(

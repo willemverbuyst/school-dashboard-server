@@ -5,8 +5,8 @@ import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware';
 import { bodyValidator, controller, post, use } from '../decorators';
 
 @controller('')
-class SubjectController {
-  // TEACHER post a new subject
+class AllSubjectController {
+  // TEACHER, post a new subject
   @post('/general/subjects')
   @bodyValidator('subject')
   @use(teacherAuthMiddleware)

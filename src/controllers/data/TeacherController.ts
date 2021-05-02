@@ -8,7 +8,7 @@ import { controller, get, use } from '../decorators';
 
 @controller('')
 class SubjectController {
-  // TEACHER data for main page
+  // TEACHER, data for main page
   @get('/data/teacher/main')
   @use(teacherAuthMiddleware)
   async getTeacherMain(
@@ -66,7 +66,7 @@ class SubjectController {
     }
   }
 
-  // TEACHER data per student
+  // TEACHER, data per student
   @get('/data/teacher/students/:id')
   @use(teacherAuthMiddleware)
   async getStudentForTeacher(
@@ -110,7 +110,7 @@ class SubjectController {
     }
   }
 
-  // TEACHER data per subject
+  // TEACHER, data per subject
   @get('/data/teacher/subjects/:id')
   @use(teacherAuthMiddleware)
   async getSubjectForTeacher(

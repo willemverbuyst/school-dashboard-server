@@ -7,8 +7,8 @@ import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware';
 import { bodyValidator, controller, get, post, use } from '../decorators';
 
 @controller('')
-class TeachersController {
-  // STUDENT get 3 random questions for a subject
+class StudentController {
+  // Get 3 random questions for a subject
   @get('/questions/3qtest/:id')
   @use(studentAuthMiddleware)
   async getQuestionsForSubject(
@@ -47,7 +47,7 @@ class TeachersController {
     }
   }
 
-  // STUDENT post the results of his 3q test
+  // Post the results of his 3q test
   @post('/questions/3qtest')
   @bodyValidator('q1', 'q2', 'q3', 'a1', 'a2', 'a3', 'studentId', 'subjectId')
   @use(studentAuthMiddleware)
