@@ -8,6 +8,7 @@ import './controllers/auth/LoginController';
 import './controllers/auth/SignupController';
 import './controllers/auth/ValidUserController';
 import './controllers/general/TeachersController';
+import './controllers/subjects/SubjectController';
 
 const app = express();
 
