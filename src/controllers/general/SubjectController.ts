@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
 import Subject from '../../db/models/subject';
 import { RequestWithBody } from '../../interfaces/Requests';
-import { teacherAuthMiddleWare } from '../../middlewares/teacherAuthMiddleware';
+import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware';
 import { bodyValidator, controller, post, use } from '../decorators';
 
 @controller('')
@@ -9,7 +9,7 @@ class SubjectController {
   // TEACHER post a new subject
   @post('/general/subjects')
   @bodyValidator('subject')
-  @use(teacherAuthMiddleWare)
+  @use(teacherAuthMiddleware)
   async postSubject(
     req: RequestWithBody,
     res: Response,

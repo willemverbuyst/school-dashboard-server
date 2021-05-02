@@ -1,14 +1,14 @@
 import { NextFunction, Response } from 'express';
 import Test from '../../db/models/test';
 import { RequestWithBody } from '../../interfaces/Requests';
-import { studentAuthMiddleWare } from '../../middlewares/studentAuthMiddleware';
+import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware';
 import { controller, get, use } from '../decorators';
 
 @controller('')
 class SubjectController {
   // STUDENT info for main page
-  @get('/data/studentmain')
-  @use(studentAuthMiddleWare)
+  @get('/data/student/main')
+  @use(studentAuthMiddleware)
   async getStudentMain(
     req: RequestWithBody,
     res: Response,
@@ -34,8 +34,8 @@ class SubjectController {
   }
 
   // STUDENT info for one subject
-  @get('/data/subjects/:id')
-  @use(studentAuthMiddleWare)
+  @get('/data/student/subjects/:id')
+  @use(studentAuthMiddleware)
   async getSubject(
     req: RequestWithBody,
     res: Response,

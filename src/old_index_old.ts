@@ -3,7 +3,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import loggerMiddleWare from 'morgan';
 import corsMiddleWare from 'cors';
 import { PORT } from './config/constants';
-import { router as dataRouter } from './routers/data';
+// import { router as dataRouter } from './routers/data';
 import { router as questionsRouter } from './routers/questions';
 
 dotenv.config({ path: __dirname + '/.env' });
@@ -24,7 +24,7 @@ if (process.env.DELAY) {
   });
 }
 
-app.use('/data', dataRouter);
+// app.use('/data', dataRouter);
 app.use('/questions', questionsRouter);
 
 app.listen(PORT, () => {

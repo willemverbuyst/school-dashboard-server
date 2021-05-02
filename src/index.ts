@@ -8,6 +8,7 @@ import './controllers/auth/LoginController';
 import './controllers/auth/SignupController';
 import './controllers/auth/ValidUserController';
 import './controllers/data/StudentController';
+import './controllers/data/TeacherController';
 import './controllers/general/TeachersController';
 import './controllers/general/SubjectController';
 
