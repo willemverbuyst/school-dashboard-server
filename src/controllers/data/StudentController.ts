@@ -36,7 +36,7 @@ class SubjectController {
   // STUDENT info for one subject
   @get('/data/student/subjects/:id')
   @use(studentAuthMiddleware)
-  async getSubject(
+  async getSubjectForStudent(
     req: RequestWithBody,
     res: Response,
     _next: NextFunction
