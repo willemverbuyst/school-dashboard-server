@@ -21,7 +21,7 @@ router.get(
         include: {
           model: Answer,
           as: 'answers',
-          attributes: ['id', 'questionId', 'text'],
+          attributes: ['id', 'questionId', 'text', 'correct'],
         },
       });
       if (!questions) {
