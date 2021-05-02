@@ -5,6 +5,7 @@ import { PORT } from './config/constants';
 import { AppRouter } from './AppRouter';
 
 import './controllers/auth/LoginController';
+import './controllers/auth/SignupController';
 
 const app = express();
 

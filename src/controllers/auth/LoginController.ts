@@ -9,17 +9,12 @@ import Subject from '../../db/models/subject';
 
 @controller('')
 class LoginController {
-  @get('/test')
-  getTest(_req: Request, res: Response): void {
-    res.send('testing');
-  }
-
   @post('/login')
   @bodyValidator('email', 'password')
   async postLogin(
     req: RequestWithBody,
     res: Response,
-    _next: NextFunction
+    next: NextFunction
   ): Promise<void> {
     try {
       const { email, password, isStudent } = req.body;
@@ -34,8 +29,7 @@ class LoginController {
           res.status(400).send({
             message: 'Student with that email not found or password incorrect',
           });
-        }
-        if (student) {
+        } else {
           const token = toJWT({ studentId: student.id });
           const subjects = await Subject.findAll({
             attributes: ['id', 'name'],
@@ -54,9 +48,7 @@ class LoginController {
           res.status(400).send({
             message: 'Teacher with that email not found or password incorrect',
           });
-        }
-
-        if (teacher) {
+        } else {
           const token = toJWT({ teacherId: teacher.id });
           const subjects = await Subject.findAll({
             attributes: ['id', 'name'],
