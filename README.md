@@ -4,8 +4,6 @@
 
 In short: this is a dashboard where students and teachers can keep track of grades and progress for multiple subjects/students. For the details on the functionality see the [user stories](#userStories).
 
-A live version of the dashboard with dummy data can be found [here](https://compassionate-raman-97ce78.netlify.app/).
-
 ### Log in with:
 
 Contact me for log in credentials.
