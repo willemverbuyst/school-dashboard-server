@@ -4,10 +4,6 @@
 
 In short: this is a dashboard where students and teachers can keep track of grades and progress for multiple subjects/students. For the details on the functionality see the [user stories](#userStories).
 
-### Log in with:
-
-Contact me for log in credentials.
-
 ## Who am I?
 
 I am part of class #40, attending an 11 week JavaScript bootcamp at [Codaisseur](https://codaisseur.com/).
