@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-const BarChartHome = () => {
+const BarChartHome = (): ReactElement => {
   const chartData = {
     labels: ['Welcome', 'to', 'your', 'dashboard'],
     datasets: [
       {
-        label: { display: false},
+        label: '',
         data: [80, 56, 67, 45],
         backgroundColor: ['#FF2694', '#FF2694', '#FF2694', '#FF2694'],
         borderWidth: 0,
@@ -14,7 +14,7 @@ const BarChartHome = () => {
     ],
   };
   const chartOptions = {
-    tooltips: false,
+    tooltips: { enabled: false },
     legend: {
       display: false,
     },
@@ -47,15 +47,9 @@ const BarChartHome = () => {
         },
       ],
     },
-  }
+  };
 
-
-  return (
-    <Bar
-      data={chartData}
-      options={chartOptions}
-    />
-  );
-}
+  return <Bar data={chartData} options={chartOptions} />;
+};
 
 export default BarChartHome;
