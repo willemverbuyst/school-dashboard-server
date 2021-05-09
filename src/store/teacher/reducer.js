@@ -12,7 +12,7 @@ const initialState = {
   id: null,
 };
 
-export default (state = initialState, action) => {
+export const teacherReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS_TEACHER:
       localStorage.setItem('teacher_token', action.payload.token);

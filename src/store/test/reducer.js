@@ -4,7 +4,7 @@ const initialState = {
   all: null,
 };
 
-export default (state = initialState, action) => {
+export const testReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_MC_QUESTIONS:
       return { ...state, all: action.payload };

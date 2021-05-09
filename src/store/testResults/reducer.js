@@ -7,7 +7,7 @@ const initialState = {
   all: null,
 };
 
-export default (state = initialState, action) => {
+export const testResultReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_RESULTS_FOR_SUBJECT:
       return { ...state, all: action.payload };
