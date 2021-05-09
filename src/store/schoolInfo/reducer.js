@@ -4,7 +4,7 @@ const initialState = {
   teachers: null,
 };
 
-export const schoolInfoReducer = (state = initialState, action) => {
+const schoolInfoReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TEACHERS:
       return { ...state, teachers: action.payload };
@@ -13,3 +13,5 @@ export const schoolInfoReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default schoolInfoReducer;

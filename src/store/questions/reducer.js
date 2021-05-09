@@ -4,7 +4,7 @@ const initialState = {
   all: null,
 };
 
-export const questionsReducer = (state = initialState, action) => {
+const questionsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_QUESTIONS:
       return { ...state, all: action.payload };
@@ -19,3 +19,5 @@ export const questionsReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default questionsReducer;

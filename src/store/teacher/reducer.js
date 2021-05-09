@@ -12,7 +12,7 @@ const initialState = {
   id: null,
 };
 
-export const teacherReducer = (state = initialState, action) => {
+const teacherReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS_TEACHER:
       localStorage.setItem('teacher_token', action.payload.token);
@@ -36,3 +36,5 @@ export const teacherReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default teacherReducer;

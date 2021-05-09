@@ -7,7 +7,7 @@ const initialState = {
   all: null,
 };
 
-export const overviewStudentReducer = (state = initialState, action) => {
+const overviewStudentReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_RESULTS_FOR_STUDENT_MAIN:
       return { ...state, all: action.payload };
@@ -19,3 +19,5 @@ export const overviewStudentReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default overviewStudentReducer;

@@ -7,7 +7,7 @@ const initialState = {
   all: null,
 };
 
-export const testResultReducer = (state = initialState, action) => {
+const testResultReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_RESULTS_FOR_SUBJECT:
       return { ...state, all: action.payload };
@@ -19,3 +19,5 @@ export const testResultReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export default testResultReducer;
