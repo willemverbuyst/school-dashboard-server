@@ -1,7 +1,7 @@
-import React from 'react';
 import { Spin } from 'antd';
+import { ReactElement } from 'react';
 
-export default function Spinner() {
+const Spinner = (): ReactElement => {
   return (
     <Spin
       style={{
@@ -14,4 +14,6 @@ export default function Spinner() {
       }}
     />
   );
-}
+};
+
+export default Spinner;
