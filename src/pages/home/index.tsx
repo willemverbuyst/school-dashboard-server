@@ -10,7 +10,7 @@ import { Layout, Row, Col } from 'antd';
 
 const { Content } = Layout;
 
-export default function Home() {
+const Home = () => {
   const history = useHistory();
   const studentId = useSelector(selectStudentId);
   const teacherId = useSelector(selectTeacherId);
@@ -48,8 +48,7 @@ export default function Home() {
             </Col>
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
-                <LineChartHome
-                />
+                <LineChartHome />
               </div>
             </Col>
           </Row>
@@ -57,4 +56,6 @@ export default function Home() {
       </Layout>
     </Layout>
   );
-}
+};
+
+export default Home;

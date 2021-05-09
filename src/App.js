@@ -6,7 +6,7 @@ import BarAtTheTop from './components/BarAtThetop';
 import AlertBox from './components/AlertBox';
 import Spinner from './components/Spinner';
 import Sidebar from './components/Sidebar';
-import Home from './pages/home/';
+import Home from './pages/home/index';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import StudentMainPage from './pages/student/StudentMainPage';
