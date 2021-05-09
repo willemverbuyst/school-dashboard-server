@@ -1,36 +1,37 @@
 import React from 'react';
-// import { Polar } from 'react-chartjs-2';
+import { Polar } from 'react-chartjs-2';
 
-export default function PolarChartHome({ labels, color, data }) {
-  // const chartData = {
-  //   labels: labels,
-  //   datasets: [
-  //     {
-  //       label: { display: false },
-  //       data: data,
-  //       backgroundColor: color,
-  //       borderWidth: 4,
-  //     },
-  //   ],
-  // };
+export default function PolarChartHome() {
+  const chartData = {
+    labels: ['Please', 'log', 'in'],
+    datasets: [
+      {
+        label: { display: false },
+        data: [80, 56, 67],
+        backgroundColor: ['#B81D9D', '#D222E1', '#8F1CB8'],
+        borderWidth: 4,
+      },
+    ],
+  };
+  const chartOptions ={
+    tooltips: false,
+    legend: {
+      display: true,
+      position: 'bottom',
+      labels: { fontSize: 18 },
+    },
+    responsive: true,
+    title: { display: false },
+    scale: {
+      display: false,
+    },
+  }
+  
 
   return (
-    <p>polar chart</p>
-    // <Polar
-    //   data={chartData}
-    //   options={{
-    //     tooltips: false,
-    //     legend: {
-    //       display: true,
-    //       position: 'bottom',
-    //       labels: { fontSize: 18 },
-    //     },
-    //     responsive: true,
-    //     title: { display: false },
-    //     scale: {
-    //       display: false,
-    //     },
-    //   }}
-    // />
+    <Polar
+      data={chartData}
+      options={chartOptions}
+    />
   );
 }

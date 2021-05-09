@@ -36,30 +36,19 @@ export default function Home() {
           <Row justify="space-around">
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
-                <BarChartHome
-                  labels={['Welcome', 'to', 'your', 'dashboard']}
-                  color={['#FF2694', '#FF2694', '#FF2694', '#FF2694']}
-                  data={[80, 56, 67, 45]}
-                />
+                <BarChartHome />
               </div>
             </Col>
           </Row>
           <Row justify="space-around">
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
-                <PolarChartHome
-                  labels={['Please', 'log', 'in']}
-                  color={['#B81D9D', '#D222E1', '#8F1CB8']}
-                  data={[80, 56, 67]}
-                />
+                <PolarChartHome />
               </div>
             </Col>
             <Col>
               <div style={{ width: '35vw', height: '35vh' }}>
                 <LineChartHome
-                  labels={['to', 'see', 'your', 'progress']}
-                  color={['#A026FF']}
-                  data={[45, 67, 56, 80]}
                 />
               </div>
             </Col>
