@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
@@ -10,15 +10,15 @@ import { Layout } from 'antd';
 
 const { Header } = Layout;
 
-export default function BarAtThetop() {
+const BarAtThetop = (): ReactElement => {
   const student = useSelector(selectStudentName);
   const teacher = useSelector(selectTeacherName);
 
-  const renderLoginLogout = () => {
+  const renderLoginLogout = (): ReactElement => {
     return student || teacher ? <LogoutButton /> : <LoginButton />;
   };
 
-  const renderWelcome = () => {
+  const renderWelcome = (): ReactElement | null => {
     return student ? (
       <div>Welcome {student}!</div>
     ) : teacher ? (
@@ -26,7 +26,7 @@ export default function BarAtThetop() {
     ) : null;
   };
 
-  const renderDate = () => {
+  const renderDate = (): string => {
     return moment().format('MMMM Do YYYY, dddd');
   };
 
@@ -56,4 +56,6 @@ export default function BarAtThetop() {
       {renderLoginLogout()}
     </Header>
   );
-}
+};
+
+export default BarAtThetop;
