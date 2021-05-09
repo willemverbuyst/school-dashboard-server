@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentToken } from '../store/student/selectors';
@@ -7,7 +7,7 @@ import { studentLoggingOut } from '../store/student/actions';
 import { teacherLoggingOut } from '../store/teacher/actions';
 import { Button } from 'antd';
 
-export default function LogoutButton() {
+const LogoutButton = (): ReactElement => {
   const history = useHistory();
   const dispatch = useDispatch();
   const teacherToken = useSelector(selectTeacherToken);
@@ -24,4 +24,6 @@ export default function LogoutButton() {
   };
 
   return <Button onClick={handleLogOut}>Logout</Button>;
-}
+};
+
+export default LogoutButton;

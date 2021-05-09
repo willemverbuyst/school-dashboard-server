@@ -1,8 +1,8 @@
-import React from 'react';
+import { ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 
-export default function LogoutButton() {
+const LogoutButton = (): ReactElement => {
   const history = useHistory();
 
   const goTo = () => {
@@ -10,4 +10,6 @@ export default function LogoutButton() {
   };
 
   return <Button onClick={goTo}>Login</Button>;
-}
+};
+
+export default LogoutButton;
