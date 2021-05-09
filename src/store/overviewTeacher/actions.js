@@ -39,9 +39,12 @@ export function getSubjectForOverview(id) {
     const token = getState().teacher.token;
     dispatch(appLoading());
     try {
-      const response = await axios.get(`${apiUrl}/data/subjects/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${apiUrl}/data/teacher/subjects/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const results = response.data;
 
       dispatch(subjectsFetched(results));
@@ -64,9 +67,12 @@ export function getStudentForOverview(id) {
     const token = getState().teacher.token;
     dispatch(appLoading());
     try {
-      const response = await axios.get(`${apiUrl}/data/students/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${apiUrl}/data/teacher/students/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const results = response.data;
 
       dispatch(studentsFetched(results));
@@ -91,7 +97,7 @@ export function getMainOverview(id) {
     const dataMain = getState().overViewTeacher.main;
     if (dataMain.length < 1) {
       try {
-        const response = await axios.get(`${apiUrl}/data/teacher/${id}`, {
+        const response = await axios.get(`${apiUrl}/data/teacher/main`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const results = response.data;

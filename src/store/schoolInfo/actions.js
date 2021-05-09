@@ -14,7 +14,7 @@ export function teachersFetched(teachers) {
 export async function fetchAllTeachers(dispatch, getState) {
   dispatch(appLoading());
   try {
-    const response = await axios.get(`${apiUrl}/school/teachers`, {});
+    const response = await axios.get(`${apiUrl}/general/teachers`, {});
     const teachers = response.data;
 
     dispatch(teachersFetched(teachers));

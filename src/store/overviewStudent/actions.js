@@ -23,7 +23,7 @@ export function getResultsForStudentMain(id) {
     const token = getState().student.token;
     dispatch(appLoading());
     try {
-      const response = await axios.get(`${apiUrl}/data/main`, {
+      const response = await axios.get(`${apiUrl}/data/student/main`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const results = response.data;
