@@ -1,6 +1,7 @@
 import React from 'react';
 import { Radio, Form, Row, Col } from 'antd';
 import { ReactElement } from 'react';
+import { RadioEvent } from '../models/events.models';
 
 interface IMultipleChoiceAnswer {
   id: number;
@@ -14,7 +15,7 @@ interface IMCquestionDisplay {
   answers: IMultipleChoiceAnswer[];
   questionNumber: number;
   questionId: number;
-  onChange: any;
+  onChange: RadioEvent;
 }
 
 const MultipleChoiceQuestion: React.FC<IMCquestionDisplay> = ({
