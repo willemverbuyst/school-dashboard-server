@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Pie } from 'react-chartjs-2';
 
-export default function PieChart({ labels, data, color, title = '' }) {
+interface IInputPieChart {
+  labels: string[];
+  data: number[];
+  color: string[];
+  title: string;
+}
+
+const PieChart: React.FC<IInputPieChart> = ({
+  labels,
+  data,
+  color,
+  title = '',
+}: IInputPieChart): ReactElement => {
   const chartData = {
     labels: labels,
     datasets: [
@@ -17,7 +29,7 @@ export default function PieChart({ labels, data, color, title = '' }) {
     <Pie
       data={chartData}
       options={{
-        tooltips: false,
+        tooltips: { enabled: false },
         legend: {
           display: true,
           position: 'bottom',
@@ -28,4 +40,6 @@ export default function PieChart({ labels, data, color, title = '' }) {
       }}
     />
   );
-}
+};
+
+export default PieChart;
