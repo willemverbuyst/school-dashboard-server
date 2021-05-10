@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
-import { Line } from 'react-chartjs-2';
+import * as chartjs from 'chart.js';
+import { ChartData, Line } from 'react-chartjs-2';
 
 interface IInputLineChart {
   labels: string[];
@@ -16,7 +17,7 @@ const LineChart: React.FC<IInputLineChart> = ({
   title,
   max,
 }: IInputLineChart): ReactElement => {
-  const chartData = {
+  const chartData: ChartData<chartjs.ChartData> = {
     labels: labels,
     datasets: [
       {
@@ -27,7 +28,7 @@ const LineChart: React.FC<IInputLineChart> = ({
     ],
   };
 
-  const chartOptions = {
+  const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
     legend: {
       display: false,

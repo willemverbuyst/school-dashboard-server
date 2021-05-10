@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
-import { Doughnut } from 'react-chartjs-2';
+import * as chartjs from 'chart.js';
+import { ChartData, Doughnut } from 'react-chartjs-2';
 
 interface IInputDoughnutChart {
   data: number[];
@@ -12,7 +13,7 @@ const DoughnutChart: React.FC<IInputDoughnutChart> = ({
   color,
   title = '',
 }: IInputDoughnutChart): ReactElement => {
-  const chartData = {
+  const chartData: ChartData<chartjs.ChartData> = {
     datasets: [
       {
         data: data,
@@ -22,7 +23,7 @@ const DoughnutChart: React.FC<IInputDoughnutChart> = ({
     ],
   };
 
-  const chartOptions = {
+  const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
     legend: {
       display: false,

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
-import { Bar } from 'react-chartjs-2';
+import * as chartjs from 'chart.js';
+import { Bar, ChartData } from 'react-chartjs-2';
 
 interface IInputBarChartTest {
   labels: string[];
@@ -14,7 +15,7 @@ const BarChartTest: React.FC<IInputBarChartTest> = ({
   color,
   title,
 }: IInputBarChartTest): ReactElement => {
-  const chartData = {
+  const chartData: ChartData<chartjs.ChartData> = {
     labels: labels,
     datasets: [
       {
@@ -25,7 +26,7 @@ const BarChartTest: React.FC<IInputBarChartTest> = ({
     ],
   };
 
-  const chartOptions = {
+  const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
     legend: {
       display: false,

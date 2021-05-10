@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react';
-import { Polar } from 'react-chartjs-2';
+import { ReactElement } from 'react';
+import * as chartjs from 'chart.js';
+import { ChartData, Polar } from 'react-chartjs-2';
 
 const PolarChartHome = (): ReactElement => {
-  const chartData = {
+  const chartData: ChartData<chartjs.ChartData> = {
     labels: ['Please', 'log', 'in'],
     datasets: [
       {
@@ -13,25 +14,21 @@ const PolarChartHome = (): ReactElement => {
       },
     ],
   };
+  const chartOptions: chartjs.ChartOptions = {
+    tooltips: { enabled: false },
+    legend: {
+      display: true,
+      position: 'bottom',
+      labels: { fontSize: 18 },
+    },
+    responsive: true,
+    title: { display: false },
+    scale: {
+      display: false,
+    },
+  };
 
-  return (
-    <Polar
-      data={chartData}
-      options={{
-        tooltips: { enabled: false },
-        legend: {
-          display: true,
-          position: 'bottom',
-          labels: { fontSize: 18 },
-        },
-        responsive: true,
-        title: { display: false },
-        scale: {
-          display: false,
-        },
-      }}
-    />
-  );
+  return <Polar data={chartData} options={chartOptions} />;
 };
 
 export default PolarChartHome;

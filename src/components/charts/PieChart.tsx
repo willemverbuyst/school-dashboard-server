@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
-import { Pie } from 'react-chartjs-2';
+import * as chartjs from 'chart.js';
+import { ChartData, Pie } from 'react-chartjs-2';
 
 interface IInputPieChart {
   labels: string[];
@@ -14,7 +15,7 @@ const PieChart: React.FC<IInputPieChart> = ({
   color,
   title = '',
 }: IInputPieChart): ReactElement => {
-  const chartData = {
+  const chartData: ChartData<chartjs.ChartData> = {
     labels: labels,
     datasets: [
       {
@@ -24,22 +25,18 @@ const PieChart: React.FC<IInputPieChart> = ({
       },
     ],
   };
+  const chartOptions: chartjs.ChartOptions = {
+    tooltips: { enabled: false },
+    legend: {
+      display: true,
+      position: 'bottom',
+      labels: { fontSize: 12 },
+    },
+    responsive: true,
+    title: { text: title, display: true, padding: 15, fontSize: 14 },
+  };
 
-  return (
-    <Pie
-      data={chartData}
-      options={{
-        tooltips: { enabled: false },
-        legend: {
-          display: true,
-          position: 'bottom',
-          labels: { fontSize: 12 },
-        },
-        responsive: true,
-        title: { text: title, display: true, padding: 15, fontSize: 14 },
-      }}
-    />
-  );
+  return <Pie data={chartData} options={chartOptions} />;
 };
 
 export default PieChart;
