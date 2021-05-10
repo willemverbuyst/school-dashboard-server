@@ -16,7 +16,7 @@ import TeacherMainPage from './pages/teacher/TeacherMainPage';
 import TeacherStudentDetails from './pages/teacher/TeacherStudentDetails';
 import TeacherSubjectDetails from './pages/teacher/TeacherSubjectDetails';
 import AddQuestionForm from './pages/teacher/AddQuestionForm';
-import ListOfQuestions from './pages/teacher/ListOfQuestions';
+import ListOfQuestions from './pages/teacher/admin/listOfQuestions';
 import AddSubject from './pages/teacher/AddSubject';
 import { selectAppLoading } from './store/appState/selectors';
 import { getStudentWithStoredToken } from './store/student/actions';
