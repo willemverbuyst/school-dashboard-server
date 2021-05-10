@@ -1,21 +1,19 @@
 import React, { ReactElement } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-interface IInputBarChart {
+interface IInputBarChartTest {
   labels: string[];
   data: number[];
   color: string[];
   title: string;
-  max: number;
 }
 
-const BarChart: React.FC<IInputBarChart> = ({
+const BarChartTest: React.FC<IInputBarChartTest> = ({
   labels,
   data,
   color,
   title,
-  max,
-}: IInputBarChart): ReactElement => {
+}: IInputBarChartTest): ReactElement => {
   const chartData = {
     labels: labels,
     datasets: [
@@ -26,10 +24,12 @@ const BarChart: React.FC<IInputBarChart> = ({
       },
     ],
   };
+
   const chartOptions = {
     tooltips: { enabled: false },
     legend: {
       display: false,
+      labels: { fontSize: 16 },
     },
     responsive: true,
     title: { text: title, display: true, padding: 15, fontSize: 14 },
@@ -40,8 +40,8 @@ const BarChart: React.FC<IInputBarChart> = ({
             autoSkip: true,
             maxTicksLimit: 10,
             beginAtZero: true,
-            stepSize: 1,
-            suggestedMax: max,
+            display: false,
+            suggestedMax: 20,
           },
           gridLines: {
             display: false,
@@ -61,4 +61,4 @@ const BarChart: React.FC<IInputBarChart> = ({
   return <Bar data={chartData} options={chartOptions} />;
 };
 
-export default BarChart;
+export default BarChartTest;
