@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Row, Radio, Select, Button } from 'antd';
 
 const { Option } = Select;
 
-export default function SortAndSelect({
+interface Student {
+  name: string;
+  score: number;
+  subjectId: number;
+  tests: number;
+}
+
+interface ISelectorProps {
+  title: string;
+  radio1: string;
+  radio2: string;
+  onChangeRadio: any;
+  value: string | undefined;
+  onChangeSelection: any;
+  results: Student[];
+  selectStudentData: string;
+  onClick: any;
+  placeholder: string;
+  textBtn: string;
+}
+
+const SortAndSelect: React.FC<ISelectorProps> = ({
   title,
   radio1,
   radio2,
@@ -15,7 +36,7 @@ export default function SortAndSelect({
   onClick,
   placeholder,
   textBtn,
-}) {
+}: ISelectorProps): ReactElement => {
   return (
     <Row style={{ paddingBottom: 35 }}>
       {title}
@@ -51,4 +72,6 @@ export default function SortAndSelect({
       ) : null}
     </Row>
   );
-}
+};
+
+export default SortAndSelect;
