@@ -1,0 +1,65 @@
+import React, { ReactElement } from 'react';
+import { Line } from 'react-chartjs-2';
+
+interface IInputLineChart {
+  labels: string[];
+  data: number[];
+  color: string;
+  title: string;
+  max: number;
+}
+
+const LineChart: React.FC<IInputLineChart> = ({
+  labels,
+  data,
+  color,
+  title,
+  max,
+}: IInputLineChart): ReactElement => {
+  const chartData = {
+    labels: labels,
+    datasets: [
+      {
+        data: data,
+        backgroundColor: color,
+        borderWidth: 0,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    tooltips: { enabled: false },
+    legend: {
+      display: false,
+    },
+    responsive: true,
+    title: { text: title, display: true, padding: 15, fontSize: 14 },
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 10,
+            beginAtZero: true,
+            stepSize: 1,
+            suggestedMax: max,
+          },
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+          },
+        },
+      ],
+    },
+  };
+
+  return <Line data={chartData} options={chartOptions} />;
+};
+
+export default LineChart;
