@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-export default function BarChart({ labels, data, color, title, max }) {
+interface IInputBarChart {
+  labels: string[];
+  data: number[];
+  color: string[];
+  title: string;
+  max: number;
+}
+
+const BarChart: React.FC<IInputBarChart> = ({
+  labels,
+  data,
+  color,
+  title,
+  max,
+}: IInputBarChart): ReactElement => {
   const chartData = {
     labels: labels,
     datasets: [
       {
-        label: { display: false },
         data: data,
         backgroundColor: color,
         borderWidth: 0,
@@ -18,7 +31,7 @@ export default function BarChart({ labels, data, color, title, max }) {
     <Bar
       data={chartData}
       options={{
-        tooltips: false,
+        tooltips: { enabled: false },
         legend: {
           display: false,
         },
@@ -50,4 +63,6 @@ export default function BarChart({ labels, data, color, title, max }) {
       }}
     />
   );
-}
+};
+
+export default BarChart;
