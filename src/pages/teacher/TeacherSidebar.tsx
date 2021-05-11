@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -13,22 +12,33 @@ import {
   DatabaseOutlined,
   HomeOutlined,
 } from '@ant-design/icons';
+import { ReactElement } from 'react';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
-export default function SideBar() {
-  const history = useHistory();
-  const subjects = useSelector(selectTeacherSubjects);
-  const students = useSelector(selectTeacherStudents);
-  const teacherId = useSelector(selectTeacherId);
+export interface IStudent {
+  name: string;
+  id: number;
+}
 
-  const goTo = (goto) => {
+export interface ISubject {
+  name: string;
+  id: number;
+}
+
+const SideBar = (): ReactElement => {
+  const history = useHistory();
+  const subjects: ISubject[] = useSelector(selectTeacherSubjects);
+  const students: IStudent[] = useSelector(selectTeacherStudents);
+  const teacherId: number = useSelector(selectTeacherId);
+
+  const goTo = (goto: string) => {
     history.push(goto);
   };
 
-  const renderSubjectNav = () => {
-    return subjects.map(({ name, id }, i) => (
+  const renderSubjectNav = (): ReactElement[] =>
+    subjects.map(({ name, id }, i) => (
       <Menu.Item
         key={`sub2-${i + 1}`}
         onClick={() => goTo(`/teachers/${teacherId}/subjects/${id}`)}
@@ -36,10 +46,9 @@ export default function SideBar() {
         {name.charAt(0).toUpperCase() + name.slice(1)}
       </Menu.Item>
     ));
-  };
 
-  const renderStudentNav = () => {
-    return students.map(({ name, id }, i) => (
+  const renderStudentNav = (): ReactElement[] =>
+    students.map(({ name, id }, i) => (
       <Menu.Item
         key={`sub3-${i + 1}`}
         onClick={() => goTo(`/teachers/${teacherId}/students/${id}`)}
@@ -47,7 +56,6 @@ export default function SideBar() {
         {name}
       </Menu.Item>
     ));
-  };
 
   return (
     <Sider width={200} className="site-layout-background">
@@ -92,4 +100,6 @@ export default function SideBar() {
       </Menu>
     </Sider>
   );
-}
+};
+
+export default SideBar;
