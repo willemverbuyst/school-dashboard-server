@@ -11,7 +11,7 @@ import TeacherSubjectDetails from './pages/teacher/TeacherSubjectDetails';
 import ListOfQuestions from './pages/teacher/admin/questions/ListOfQuestions';
 import AddQuestionForm from './pages/teacher/admin/questions/AddQuestionForm';
 import AddSubject from './pages/teacher/admin/subjects/AddSubject';
-import * as ROUTES from './config/routes';
+import * as ROUTES from './constants/routes';
 
 const AppRouter = (): JSX.Element => {
   return (
