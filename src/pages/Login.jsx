@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectStudentId } from '../store/student/selectors';
@@ -6,6 +6,7 @@ import { selectTeacherId } from '../store/teacher/selectors';
 import { loginStudent } from '../store/student/actions';
 import { loginTeacher } from '../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio, Row, Col } from 'antd';
+import TextInput from '../components/form/TextInput';
 
 const { Content } = Layout;
 
@@ -50,7 +51,14 @@ export default function Login() {
                 </Radio.Group>
               </Form.Item>
 
-              <Form.Item
+              <TextInput 
+                name="Email" 
+                message="Please input your email!" 
+                value={email} 
+                updateValue={(e) => setEmail(e.target.value)} 
+              /> 
+
+              {/* <Form.Item
                 name="Email"
                 rules={[
                   { required: true, message: 'Please input your email!' },
@@ -61,7 +69,7 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-              </Form.Item>
+              </Form.Item> */}
 
               <Form.Item
                 name="password"
