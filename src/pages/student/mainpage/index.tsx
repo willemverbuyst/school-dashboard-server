@@ -8,7 +8,7 @@ import {
 import { getResultsForStudentMain } from '../../../store/overviewStudent/actions';
 import { selectResultsForStudentMain } from '../../../store/overviewStudent/selectors';
 import { Layout } from 'antd';
-import AllCharts from './AllCharts';
+import AllCharts from './AllChartsMain';
 
 const { Content } = Layout;
 
