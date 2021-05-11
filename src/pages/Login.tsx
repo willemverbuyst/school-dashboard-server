@@ -5,8 +5,10 @@ import { selectStudentId } from '../store/student/selectors';
 import { selectTeacherId } from '../store/teacher/selectors';
 import { loginStudent } from '../store/student/actions';
 import { loginTeacher } from '../store/teacher/actions';
-import { Layout, Form, Input, Button, Radio, Row, Col } from 'antd';
+import { Layout, Form, Button, Radio, Row, Col } from 'antd';
 import TextInput from '../components/form/TextInput';
+import PasswordInput from '../components/form/PasswordInput';
+import { ButtonEvent } from '../models/events.models';
 
 const { Content } = Layout;
 
@@ -28,12 +30,12 @@ export default function Login() {
     }
   }, [studentId, teacherId, history]);
 
-  function submitForm(event) {
+  const submitForm = (event: ButtonEvent): void => {
     event.preventDefault();
     status === 1
       ? dispatch(loginStudent(email, password, status))
       : dispatch(loginTeacher(email, password, status));
-  }
+  };
 
   return (
     <Layout style={{ padding: '24px', height: '92vh' }}>
@@ -50,40 +52,18 @@ export default function Login() {
                   <Radio value={2}>Teacher</Radio>
                 </Radio.Group>
               </Form.Item>
-
-              <TextInput 
-                name="Email" 
-                message="Please input your email!" 
-                value={email} 
-                updateValue={(e) => setEmail(e.target.value)} 
-              /> 
-
-              {/* <Form.Item
+              <TextInput
                 name="Email"
-                rules={[
-                  { required: true, message: 'Please input your email!' },
-                ]}
-              >
-                <Input
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Form.Item> */}
-
-              <Form.Item
-                name="password"
-                rules={[
-                  { required: true, message: 'Please input your password!' },
-                ]}
-              >
-                <Input.Password
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Form.Item>
-
+                message="Please input your email!"
+                value={email}
+                updateValue={(e) => setEmail(e.target.value)}
+              />
+              <PasswordInput
+                name="Password"
+                message="Please input your password!"
+                value={password}
+                updateValue={(e) => setPassword(e.target.value)}
+              />
               <Form.Item>
                 <Link style={{ color: '#FF2694' }} to="/signup">
                   Click here to sign up
