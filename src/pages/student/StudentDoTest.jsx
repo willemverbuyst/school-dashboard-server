@@ -92,7 +92,7 @@ export default function StudentDoTest() {
             key={i}
             text={text}
             answers={answers}
-            onPick={onPick}
+            onChange={onPick}
             questionNumber={i + 1}
           />
         ))}

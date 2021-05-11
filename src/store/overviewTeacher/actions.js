@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiUrl } from '../../config/constants';
+import { apiUrl } from '../../constants/constants';
 import { appLoading, appDoneLoading, setMessage } from '../appState/actions';
 
 export const FETCH_OVERVIEW_FOR_SUBJECT = 'FETCH_OVERVIEW_FOR_SUBJECT';

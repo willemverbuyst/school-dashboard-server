@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllTeachers } from '../store/schoolInfo/actions';
-import { selectAllTeachers } from '../store/schoolInfo/selectors';
-import { createStudent } from '../store/student/actions';
-import { createTeacher } from '../store/teacher/actions';
+import { fetchAllTeachers } from '../../store/schoolInfo/actions';
+import { selectAllTeachers } from '../../store/schoolInfo/selectors';
+import { createStudent } from '../../store/student/actions';
+import { createTeacher } from '../../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio, Select, Row, Col } from 'antd';
+import PasswordInput from '../../components/form/PasswordInput';
+import TextInput from '../../components/form/TextInput';
+import { ReactElement } from 'react';
 
 const { Content } = Layout;
 const { Option } = Select;
 
-export default function Signup() {
+export interface ITeacher {
+  name: string;
+  id: number;
+}
+
+const Signup = (): ReactElement => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [status, setStatus] = useState(1);
@@ -18,13 +26,13 @@ export default function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const teachers = useSelector(selectAllTeachers);
+  const teachers: ITeacher[] = useSelector(selectAllTeachers);
 
   useEffect(() => {
     dispatch(fetchAllTeachers);
   }, [dispatch]);
 
-  const createUser = () => {
+  const createUser = (): void => {
     if (status === 1) {
       dispatch(createStudent(status, name, email, password, teacher));
       history.push(`/`);
@@ -34,8 +42,8 @@ export default function Signup() {
     }
   };
 
-  const renderExtraInput = () => {
-    return status === 1 ? (
+  const renderExtraInput = (): ReactElement => {
+    return (
       <Form.Item
         name="Teacher"
         rules={[{ required: true, message: 'Please select your teacher!' }]}
@@ -53,7 +61,7 @@ export default function Signup() {
           ))}
         </Select>
       </Form.Item>
-    ) : null;
+    );
   };
 
   return (
@@ -77,7 +85,7 @@ export default function Signup() {
                 </Radio.Group>
               </Form.Item>
 
-              {teachers ? renderExtraInput() : null}
+              {teachers && status === 1 ? renderExtraInput() : null}
 
               <Form.Item
                 name="Full name"
@@ -91,32 +99,18 @@ export default function Signup() {
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Item>
-              <Form.Item
+              <TextInput
                 name="Email"
-                rules={[
-                  { required: true, message: 'Please input your email!' },
-                ]}
-              >
-                <Input
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Form.Item>
-
-              <Form.Item
-                name="password"
-                rules={[
-                  { required: true, message: 'Please input your password!' },
-                ]}
-              >
-                <Input.Password
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Form.Item>
-
+                message="Please input your email!"
+                value={email}
+                updateValue={(e) => setEmail(e.target.value)}
+              />
+              <PasswordInput
+                name="Password"
+                message="Please input your password!"
+                value={password}
+                updateValue={(e) => setPassword(e.target.value)}
+              />
               <Form.Item>
                 <Button
                   type="primary"
@@ -133,4 +127,6 @@ export default function Signup() {
       </Content>
     </Layout>
   );
-}
+};
+
+export default Signup;

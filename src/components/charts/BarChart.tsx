@@ -1,14 +1,28 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import * as chartjs from 'chart.js';
 import { Bar, ChartData } from 'react-chartjs-2';
 
-const BarChartHome = (): ReactElement => {
+interface IInputBarChart {
+  labels: string[];
+  data: number[];
+  color: string[];
+  title: string;
+  max: number;
+}
+
+const BarChart: React.FC<IInputBarChart> = ({
+  labels,
+  data,
+  color,
+  title,
+  max,
+}: IInputBarChart): ReactElement => {
   const chartData: ChartData<chartjs.ChartData> = {
-    labels: ['Welcome', 'to', 'your', 'dashboard'],
+    labels: labels,
     datasets: [
       {
-        data: [80, 56, 67, 45],
-        backgroundColor: ['#FF2694', '#FF2694', '#FF2694', '#FF2694'],
+        data: data,
+        backgroundColor: color,
         borderWidth: 0,
       },
     ],
@@ -19,7 +33,7 @@ const BarChartHome = (): ReactElement => {
       display: false,
     },
     responsive: true,
-    title: { display: true },
+    title: { text: title, display: true, padding: 15, fontSize: 14 },
     scales: {
       yAxes: [
         {
@@ -27,7 +41,8 @@ const BarChartHome = (): ReactElement => {
             autoSkip: true,
             maxTicksLimit: 10,
             beginAtZero: true,
-            display: false,
+            stepSize: 1,
+            suggestedMax: max,
           },
           gridLines: {
             display: false,
@@ -39,11 +54,6 @@ const BarChartHome = (): ReactElement => {
           gridLines: {
             display: false,
           },
-          ticks: {
-            fontSize: 18,
-            padding: 0,
-            fontColor: '#000',
-          },
         },
       ],
     },
@@ -52,4 +62,4 @@ const BarChartHome = (): ReactElement => {
   return <Bar data={chartData} options={chartOptions} />;
 };
 
-export default BarChartHome;
+export default BarChart;

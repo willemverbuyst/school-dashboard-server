@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectTeacherToken,
   selectTeacherId,
-} from '../../store/teacher/selectors';
-import { createSubject } from '../../store/teacher/actions';
+} from '../../../../store/teacher/selectors';
+import { createSubject } from '../../../../store/teacher/actions';
 import { Layout, Form, Input, Button, Row, Col } from 'antd';
 
 const { Content } = Layout;
 
-export default function AddSubject() {
+const AddSubject = (): ReactElement => {
   const history = useHistory();
   const dispatch = useDispatch();
   const token = useSelector(selectTeacherToken);
@@ -71,4 +71,6 @@ export default function AddSubject() {
       </Layout>
     </Layout>
   );
-}
+};
+
+export default AddSubject;
