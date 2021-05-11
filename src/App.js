@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Layout } from 'antd';
@@ -7,7 +7,7 @@ import AlertBox from './components/AlertBox';
 import Spinner from './components/Spinner';
 import Sidebar from './components/Sidebar';
 import Home from './pages/home/index';
-import Login from './pages/Login';
+import Login from './pages/auth/Login';
 import Signup from './pages/Signup';
 import StudentMainPage from './pages/student/StudentMainPage';
 import StudentDoTest from './pages/student/StudentDoTest';

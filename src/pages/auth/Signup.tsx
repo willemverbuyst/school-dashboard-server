@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllTeachers } from '../store/schoolInfo/actions';
-import { selectAllTeachers } from '../store/schoolInfo/selectors';
-import { createStudent } from '../store/student/actions';
-import { createTeacher } from '../store/teacher/actions';
+import { fetchAllTeachers } from '../../store/schoolInfo/actions';
+import { selectAllTeachers } from '../../store/schoolInfo/selectors';
+import { createStudent } from '../../store/student/actions';
+import { createTeacher } from '../../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio, Select, Row, Col } from 'antd';
-import PasswordInput from '../components/form/PasswordInput';
-import TextInput from '../components/form/TextInput';
+import PasswordInput from '../../components/form/PasswordInput';
+import TextInput from '../../components/form/TextInput';
 import { ReactElement } from 'react';
 
 const { Content } = Layout;

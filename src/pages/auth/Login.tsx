@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectStudentId } from '../store/student/selectors';
-import { selectTeacherId } from '../store/teacher/selectors';
-import { loginStudent } from '../store/student/actions';
-import { loginTeacher } from '../store/teacher/actions';
+import { selectStudentId } from '../../store/student/selectors';
+import { selectTeacherId } from '../../store/teacher/selectors';
+import { loginStudent } from '../../store/student/actions';
+import { loginTeacher } from '../../store/teacher/actions';
 import { Layout, Form, Button, Radio, Row, Col } from 'antd';
-import TextInput from '../components/form/TextInput';
-import PasswordInput from '../components/form/PasswordInput';
-import { ButtonEvent } from '../models/events.models';
+import TextInput from '../../components/form/TextInput';
+import PasswordInput from '../../components/form/PasswordInput';
+import { ButtonEvent } from '../../models/events.models';
 
 const { Content } = Layout;
 
