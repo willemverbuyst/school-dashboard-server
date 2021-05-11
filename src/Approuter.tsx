@@ -2,7 +2,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
-import StudentMainPage from './pages/student/StudentMainPage';
+import StudentMainPage from './pages/student/mainpage/StudentMainPage';
 import StudentSubjectDetails from './pages/student/StudentSubjectDetails';
 import StudentDoTest from './pages/student/StudentDoTest';
 import TeacherMainPage from './pages/teacher/mainpage';
