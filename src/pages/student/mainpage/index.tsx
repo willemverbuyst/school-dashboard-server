@@ -33,7 +33,9 @@ const StudentMainPage = (): ReactElement => {
     <Layout>
       <Layout style={{ padding: '24px', minHeight: '92vh' }}>
         <Content className="site-layout-background">
-          <AllCharts subjects={subjects} results={results} />
+          {subjects && results ? (
+            <AllCharts subjects={subjects} results={results} />
+          ) : null}
         </Content>
       </Layout>
     </Layout>

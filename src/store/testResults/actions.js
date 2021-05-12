@@ -22,9 +22,12 @@ export function getResultsForSubject(id) {
     const token = getState().student.token;
     dispatch(appLoading());
     try {
-      const response = await axios.get(`${apiUrl}/data/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${apiUrl}/data/student/subjects/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const questions = response.data;
 
       dispatch(resultsFetched(questions));

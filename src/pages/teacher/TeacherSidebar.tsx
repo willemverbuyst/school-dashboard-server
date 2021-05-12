@@ -13,6 +13,7 @@ import {
   HomeOutlined,
 } from '@ant-design/icons';
 import { ReactElement } from 'react';
+import renderSideBarNav from '../../components/sidebar/renderSideBarNav';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -37,25 +38,11 @@ const SideBar = (): ReactElement => {
     history.push(goto);
   };
 
-  const renderSubjectNav = (): ReactElement[] =>
-    subjects.map(({ name, id }, i) => (
-      <Menu.Item
-        key={`sub2-${i + 1}`}
-        onClick={() => goTo(`/teachers/${teacherId}/subjects/${id}`)}
-      >
-        {name.charAt(0).toUpperCase() + name.slice(1)}
-      </Menu.Item>
-    ));
+  const renderSubjectNav = () =>
+    renderSideBarNav('sub2', `/teachers/${teacherId}/subjects`, subjects);
 
-  const renderStudentNav = (): ReactElement[] =>
-    students.map(({ name, id }, i) => (
-      <Menu.Item
-        key={`sub3-${i + 1}`}
-        onClick={() => goTo(`/teachers/${teacherId}/students/${id}`)}
-      >
-        {name}
-      </Menu.Item>
-    ));
+  const renderStudentsNav = () =>
+    renderSideBarNav('sub3', `/teachers/${teacherId}/students`, students);
 
   return (
     <Sider width={200} className="site-layout-background">
@@ -75,7 +62,7 @@ const SideBar = (): ReactElement => {
           {subjects ? renderSubjectNav() : null}
         </SubMenu>
         <SubMenu key="sub3" icon={<UserOutlined />} title="Students">
-          {students ? renderStudentNav() : null}
+          {students ? renderStudentsNav() : null}
         </SubMenu>
         <SubMenu key="sub4" icon={<DatabaseOutlined />} title="Admin">
           <Menu.Item
