@@ -5,28 +5,22 @@ import {
   selectStudentId,
 } from '../../store/student/selectors';
 import { Layout, Menu } from 'antd';
+import { ReactElement } from 'react';
+import renderSideBarNav from '../../components/sidebar/renderSideBarNav';
 
 const { Sider } = Layout;
 
-export default function SideBar() {
+const SideBar = (): ReactElement => {
   const history = useHistory();
   const subjects = useSelector(selectStudentSubjects);
   const studentId = useSelector(selectStudentId);
 
-  const goTo = (goto) => {
+  const goTo = (goto: string) => {
     history.push(goto);
   };
 
-  const renderSubjectNav = () => {
-    return subjects.map(({ name, id }, i) => (
-      <Menu.Item
-        key={i + 2}
-        onClick={() => goTo(`/students/${studentId}/subjects/${id}`)}
-      >
-        {name.charAt(0).toUpperCase() + name.slice(1)}
-      </Menu.Item>
-    ));
-  };
+  const renderSubjectNav = () =>
+    renderSideBarNav('sub1', `/students/${studentId}/subjects`, subjects);
 
   return (
     <Sider width={200} className="site-layout-background">
@@ -42,4 +36,6 @@ export default function SideBar() {
       </Menu>
     </Sider>
   );
-}
+};
+
+export default SideBar;
