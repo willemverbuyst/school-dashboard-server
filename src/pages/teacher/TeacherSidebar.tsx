@@ -14,6 +14,7 @@ import {
 } from '@ant-design/icons';
 import { ReactElement } from 'react';
 import renderSideBarNav from '../../components/sidebar/renderSideBarNav';
+import { adminTasks } from '../../constants/constants';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
@@ -44,6 +45,9 @@ const SideBar = (): ReactElement => {
   const renderStudentsNav = () =>
     renderSideBarNav('sub3', `/teachers/${teacherId}/students`, students);
 
+  const renderAdminTasksNav = () =>
+    renderSideBarNav('sub4', `/teachers/${teacherId}/admintasks`, adminTasks);
+
   return (
     <Sider width={200} className="site-layout-background">
       <Menu
@@ -58,32 +62,19 @@ const SideBar = (): ReactElement => {
         >
           Home
         </Menu.Item>
-        <SubMenu key="sub2" icon={<LaptopOutlined />} title="Subjects">
-          {subjects ? renderSubjectNav() : null}
-        </SubMenu>
-        <SubMenu key="sub3" icon={<UserOutlined />} title="Students">
-          {students ? renderStudentsNav() : null}
-        </SubMenu>
-        <SubMenu key="sub4" icon={<DatabaseOutlined />} title="Admin">
-          <Menu.Item
-            key="sub4-2"
-            onClick={() => goTo(`/teachers/${teacherId}/questions/list`)}
-          >
-            List Questions
-          </Menu.Item>
-          <Menu.Item
-            key="sub4-1"
-            onClick={() => goTo(`/teachers/${teacherId}/questions/add`)}
-          >
-            Add Question
-          </Menu.Item>
-          <Menu.Item
-            key="sub4-3"
-            onClick={() => goTo(`/teachers/${teacherId}/subject/add`)}
-          >
-            Add Subject
-          </Menu.Item>
-        </SubMenu>
+        {subjects && students ? (
+          <>
+            <SubMenu key="sub2" icon={<LaptopOutlined />} title="Subjects">
+              {renderSubjectNav()}
+            </SubMenu>
+            <SubMenu key="sub3" icon={<UserOutlined />} title="Students">
+              {renderStudentsNav()}
+            </SubMenu>
+            <SubMenu key="sub4" icon={<DatabaseOutlined />} title="Admin">
+              {renderAdminTasksNav()}
+            </SubMenu>
+          </>
+        ) : null}
       </Menu>
     </Sider>
   );
