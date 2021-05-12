@@ -8,16 +8,16 @@ import {
 } from '../../../store/student/selectors';
 import { getResultsForSubject } from '../../../store/testResults/actions';
 import { selectResultsForSubject } from '../../../store/testResults/selectors';
-
 import { Layout, Button, Row, Col } from 'antd';
 import DoughnutChartDetails from './DoughnutChartDetails';
 import BarChartDetails from './BarChartDetails';
+import NumberOfTests from './NumberOfTests';
 
 const { Content } = Layout;
 
 export default function StudentSubjectDetails() {
   const dispatch = useDispatch();
-  const { subjectid } = useParams();
+  const { subjectid } = useParams<{ subjectid: string }>();
   const history = useHistory();
   const token = useSelector(selectStudentToken);
   const studentId = useSelector(selectStudentId);
@@ -34,29 +34,8 @@ export default function StudentSubjectDetails() {
     dispatch(getResultsForSubject(subjectid));
   }, [dispatch, subjectid]);
 
-  const goTo = (goto) => {
+  const goTo = (goto: string) => {
     history.push(goto);
-  };
-
-  const renderAmount = () => {
-    return (
-      <Col
-        style={{
-          width: 300,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingBottom: 60,
-        }}
-      >
-        <div style={{ fontSize: '1.4rem' }}>You have done</div>
-        <div style={{ fontSize: '4rem', fontWeight: 'bold' }}>
-          {results.length}
-        </div>
-        <div style={{ fontSize: '1.4rem' }}>tests so far</div>
-      </Col>
-    );
   };
 
   const renderTestButton = () => {
@@ -96,11 +75,11 @@ export default function StudentSubjectDetails() {
           {subjects && results ? (
             <>
               <Row justify="space-around">
-                {subjects && results ? renderAmount() : null}
-                <Col style={{ width: 450, paddingBottom: 60 }}>
-                  <DoughnutChartDetails results={results} />
-                </Col>
-                {subjects && results ? renderTestButton() : null}
+                <NumberOfTests results={results} />
+
+                <DoughnutChartDetails results={results} />
+
+                {renderTestButton()}
               </Row>
               <BarChartDetails
                 results={results}
