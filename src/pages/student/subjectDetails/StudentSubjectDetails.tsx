@@ -8,10 +8,11 @@ import {
 } from '../../../store/student/selectors';
 import { getResultsForSubject } from '../../../store/testResults/actions';
 import { selectResultsForSubject } from '../../../store/testResults/selectors';
-import { Layout, Button, Row, Col } from 'antd';
+import { Layout, Row } from 'antd';
 import DoughnutChartDetails from './DoughnutChartDetails';
 import BarChartDetails from './BarChartDetails';
 import NumberOfTests from './NumberOfTests';
+import TestButton from './TestButton';
 
 const { Content } = Layout;
 
@@ -34,38 +35,8 @@ export default function StudentSubjectDetails() {
     dispatch(getResultsForSubject(subjectid));
   }, [dispatch, subjectid]);
 
-  const goTo = (goto: string) => {
-    history.push(goto);
-  };
-
-  const renderTestButton = () => {
-    return (
-      <Col
-        style={{
-          width: 300,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingBottom: 60,
-        }}
-      >
-        <Button
-          shape="circle"
-          onClick={() =>
-            goTo(`/students/${studentId}/subjects/${subjectid}/test`)
-          }
-          style={{
-            height: 120,
-            width: 120,
-            border: '2px solid #B81D9D',
-            color: '#B81D9D',
-            fontSize: '1.4rem',
-          }}
-        >
-          Take a test
-        </Button>
-      </Col>
-    );
+  const goTo = () => {
+    history.push(`/students/${studentId}/subjects/${subjectid}/test`);
   };
 
   return (
@@ -76,16 +47,16 @@ export default function StudentSubjectDetails() {
             <>
               <Row justify="space-around">
                 <NumberOfTests results={results} />
-
                 <DoughnutChartDetails results={results} />
-
-                {renderTestButton()}
+                <TestButton goTo={goTo} />
               </Row>
-              <BarChartDetails
-                results={results}
-                subjects={subjects}
-                subjectId={subjectid}
-              />
+              <Row>
+                <BarChartDetails
+                  results={results}
+                  subjects={subjects}
+                  subjectId={subjectid}
+                />
+              </Row>
             </>
           ) : null}
         </Content>
