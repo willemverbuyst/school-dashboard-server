@@ -3,7 +3,7 @@ import Home from './pages/home';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import StudentMainPage from './pages/student/mainpage';
-import StudentSubjectDetails from './pages/student/subjectDetails/StudentSubjectDetails';
+import StudentSubjectDetails from './pages/student/subjectDetails';
 import StudentDoTest from './pages/student/StudentDoTest';
 import TeacherMainPage from './pages/teacher/mainpage';
 import TeacherStudentDetails from './pages/teacher/TeacherStudentDetails';

@@ -35,7 +35,7 @@ export default function StudentSubjectDetails() {
     dispatch(getResultsForSubject(subjectid));
   }, [dispatch, subjectid]);
 
-  const goTo = () => {
+  const goTo = (): void => {
     history.push(`/students/${studentId}/subjects/${subjectid}/test`);
   };
 
