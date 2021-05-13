@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStudentForOverview } from '../../../store/overviewTeacher/actions';
@@ -10,13 +10,14 @@ import {
 import { Layout } from 'antd';
 import BarChartTestsStudent from './BarChartTestsStudents';
 import DoughnutChartStudent from './DoughnutChartStudents';
+
 const { Content } = Layout;
 
-export default function TeacherStudentDetails() {
+const TeacherStudentDetails = (): ReactElement => {
   const dispatch = useDispatch();
   const history = useHistory();
   const token = useSelector(selectTeacherToken);
-  const { studentid } = useParams();
+  const { studentid } = useParams<{ studentid: string }>();
   const results = useSelector(selectStudentOverview);
   const subjects = useSelector(selectTeacherSubjects);
 
@@ -36,7 +37,7 @@ export default function TeacherStudentDetails() {
         <Content className="site-layout-background">
           {results && subjects ? (
             <>
-              <BarChartTestsStudent resutls={results} />
+              <BarChartTestsStudent results={results} />
               <DoughnutChartStudent results={results} />
             </>
           ) : null}
@@ -44,4 +45,6 @@ export default function TeacherStudentDetails() {
       </Layout>
     </Layout>
   );
-}
+};
+
+export default TeacherStudentDetails;
