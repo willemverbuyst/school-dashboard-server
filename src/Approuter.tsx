@@ -7,7 +7,7 @@ import StudentSubjectDetails from './pages/student/subjectDetails';
 import StudentDoTest from './pages/student/StudentDoTest';
 import TeacherMainPage from './pages/teacher/mainpage';
 import TeacherStudentDetails from './pages/teacher/TeacherStudentDetails';
-import TeacherSubjectDetails from './pages/teacher/TeacherSubjectDetails';
+import TeacherSubjectDetails from './pages/teacher/subjectDetails/TeacherSubjectDetails';
 import ListOfQuestions from './pages/teacher/admin/questions/ListOfQuestions';
 import AddQuestionForm from './pages/teacher/admin/questions/AddQuestionForm';
 import AddSubject from './pages/teacher/admin/subjects/AddSubject';
