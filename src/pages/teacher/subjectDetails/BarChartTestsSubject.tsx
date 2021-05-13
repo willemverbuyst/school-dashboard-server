@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Col, Row } from 'antd';
 import BarChartTest from '../../../components/charts/BarChartTest';
 import SortAndSelect from '../../../components/SortAndSelect';
@@ -14,7 +14,9 @@ interface IProps {
   results: ISubject[];
 }
 
-const BarChartTests = ({ results }: IProps): ReactElement => {
+const BarChartTestsSubject: React.FC<IProps> = ({
+  results,
+}: IProps): ReactElement => {
   const [selectionTests, setSelectionTests] = useState('name');
   const [selectStudentTests, setSelectStudentTests] = useState('');
 
@@ -58,4 +60,4 @@ const BarChartTests = ({ results }: IProps): ReactElement => {
   );
 };
 
-export default BarChartTests;
+export default BarChartTestsSubject;

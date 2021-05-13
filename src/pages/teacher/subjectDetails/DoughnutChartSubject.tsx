@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Col, Row } from 'antd';
 import DoughnutChart from '../../../components/charts/DoughnutChart';
 import SortAndSelect from '../../../components/SortAndSelect';
@@ -14,7 +14,9 @@ interface IProps {
   results: ISubject[];
 }
 
-const DoughnutChartSubject = ({ results }: IProps): ReactElement => {
+const DoughnutChartSubject: React.FC<IProps> = ({
+  results,
+}: IProps): ReactElement => {
   const [selectionAverage, setSelectionAverage] = useState('name');
   const [selectStudentAverage, setSelectStudentAverage] = useState('');
 
