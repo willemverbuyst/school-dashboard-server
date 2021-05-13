@@ -4,7 +4,7 @@ import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import StudentMainPage from './pages/student/mainpage';
 import StudentSubjectDetails from './pages/student/subjectDetails';
-import StudentDoTest from './pages/student/StudentDoTest';
+import StudentDoTest from './pages/student/test/StudentDoTest';
 import TeacherMainPage from './pages/teacher/mainpage';
 import TeacherStudentDetails from './pages/teacher/studentDetails/TeacherStudentDetails';
 import TeacherSubjectDetails from './pages/teacher/subjectDetails/TeacherSubjectDetails';
