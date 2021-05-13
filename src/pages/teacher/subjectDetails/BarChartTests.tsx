@@ -18,8 +18,6 @@ const BarChartTests = ({ results }: IProps): ReactElement => {
   const [selectionTests, setSelectionTests] = useState('name');
   const [selectStudentTests, setSelectStudentTests] = useState('');
 
-  console.log(results);
-
   const sortedResults =
     selectionTests === 'name'
       ? [...results].sort((a, b) => a.name.localeCompare(b.name))
