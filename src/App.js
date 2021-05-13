@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 import BarAtTheTop from './components/BarAtThetop';
 import AlertBox from './components/AlertBox';
 import Spinner from './components/Spinner';
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/sidebar/Sidebar';
 import AppRouter from './Approuter';
 import { selectAppLoading } from './store/appState/selectors';
 import { getStudentWithStoredToken } from './store/student/actions';
