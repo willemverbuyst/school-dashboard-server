@@ -8,7 +8,7 @@ In short: this is a dashboard where students and teachers can keep track of grad
 
 I am part of class #40, attending an 11 week JavaScript bootcamp at [Codaisseur](https://codaisseur.com/).
 
-For seven weeks the teachers at Codaisseur have been teaching us a variety of [skills](https://willemverbuyst.github.io/threeJS-react-list/) to prepare us for a career in full-stack web-development. This project is the fruit of this. We got two weeks to build a project from scratch showcasing the techniques we have learned and explore some _terra icognita_.
+For seven weeks the teachers at Codaisseur have been teaching us a variety of [skills](https://willemverbuyst.github.io/threeJS-react-list/) to prepare us for a career in full-stack web-development. This project is the fruit of this. We got two weeks to build a project from scratch showcasing the techniques we have learned and explore some _terra incognita_.
 
 ## Table of contents
 
