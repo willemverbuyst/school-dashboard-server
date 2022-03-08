@@ -1,7 +1,7 @@
 'use strict';
 const {
   questions: questionSeed,
-} = require('../../../build/dummyData/questions');
+} = require('../../../build/db/dummyData/questions');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
