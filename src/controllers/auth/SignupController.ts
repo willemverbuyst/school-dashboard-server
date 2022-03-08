@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import { toJWT } from '../../auth/jwt';
-import Student from '../../db/models/student';
+import { NextFunction, Request, Response } from 'express';
 import { bodyValidator, controller, post } from '../decorators';
-import Teacher from '../../db/models/teacher';
-import Subject from '../../db/models/subject';
+import { toJWT } from '../../auth/jwt';
 import { SALT_ROUNDS } from '../../config/constants';
+import Student from '../../db/models/student';
+import Subject from '../../db/models/subject';
+import Teacher from '../../db/models/teacher';
 
 @controller('')
 class SignupController {
@@ -59,7 +59,14 @@ class SignupController {
         res.status(201).json({ token, ...newTeacher, message });
       }
     } catch (error) {
-      if (error.name === 'SequelizeUniqueConstraintError') {
+      let name;
+      if (error instanceof Error) {
+        name = error.name;
+      } else {
+        name = 'Error';
+      }
+
+      if (name === 'SequelizeUniqueConstraintError') {
         res
           .status(400)
           .send({ message: 'There is an existing account with this email' });

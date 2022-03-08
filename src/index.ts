@@ -7,7 +7,8 @@ import { AppRouter } from './AppRouter';
 import './controllers/auth/LoginController';
 import './controllers/auth/LogoutController';
 import './controllers/auth/SignupController';
-import './controllers/auth/ValidUserController';
+import './controllers/auth/ValidStudentController';
+import './controllers/auth/ValidTeacherController';
 import './controllers/data/StudentController';
 import './controllers/data/TeacherController';
 import './controllers/general/TeacherController';
@@ -36,3 +37,4 @@ app.use(AppRouter.getInstance());
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
+s;

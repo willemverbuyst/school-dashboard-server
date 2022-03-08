@@ -1,11 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
+import { NextFunction, Response } from 'express';
+import { bodyValidator, controller, post } from '../decorators';
 import { toJWT } from '../../auth/jwt';
 import Student from '../../db/models/student';
-import { RequestWithBody } from '../../interfaces/Requests';
-import { bodyValidator, controller, get, post } from '../decorators';
-import Teacher from '../../db/models/teacher';
 import Subject from '../../db/models/subject';
+import Teacher from '../../db/models/teacher';
+import { RequestWithBody } from '../../interfaces/Requests';
 
 @controller('')
 class LoginController {
