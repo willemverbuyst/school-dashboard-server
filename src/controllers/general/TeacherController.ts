@@ -4,8 +4,8 @@ import { RequestWithBody } from '../../interfaces/Requests';
 import { controller, get } from '../decorators';
 
 @controller('')
-class AllTeachersController {
-  // Get teachers for selector when students signs up
+class TeachersController {
+  // PUBLIC, get all teachers for selector when students signs up
   @get('/general/teachers')
   async getTeachers(
     _req: RequestWithBody,

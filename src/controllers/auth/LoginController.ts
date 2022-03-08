@@ -38,6 +38,7 @@ class LoginController {
           student.password = 'password'; // don't send back the password hash
           res.status(200).send({ token, ...student, subjects });
         }
+
         // TEACHER
       } else {
         const teacher = await Teacher.findOne({

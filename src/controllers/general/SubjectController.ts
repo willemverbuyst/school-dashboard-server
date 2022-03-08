@@ -2,10 +2,25 @@ import { NextFunction, Response } from 'express';
 import Subject from '../../db/models/subject';
 import { RequestWithBody } from '../../interfaces/Requests';
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware';
-import { bodyValidator, controller, post, use } from '../decorators';
+import { bodyValidator, controller, get, post, use } from '../decorators';
 
 @controller('')
-class AllSubjectController {
+class SubjectController {
+  // PUBLIC, get all subjects
+  @get('/general/subjects')
+  async getAllSubjects(
+    req: RequestWithBody,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
+
+      res.send(subjects);
+    } catch (error) {
+      next(error);
+    }
+  }
   // TEACHER, post a new subject
   @post('/general/subjects')
   @bodyValidator('subject')

@@ -5,7 +5,7 @@ import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware';
 import { controller, get, use } from '../decorators';
 
 @controller('')
-class SubjectController {
+class StudentController {
   // STUDENT, info for main page
   @get('/data/student/main')
   @use(studentAuthMiddleware)

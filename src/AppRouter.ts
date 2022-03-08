@@ -1,6 +1,6 @@
 import express from 'express';
 
-// Singleton, we only have one single router
+// Singleton, we only have one router
 export class AppRouter {
   private static instance: express.Router;
 
