@@ -37,4 +37,3 @@ app.use(AppRouter.getInstance());
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
-s;
