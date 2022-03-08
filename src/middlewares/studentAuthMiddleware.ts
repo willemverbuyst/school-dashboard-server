@@ -31,14 +31,23 @@ export const studentAuthMiddleware = async (
 
       return next();
     } catch (error) {
+      let message;
+      let name;
+      if (error instanceof Error) {
+        message = error.message;
+        name = error.name;
+      } else {
+        message = String(error);
+        name = 'Error';
+      }
       console.log('ERROR IN AUTH MIDDLEWARE', error);
 
-      switch (error.name) {
+      switch (name) {
         case 'TokenExpiredError':
-          res.status(401).send({ error: error.name, message: error.message });
+          res.status(401).send({ error: name, message: message });
 
         case 'JsonWebTokenError':
-          res.status(400).send({ error: error.name, message: error.message });
+          res.status(400).send({ error: name, message: message });
 
         default:
           res.status(400).send({
