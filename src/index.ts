@@ -5,6 +5,7 @@ import { PORT } from './config/constants';
 import { AppRouter } from './AppRouter';
 
 import './controllers/auth/LoginController';
+import './controllers/auth/LogoutController';
 import './controllers/auth/SignupController';
 import './controllers/auth/ValidUserController';
 import './controllers/data/StudentController';

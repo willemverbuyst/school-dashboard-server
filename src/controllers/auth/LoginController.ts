@@ -62,24 +62,17 @@ class LoginController {
           });
 
           const { password, ...teacherWithoutPassword } = teacher;
-          res
-            .status(200)
-            .send({
-              token,
-              teacher: teacherWithoutPassword,
-              subjects,
-              students,
-            });
+          res.status(200).send({
+            token,
+            teacher: teacherWithoutPassword,
+            subjects,
+            students,
+          });
         }
       }
     } catch (error) {
       console.log(error);
       res.status(400).send({ message: 'Something went wrong, sorry' });
     }
-  }
-
-  @get('/logout')
-  getLogout(_req: Request, res: Response): void {
-    res.send('You are logged out');
   }
 }
