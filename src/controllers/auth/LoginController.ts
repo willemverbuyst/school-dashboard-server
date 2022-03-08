@@ -35,8 +35,10 @@ class LoginController {
             attributes: ['id', 'name'],
           });
 
-          student.password = 'password'; // don't send back the password hash
-          res.status(200).send({ token, ...student, subjects });
+          const { password, ...studentWithoutPassword } = student;
+          res
+            .status(200)
+            .send({ token, student: studentWithoutPassword, subjects });
         }
 
         // TEACHER
@@ -59,8 +61,15 @@ class LoginController {
             attributes: ['id', 'name'],
           });
 
-          teacher.password = 'password'; // don't send back the password hash
-          res.status(200).send({ token, ...teacher, subjects, students });
+          const { password, ...teacherWithoutPassword } = teacher;
+          res
+            .status(200)
+            .send({
+              token,
+              teacher: teacherWithoutPassword,
+              subjects,
+              students,
+            });
         }
       }
     } catch (error) {
