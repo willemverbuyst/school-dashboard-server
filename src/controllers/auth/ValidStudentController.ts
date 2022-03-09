@@ -18,7 +18,7 @@ class ValidStudentController {
       req.student.password = 'password'; // don't send back the password hash
       res.status(200).send({ ...req.student, subjects });
     } catch (error) {
-      res.status(400).send({ message: 'Something went wrong, sorry' });
+      res.status(500).send({ message: 'Something went wrong' });
     }
   }
 }

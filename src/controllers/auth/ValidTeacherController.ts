@@ -23,7 +23,7 @@ class ValidUserController {
       req.teacher.password = 'password';
       res.status(200).send({ ...req.teacher, students, subjects });
     } catch (error) {
-      res.status(400).send({ message: 'Something went wrong, sorry' });
+      res.status(500).send({ message: 'Something went wrong' });
     }
   }
 }

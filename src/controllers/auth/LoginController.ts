@@ -72,7 +72,7 @@ class LoginController {
       }
     } catch (error) {
       console.log(error);
-      res.status(400).send({ message: 'Something went wrong, sorry' });
+      res.status(500).send({ message: 'Something went wrong' });
     }
   }
 }

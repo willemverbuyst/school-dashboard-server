@@ -72,7 +72,7 @@ class SignupController {
           .send({ message: 'There is an existing account with this email' });
       }
 
-      res.status(400).send({ message: 'Something went wrong, sorry' });
+      res.status(500).send({ message: 'Something went wrong' });
     }
   }
 }
