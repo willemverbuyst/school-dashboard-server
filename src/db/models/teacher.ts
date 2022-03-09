@@ -1,35 +1,35 @@
-import { DataTypes, Model, Optional } from 'sequelize';
-import { sequelize } from '.';
-import Student from './student';
+import { DataTypes, Model, Optional } from 'sequelize'
+import { sequelize } from '.'
+import Student from './student'
 
 interface TeacherAttributes {
-  id: number;
-  email: string;
-  name: string;
-  password: string;
+	id: number
+	email: string
+	name: string
+	password: string
 }
 
 interface TeacherCreationAttributes extends Optional<TeacherAttributes, 'id'> {}
 
 export interface TeacherInstance
-  extends Model<TeacherAttributes, TeacherCreationAttributes>,
-    TeacherAttributes {
-  createdAt?: Date;
-  updatedAt?: Date;
+	extends Model<TeacherAttributes, TeacherCreationAttributes>,
+		TeacherAttributes {
+	createdAt?: Date
+	updatedAt?: Date
 }
 
 const Teacher = sequelize.define<TeacherInstance>('teacher', {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.UUID,
-    unique: true,
-  },
-  name: { type: DataTypes.STRING, allowNull: false },
-  email: { type: DataTypes.STRING, allowNull: false, unique: true },
-  password: { type: DataTypes.STRING, allowNull: false },
-});
+	id: {
+		allowNull: false,
+		autoIncrement: true,
+		primaryKey: true,
+		type: DataTypes.UUID,
+		unique: true,
+	},
+	name: { type: DataTypes.STRING, allowNull: false },
+	email: { type: DataTypes.STRING, allowNull: false, unique: true },
+	password: { type: DataTypes.STRING, allowNull: false },
+})
 
 // Teacher.hasMany(Student, {
 //   sourceKey: 'id',
@@ -38,8 +38,8 @@ const Teacher = sequelize.define<TeacherInstance>('teacher', {
 // });
 
 Student.belongsTo(Teacher, {
-  foreignKey: 'teacherId',
-  as: 'teacher',
-});
+	foreignKey: 'teacherId',
+	as: 'teacher',
+})
 
-export default Teacher;
+export default Teacher

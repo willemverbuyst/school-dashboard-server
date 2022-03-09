@@ -1,45 +1,45 @@
 export interface User {
-  name: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
+	name: string
+	email: string
+	password: string
+	createdAt: Date
+	updatedAt: Date
 }
 
 export interface Student extends User {
-  teacherId: number;
+	teacherId: number
 }
 
 export interface Subject {
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
+	name: string
+	createdAt: Date
+	updatedAt: Date
 }
 
 export interface Question {
-  text: string;
-  subjectId: number;
-  createdAt: Date;
-  updatedAt: Date;
+	text: string
+	subjectId: number
+	createdAt: Date
+	updatedAt: Date
 }
 
 export interface Answer {
-  text: string;
-  correct: boolean;
-  questionId: number;
-  createdAt: Date;
-  updatedAt: Date;
+	text: string
+	correct: boolean
+	questionId: number
+	createdAt: Date
+	updatedAt: Date
 }
 
 export interface Test {
-  question1: number;
-  question2: number;
-  question3: number;
-  answer1: number;
-  answer2: number;
-  answer3: number;
-  createdAt: Date;
-  updatedAt: Date;
-  subjectId: number;
-  studentId: number;
+	question1: number
+	question2: number
+	question3: number
+	answer1: number
+	answer2: number
+	answer3: number
+	createdAt: Date
+	updatedAt: Date
+	subjectId: number
+	studentId: number
 }
