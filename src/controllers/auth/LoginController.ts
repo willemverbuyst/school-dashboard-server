@@ -36,9 +36,11 @@ class LoginController {
           });
 
           const { password, ...studentWithoutPassword } = student;
-          res
-            .status(200)
-            .send({ token, student: studentWithoutPassword, subjects });
+          res.status(200).send({
+            token,
+            data: { student: studentWithoutPassword, subjects },
+            message: 'Welcom back',
+          });
         }
 
         // TEACHER
@@ -64,9 +66,8 @@ class LoginController {
           const { password, ...teacherWithoutPassword } = teacher;
           res.status(200).send({
             token,
-            teacher: teacherWithoutPassword,
-            subjects,
-            students,
+            data: { teacher: teacherWithoutPassword, subjects, students },
+            message: 'Welcome back',
           });
         }
       }

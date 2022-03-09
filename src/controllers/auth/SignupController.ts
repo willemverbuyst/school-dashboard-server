@@ -17,7 +17,7 @@ class SignupController {
     _next: NextFunction
   ): Promise<void> {
     try {
-      const { isStudent, name, email, password, teacherId } = req.body;
+      const { isStudent, name, email, teacherId } = req.body;
 
       // STUDENT
       if (isStudent && Number(isStudent) === 1) {
@@ -28,48 +28,50 @@ class SignupController {
         } else {
           const newStudent = await Student.create({
             email,
-            password: bcrypt.hashSync(password, SALT_ROUNDS),
+            password: bcrypt.hashSync(req.body.password, SALT_ROUNDS),
             name,
             teacherId: Number(teacherId),
           }).then((data) => data?.get({ plain: true }));
 
-          newStudent.password = 'password'; // don't send back the password hash
-
+          const { password, ...newStudentWithoutPassword } = newStudent;
           const token = toJWT({ studentId: newStudent.id });
-
           const subjects = await Subject.findAll({
             attributes: ['id', 'name'],
           });
-          const message = 'A new account is created for you';
-          res.status(201).json({ token, ...newStudent, subjects, message });
+
+          res.status(201).json({
+            token,
+            data: { student: newStudentWithoutPassword, subjects },
+            message: 'A new account is created for you',
+          });
         }
 
         // TEACHER
       } else {
         const newTeacher = await Teacher.create({
           email,
-          password: bcrypt.hashSync(password, SALT_ROUNDS),
+          password: bcrypt.hashSync(req.body.password, SALT_ROUNDS),
           name,
         }).then((data) => data?.get({ plain: true }));
-
-        newTeacher.password = 'password';
-
+        const { password, ...newTeacherWithoutPassword } = newTeacher;
         const token = toJWT({ teacherId: newTeacher.id });
-        const message = 'A new account is created for you';
-        res.status(201).json({ token, ...newTeacher, message });
+
+        res.status(201).json({
+          token,
+          data: { teacher: newTeacherWithoutPassword },
+          message: 'A new account is created for you',
+        });
       }
     } catch (error) {
-      let name;
-      if (error instanceof Error) {
-        name = error.name;
-      } else {
-        name = 'Error';
-      }
-
-      if (name === 'SequelizeUniqueConstraintError') {
+      if (
+        error instanceof Error &&
+        error.name === 'SequelizeUniqueConstraintError'
+      ) {
         res
           .status(400)
           .send({ message: 'There is an existing account with this email' });
+      } else {
+        res.status(400).send({ message: String(error) });
       }
 
       res.status(500).send({ message: 'Something went wrong' });

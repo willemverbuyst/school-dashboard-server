@@ -20,8 +20,9 @@ class ValidUserController {
         attributes: ['id', 'name'],
       });
       const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
-      req.teacher.password = 'password';
-      res.status(200).send({ ...req.teacher, students, subjects });
+      const { password, ...teacher } = req.teacher;
+
+      res.status(200).send({ data: { teacher, students, subjects } });
     } catch (error) {
       res.status(500).send({ message: 'Something went wrong' });
     }

@@ -15,8 +15,9 @@ class ValidStudentController {
   ): Promise<void> {
     try {
       const subjects = await Subject.findAll({ attributes: ['id', 'name'] });
-      req.student.password = 'password'; // don't send back the password hash
-      res.status(200).send({ ...req.student, subjects });
+      const { password, ...student } = req.student;
+
+      res.status(200).send({ data: { student, subjects } });
     } catch (error) {
       res.status(500).send({ message: 'Something went wrong' });
     }
