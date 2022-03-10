@@ -58,7 +58,7 @@ class TeacherController {
 					}
 				})
 
-			res.send({ tests: allTests, scores })
+			res.send({ data: { tests: allTests, scores } })
 		} catch (error) {
 			res.status(400).send({ message: 'Something went wrong, sorry' })
 		}
@@ -102,7 +102,7 @@ class TeacherController {
 					tests: subject.tests.length,
 				}
 			})
-			res.send(results)
+			res.send({ results: results.length, data: results })
 		} catch (error) {
 			res.status(400).send({ message: 'Something went wrong, sorry' })
 		}
@@ -150,7 +150,7 @@ class TeacherController {
 					tests: student.tests.length,
 				}
 			})
-			res.send(results)
+			res.send({ results: results.length, data: results })
 		} catch (error) {
 			res.status(400).send({ message: 'Something went wrong, sorry' })
 		}

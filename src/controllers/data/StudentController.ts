@@ -27,7 +27,7 @@ class StudentController {
 					}
 				}
 			)
-			res.send(results)
+			res.send({ results: results.length, data: results })
 		} catch (error) {
 			res.status(400).send({ message: 'Something went wrong, sorry' })
 		}
@@ -51,7 +51,7 @@ class StudentController {
 			const results = tests.map(({ answer1, answer2, answer3, createdAt }) => {
 				return { result: answer1 + answer2 + answer3, at: createdAt }
 			})
-			res.send(results)
+			res.send({ results: results.length, data: results })
 		} catch (error) {
 			res.status(400).send({ message: 'Something went wrong, sorry' })
 		}
