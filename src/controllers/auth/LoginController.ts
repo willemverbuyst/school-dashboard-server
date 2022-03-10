@@ -25,11 +25,14 @@ class LoginController {
 					where: { email },
 				}).then(data => data?.get({ plain: true }))
 
-				if (!student || !bcrypt.compareSync(password, student.password)) {
+				if (
+					typeof password === 'string' &&
+					(!student || !bcrypt.compareSync(password, student.password))
+				) {
 					res.status(400).send({
 						message: 'Student with that email not found or password incorrect',
 					})
-				} else {
+				} else if (student) {
 					const token = toJWT({ studentId: student.id })
 					const subjects = await Subject.findAll({
 						attributes: ['id', 'name'],
@@ -49,11 +52,14 @@ class LoginController {
 					where: { email },
 				}).then(data => data?.get({ plain: true }))
 
-				if (!teacher || !bcrypt.compareSync(password, teacher.password)) {
+				if (
+					typeof password === 'string' &&
+					(!teacher || !bcrypt.compareSync(password, teacher.password))
+				) {
 					res.status(400).send({
 						message: 'Teacher with that email not found or password incorrect',
 					})
-				} else {
+				} else if (teacher) {
 					const token = toJWT({ teacherId: teacher.id })
 					const subjects = await Subject.findAll({
 						attributes: ['id', 'name'],
