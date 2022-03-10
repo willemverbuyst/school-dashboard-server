@@ -31,7 +31,7 @@ class TeachersController {
 					message: 'No questions for that subject found',
 				})
 			} else {
-				res.send(questions)
+				res.send({ results: questions.length, data: questions })
 			}
 		} catch (error) {
 			next(error)

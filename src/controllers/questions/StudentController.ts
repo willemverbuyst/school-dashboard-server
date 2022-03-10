@@ -40,7 +40,7 @@ class StudentController {
 					})
 					.sort(() => 0.5 - Math.random())
 					.slice(0, 3)
-				res.send(shuffled)
+				res.send({ results: shuffled.length, data: shuffled })
 			}
 		} catch (error) {
 			next(error)
@@ -49,14 +49,15 @@ class StudentController {
 
 	// Post the results of his 3q test
 	@post('/questions/3qtest')
-	@bodyValidator('q1', 'q2', 'q3', 'a1', 'a2', 'a3', 'studentId', 'subjectId')
+	@bodyValidator('q1', 'q2', 'q3', 'a1', 'a2', 'a3', 'subjectId')
 	@use(studentAuthMiddleware)
 	async postQuestionForSubject(
 		req: RequestWithBody,
 		res: Response,
 		next: NextFunction
 	): Promise<void> {
-		const { q1, q2, q3, a1, a2, a3, studentId, subjectId } = req.body
+		const { q1, q2, q3, a1, a2, a3, subjectId } = req.body
+		const studentId = req.student.id
 
 		try {
 			await Test.create({
