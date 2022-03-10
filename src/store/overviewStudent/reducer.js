@@ -10,7 +10,7 @@ const initialState = {
 const overviewStudentReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_RESULTS_FOR_STUDENT_MAIN:
-      return { ...state, all: action.payload };
+      return { ...state, all: action.payload.data };
 
     case REMOVE_RESULTS_FOR_STUDENT_MAIN:
       return initialState;

@@ -4,31 +4,29 @@ import PolarChartMain from './PolarChartMain';
 import { Row, Col } from 'antd';
 import { ReactElement } from 'react';
 
-interface ISubject {
+interface Subject {
   name: string;
   id: number;
 }
 
-interface IResult {
+interface Result {
   at: string;
   result: number;
   subject: number;
 }
 
-interface IProps {
-  subjects: ISubject[];
-  results: { data: IResult[] };
+interface Props {
+  subjects: Subject[];
+  results: Result[];
 }
 
-const AllCharts: React.FC<IProps> = ({
+const AllCharts: React.FC<Props> = ({
   subjects,
   results,
-}: IProps): ReactElement => {
-  const subjectIds: number[] = subjects.map((subject: ISubject) => subject.id);
-  // console.log('subjectIds :>> ', subjectIds);
-  // console.log('results :>> ', results);
-  const subjectSorted: IResult[][] = subjectIds.map((id) =>
-    results.data.filter((result: IResult) => result.subject === id)
+}: Props): ReactElement => {
+  const subjectIds: number[] = subjects.map((subject: Subject) => subject.id);
+  const subjectSorted: Result[][] = subjectIds.map((id) =>
+    results.filter((result: Result) => result.subject === id)
   );
   const averages: number[] = subjectSorted.map((subject) =>
     Math.round(
