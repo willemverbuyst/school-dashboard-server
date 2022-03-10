@@ -17,7 +17,7 @@ interface IResult {
 
 interface IProps {
   subjects: ISubject[];
-  results: IResult[];
+  results: { data: IResult[] };
 }
 
 const AllCharts: React.FC<IProps> = ({
@@ -25,8 +25,10 @@ const AllCharts: React.FC<IProps> = ({
   results,
 }: IProps): ReactElement => {
   const subjectIds: number[] = subjects.map((subject: ISubject) => subject.id);
+  // console.log('subjectIds :>> ', subjectIds);
+  // console.log('results :>> ', results);
   const subjectSorted: IResult[][] = subjectIds.map((id) =>
-    results.filter((result: IResult) => result.subject === id)
+    results.data.filter((result: IResult) => result.subject === id)
   );
   const averages: number[] = subjectSorted.map((subject) =>
     Math.round(

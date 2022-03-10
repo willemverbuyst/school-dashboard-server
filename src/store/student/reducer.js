@@ -9,16 +9,32 @@ const initialState = {
   name: null,
   email: null,
   id: null,
+  subjects: null,
 };
 
 const studentReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS_STUDENT:
-      localStorage.setItem('student_token', action.payload.token);
-      return { ...state, ...action.payload };
+      const { data, token } = action.payload;
+      localStorage.setItem('student_token', token);
+      return {
+        ...state,
+        token: token,
+        name: data.student.name,
+        email: data.student.email,
+        id: data.student.id,
+        subjects: data.subjects,
+      };
 
     case TOKEN_STILL_VALID_STUDENT:
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        token: token,
+        name: data.student.name,
+        email: data.student.email,
+        id: data.student.id,
+        subjects: data.subjects,
+      };
 
     case LOG_OUT_STUDENT:
       localStorage.removeItem('student_token');
