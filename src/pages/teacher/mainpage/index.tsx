@@ -34,7 +34,7 @@ const MainPage: React.FC = (): ReactElement => {
   });
 
   useEffect(() => {
-    dispatch(getMainOverview);
+    dispatch(getMainOverview());
   }, [dispatch]);
 
   const renderCharts = (): JSX.Element => {

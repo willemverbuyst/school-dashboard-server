@@ -90,12 +90,12 @@ export function getStudentForOverview(id) {
   };
 }
 
-export function getMainOverview(id) {
+export function getMainOverview() {
   return async function thunk(dispatch, getState) {
     const token = getState().teacher.token;
     dispatch(appLoading());
     const dataMain = getState().overViewTeacher.main;
-    if (dataMain.length < 1) {
+    if (!dataMain.scores || !dataMain.tests) {
       try {
         const response = await axios.get(`${apiUrl}/data/teacher/main`, {
           headers: { Authorization: `Bearer ${token}` },

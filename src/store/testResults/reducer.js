@@ -10,7 +10,7 @@ const initialState = {
 const testResultReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_RESULTS_FOR_SUBJECT:
-      return { ...state, all: action.payload };
+      return { ...state, all: action.payload.data };
 
     case REMOVE_RESULTS_FOR_SUBJECT:
       return initialState;

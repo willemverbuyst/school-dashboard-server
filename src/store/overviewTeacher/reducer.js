@@ -8,19 +8,25 @@ import {
 const initialState = {
   subjects: null,
   students: null,
-  main: [],
+  main: { scores: null, tests: null },
 };
 
 const overviewTeacherReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_OVERVIEW_FOR_SUBJECT:
-      return { ...state, subjects: action.payload };
+      return { ...state, subjects: action.payload.data };
 
     case FETCH_OVERVIEW_FOR_STUDENT:
-      return { ...state, students: action.payload };
+      return { ...state, students: action.payload.data };
 
     case FETCH_OVERVIEW_FOR_MAIN:
-      return { ...state, main: action.payload };
+      return {
+        ...state,
+        main: {
+          scores: action.payload.data.scores,
+          tests: action.payload.data.tests,
+        },
+      };
 
     case REMOVE_OVERVIEW:
       return initialState;
