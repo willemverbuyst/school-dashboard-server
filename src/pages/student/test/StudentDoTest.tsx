@@ -18,9 +18,9 @@ interface TestResult {
   question1: number;
   question2: number;
   question3: number;
-  answer1: number;
-  answer2: number;
-  answer3: number;
+  answer1: string;
+  answer2: string;
+  answer3: string;
 }
 
 interface IMultipleChoiceAnswer {
@@ -51,9 +51,9 @@ export default function StudentDoTest() {
     question1: 0,
     question2: 0,
     question3: 0,
-    answer1: 0,
-    answer2: 0,
-    answer3: 0,
+    answer1: '0',
+    answer2: '0',
+    answer3: '0',
   });
   const [testDone, setTestDone] = useState(false);
   const [blockNavigation, setBlockNavigation] = useState(true);
@@ -71,24 +71,24 @@ export default function StudentDoTest() {
   const onPick = (event: any, questionNumber: number, questionId: number) => {
     if (questionNumber === 1) {
       event === 1 || event % 4 === 1
-        ? setMCResults({ ...MCResults, question1: questionId, answer1: 1 })
-        : setMCResults({ ...MCResults, question1: questionId, answer1: 0 });
+        ? setMCResults({ ...MCResults, question1: questionId, answer1: '1' })
+        : setMCResults({ ...MCResults, question1: questionId, answer1: '0' });
     } else if (questionNumber === 2) {
       event === 1 || event % 4 === 1
-        ? setMCResults({ ...MCResults, question2: questionId, answer2: 1 })
-        : setMCResults({ ...MCResults, question2: questionId, answer2: 0 });
+        ? setMCResults({ ...MCResults, question2: questionId, answer2: '1' })
+        : setMCResults({ ...MCResults, question2: questionId, answer2: '0' });
     } else {
       event === 1 || event % 4 === 1
-        ? setMCResults({ ...MCResults, question3: questionId, answer3: 1 })
-        : setMCResults({ ...MCResults, question3: questionId, answer3: 0 });
+        ? setMCResults({ ...MCResults, question3: questionId, answer3: '1' })
+        : setMCResults({ ...MCResults, question3: questionId, answer3: '0' });
     }
   };
 
   const onFinish = () => {
     if (studentId) {
       setTestDone(true);
-      dispatch(submitTest(studentId, Number(subjectid), MCResults));
-      setMCResults({ ...MCResults, answer1: 0, answer2: 0, answer3: 0 });
+      dispatch(submitTest(Number(subjectid), MCResults));
+      setMCResults({ ...MCResults, answer1: '0', answer2: '0', answer3: '0' });
       setBlockNavigation(false);
     }
   };
@@ -169,13 +169,13 @@ export default function StudentDoTest() {
         beforeConfirm={(clb) => {
           studentId &&
             dispatch(
-              submitTest(studentId, Number(subjectid), {
+              submitTest(Number(subjectid), {
                 question1: MCResults.question1,
                 question2: MCResults.question2,
                 question3: MCResults.question3,
-                answer1: 0,
-                answer2: 0,
-                answer3: 0,
+                answer1: '0',
+                answer2: '0',
+                answer3: '0',
               })
             );
           clb();

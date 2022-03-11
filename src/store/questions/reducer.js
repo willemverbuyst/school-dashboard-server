@@ -7,10 +7,10 @@ const initialState = {
 const questionsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_QUESTIONS:
-      return { ...state, all: action.payload };
+      return { ...state, all: action.payload.data };
 
     case ADD_QUESTION:
-      return { ...state, all: [...state.all, action.payload] };
+      return { ...state, all: [...state.all, action.payload.data] };
 
     case REMOVE_QUESTIONS:
       return initialState;

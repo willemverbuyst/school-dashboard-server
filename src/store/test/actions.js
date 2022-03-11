@@ -49,7 +49,8 @@ export function getMcQuestionsForTest(id) {
   };
 }
 
-export function submitTest(studentId, subjectId, q1, q2, q3, a1, a2, a3) {
+export function submitTest(subjectId, test) {
+  const { question1, question2, question3, answer1, answer2, answer3 } = test;
   return async function thunk(dispatch, getState) {
     const token = getState().student.token;
     dispatch(appLoading());
@@ -57,14 +58,13 @@ export function submitTest(studentId, subjectId, q1, q2, q3, a1, a2, a3) {
       const response = await axios.post(
         `${apiUrl}/questions/3qtest`,
         {
-          studentId,
+          q1: question1,
+          q2: question2,
+          q3: question3,
+          a1: answer1,
+          a2: answer2,
+          a3: answer3,
           subjectId,
-          q1,
-          q2,
-          q3,
-          a1,
-          a2,
-          a3,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
