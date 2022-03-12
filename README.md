@@ -18,9 +18,11 @@ This is the repository with the server that is part of my full-stack dashboard p
 
 ## Prisma
 
+> cd into ./src
+
 > npx prisma db push --preview-feature
 
-> npx ts-node index.ts
+> npx ts-node ./prisma.ts
 
 > npx prisma studio
 
