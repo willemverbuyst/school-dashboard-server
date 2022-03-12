@@ -3,6 +3,7 @@ import { questions } from './prisma/dummyData/questions'
 import { schools } from './prisma/dummyData/schools'
 import { subjects } from './prisma/dummyData/subjects'
 import { users } from './prisma/dummyData/users'
+import { cleanUpTables } from './prisma/utils/cleanupTables'
 
 const prisma = new PrismaClient()
 
@@ -62,15 +63,8 @@ const createUsers = async (): Promise<void> => {
 	}
 }
 
-const cleanUpTables = async () => {
-	await prisma.question.deleteMany()
-	await prisma.subject.deleteMany()
-	await prisma.user.deleteMany()
-	await prisma.school.deleteMany()
-}
-
 async function main() {
-	await cleanUpTables()
+	await cleanUpTables(prisma)
 	await createSchools()
 	await createUsers()
 	await createSubjects()
