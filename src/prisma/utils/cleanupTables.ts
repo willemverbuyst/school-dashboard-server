@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { logFinishRemoval, logInitRemoval, logRemoval } from './logFunctions'
+import { logFinishRemoval, logInitRemoval, logRemoval } from './log'
 
 export const cleanUpTables = async (prisma: PrismaClient) => {
 	logInitRemoval()
