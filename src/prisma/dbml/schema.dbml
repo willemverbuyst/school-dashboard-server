@@ -84,7 +84,8 @@ Table Test {
 Table User {
   id String [pk]
   email String [unique, not null]
-  userName String
+  userName String [not null]
+  password String [not null]
   role Role [not null, default: 'STUDENT']
   profile Profile
   student Student
