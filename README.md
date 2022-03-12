@@ -11,7 +11,19 @@ This is the repository with the server that is part of my full-stack dashboard p
 3. Configure your database/secrets in a .env file
 
    DATABASE_DEV=YOUR_DATABASE_URL_HERE
-   
+
    JWT_SECRET=YOUR_JWT_SECRET_HERE
-   
+
 4. Setup up the front-end to start building your dashboard.
+
+## Prisma
+
+> npx prisma db push --preview-feature
+
+> npx ts-node index.ts
+
+> npx prisma studio
+
+> npx prisma generate
+
+https://dbdiagram.io/d
