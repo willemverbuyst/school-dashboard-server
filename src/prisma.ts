@@ -1,10 +1,24 @@
 import { PrismaClient } from '@prisma/client'
+import { questions } from './prisma/dummyData/questions'
 import { schools } from './prisma/dummyData/schools'
-
 import { subjects } from './prisma/dummyData/subjects'
 import { users } from './prisma/dummyData/users'
 
 const prisma = new PrismaClient()
+
+const createQuestions = async (): Promise<void> => {
+	try {
+		await prisma.question.createMany({
+			data: questions,
+			skipDuplicates: true,
+		})
+
+		console.log('*******************************************')
+		console.log('Added to the DB: Questions')
+	} catch (error) {
+		console.log(String(error))
+	}
+}
 
 const createSchools = async (): Promise<void> => {
 	try {
@@ -49,16 +63,18 @@ const createUsers = async (): Promise<void> => {
 }
 
 const cleanUpTables = async () => {
-	await prisma.school.deleteMany()
+	await prisma.question.deleteMany()
 	await prisma.subject.deleteMany()
 	await prisma.user.deleteMany()
+	await prisma.school.deleteMany()
 }
 
 async function main() {
 	await cleanUpTables()
 	await createSchools()
-	await createSubjects()
 	await createUsers()
+	await createSubjects()
+	await createQuestions()
 }
 
 main()
