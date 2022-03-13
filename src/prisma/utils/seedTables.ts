@@ -1,11 +1,14 @@
 import { PrismaClient } from '@prisma/client'
-import { profiles } from '../dummyData/profiles'
-import { questions } from '../dummyData/questions'
-import { schools } from '../dummyData/schools'
-import { students } from '../dummyData/students'
-import { subjects } from '../dummyData/subjects'
-import { teachers } from '../dummyData/teachers'
-import { users } from '../dummyData/users'
+import {
+	profiles,
+	questions,
+	schools,
+	students,
+	subjects,
+	teachers,
+	users,
+} from '../dummyData'
+
 import { logFinishSeed, logInitSeed, logSeed } from './log'
 
 const createProfiles = async (prisma: PrismaClient): Promise<void> => {

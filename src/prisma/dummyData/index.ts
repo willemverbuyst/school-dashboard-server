@@ -1,0 +1,7 @@
+export { profiles } from './profiles'
+export { questions } from './questions'
+export { schools } from './schools'
+export { students } from './students'
+export { subjects } from './subjects'
+export { teachers } from './teachers'
+export { users } from './users'
