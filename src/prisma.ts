@@ -1,6 +1,12 @@
 import { PrismaClient } from '@prisma/client'
-import { getAllSchools, getSchool } from './prisma/queries/schools'
+import {
+	getAllSchools,
+	getSchool,
+	getSchoolWithStudents,
+	getSchoolWithTeachers,
+} from './prisma/queries/schools'
 import { getAllSubjects, getSubject } from './prisma/queries/subjects'
+import { getUser } from './prisma/queries/user'
 import { cleanUpTables } from './prisma/utils/cleanupTables'
 import { seedData } from './prisma/utils/seedTables'
 
@@ -9,10 +15,17 @@ export const prismaClient = new PrismaClient()
 async function main() {
 	// await cleanUpTables(prismaClient)
 	// await seedData(prismaClient)
-	getAllSchools()
-	getAllSubjects()
-	getSchool('e501ac78-a733-44f2-9b1c-df7e94d7a278')
-	getSubject('957db6a1-47ed-4d9d-895c-ea7f017f74eb')
+	console.log(await getAllSchools())
+	console.log(await getAllSubjects())
+	console.log(await getSchool('29f7727a-11fe-4196-9657-83ded2bd754d'))
+	console.log(
+		await getSchoolWithStudents('29f7727a-11fe-4196-9657-83ded2bd754d')
+	)
+	console.log(
+		await getSchoolWithTeachers('29f7727a-11fe-4196-9657-83ded2bd754d')
+	)
+	console.log(await getSubject('2748201d-51d2-469b-ab27-fb19005e4bc9'))
+	console.log(await getUser('43a74fe7-af76-46c0-9f37-1b74a55b11ab'))
 }
 
 main()
