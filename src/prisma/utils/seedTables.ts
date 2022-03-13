@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { profiles } from '../dummyData/profiles'
 import { questions } from '../dummyData/questions'
 import { schools } from '../dummyData/schools'
 import { students } from '../dummyData/students'
@@ -6,6 +7,14 @@ import { subjects } from '../dummyData/subjects'
 import { teachers } from '../dummyData/teachers'
 import { users } from '../dummyData/users'
 import { logFinishSeed, logInitSeed, logSeed } from './log'
+
+const createProfiles = async (prisma: PrismaClient): Promise<void> => {
+	await prisma.profile.createMany({
+		data: profiles,
+		skipDuplicates: true,
+	})
+	logSeed('Profile')
+}
 
 const createQuestions = async (prisma: PrismaClient): Promise<void> => {
 	await prisma.question.createMany({
@@ -58,8 +67,9 @@ const createUsers = async (prisma: PrismaClient): Promise<void> => {
 export const seedData = async (prisma: PrismaClient) => {
 	logInitSeed()
 	await createSchools(prisma)
-	await createUsers(prisma)
 	await createSubjects(prisma)
+	await createUsers(prisma)
+	await createProfiles(prisma)
 	await createTeachers(prisma)
 	await createStudents(prisma)
 	await createQuestions(prisma)
