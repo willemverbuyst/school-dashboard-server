@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { getAllSchools } from './prisma/queries/schools'
-import { getAllSubjects, getOneSubject } from './prisma/queries/subjects'
+import { getAllSchools, getSchool } from './prisma/queries/schools'
+import { getAllSubjects, getSubject } from './prisma/queries/subjects'
 import { cleanUpTables } from './prisma/utils/cleanupTables'
 import { seedData } from './prisma/utils/seedTables'
 
@@ -11,7 +11,8 @@ async function main() {
 	// await seedData(prismaClient)
 	getAllSchools()
 	getAllSubjects()
-	getOneSubject('e501ac78-a733-44f2-9b1c-df7e94d7a278')
+	getSchool('e501ac78-a733-44f2-9b1c-df7e94d7a278')
+	getSubject('957db6a1-47ed-4d9d-895c-ea7f017f74eb')
 }
 
 main()
