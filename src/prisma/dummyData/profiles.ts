@@ -28,7 +28,7 @@ export const profiles = [
 	},
 	{
 		id: uuidv4(),
-		bio: 'No so small',
+		bio: 'Not so small',
 		userId: '49b4bc86-bc9e-4279-b180-e604736ec25b',
 	},
 ]
