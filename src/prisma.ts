@@ -6,7 +6,8 @@ import {
 	getSchoolWithTeachers,
 } from './prisma/queries/schools'
 import { getAllSubjects, getSubject } from './prisma/queries/subjects'
-import { getUser } from './prisma/queries/user'
+import { getUser, getUserWithProfile } from './prisma/queries/user'
+
 import { cleanUpTables } from './prisma/utils/cleanupTables'
 import { seedData } from './prisma/utils/seedTables'
 
@@ -26,6 +27,7 @@ async function main() {
 	)
 	console.log(await getSubject('2748201d-51d2-469b-ab27-fb19005e4bc9'))
 	console.log(await getUser('43a74fe7-af76-46c0-9f37-1b74a55b11ab'))
+	console.log(await getUserWithProfile('43a74fe7-af76-46c0-9f37-1b74a55b11ab'))
 }
 
 main()

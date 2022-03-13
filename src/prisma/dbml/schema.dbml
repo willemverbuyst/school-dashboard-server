@@ -12,7 +12,7 @@ Table Answer {
 
 Table Profile {
   id String [pk]
-  bio String
+  bio String [not null]
   user User [not null]
   userId String [unique, not null]
 }

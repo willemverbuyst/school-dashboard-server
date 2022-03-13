@@ -1,11 +1,13 @@
+import { User } from '@prisma/client'
 import { prismaClient } from '../../../prisma'
-import { UserWithoutPassword } from './models'
+import { UserWithProfile } from './models'
 
-export const getUser = async (
+export const getUserWithProfile = async (
 	id: string
-): Promise<UserWithoutPassword | null> => {
+): Promise<UserWithProfile | null> => {
 	const user = await prismaClient.user.findUnique({
 		where: { id },
+		include: { profile: { select: { bio: true } } },
 	})
 
 	if (user) {
