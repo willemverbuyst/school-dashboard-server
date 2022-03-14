@@ -13,7 +13,8 @@
 		"seed": "npx sequelize-cli db:seed:all",
 		"resetDB": "npx sequelize-cli db:migrate:undo:all && npm run initdev",
 		"dev": "tsnd --respawn src/index.ts",
-		"test": "jest --testMatch='**/*.spec.ts' --coverage",
+		"test": "jest --testMatch='**/*.spec.ts' --verbose",
+		"test:coverage": "jest --testMatch='**/*.spec.ts' --coverage",
 		"test:watch": "jest --testMatch='**/*.spec.ts' --watch"
 	},
 	"author": "wv",
