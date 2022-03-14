@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { getQuestionsForSubject } from './prisma/queries/questions'
 import {
 	getAllSchools,
 	getSchool,
@@ -14,8 +15,8 @@ import { seedData } from './prisma/utils/seedTables'
 export const prismaClient = new PrismaClient()
 
 async function main() {
-	// await cleanUpTables(prismaClient)
-	// await seedData(prismaClient)
+	await cleanUpTables(prismaClient)
+	await seedData(prismaClient)
 	console.log(await getAllSchools())
 	console.log(await getAllSubjects())
 	console.log(await getSchool('29f7727a-11fe-4196-9657-83ded2bd754d'))
@@ -28,6 +29,9 @@ async function main() {
 	console.log(await getSubject('2748201d-51d2-469b-ab27-fb19005e4bc9'))
 	console.log(await getUser('43a74fe7-af76-46c0-9f37-1b74a55b11ab'))
 	console.log(await getUserWithProfile('43a74fe7-af76-46c0-9f37-1b74a55b11ab'))
+	console.log(
+		await getQuestionsForSubject('2748201d-51d2-469b-ab27-fb19005e4bc9')
+	)
 }
 
 main()
