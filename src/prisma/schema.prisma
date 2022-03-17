@@ -33,7 +33,7 @@ model Question {
   subject     Subject     @relation(fields: [subjectId], references: [id])
   subjectId   String      
   answers     Answer[]
-  question    Score[]
+  score     Score[]
 }
 
 model School {
@@ -46,11 +46,11 @@ model School {
 
 model Score {
   id          String      @id @default(uuid())
-  createdAt   DateTime    @default(now())
   question    Question    @relation(fields: [questionId], references: [id])
   questionId  String
   score       Int
-  test        Test[]
+  test        Test        @relation(fields: [testId], references: [id])
+  testId      String
 }
 
 model Student {
@@ -68,7 +68,7 @@ model Subject {
   id          String      @id @default(uuid())
   name        String 
   questions   Question[]
-  tests       Test[]    
+  test        Test[]    
 }
 
 model Teacher {
@@ -77,7 +77,7 @@ model Teacher {
   schoolId  String
   user      User          @relation(fields: [userId], references: [id])
   userId    String        @unique
-  students  Student[]
+  student   Student[]
 }
 
 model Test {
@@ -87,8 +87,7 @@ model Test {
   studentId   String
   subject     Subject     @relation(fields: [subjectId], references: [id])
   subjectId   String
-  score       Score       @relation(fields: [scoreId], references: [id])
-  scoreId     String
+  score       Score[]      
 }
 
 model User {

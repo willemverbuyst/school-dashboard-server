@@ -23,7 +23,7 @@ Table Question {
   subject Subject [not null]
   subjectId String [not null]
   answers Answer [not null]
-  question Score [not null]
+  score Score [not null]
 }
 
 Table School {
@@ -36,11 +36,11 @@ Table School {
 
 Table Score {
   id String [pk]
-  createdAt DateTime [default: `now()`, not null]
   question Question [not null]
   questionId String [not null]
   score Int [not null]
   test Test [not null]
+  testId String [not null]
 }
 
 Table Student {
@@ -58,7 +58,7 @@ Table Subject {
   id String [pk]
   name String [not null]
   questions Question [not null]
-  tests Test [not null]
+  test Test [not null]
 }
 
 Table Teacher {
@@ -67,7 +67,7 @@ Table Teacher {
   schoolId String [not null]
   user User [not null]
   userId String [unique, not null]
-  students Student [not null]
+  student Student [not null]
 }
 
 Table Test {
@@ -78,7 +78,6 @@ Table Test {
   subject Subject [not null]
   subjectId String [not null]
   score Score [not null]
-  scoreId String [not null]
 }
 
 Table User {
@@ -106,6 +105,8 @@ Ref: Question.subjectId > Subject.id
 
 Ref: Score.questionId > Question.id
 
+Ref: Score.testId > Test.id
+
 Ref: Student.schoolId > School.id
 
 Ref: Student.userId - User.id
@@ -119,5 +120,3 @@ Ref: Teacher.userId - User.id
 Ref: Test.studentId > Student.id
 
 Ref: Test.subjectId > Subject.id
-
-Ref: Test.scoreId > Score.id
