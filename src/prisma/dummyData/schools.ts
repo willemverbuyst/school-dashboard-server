@@ -1,11 +1,14 @@
-export const schools = [
+import { School } from '@prisma/client'
+import { v4 as uuidv4 } from 'uuid'
+
+export const schools: Array<School> = [
 	{
-		id: '29f7727a-11fe-4196-9657-83ded2bd754d',
+		id: uuidv4(),
 		name: 'Compu',
 		location: 'Nerdsville',
 	},
 	{
-		id: '957db6a1-47ed-4d9d-895c-ea7f017f74eb',
+		id: uuidv4(),
 		name: 'Run Faster',
 		location: 'Downhill',
 	},
