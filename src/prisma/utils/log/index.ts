@@ -4,7 +4,7 @@ export const logInitRemoval = (): void =>
 	logInit(`STARTING TO REMOVE DATA FROM TABLES...`)
 
 export const logRemoval = (table: string): void =>
-	log(`Removed data the ${table} table`)
+	log(`Remove all data from the ${table} table`)
 
 export const logFinishRemoval = (): void =>
 	logFinish(`DONE, REMOVED DATA FROM TABLES`)

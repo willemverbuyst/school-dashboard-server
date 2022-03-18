@@ -16,7 +16,7 @@ export const prismaClient = new PrismaClient()
 
 async function main() {
 	await cleanUpTables(prismaClient)
-	// 	await seedData(prismaClient)
+	await seedData(prismaClient)
 	// 	console.log(await getAllSchools())
 	// 	console.log(await getAllSubjects())
 	// 	console.log(await getSchool('29f7727a-11fe-4196-9657-83ded2bd754d'))

@@ -7,7 +7,7 @@ Table Answer {
   text String [not null]
   correct Boolean [not null]
   question Question [not null]
-  questionId String [unique, not null]
+  questionId String [not null]
 }
 
 Table Profile {

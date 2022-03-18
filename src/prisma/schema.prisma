@@ -16,7 +16,7 @@ model Answer {
   text        String
   correct     Boolean
   question    Question    @relation(fields: [questionId], references: [id])
-  questionId  String      @unique
+  questionId  String      
 
 }
 
@@ -33,7 +33,7 @@ model Question {
   subject     Subject     @relation(fields: [subjectId], references: [id])
   subjectId   String      
   answers     Answer[]
-  score     Score[]
+  score       Score[]
 }
 
 model School {
@@ -46,9 +46,9 @@ model School {
 
 model Score {
   id          String      @id @default(uuid())
+  score       Int
   question    Question    @relation(fields: [questionId], references: [id])
   questionId  String
-  score       Int
   test        Test        @relation(fields: [testId], references: [id])
   testId      String
 }
