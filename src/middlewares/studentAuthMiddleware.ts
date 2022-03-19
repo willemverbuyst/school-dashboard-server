@@ -1,6 +1,8 @@
+import { Role } from '@prisma/client'
 import { NextFunction, Response } from 'express'
 import { toData } from '../auth/jwt'
 import { RequestWithBody } from '../interfaces/Requests'
+import { getUserById } from '../prisma/queries/user'
 
 export const studentAuthMiddleware = async (
 	req: RequestWithBody,
@@ -16,16 +18,13 @@ export const studentAuthMiddleware = async (
 		})
 	} else {
 		try {
-			// const data = toData(auth[1])
-			// const student = await Student.findByPk(
-			// 	(<{ studentId: number }>data).studentId
-			// ).then(data => data?.get({ plain: true }))
+			const data = toData(auth[1])
+			const user = await getUserById((<{ userId: string }>data).userId)
 
-			// if (!student) {
-			// 	res.status(404).send({ message: 'Student does not exist' })
-			// } else {
-			// 	req.student = student
-			// }
+			if (!user || user.role !== Role.STUDENT) {
+				res.status(403).send({ message: 'Student does not exist' })
+				return
+			}
 
 			return next()
 		} catch (error) {
