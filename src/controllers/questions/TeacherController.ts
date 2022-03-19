@@ -2,12 +2,12 @@ import { NextFunction, Response } from 'express'
 
 import { RequestWithBody } from '../../interfaces/Requests'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
+import { getQuestionsForSubject } from '../../prisma/queries/questions'
 import { bodyValidator, controller, get, post, use } from '../decorators'
 
-@controller('')
-class TeachersController {
-	// Get all the questions for one subject
-	@get('/questions/:id')
+@controller('/questions')
+class SubjectController {
+	@get('/:id')
 	@use(teacherAuthMiddleware)
 	async getQuestionsForSubject(
 		req: RequestWithBody,
@@ -16,31 +16,28 @@ class TeachersController {
 	): Promise<void> {
 		const { id: subjectId } = req.params
 		try {
-			// const questions = await Question.findAll({
-			// 	where: { subjectId },
-			// 	attributes: ['id', 'subjectId', 'text'],
-			// 	include: {
-			// 		model: Answer,
-			// 		as: 'answers',
-			// 		attributes: ['id', 'questionId', 'text', 'correct'],
-			// 	},
-			// })
+			if (!subjectId) {
+				res.status(422).send({ message: 'Must provide subject id' })
+				return
+			}
 
-			const questions = ['test']
+			const questions = await getQuestionsForSubject(subjectId)
+
 			if (!questions) {
 				res.status(404).send({
 					message: 'No questions for that subject found',
 				})
-			} else {
-				res.send({ results: questions.length, data: questions })
+				return
 			}
+
+			res.send({ results: questions.length, data: questions })
 		} catch (error) {
 			next(error)
 		}
 	}
 
 	// Post a new question for a subject
-	@post('/questions')
+	@post('/')
 	@bodyValidator(
 		'subjectId',
 		'question',

@@ -3,7 +3,7 @@ import { NextFunction, Response } from 'express'
 import { controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { getUser, getUserPlus } from '../../prisma/queries/user'
+import { getUserByEmail, getUserPlus } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 
 @controller('/auth')
@@ -27,7 +27,7 @@ class LoginController {
 				return
 			}
 
-			const user = await getUser(email)
+			const user = await getUserByEmail(email)
 
 			if (!user || !bcrypt.compareSync(password, user.password)) {
 				res
