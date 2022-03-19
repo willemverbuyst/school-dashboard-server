@@ -5,8 +5,8 @@ import { seedData } from './prisma/utils/seedTables'
 export const prismaClient = new PrismaClient()
 
 async function main() {
-	// await cleanUpTables(prismaClient)
-	// await seedData(prismaClient)
+	await cleanUpTables(prismaClient)
+	await seedData(prismaClient)
 }
 
 main()
