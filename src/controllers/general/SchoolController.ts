@@ -1,24 +1,24 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { getAllTeachers } from '../../prisma/queries/teachers'
+import { getAllSchools } from '../../prisma/queries/schools'
 import { controller, get } from '../decorators'
 
 @controller('')
-class TeachersController {
-	@get('/public/teachers')
-	async getTeachers(
+class SchoolController {
+	@get('/public/schools')
+	async getSchools(
 		_req: RequestWithBody,
 		res: Response,
 		next: NextFunction
 	): Promise<void> {
 		try {
-			const teachers = await getAllTeachers()
+			const schools = await getAllSchools()
 
-			if (!teachers) {
-				res.send({ message: 'No teachers found' })
+			if (!schools) {
+				res.send({ message: 'No schools found' })
 			}
 
-			res.send({ results: teachers.length, data: teachers })
+			res.send({ results: schools.length, data: schools })
 		} catch (error) {
 			next(error)
 		}
