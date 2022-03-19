@@ -14,7 +14,7 @@ import './controllers/data/TeacherController'
 import './controllers/public/TeacherController'
 import './controllers/public/SchoolController'
 import './controllers/public/SubjectController'
-import './controllers/questions/StudentController'
+import './controllers/questions/TestController'
 import './controllers/questions/TeacherController'
 
 const app = express()

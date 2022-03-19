@@ -1,46 +1,37 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
+import { getQuestionsForTest } from '../../prisma/queries/questions'
 import { bodyValidator, controller, get, post, use } from '../decorators'
 
-@controller('')
-class StudentController {
+@controller('/questions')
+class TestController {
 	// Get 3 random questions for a subject
-	@get('/questions/3qtest/:id')
+	@get('/subjects/:id/test')
 	@use(studentAuthMiddleware)
 	async getQuestionsForSubject(
 		req: RequestWithBody,
 		res: Response,
 		next: NextFunction
 	): Promise<void> {
-		const { id } = req.params
 		try {
-			// const questions = await Question.findAll({
-			// 	where: { subjectId: id },
-			// 	include: { model: Answer, as: 'answers' },
-			// })
+			const { id } = req.params
 
-			const questions = ['test']
+			if (!id) {
+				res.status(422).send({ message: 'Must provide subject id' })
+				return
+			}
+
+			const questions = await getQuestionsForTest(id)
+
 			if (!questions) {
 				res.status(404).send({
 					message: 'No questions for that subject found',
 				})
-			} else {
-				// https://stackoverflow.com/questions/19269545/how-to-get-n-no-elements-randomly-from-an-array
-
-				const shuffled = questions
-					.map((question: any) => {
-						return {
-							answers: question.answers.sort(() => 0.5 - Math.random()),
-							id: question.id,
-							text: question.text,
-							subjectId: question.subjectId,
-						}
-					})
-					.sort(() => 0.5 - Math.random())
-					.slice(0, 3)
-				res.send({ results: shuffled.length, data: shuffled })
+				return
 			}
+
+			res.send({ results: questions.length, data: questions })
 		} catch (error) {
 			next(error)
 		}

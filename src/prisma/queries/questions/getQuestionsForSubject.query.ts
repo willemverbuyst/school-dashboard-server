@@ -1,4 +1,3 @@
-import { Question } from '@prisma/client'
 import { prismaClient } from '../../../prisma'
 import { QuestionWithAnswers } from './models'
 
