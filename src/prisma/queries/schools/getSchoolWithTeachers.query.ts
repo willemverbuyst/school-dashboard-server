@@ -1,9 +1,12 @@
 import { prismaClient } from '../../../prisma'
+import { SchoolWithTeachers } from './models'
 
-export const getSchoolWithTeachers = async (id: string) => {
+export const getSchoolWithTeachers = async (
+	id: string
+): Promise<SchoolWithTeachers | null> => {
 	const schoolWithTeachers = await prismaClient.school.findUnique({
 		where: { id },
-		include: { teacher: { select: { id: true } } },
+		include: { teachers: { select: { id: true } } },
 	})
 
 	return schoolWithTeachers
