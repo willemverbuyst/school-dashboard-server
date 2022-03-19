@@ -37,7 +37,7 @@ export const getUserPlus = async (id: string): Promise<UserPlus | null> => {
 							location: true,
 						},
 					},
-					student: {
+					students: {
 						select: {
 							id: true,
 							user: {
