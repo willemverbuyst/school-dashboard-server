@@ -7,28 +7,3 @@ export const toJWT = (data: { [key: string]: any }): string =>
 
 export const toData = (token: string): string | object =>
 	jwt.verify(token, JWT_SECRET)
-
-// module.exports = {
-// 	signAccessToken(payload) {
-// 		return new Promise((resolve, reject) => {
-// 			jwt.sign({ payload }, accessTokenSecret, {}, (err, token) => {
-// 				if (err) {
-// 					reject(createError.InternalServerError())
-// 				}
-// 				resolve(token)
-// 			})
-// 		})
-// 	},
-// 	verifyAccessToken(token) {
-// 		return new Promise((resolve, reject) => {
-// 			jwt.verify(token, accessTokenSecret, (err, payload) => {
-// 				if (err) {
-// 					const message =
-// 						err.name == 'JsonWebTokenError' ? 'Unauthorized' : err.message
-// 					return reject(createError.Unauthorized(message))
-// 				}
-// 				resolve(payload)
-// 			})
-// 		})
-// 	},
-// }
