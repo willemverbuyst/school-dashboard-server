@@ -1,7 +1,5 @@
+import { School } from '@prisma/client'
 import { prismaClient } from '../../../prisma'
 
-export const getAllSchools = async () => {
-	const schools = await prismaClient.school.findMany()
-
-	return schools
-}
+export const getAllSchools = async (): Promise<Array<School>> =>
+	await prismaClient.school.findMany()

@@ -1,7 +1,5 @@
+import { Subject } from '@prisma/client'
 import { prismaClient } from '../../../prisma'
 
-export const getAllSubjects = async () => {
-	const subjects = await prismaClient.subject.findMany()
-
-	return subjects
-}
+export const getAllSubjects = async (): Promise<Array<Subject>> =>
+	await prismaClient.subject.findMany()

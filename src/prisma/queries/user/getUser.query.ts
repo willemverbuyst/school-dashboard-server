@@ -1,17 +1,30 @@
+import { User } from '@prisma/client'
 import { prismaClient } from '../../../prisma'
-import { UserWithoutPassword } from './models'
 
 export const getUser = async (
-	id: string
-): Promise<UserWithoutPassword | null> => {
-	const user = await prismaClient.user.findUnique({
-		where: { id },
+	email: string,
+	password: string
+): Promise<User | null> =>
+	await prismaClient.user.findUnique({
+		where: { email },
 	})
 
-	if (user) {
-		const { password, ...userWithoutPassword } = user
-		return userWithoutPassword
-	}
-
-	return null
-}
+//     const { email, password } = data;
+//     const user = await prisma.user.findUnique({
+//         where: {
+//             email
+//         }
+//     });
+//     if (!user) {
+//         throw createError.NotFound('User not registered')
+//     }
+//     const checkPassword = bcrypt.compareSync(password, user.password)
+//     if (!checkPassword) throw createError.Unauthorized('Email address or password not valid')
+//     delete user.password
+//     const accessToken = await jwt.signAccessToken(user)
+//     return { ...user, accessToken }
+// }
+// static async all() {
+//     const allUsers = await prisma.user.findMany();
+//     return allUsers;
+// }
