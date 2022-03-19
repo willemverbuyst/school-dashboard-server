@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import { NextFunction, Response } from 'express'
-import { controller, post } from '../decorators'
+import { bodyValidator, controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { getUserByEmail, getUserPlus } from '../../prisma/queries/user'
@@ -17,13 +17,8 @@ class LoginController {
 		try {
 			const { email, password } = req.body
 
-			if (!email) {
-				res.status(422).send({ message: 'Must provide email' })
-				return
-			}
-
-			if (!password) {
-				res.status(422).send({ message: 'Must provide password' })
+			if (!email || !password) {
+				res.status(422).send({ message: 'Missing input' })
 				return
 			}
 

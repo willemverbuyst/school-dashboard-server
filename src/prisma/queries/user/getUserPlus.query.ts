@@ -5,7 +5,11 @@ export const getUserPlus = async (id: string): Promise<UserPlus | null> => {
 	const user = await prismaClient.user.findUnique({
 		where: { id },
 		include: {
-			profile: { select: { bio: true } },
+			profile: {
+				select: {
+					bio: true,
+				},
+			},
 			student: {
 				select: {
 					id: true,

@@ -1,47 +1,50 @@
-import bcrypt from 'bcrypt'
 import { NextFunction, Request, Response } from 'express'
-import { bodyValidator, controller, post } from '../decorators'
+import { controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
-import { SALT_ROUNDS } from '../../config/constants'
+import { createUserStudent } from '../../prisma/queries/user'
+import { getAllSubjects } from '../../prisma/queries/subjects'
 
 @controller('/auth')
 class SignupController {
-	@post('/signup')
-	@bodyValidator('email', 'password', 'name', 'isStudent')
+	@post('/signup/student')
 	async postSignup(
 		req: Request,
 		res: Response,
 		_next: NextFunction
 	): Promise<void> {
 		try {
-			const { isStudent, name, email, teacherId } = req.body
+			const { email, userName, password, bio, schoolId, teacherId } = req.body
 
-			// // STUDENT
-			// if (isStudent && Number(isStudent) === 1) {
-			// 	if (!teacherId) {
-			// 		res.status(400).send({
-			// 			message: 'Please provide teacher id!',
-			// 		})
-			// 	} else {
-			// 		const newStudent = await Student.create({
-			// 			email,
-			// 			password: bcrypt.hashSync(req.body.password, SALT_ROUNDS),
-			// 			name,
-			// 			teacherId: Number(teacherId),
-			// 		}).then(data => data?.get({ plain: true }))
+			if (!email || !userName || !password || !bio || !schoolId || !teacherId) {
+				res.status(422).send({ message: 'Missing input' })
+				return
+			}
 
-			// 		const { password, ...newStudentWithoutPassword } = newStudent
-			// 		const token = toJWT({ studentId: newStudent.id })
-			// 		const subjects = await Subject.findAll({
-			// 			attributes: ['id', 'name'],
-			// 		})
+			const user = await createUserStudent(
+				email,
+				userName,
+				password,
+				bio,
+				schoolId,
+				teacherId
+			)
 
-			// 		res.status(201).json({
-			// 			token,
-			// 			data: { student: newStudentWithoutPassword, subjects },
-			// 			message: 'A new account is created for you',
-			// 		})
-			// 	}
+			if (!user) {
+				res.status(500).send({ message: 'User not created' })
+				return
+			}
+
+			const token = toJWT({ studentId: user.id })
+			const subjects = await getAllSubjects()
+
+			res.status(200).send({
+				token,
+				data: {
+					subjects: { results: subjects.length, data: subjects },
+					user,
+				},
+				message: 'Welcome',
+			})
 
 			// 	// TEACHER
 			// } else {
@@ -53,27 +56,17 @@ class SignupController {
 			// 	const { password, ...newTeacherWithoutPassword } = newTeacher
 			// 	const token = toJWT({ teacherId: newTeacher.id })
 
-			const token = ''
-			const newTeacherWithoutPassword = {}
+			// const token = ''
+			// const newTeacherWithoutPassword = {}
 
-			res.status(201).json({
-				token,
-				data: { teacher: newTeacherWithoutPassword },
-				message: 'A new account is created for you',
-			})
+			// res.status(201).json({
+			// 	token,
+			// 	data: { teacher: newTeacherWithoutPassword },
+			// 	message: 'A new account is created for you',
+			// })
 		} catch (error: unknown) {
-			if (
-				error instanceof Error &&
-				error.name === 'SequelizeUniqueConstraintError'
-			) {
-				res
-					.status(400)
-					.send({ message: 'There is an existing account with this email' })
-			} else {
-				res.status(400).send({ message: String(error) })
-			}
-
-			res.status(500).send({ message: 'Something went wrong' })
+			res.status(400).send({ message: String(error) })
+			return
 		}
 	}
 }

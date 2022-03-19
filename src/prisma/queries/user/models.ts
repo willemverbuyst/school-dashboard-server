@@ -40,3 +40,7 @@ export interface UserPlus extends UserWithoutPassword {
 	student: Student | null
 	teacher: Teacher | null
 }
+
+export type UserPlusStudent = Omit<UserPlus, 'teacher'>
+
+export type UserPlusTeacher = Omit<UserPlus, 'student'>

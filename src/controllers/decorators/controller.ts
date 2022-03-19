@@ -11,9 +11,11 @@ const bodyValidators =
 			res.status(422).send('Invalid request')
 			return
 		}
+		console.log('keys', keys)
 		for (let key of keys) {
 			if (!req.body[key]) {
-				res.status(422).send(`Missing property: ${key}`)
+				const message = `Missing property: ${key}`
+				res.status(422).send({ message })
 				return
 			}
 		}
