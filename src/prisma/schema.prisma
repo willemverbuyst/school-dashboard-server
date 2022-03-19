@@ -33,15 +33,15 @@ model Question {
   subject     Subject     @relation(fields: [subjectId], references: [id])
   subjectId   String      
   answers     Answer[]
-  score       Score[]
+  scores      Score[]
 }
 
 model School {
   id          String      @id @default(uuid())
   name        String
   location    String
-  student     Student[]
-  teacher     Teacher[]
+  students    Student[]
+  teachers    Teacher[]
 }
 
 model Score {
@@ -61,23 +61,23 @@ model Student {
   userId      String      @unique
   teacher     Teacher     @relation(fields: [teacherId], references: [id])
   teacherId   String      
-  test        Test[]
+  tests       Test[]
 }
 
 model Subject {
   id          String      @id @default(uuid())
   name        String 
   questions   Question[]
-  test        Test[]    
+  tests       Test[]    
 }
 
 model Teacher {
-  id        String        @id @default(uuid())
-  school    School        @relation(fields: [schoolId], references: [id])
-  schoolId  String
-  user      User          @relation(fields: [userId], references: [id])
-  userId    String        @unique
-  student   Student[]
+  id          String      @id @default(uuid())
+  school      School      @relation(fields: [schoolId], references: [id])
+  schoolId    String
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String      @unique
+  students    Student[]
 }
 
 model Test {
@@ -87,18 +87,18 @@ model Test {
   studentId   String
   subject     Subject     @relation(fields: [subjectId], references: [id])
   subjectId   String
-  score       Score[]      
+  scores      Score[]      
 }
 
 model User {
-  id        String        @id @default(uuid())
-  email     String        @unique
-  userName  String
-  password  String
-  role      Role          @default(STUDENT)
-  profile   Profile?
-  student   Student?
-  teacher   Teacher?
+  id          String      @id @default(uuid())
+  email       String      @unique
+  userName    String
+  password    String
+  role        Role        @default(STUDENT)
+  profile     Profile?
+  student     Student?
+  teacher     Teacher?
 }
 
 enum Role {

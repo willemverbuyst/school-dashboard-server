@@ -24,7 +24,7 @@ interface Student {
 interface Teacher {
 	id: string
 	school: School
-	student: Array<{
+	students: Array<{
 		id: string
 		user: {
 			userName: string
