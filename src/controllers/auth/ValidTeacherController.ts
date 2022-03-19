@@ -1,7 +1,5 @@
 import { NextFunction, Response } from 'express'
 import { controller, get, use } from '../decorators'
-import Student from '../../db/models/student'
-import Subject from '../../db/models/subject'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
 
@@ -15,12 +13,12 @@ class ValidUserController {
 		_next: NextFunction
 	): Promise<void> {
 		try {
-			const students = await Student.findAll({
-				where: { teacherId: req.teacher.id },
-				attributes: ['id', 'name'],
-			})
-			const subjects = await Subject.findAll({ attributes: ['id', 'name'] })
-			const { password, ...teacher } = req.teacher
+			//  all students for this teacher
+			const students = {}
+			//  all subjects
+			const subjects = {}
+			// remove password
+			const teacher = {}
 
 			res.status(200).send({ data: { teacher, students, subjects } })
 		} catch (error) {

@@ -1,7 +1,6 @@
 import { NextFunction, Response } from 'express'
 import { toData } from '../auth/jwt'
 import { RequestWithBody } from '../interfaces/Requests'
-import Teacher from '../db/models/teacher'
 
 export const teacherAuthMiddleware = async (
 	req: RequestWithBody,
@@ -17,16 +16,16 @@ export const teacherAuthMiddleware = async (
 		})
 	} else {
 		try {
-			const data = toData(auth[1])
-			const teacher = await Teacher.findByPk(
-				(<{ teacherId: number }>data).teacherId
-			).then(data => data?.get({ plain: true }))
+			// const data = toData(auth[1])
+			// const teacher = await Teacher.findByPk(
+			// 	(<{ teacherId: number }>data).teacherId
+			// ).then(data => data?.get({ plain: true }))
 
-			if (!teacher) {
-				res.status(404).send({ message: 'Teacher does not exist' })
-			} else {
-				req.teacher = teacher
-			}
+			// if (!teacher) {
+			// 	res.status(404).send({ message: 'Teacher does not exist' })
+			// } else {
+			// 	req.teacher = teacher
+			// }
 
 			return next()
 		} catch (error) {

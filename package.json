@@ -8,10 +8,6 @@
 		"start:run": "env DELAY=1000 nodemon build/index.js",
 		"start": "concurrently npm:start:*",
 		"dev:nodemon": "env DELAY=1000 npx nodemon .",
-		"initdev": "npm run migrate && npm run seed",
-		"migrate": "npx sequelize-cli db:migrate",
-		"seed": "npx sequelize-cli db:seed:all",
-		"resetDB": "npx sequelize-cli db:migrate:undo:all && npm run initdev",
 		"dev": "tsnd --respawn src/index.ts",
 		"test": "jest --testMatch='**/*.spec.ts' --verbose",
 		"test:coverage": "jest --testMatch='**/*.spec.ts' --coverage",
@@ -28,9 +24,7 @@
 		"express": "^4.17.3",
 		"jsonwebtoken": "^8.5.1",
 		"morgan": "^1.10.0",
-		"pg": "^8.7.3",
-		"reflect-metadata": "^0.1.13",
-		"sequelize": "^6.17.0"
+		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.0",

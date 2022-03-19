@@ -1,6 +1,5 @@
 import { NextFunction, Response } from 'express'
 import { controller, get, use } from '../decorators'
-import Subject from '../../db/models/subject'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 
@@ -14,8 +13,10 @@ class ValidStudentController {
 		_next: NextFunction
 	): Promise<void> {
 		try {
-			const subjects = await Subject.findAll({ attributes: ['id', 'name'] })
-			const { password, ...student } = req.student
+			// All subjects
+			const subjects = {}
+			// student without password
+			const student = {}
 
 			res.status(200).send({ data: { student, subjects } })
 		} catch (error) {

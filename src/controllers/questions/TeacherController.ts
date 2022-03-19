@@ -1,6 +1,5 @@
 import { NextFunction, Response } from 'express'
-import Answer from '../../db/models/answer'
-import Question from '../../db/models/question'
+
 import { RequestWithBody } from '../../interfaces/Requests'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
 import { bodyValidator, controller, get, post, use } from '../decorators'
@@ -17,15 +16,17 @@ class TeachersController {
 	): Promise<void> {
 		const { id: subjectId } = req.params
 		try {
-			const questions = await Question.findAll({
-				where: { subjectId },
-				attributes: ['id', 'subjectId', 'text'],
-				include: {
-					model: Answer,
-					as: 'answers',
-					attributes: ['id', 'questionId', 'text', 'correct'],
-				},
-			})
+			// const questions = await Question.findAll({
+			// 	where: { subjectId },
+			// 	attributes: ['id', 'subjectId', 'text'],
+			// 	include: {
+			// 		model: Answer,
+			// 		as: 'answers',
+			// 		attributes: ['id', 'questionId', 'text', 'correct'],
+			// 	},
+			// })
+
+			const questions = ['test']
 			if (!questions) {
 				res.status(404).send({
 					message: 'No questions for that subject found',
@@ -58,24 +59,24 @@ class TeachersController {
 
 		if (subjectId && question && answer1 && answer2 && answer3 && answer4) {
 			try {
-				const newQuestion = await Question.create({
-					text: question,
-					subjectId: Number(subjectId),
-				})
-				// Create correct answer
-				await Answer.create({
-					text: answer1,
-					correct: true,
-					questionId: newQuestion.id,
-				})
-				// Create 3 wrong answers
-				;[answer2, answer3, answer4].forEach(answer =>
-					Answer.create({
-						text: answer,
-						correct: false,
-						questionId: newQuestion.id,
-					})
-				)
+				// const newQuestion = await Question.create({
+				// 	text: question,
+				// 	subjectId: Number(subjectId),
+				// })
+				// // Create correct answer
+				// await Answer.create({
+				// 	text: answer1,
+				// 	correct: true,
+				// 	questionId: newQuestion.id,
+				// })
+				// // Create 3 wrong answers
+				// ;[answer2, answer3, answer4].forEach(answer =>
+				// 	Answer.create({
+				// 		text: answer,
+				// 		correct: false,
+				// 		questionId: newQuestion.id,
+				// 	})
+				// )
 
 				res.status(201).send({ message: 'You have added a new question.' })
 			} catch (error) {

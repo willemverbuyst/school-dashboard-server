@@ -1,5 +1,4 @@
 import { NextFunction, Response } from 'express'
-import Test from '../../db/models/test'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 import { controller, get, use } from '../decorators'
@@ -17,16 +16,18 @@ class StudentController {
 		const studentId = req.student.id
 
 		try {
-			const tests = await Test.findAll({ where: { studentId } })
-			const results = tests.map(
-				({ answer1, answer2, answer3, createdAt, subjectId }) => {
-					return {
-						result: answer1 + answer2 + answer3,
-						at: createdAt,
-						subject: subjectId,
-					}
-				}
-			)
+			// const tests = await Test.findAll({ where: { studentId } })
+			// const results = tests.map(
+			// 	({ answer1, answer2, answer3, createdAt, subjectId }) => {
+			// 		return {
+			// 			result: answer1 + answer2 + answer3,
+			// 			at: createdAt,
+			// 			subject: subjectId,
+			// 		}
+			// 	}
+			// )
+			const results = ['test']
+
 			res.send({ results: results.length, data: results })
 		} catch (error) {
 			res.status(400).send({ message: 'Something went wrong, sorry' })
@@ -45,12 +46,13 @@ class StudentController {
 		const studentId = req.student.id
 
 		try {
-			const tests = await Test.findAll({
-				where: { studentId, subjectId: id },
-			})
-			const results = tests.map(({ answer1, answer2, answer3, createdAt }) => {
-				return { result: answer1 + answer2 + answer3, at: createdAt }
-			})
+			// const tests = await Test.findAll({
+			// 	where: { studentId, subjectId: id },
+			// })
+			// const results = tests.map(({ answer1, answer2, answer3, createdAt }) => {
+			// 	return { result: answer1 + answer2 + answer3, at: createdAt }
+			// })
+			const results = ['test']
 			res.send({ results: results.length, data: results })
 		} catch (error) {
 			res.status(400).send({ message: 'Something went wrong, sorry' })

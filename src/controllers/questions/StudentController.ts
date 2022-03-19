@@ -1,7 +1,4 @@
 import { NextFunction, Response } from 'express'
-import Answer from '../../db/models/answer'
-import Question from '../../db/models/question'
-import Test from '../../db/models/test'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 import { bodyValidator, controller, get, post, use } from '../decorators'
@@ -18,10 +15,12 @@ class StudentController {
 	): Promise<void> {
 		const { id } = req.params
 		try {
-			const questions = await Question.findAll({
-				where: { subjectId: id },
-				include: { model: Answer, as: 'answers' },
-			})
+			// const questions = await Question.findAll({
+			// 	where: { subjectId: id },
+			// 	include: { model: Answer, as: 'answers' },
+			// })
+
+			const questions = ['test']
 			if (!questions) {
 				res.status(404).send({
 					message: 'No questions for that subject found',
@@ -60,18 +59,19 @@ class StudentController {
 		const studentId = req.student.id
 
 		try {
-			await Test.create({
-				question1: Number(q1),
-				question2: Number(q2),
-				question3: Number(q3),
-				answer1: Number(a1),
-				answer2: Number(a2),
-				answer3: Number(a3),
-				subjectId: Number(subjectId),
-				studentId: Number(studentId),
-			})
+			// await Test.create({
+			// 	question1: Number(q1),
+			// 	question2: Number(q2),
+			// 	question3: Number(q3),
+			// 	answer1: Number(a1),
+			// 	answer2: Number(a2),
+			// 	answer3: Number(a3),
+			// 	subjectId: Number(subjectId),
+			// 	studentId: Number(studentId),
+			// })
 
-			const result = Number(a1) + Number(a2) + Number(a3)
+			// const result = Number(a1) + Number(a2) + Number(a3)
+			const result = 1
 			res.status(201).send({
 				message: `You have finished your test with a score of ${result}/3`,
 			})
