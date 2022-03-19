@@ -1,5 +1,42 @@
 import { User } from '@prisma/client'
 
-export interface UserWithProfile extends User {
-	profile: { bio: string } | null
+interface Bio {
+	bio: string
+}
+
+interface School {
+	name: string
+	location: string
+}
+
+interface Student {
+	id: string
+	school: School
+	teacher: {
+		id: string
+		user: {
+			userName: string
+			email: string
+		} | null
+	} | null
+}
+
+interface Teacher {
+	id: string
+	school: School
+	student: Array<{
+		id: string
+		user: {
+			userName: string
+			email: string
+		} | null
+	}> | null
+}
+
+type UserWithoutPassword = Omit<User, 'password'>
+
+export interface UserPlus extends UserWithoutPassword {
+	profile: Bio | null
+	student: Student | null
+	teacher: Teacher | null
 }

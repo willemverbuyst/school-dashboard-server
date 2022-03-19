@@ -1,16 +1,16 @@
 import { PrismaClient } from '@prisma/client'
-import { getQuestionsForSubject } from './prisma/queries/questions'
-import {
-	getAllSchools,
-	getSchool,
-	getSchoolWithStudents,
-	getSchoolWithTeachers,
-} from './prisma/queries/schools'
-import { getAllSubjects, getSubject } from './prisma/queries/subjects'
-import { getUser, getUserWithProfile } from './prisma/queries/user'
+// import { getQuestionsForSubject } from './prisma/queries/questions'
+// import {
+// 	getAllSchools,
+// 	getSchool,
+// 	getSchoolWithStudents,
+// 	getSchoolWithTeachers,
+// } from './prisma/queries/schools'
+// import { getAllSubjects, getSubject } from './prisma/queries/subjects'
+// import { getUser, getUserWithProfile } from './prisma/queries/user'
 
-import { cleanUpTables } from './prisma/utils/cleanupTables'
-import { seedData } from './prisma/utils/seedTables'
+// import { cleanUpTables } from './prisma/utils/cleanupTables'
+// import { seedData } from './prisma/utils/seedTables'
 
 export const prismaClient = new PrismaClient()
 

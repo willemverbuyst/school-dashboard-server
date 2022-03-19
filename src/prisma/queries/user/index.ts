@@ -1,2 +1,2 @@
 export { getUser } from './getUser.query'
-export { getUserWithProfile } from './getUserWithProfile.query'
+export { getUserPlus } from './getUserPlus.query'

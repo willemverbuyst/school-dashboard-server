@@ -1,10 +1,7 @@
 import { User } from '@prisma/client'
 import { prismaClient } from '../../../prisma'
 
-export const getUser = async (
-	email: string,
-	password: string
-): Promise<User | null> =>
+export const getUser = async (email: string): Promise<User | null> =>
 	await prismaClient.user.findUnique({
 		where: { email },
 	})
