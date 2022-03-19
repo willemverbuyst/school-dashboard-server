@@ -1,0 +1,122 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Answer {
+  id String [pk]
+  text String [not null]
+  correct Boolean [not null]
+  question Question [not null]
+  questionId String [not null]
+}
+
+Table Profile {
+  id String [pk]
+  bio String [not null]
+  user User [not null]
+  userId String [unique, not null]
+}
+
+Table Question {
+  id String [pk]
+  text String [not null]
+  subject Subject [not null]
+  subjectId String [not null]
+  answers Answer [not null]
+  score Score [not null]
+}
+
+Table School {
+  id String [pk]
+  name String [not null]
+  location String [not null]
+  student Student [not null]
+  teacher Teacher [not null]
+}
+
+Table Score {
+  id String [pk]
+  question Question [not null]
+  questionId String [not null]
+  score Int [not null]
+  test Test [not null]
+  testId String [not null]
+}
+
+Table Student {
+  id String [pk]
+  school School [not null]
+  schoolId String [not null]
+  user User [not null]
+  userId String [unique, not null]
+  teacher Teacher [not null]
+  teacherId String [not null]
+  test Test [not null]
+}
+
+Table Subject {
+  id String [pk]
+  name String [not null]
+  questions Question [not null]
+  test Test [not null]
+}
+
+Table Teacher {
+  id String [pk]
+  school School [not null]
+  schoolId String [not null]
+  user User [not null]
+  userId String [unique, not null]
+  student Student [not null]
+}
+
+Table Test {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  student Student [not null]
+  studentId String [not null]
+  subject Subject [not null]
+  subjectId String [not null]
+  score Score [not null]
+}
+
+Table User {
+  id String [pk]
+  email String [unique, not null]
+  userName String [not null]
+  password String [not null]
+  role Role [not null, default: 'STUDENT']
+  profile Profile
+  student Student
+  teacher Teacher
+}
+
+Enum Role {
+  ADMIN
+  STUDENT
+  TEACHER
+}
+
+Ref: Answer.questionId > Question.id
+
+Ref: Profile.userId - User.id
+
+Ref: Question.subjectId > Subject.id
+
+Ref: Score.questionId > Question.id
+
+Ref: Score.testId > Test.id
+
+Ref: Student.schoolId > School.id
+
+Ref: Student.userId - User.id
+
+Ref: Student.teacherId > Teacher.id
+
+Ref: Teacher.schoolId > School.id
+
+Ref: Teacher.userId - User.id
+
+Ref: Test.studentId > Student.id
+
+Ref: Test.subjectId > Subject.id

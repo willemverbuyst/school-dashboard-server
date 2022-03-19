@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+model Answer {
+  id          String      @id @default(uuid())
+  text        String
+  correct     Boolean
+  question    Question    @relation(fields: [questionId], references: [id])
+  questionId  String      
+
+}
+
+model Profile {
+  id          String      @id @default(uuid())
+  bio         String
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String      @unique
+}
+
+model Question {
+  id          String      @id @default(uuid())
+  text        String 
+  subject     Subject     @relation(fields: [subjectId], references: [id])
+  subjectId   String      
+  answers     Answer[]
+  score       Score[]
+}
+
+model School {
+  id          String      @id @default(uuid())
+  name        String
+  location    String
+  student     Student[]
+  teacher     Teacher[]
+}
+
+model Score {
+  id          String      @id @default(uuid())
+  score       Int
+  question    Question    @relation(fields: [questionId], references: [id])
+  questionId  String
+  test        Test        @relation(fields: [testId], references: [id])
+  testId      String
+}
+
+model Student {
+  id          String      @id @default(uuid())
+  school      School      @relation(fields: [schoolId], references: [id])
+  schoolId    String
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String      @unique
+  teacher     Teacher     @relation(fields: [teacherId], references: [id])
+  teacherId   String      
+  test        Test[]
+}
+
+model Subject {
+  id          String      @id @default(uuid())
+  name        String 
+  questions   Question[]
+  test        Test[]    
+}
+
+model Teacher {
+  id        String        @id @default(uuid())
+  school    School        @relation(fields: [schoolId], references: [id])
+  schoolId  String
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String        @unique
+  student   Student[]
+}
+
+model Test {
+  id          String      @id @default(uuid())
+  createdAt   DateTime    @default(now())
+  student     Student     @relation(fields: [studentId], references: [id])
+  studentId   String
+  subject     Subject     @relation(fields: [subjectId], references: [id])
+  subjectId   String
+  score       Score[]      
+}
+
+model User {
+  id        String        @id @default(uuid())
+  email     String        @unique
+  userName  String
+  password  String
+  role      Role          @default(STUDENT)
+  profile   Profile?
+  student   Student?
+  teacher   Teacher?
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+  TEACHER
+}
