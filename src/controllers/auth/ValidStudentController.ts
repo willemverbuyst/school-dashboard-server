@@ -3,7 +3,7 @@ import { controller, get, use } from '../decorators'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 
-@controller('')
+@controller('/auth')
 class ValidStudentController {
 	@get('/student')
 	@use(studentAuthMiddleware)

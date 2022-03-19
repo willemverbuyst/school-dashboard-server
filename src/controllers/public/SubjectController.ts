@@ -4,9 +4,9 @@ import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 import { bodyValidator, controller, get, post, use } from '../decorators'
 
-@controller('')
+@controller('/public')
 class SubjectController {
-	@get('/public/subjects')
+	@get('/subjects')
 	async getAllSubjects(
 		req: RequestWithBody,
 		res: Response,

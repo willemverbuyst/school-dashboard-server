@@ -4,7 +4,7 @@ import { bodyValidator, controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
 import { SALT_ROUNDS } from '../../config/constants'
 
-@controller('')
+@controller('/auth')
 class SignupController {
 	@post('/signup')
 	@bodyValidator('email', 'password', 'name', 'isStudent')

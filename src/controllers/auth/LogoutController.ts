@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { controller, get } from '../decorators'
 
-@controller('')
+@controller('/auth')
 class LogoutController {
 	@get('/logout')
 	getLogout(_req: Request, res: Response): void {
