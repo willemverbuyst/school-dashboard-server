@@ -1,14 +1,14 @@
 import { NextFunction, Response } from 'express'
 import { controller, get, use } from '../decorators'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 import { getUserPlus } from '../../prisma/queries/user'
+import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
 
 @controller('/auth')
 class ValidStudentController {
-	@get('/student')
-	@use(studentAuthMiddleware)
+	@use(userAuthMiddleware)
+	@get('/user')
 	async getValidStudent(
 		req: RequestWithBody,
 		res: Response,
