@@ -6,7 +6,6 @@ import { bodyValidator, controller, get, post, use } from '../decorators'
 
 @controller('/questions')
 class TestController {
-	// Get 3 random questions for a subject
 	@get('/subjects/:id/test')
 	@use(studentAuthMiddleware)
 	async getQuestionsForSubject(

@@ -26,7 +26,10 @@ export const teacherAuthMiddleware = async (
 
 		if (!user || user.role !== Role.TEACHER) {
 			res.status(403).send({ message: 'Teacher does not exist' })
+			return
 		}
+
+		req.body.userId = user.id
 
 		next()
 	} catch (error) {

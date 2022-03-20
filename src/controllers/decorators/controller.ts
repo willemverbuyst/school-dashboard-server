@@ -11,7 +11,7 @@ const bodyValidators =
 			res.status(422).send('Invalid request')
 			return
 		}
-		console.log('keys', keys)
+
 		for (let key of keys) {
 			if (!req.body[key]) {
 				const message = `Missing property: ${key}`
