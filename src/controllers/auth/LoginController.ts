@@ -39,7 +39,7 @@ class LoginController {
 				token,
 				data: {
 					subjects: { results: subjects.length, data: subjects },
-					userWithProfile,
+					user: userWithProfile,
 				},
 				message: 'Welcome back',
 			})
