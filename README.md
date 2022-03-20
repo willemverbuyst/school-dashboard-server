@@ -23,9 +23,9 @@ For seven weeks the teachers at Codaisseur have been teaching us a variety of [s
 
 ## <a name="appDemos"></a>App demos
 
-![](./src/img/dashboard-home.png)
-![](./src/img/dashboard-student.gif)
-![](./src/img/dashboard-teacher.gif)
+![](./img/dashboard-home.png)
+![](./img/dashboard-student.gif)
+![](./img/dashboard-teacher.gif)
 
 ## <a name="technologiesUsed"></a>Technologies used
 
