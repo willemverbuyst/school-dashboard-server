@@ -40,3 +40,8 @@ export interface UserPlus extends UserWithoutPassword {
 	student: Student | null
 	teacher: Teacher | null
 }
+
+export interface UserWithIds extends User {
+	student: { id: string } | null
+	teacher: { id: string } | null
+}
