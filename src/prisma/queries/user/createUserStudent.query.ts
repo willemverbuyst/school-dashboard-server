@@ -4,7 +4,7 @@ import prismaClient from '../../../prisma'
 import { SALT_ROUNDS } from '../../../config/constants'
 import { UserPlus } from './models'
 
-const createUserStudent = async (
+export const createUserStudent = async (
 	email: string,
 	userName: string,
 	passwordPlain: string,
@@ -90,5 +90,3 @@ const createUserStudent = async (
 	}
 	return null
 }
-
-export default createUserStudent

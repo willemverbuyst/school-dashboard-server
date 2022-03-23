@@ -7,8 +7,7 @@ import { getUserByEmail, getUserPlus } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 
 @controller('/auth')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class LoginController {
+export class LoginController {
 	@post('/login')
 	async postLogin(req: RequestWithBody, res: Response): Promise<void> {
 		try {

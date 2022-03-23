@@ -1,4 +1,2 @@
-import getAllTeachers from './getAllTeachers.query'
-import getTeacher from './getTeacher.query'
-
-export { getAllTeachers, getTeacher }
+export { getAllTeachers } from './getAllTeachers.query'
+export { getTeacher } from './getTeacher.query'

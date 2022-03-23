@@ -1,7 +1,7 @@
 import prismaClient from '../../../prisma'
 import { UserWithIds } from './models'
 
-const getUserById = async (id: string): Promise<UserWithIds | null> => {
+export const getUserById = async (id: string): Promise<UserWithIds | null> => {
 	const user = await prismaClient.user.findUnique({
 		where: { id },
 		include: {
@@ -25,5 +25,3 @@ const getUserById = async (id: string): Promise<UserWithIds | null> => {
 	}
 	return null
 }
-
-export default getUserById

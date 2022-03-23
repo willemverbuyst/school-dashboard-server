@@ -1,7 +1,7 @@
 import prismaClient from '../../../prisma'
 import { QuestionWithAnswers } from './models'
 
-const getQuestionsForSubject = async (
+export const getQuestionsForSubject = async (
 	id: string
 ): Promise<Array<QuestionWithAnswers>> => {
 	const questionsForSubject = await prismaClient.question.findMany({
@@ -11,5 +11,3 @@ const getQuestionsForSubject = async (
 
 	return questionsForSubject
 }
-
-export default getQuestionsForSubject

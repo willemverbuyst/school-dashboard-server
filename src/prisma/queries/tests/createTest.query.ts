@@ -8,7 +8,7 @@ const getScore = async (id: string): Promise<number> => {
 	return 0
 }
 
-const createTest = async (
+export const createTest = async (
 	answer1: string,
 	answer2: string,
 	answer3: string,
@@ -49,5 +49,3 @@ const createTest = async (
 
 	return score1 + score2 + score3
 }
-
-export default createTest

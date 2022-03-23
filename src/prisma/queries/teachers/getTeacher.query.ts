@@ -1,7 +1,9 @@
 import prismaClient from '../../../prisma'
 import { TeacherWithSchool } from './models'
 
-const getTeacher = async (id: string): Promise<TeacherWithSchool | null> => {
+export const getTeacher = async (
+	id: string
+): Promise<TeacherWithSchool | null> => {
 	const teacher = await prismaClient.teacher.findUnique({
 		where: { id },
 		include: {
@@ -17,5 +19,3 @@ const getTeacher = async (id: string): Promise<TeacherWithSchool | null> => {
 	if (teacher) return teacher
 	return null
 }
-
-export default getTeacher

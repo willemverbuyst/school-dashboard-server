@@ -15,7 +15,7 @@ const shuffleQuestions = (
 		.sort(() => 0.5 - Math.random())
 		.slice(0, 3)
 
-const getQuestionsForTest = async (
+export const getQuestionsForTest = async (
 	id: string
 ): Promise<Array<QuestionForTest>> => {
 	const questionsForSubject = await prismaClient.question.findMany({
@@ -39,5 +39,3 @@ const getQuestionsForTest = async (
 
 	return questions
 }
-
-export default getQuestionsForTest

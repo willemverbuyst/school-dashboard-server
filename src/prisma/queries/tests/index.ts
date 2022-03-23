@@ -1,3 +1,1 @@
-import createTest from './createTest.query'
-
-export { createTest }
+export { createTest } from './createTest.query'

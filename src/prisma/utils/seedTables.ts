@@ -103,7 +103,7 @@ const createUserTeachers = async (prisma: PrismaClient): Promise<void> => {
 	logSeed('UserTeacher')
 }
 
-const seedData = async (prisma: PrismaClient) => {
+export const seedData = async (prisma: PrismaClient) => {
 	logInitSeed()
 	await createSchools(prisma)
 	await createSubjects(prisma)
@@ -118,5 +118,3 @@ const seedData = async (prisma: PrismaClient) => {
 	await createScores(prisma)
 	logFinishSeed()
 }
-
-export default seedData
