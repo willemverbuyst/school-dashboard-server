@@ -1,13 +1,13 @@
 import { Role } from '@prisma/client'
 import bcrypt from 'bcrypt'
-import { prismaClient } from '../../../prisma'
+import prismaClient from '../../../prisma'
 import { SALT_ROUNDS } from '../../../config/constants'
 import { UserPlus } from './models'
 
-export const createUserStudent = async (
+const createUserStudent = async (
 	email: string,
 	userName: string,
-	password: string,
+	passwordPlain: string,
 	bio: string,
 	schoolId: string,
 	teacherId: string
@@ -16,7 +16,7 @@ export const createUserStudent = async (
 		data: {
 			email,
 			userName,
-			password: bcrypt.hashSync(password, SALT_ROUNDS),
+			password: bcrypt.hashSync(passwordPlain, SALT_ROUNDS),
 			role: Role.STUDENT,
 			profile: {
 				create: {
@@ -89,3 +89,5 @@ export const createUserStudent = async (
 	}
 	return null
 }
+
+export default createUserStudent

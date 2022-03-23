@@ -1,8 +1,7 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
 import { getAllSubjects } from '../../prisma/queries/subjects'
-import { bodyValidator, controller, get, post, use } from '../decorators'
+import { controller, get } from '../decorators'
 
 @controller('/public')
 class SubjectController {

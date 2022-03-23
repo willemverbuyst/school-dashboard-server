@@ -33,7 +33,7 @@ interface Teacher {
 	}> | null
 }
 
-type UserWithoutPassword = Omit<User, 'password'>
+export type UserWithoutPassword = Omit<User, 'password'>
 
 export interface UserPlus extends UserWithoutPassword {
 	profile: Bio | null
@@ -41,7 +41,7 @@ export interface UserPlus extends UserWithoutPassword {
 	teacher: Teacher | null
 }
 
-export interface UserWithIds extends User {
+export interface UserWithIds extends UserWithoutPassword {
 	student: { id: string } | null
 	teacher: { id: string } | null
 }
