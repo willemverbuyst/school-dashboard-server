@@ -1,4 +1,4 @@
-import { prismaClient } from '../../../prisma'
+import prismaClient from '../../../prisma'
 
 const getScore = async (id: string): Promise<number> => {
 	const answer = await prismaClient.answer.findUnique({ where: { id } })
@@ -8,7 +8,7 @@ const getScore = async (id: string): Promise<number> => {
 	return 0
 }
 
-export const createTest = async (
+const createTest = async (
 	answer1: string,
 	answer2: string,
 	answer3: string,
@@ -49,3 +49,5 @@ export const createTest = async (
 
 	return score1 + score2 + score3
 }
+
+export default createTest
