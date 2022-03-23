@@ -4,10 +4,10 @@ import { prismaClient } from '../../../prisma'
 import { SALT_ROUNDS } from '../../../config/constants'
 import { UserPlus } from './models'
 
-export const createUserTeacher = async (
+const createUserTeacher = async (
 	email: string,
 	userName: string,
-	password: string,
+	passWord: string,
 	bio: string,
 	schoolId: string
 ): Promise<UserPlus | null> => {
@@ -15,7 +15,7 @@ export const createUserTeacher = async (
 		data: {
 			email,
 			userName,
-			password: bcrypt.hashSync(password, SALT_ROUNDS),
+			password: bcrypt.hashSync(passWord, SALT_ROUNDS),
 			role: Role.TEACHER,
 			profile: {
 				create: {
@@ -87,3 +87,5 @@ export const createUserTeacher = async (
 	}
 	return null
 }
+
+export default createUserTeacher

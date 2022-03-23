@@ -80,7 +80,7 @@ const createTeachers = async (prisma: PrismaClient): Promise<void> => {
 }
 
 const createTests = async (prisma: PrismaClient): Promise<void> => {
-	await prisma['test'].createMany({
+	await prisma.test.createMany({
 		data: tests,
 		skipDuplicates: true,
 	})
@@ -88,7 +88,7 @@ const createTests = async (prisma: PrismaClient): Promise<void> => {
 }
 
 const createUserStudents = async (prisma: PrismaClient): Promise<void> => {
-	await prisma['user'].createMany({
+	await prisma.user.createMany({
 		data: userStudents,
 		skipDuplicates: true,
 	})
@@ -96,14 +96,14 @@ const createUserStudents = async (prisma: PrismaClient): Promise<void> => {
 }
 
 const createUserTeachers = async (prisma: PrismaClient): Promise<void> => {
-	await prisma['user'].createMany({
+	await prisma.user.createMany({
 		data: userTeachers,
 		skipDuplicates: true,
 	})
 	logSeed('UserTeacher')
 }
 
-export const seedData = async (prisma: PrismaClient) => {
+const seedData = async (prisma: PrismaClient) => {
 	logInitSeed()
 	await createSchools(prisma)
 	await createSubjects(prisma)
@@ -118,3 +118,5 @@ export const seedData = async (prisma: PrismaClient) => {
 	await createScores(prisma)
 	logFinishSeed()
 }
+
+export default seedData

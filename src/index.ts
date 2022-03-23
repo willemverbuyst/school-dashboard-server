@@ -27,7 +27,7 @@ app.use(corsMiddleWare())
 
 if (process.env.DELAY) {
 	app.use((_req: Request, _res: Response, next: NextFunction) => {
-		if (process.env.DELAY) setTimeout(() => next(), parseInt(process.env.DELAY))
+		if (process.env.DELAY) setTimeout(() => next(), Number(process.env.DELAY))
 	})
 }
 

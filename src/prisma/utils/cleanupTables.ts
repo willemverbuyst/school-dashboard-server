@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { logFinishRemoval, logInitRemoval, logRemoval } from './log'
 
-export const cleanUpTables = async (prisma: PrismaClient) => {
+const cleanUpTables = async (prisma: PrismaClient) => {
 	logInitRemoval()
 	await prisma.score.deleteMany()
 	logRemoval('Score')
@@ -25,3 +25,5 @@ export const cleanUpTables = async (prisma: PrismaClient) => {
 	logRemoval('School')
 	logFinishRemoval()
 }
+
+export default cleanUpTables

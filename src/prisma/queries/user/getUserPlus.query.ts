@@ -1,7 +1,7 @@
-import { prismaClient } from '../../../prisma'
+import prismaClient from '../../../prisma'
 import { UserPlus } from './models'
 
-export const getUserPlus = async (id: string): Promise<UserPlus | null> => {
+const getUserPlus = async (id: string): Promise<UserPlus | null> => {
 	const user = await prismaClient.user.findUnique({
 		where: { id },
 		include: {
@@ -64,3 +64,5 @@ export const getUserPlus = async (id: string): Promise<UserPlus | null> => {
 	}
 	return null
 }
+
+export default getUserPlus
