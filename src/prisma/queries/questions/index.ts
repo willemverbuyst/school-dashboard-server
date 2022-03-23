@@ -1,2 +1,4 @@
-export { getQuestionsForSubject } from './getQuestionsForSubject.query'
-export { getQuestionsForTest } from './getQuestionsForTest.query'
+import getQuestionsForSubject from './getQuestionsForSubject.query'
+import getQuestionsForTest from './getQuestionsForTest.query'
+
+export { getQuestionsForSubject, getQuestionsForTest }

@@ -1,4 +1,4 @@
-import { prismaClient } from '../../../prisma'
+import prismaClient from '../../../prisma'
 import { QuestionForTest } from './models'
 
 // https://stackoverflow.com/questions/19269545/how-to-get-n-no-elements-randomly-from-an-array
@@ -15,7 +15,7 @@ const shuffleQuestions = (
 		.sort(() => 0.5 - Math.random())
 		.slice(0, 3)
 
-export const getQuestionsForTest = async (
+const getQuestionsForTest = async (
 	id: string
 ): Promise<Array<QuestionForTest>> => {
 	const questionsForSubject = await prismaClient.question.findMany({
@@ -39,3 +39,5 @@ export const getQuestionsForTest = async (
 
 	return questions
 }
+
+export default getQuestionsForTest

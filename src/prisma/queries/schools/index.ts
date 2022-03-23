@@ -1,4 +1,11 @@
-export { getAllSchools } from './getAllSchools.query'
-export { getSchool } from './getSchool.query'
-export { getSchoolWithStudents } from './getSchoolWithStudents.query'
-export { getSchoolWithTeachers } from './getSchoolWithTeachers.query'
+import getAllSchools from './getAllSchools.query'
+import getSchool from './getSchool.query'
+import getSchoolWithStudents from './getSchoolWithStudents.query'
+import getSchoolWithTeachers from './getSchoolWithTeachers.query'
+
+export {
+	getAllSchools,
+	getSchool,
+	getSchoolWithStudents,
+	getSchoolWithTeachers,
+}
