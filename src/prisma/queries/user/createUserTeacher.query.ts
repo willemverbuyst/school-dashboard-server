@@ -82,6 +82,7 @@ const createUserTeacher = async (
 	})
 
 	if (user) {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { password, ...userWithoutPassword } = user
 		return userWithoutPassword
 	}

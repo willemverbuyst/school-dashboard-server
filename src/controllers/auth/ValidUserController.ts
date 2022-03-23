@@ -1,4 +1,4 @@
-import { NextFunction, Response } from 'express'
+import { Response } from 'express'
 import { controller, get, use } from '../decorators'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { getAllSubjects } from '../../prisma/queries/subjects'
@@ -6,15 +6,11 @@ import { getUserPlus } from '../../prisma/queries/user'
 import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
 
 @controller('/auth')
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class ValidStudentController {
 	@use(userAuthMiddleware)
 	@get('/user')
-	async getValidStudent(
-		req: RequestWithBody,
-		res: Response,
-		_next: NextFunction
-	): Promise<void> {
+	async getValidStudent(req: RequestWithBody, res: Response): Promise<void> {
 		try {
 			const { userId } = req.body
 			if (!userId) {

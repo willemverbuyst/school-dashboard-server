@@ -6,6 +6,7 @@ import { getQuestionsForSubject } from '../../prisma/queries/questions'
 import { bodyValidator, controller, get, post, use } from '../decorators'
 
 @controller('/questions')
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class SubjectController {
 	@get('/subjects/:id')
 	@use(teacherAuthMiddleware)

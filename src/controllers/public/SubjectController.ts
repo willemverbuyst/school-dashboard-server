@@ -4,7 +4,7 @@ import { getAllSubjects } from '../../prisma/queries/subjects'
 import { controller, get } from '../decorators'
 
 @controller('/public')
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class SubjectController {
 	@get('/subjects')
 	async getAllSubjects(

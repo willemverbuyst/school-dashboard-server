@@ -4,7 +4,7 @@ import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 import { controller, get, use } from '../decorators'
 
 @controller('')
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class StudentController {
 	// STUDENT, info for main page
 	@get('/data/student/main')
@@ -35,7 +35,7 @@ class StudentController {
 	@get('/data/student/subjects/:id')
 	@use(studentAuthMiddleware)
 	async getSubjectForStudent(
-		req: RequestWithBody,
+		_req: RequestWithBody,
 		res: Response
 	): Promise<void> {
 		// const { id } = req.params

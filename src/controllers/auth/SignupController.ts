@@ -1,18 +1,14 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
 import { createUserStudent, createUserTeacher } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 
 @controller('/auth')
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class SignupController {
 	@post('/signup/student')
-	async postSignupStudent(
-		req: Request,
-		res: Response,
-		_next: NextFunction
-	): Promise<void> {
+	async postSignupStudent(req: Request, res: Response): Promise<void> {
 		try {
 			const { email, userName, password, bio, schoolId, teacherId } = req.body
 
@@ -52,11 +48,7 @@ class SignupController {
 	}
 
 	@post('/signup/teacher')
-	async postSignupTeacher(
-		req: Request,
-		res: Response,
-		_next: NextFunction
-	): Promise<void> {
+	async postSignupTeacher(req: Request, res: Response): Promise<void> {
 		try {
 			const { email, userName, password, bio, schoolId } = req.body
 

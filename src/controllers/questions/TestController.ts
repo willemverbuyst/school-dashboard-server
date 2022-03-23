@@ -6,6 +6,7 @@ import { createTest } from '../../prisma/queries/tests'
 import { controller, get, post, use } from '../decorators'
 
 @controller('/questions')
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TestController {
 	@get('/subjects/:id/test')
 	@use(studentAuthMiddleware)
