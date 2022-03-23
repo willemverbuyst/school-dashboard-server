@@ -5,8 +5,7 @@ import { createUserStudent, createUserTeacher } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 
 @controller('/auth')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class SignupController {
+export class SignupController {
 	@post('/signup/student')
 	async postSignupStudent(req: Request, res: Response): Promise<void> {
 		try {
@@ -31,7 +30,7 @@ class SignupController {
 				return
 			}
 
-			const token = toJWT({ studentId: user.id })
+			const token = toJWT({ userId: user.id })
 			const subjects = await getAllSubjects()
 
 			res.status(200).send({
@@ -70,7 +69,7 @@ class SignupController {
 				return
 			}
 
-			const token = toJWT({ studentId: user.id })
+			const token = toJWT({ userId: user.id })
 			const subjects = await getAllSubjects()
 
 			res.status(200).send({
@@ -81,25 +80,6 @@ class SignupController {
 				},
 				message: 'Welcome',
 			})
-
-			// 	// TEACHER
-			// } else {
-			// 	const newTeacher = await Teacher.create({
-			// 		email,
-			// 		password: bcrypt.hashSync(req.body.password, SALT_ROUNDS),
-			// 		name,
-			// 	}).then(data => data?.get({ plain: true }))
-			// 	const { password, ...newTeacherWithoutPassword } = newTeacher
-			// 	const token = toJWT({ teacherId: newTeacher.id })
-
-			// const token = ''
-			// const newTeacherWithoutPassword = {}
-
-			// res.status(201).json({
-			// 	token,
-			// 	data: { teacher: newTeacherWithoutPassword },
-			// 	message: 'A new account is created for you',
-			// })
 		} catch (error: unknown) {
 			res.status(400).send({ message: String(error) })
 		}

@@ -4,8 +4,7 @@ import { getAllSchools } from '../../prisma/queries/schools'
 import { controller, get } from '../decorators'
 
 @controller('/public')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class SchoolController {
+export class SchoolController {
 	@get('/schools')
 	async getSchools(
 		_req: RequestWithBody,

@@ -6,8 +6,7 @@ import { getUserPlus } from '../../prisma/queries/user'
 import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
 
 @controller('/auth')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class ValidStudentController {
+export class ValidStudentController {
 	@use(userAuthMiddleware)
 	@get('/user')
 	async getValidStudent(req: RequestWithBody, res: Response): Promise<void> {

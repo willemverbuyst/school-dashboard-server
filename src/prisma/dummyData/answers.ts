@@ -375,10 +375,8 @@ const answersMath: Array<Answer> = [
 	},
 ]
 
-const answers: Array<Answer> = [
+export const answers: Array<Answer> = [
 	...answersGeography,
 	...answersHistory,
 	...answersMath,
 ]
-
-export default answers

@@ -1,12 +1,12 @@
 import { Score } from '@prisma/client'
 import { v4 as uuidv4 } from 'uuid'
-import tests from './test'
+import { tests } from './test'
 import {
 	questionsGeography,
 	questionsHistory,
 	questionsMath,
 } from './questions'
-import subjects from './subjects'
+import { subjects } from './subjects'
 
 const createScore = (): 1 | 0 => (Math.random() >= 0.5 ? 1 : 0)
 const createSubjectIndex = (): number => Math.floor(Math.random() * (4 - 0))
