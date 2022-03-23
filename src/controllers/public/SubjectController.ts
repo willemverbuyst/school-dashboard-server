@@ -8,7 +8,7 @@ import { controller, get } from '../decorators'
 class SubjectController {
 	@get('/subjects')
 	async getAllSubjects(
-		req: RequestWithBody,
+		_req: RequestWithBody,
 		res: Response,
 		next: NextFunction
 	): Promise<void> {

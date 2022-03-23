@@ -1,12 +1,12 @@
 import { Score } from '@prisma/client'
 import { v4 as uuidv4 } from 'uuid'
-import { tests } from './test'
+import tests from './test'
 import {
 	questionsGeography,
 	questionsHistory,
 	questionsMath,
 } from './questions'
-import { subjects } from './subjects'
+import subjects from './subjects'
 
 const createScore = (): 1 | 0 => (Math.random() >= 0.5 ? 1 : 0)
 const createSubjectIndex = (): number => Math.floor(Math.random() * (4 - 0))
@@ -20,7 +20,7 @@ const testsHistory = [...tests].filter(
 const testsMath = [...tests].filter(test => test.subjectId === subjects[2].id)
 
 export const scoresGeography: Array<Score> = testsGeography.flatMap(test =>
-	[1, 2, 3].map((_, i) => ({
+	[1, 2, 3].map(() => ({
 		id: uuidv4(),
 		score: createScore(),
 		questionId: questionsGeography[createSubjectIndex()].id,
@@ -29,7 +29,7 @@ export const scoresGeography: Array<Score> = testsGeography.flatMap(test =>
 )
 
 export const scoresHistory: Array<Score> = testsHistory.flatMap(test =>
-	Array(3).map((_, i) => ({
+	Array(3).map(() => ({
 		id: uuidv4(),
 		score: createScore(),
 		questionId: questionsHistory[createSubjectIndex()].id,
@@ -38,7 +38,7 @@ export const scoresHistory: Array<Score> = testsHistory.flatMap(test =>
 )
 
 export const scoresMath: Array<Score> = testsMath.flatMap(test =>
-	Array(3).map((_, i) => ({
+	Array(3).map(() => ({
 		id: uuidv4(),
 		score: createScore(),
 		questionId: questionsMath[createSubjectIndex()].id,

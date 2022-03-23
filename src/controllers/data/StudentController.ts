@@ -1,19 +1,16 @@
-import { NextFunction, Response } from 'express'
+import { Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 import { controller, get, use } from '../decorators'
 
 @controller('')
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class StudentController {
 	// STUDENT, info for main page
 	@get('/data/student/main')
 	@use(studentAuthMiddleware)
-	async getStudentMain(
-		req: RequestWithBody,
-		res: Response,
-		_next: NextFunction
-	): Promise<void> {
-		const studentId = req.student.id
+	async getStudentMain(req: RequestWithBody, res: Response): Promise<void> {
+		// const studentId = req.student.id
 
 		try {
 			// const tests = await Test.findAll({ where: { studentId } })
@@ -39,11 +36,10 @@ class StudentController {
 	@use(studentAuthMiddleware)
 	async getSubjectForStudent(
 		req: RequestWithBody,
-		res: Response,
-		_next: NextFunction
+		res: Response
 	): Promise<void> {
-		const { id } = req.params
-		const studentId = req.student.id
+		// const { id } = req.params
+		// const studentId = req.student.id
 
 		try {
 			// const tests = await Test.findAll({

@@ -1,19 +1,16 @@
 import bcrypt from 'bcrypt'
-import { NextFunction, Response } from 'express'
-import { bodyValidator, controller, post } from '../decorators'
+import { Response } from 'express'
+import { controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { getUserByEmail, getUserPlus } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 
 @controller('/auth')
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class LoginController {
 	@post('/login')
-	async postLogin(
-		req: RequestWithBody,
-		res: Response,
-		next: NextFunction
-	): Promise<void> {
+	async postLogin(req: RequestWithBody, res: Response): Promise<void> {
 		try {
 			const { email, password } = req.body
 

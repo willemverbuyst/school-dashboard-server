@@ -1,19 +1,16 @@
-import { NextFunction, Response } from 'express'
+import { Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
 import { controller, get, use } from '../decorators'
 
 @controller('')
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class TeacherController {
 	// TEACHER, data for main page
 	@get('/data/teacher/main')
 	@use(teacherAuthMiddleware)
-	async getTeacherMain(
-		req: RequestWithBody,
-		res: Response,
-		_next: NextFunction
-	): Promise<void> {
-		const teacherId = req.teacher.id
+	async getTeacherMain(req: RequestWithBody, res: Response): Promise<void> {
+		// const teacherId = req.teacher.id
 
 		try {
 			// const tests = await Test.findAll({
@@ -68,10 +65,9 @@ class TeacherController {
 	@use(teacherAuthMiddleware)
 	async getStudentForTeacher(
 		req: RequestWithBody,
-		res: Response,
-		_next: NextFunction
+		res: Response
 	): Promise<void> {
-		const { id } = req.params
+		// const { id } = req.params
 
 		try {
 			// const subjects = await Subject.findAll({
@@ -114,11 +110,10 @@ class TeacherController {
 	@use(teacherAuthMiddleware)
 	async getSubjectForTeacher(
 		req: RequestWithBody,
-		res: Response,
-		_next: NextFunction
+		res: Response
 	): Promise<void> {
-		const { id } = req.params
-		const teacherId = req.teacher.id
+		// const { id } = req.params
+		// const teacherId = req.teacher.id
 
 		try {
 			// const students = await Student.findAll({
