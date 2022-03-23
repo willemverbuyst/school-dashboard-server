@@ -4,7 +4,7 @@ import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 import { controller, get, use } from '../decorators'
 
 @controller('')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars
 class StudentController {
 	// STUDENT, info for main page
 	@get('/data/student/main')

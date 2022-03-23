@@ -5,8 +5,7 @@
 		"jest": true
 	},
 	"extends": [
-		"airbnb-base",
-		"airbnb-typescript",
+		"standard",
 		"plugin:import/typescript",
 		"plugin:prettier/recommended"
 	],
@@ -17,8 +16,5 @@
 		"project": "./tsconfig.json"
 	},
 	"plugins": ["@typescript-eslint", "prettier"],
-	"rules": {
-		"react/jsx-filename-extension": "off",
-		"class-methods-use-this": "off"
-	}
+	"rules": {}
 }

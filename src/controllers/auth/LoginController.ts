@@ -7,7 +7,7 @@ import { getUserByEmail, getUserPlus } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 
 @controller('/auth')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars
 class LoginController {
 	@post('/login')
 	async postLogin(req: RequestWithBody, res: Response): Promise<void> {
@@ -41,7 +41,7 @@ class LoginController {
 				message: 'Welcome back',
 			})
 		} catch (error: unknown) {
-			console.log(error)
+			// console.log(error)
 			res.status(500).send({ message: 'Something went wrong' })
 		}
 	}

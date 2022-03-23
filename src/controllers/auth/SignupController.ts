@@ -5,6 +5,7 @@ import { createUserStudent, createUserTeacher } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 
 @controller('/auth')
+// eslint-disable-next-line no-unused-vars
 class SignupController {
 	@post('/signup/student')
 	async postSignupStudent(
@@ -47,7 +48,6 @@ class SignupController {
 			})
 		} catch (error: unknown) {
 			res.status(400).send({ message: String(error) })
-			return
 		}
 	}
 
@@ -110,7 +110,6 @@ class SignupController {
 			// })
 		} catch (error: unknown) {
 			res.status(400).send({ message: String(error) })
-			return
 		}
 	}
 }

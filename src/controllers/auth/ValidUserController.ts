@@ -6,6 +6,7 @@ import { getUserPlus } from '../../prisma/queries/user'
 import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
 
 @controller('/auth')
+// eslint-disable-next-line no-unused-vars
 class ValidStudentController {
 	@use(userAuthMiddleware)
 	@get('/user')

@@ -1,4 +1,3 @@
-import { Role } from '@prisma/client'
 import { NextFunction, Response } from 'express'
 import { toData } from '../auth/jwt'
 import { RequestWithBody } from '../interfaces/Requests'
