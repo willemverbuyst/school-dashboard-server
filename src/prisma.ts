@@ -16,5 +16,3 @@ main()
 	.finally(async () => {
 		await prismaClient.$disconnect()
 	})
-
-export default prismaClient

@@ -1,4 +1,4 @@
-import prismaClient from '../../../prisma'
+import { prismaClient } from '../../../prisma'
 import { QuestionForTest } from './models'
 
 // https://stackoverflow.com/questions/19269545/how-to-get-n-no-elements-randomly-from-an-array

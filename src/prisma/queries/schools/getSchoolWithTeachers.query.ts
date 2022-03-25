@@ -1,4 +1,4 @@
-import prismaClient from '../../../prisma'
+import { prismaClient } from '../../../prisma'
 import { SchoolWithTeachers } from './models'
 
 export const getSchoolWithTeachers = async (

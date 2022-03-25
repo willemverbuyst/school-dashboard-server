@@ -1,5 +1,5 @@
 import { School } from '@prisma/client'
-import prismaClient from '../../../prisma'
+import { prismaClient } from '../../../prisma'
 
 export const getSchool = async (id: string): Promise<School | null> => {
 	const school = await prismaClient.school.findUnique({

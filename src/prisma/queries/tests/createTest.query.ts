@@ -1,4 +1,4 @@
-import prismaClient from '../../../prisma'
+import { prismaClient } from '../../../prisma'
 
 const getScore = async (id: string): Promise<number> => {
 	const answer = await prismaClient.answer.findUnique({ where: { id } })

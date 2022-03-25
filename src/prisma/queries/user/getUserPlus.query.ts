@@ -1,4 +1,4 @@
-import prismaClient from '../../../prisma'
+import { prismaClient } from '../../../prisma'
 import { UserPlus } from './models'
 
 export const getUserPlus = async (id: string): Promise<UserPlus | null> => {

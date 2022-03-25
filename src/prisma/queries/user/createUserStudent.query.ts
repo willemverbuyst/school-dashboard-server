@@ -1,6 +1,6 @@
 import { Role } from '@prisma/client'
 import bcrypt from 'bcrypt'
-import prismaClient from '../../../prisma'
+import { prismaClient } from '../../../prisma'
 import { SALT_ROUNDS } from '../../../config/constants'
 import { UserPlus } from './models'
 

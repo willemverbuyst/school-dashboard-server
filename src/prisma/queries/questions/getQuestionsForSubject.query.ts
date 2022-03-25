@@ -1,4 +1,4 @@
-import prismaClient from '../../../prisma'
+import { prismaClient } from '../../../prisma'
 import { QuestionWithAnswers } from './models'
 
 export const getQuestionsForSubject = async (
