@@ -8,11 +8,13 @@
 		"start:prod": "npm run build && node ./dist/src/server.js",
 		"build": "npx tsc",
 		"dev": "nodemon",
+		"format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
 		"lint": "eslint . --ext .ts",
 		"lint:fix": "eslint --fix . ",
 		"test": "jest --testMatch='**/*.spec.ts' --verbose",
 		"test:coverage": "jest --testMatch='**/*.spec.ts' --coverage",
-		"test:watch": "jest --testMatch='**/*.spec.ts' --watch"
+		"test:watch": "jest --testMatch='**/*.spec.ts' --watch",
+		"prepare": "husky install"
 	},
 	"author": "wv",
 	"license": "ISC",
@@ -48,7 +50,9 @@
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-promise": "^5.2.0",
+		"husky": "^7.0.4",
 		"jest": "^27.5.1",
+		"lint-staged": "^12.3.7",
 		"nodemon": "^2.0.15",
 		"prettier": "^2.6.0",
 		"prisma": "^3.11.0",
@@ -57,5 +61,8 @@
 		"ts-node": "^10.7.0",
 		"ts-node-dev": "^1.1.8",
 		"typescript": "^4.6.2"
+	},
+	"lint-staged": {
+		"*.ts": "eslint --cache --fix"
 	}
 }
