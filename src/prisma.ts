@@ -2,9 +2,9 @@ import { PrismaClient } from '@prisma/client'
 // import cleanUpTables from './prisma/utils/cleanupTables'
 // import seedData from './prisma/utils/seedTables'
 
-const prismaClient = new PrismaClient()
+export const prismaClient = new PrismaClient()
 
-async function main() {
+async function main(): Promise<void> {
 	// await cleanUpTables(prismaClient)
 	// await seedData(prismaClient)
 }

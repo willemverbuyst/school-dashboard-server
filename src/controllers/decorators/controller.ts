@@ -24,7 +24,7 @@ const bodyValidators =
 	}
 
 export function controller(routePrefix: string) {
-	return function (target: Function) {
+	return function (target: Function): void {
 		const router = AppRouter.getInstance()
 
 		for (const key in target.prototype) {
