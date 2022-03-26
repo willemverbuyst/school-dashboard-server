@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllTeachers } from '../../../store/schoolInfo/actions';
-import { selectAllTeachers } from '../../../store/schoolInfo/selectors';
+import { useDispatch } from 'react-redux';
 import { createStudent } from '../../../store/student/actions';
 import { createTeacher } from '../../../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio, Select, Row, Col } from 'antd';
@@ -15,11 +13,6 @@ import { useSchools } from './hooks/useSchools';
 const { Content } = Layout;
 const { Option } = Select;
 
-export interface ITeacher {
-  name: string;
-  id: number;
-}
-
 const Signup = (): ReactElement => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -29,13 +22,8 @@ const Signup = (): ReactElement => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const teachers: ITeacher[] = useSelector(selectAllTeachers);
   const schools = useSchools();
   const teachers = useTeachers();
-
-  // useEffect(() => {
-  //   dispatch(fetchAllTeachers);
-  // }, [dispatch]);
 
   const createUser = (): void => {
     if (status === 1) {
