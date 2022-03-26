@@ -21,6 +21,7 @@ const LineChartHome = (): ReactElement => {
     },
     responsive: true,
     title: { display: true },
+    elements: { point: { radius: 0 } },
     scales: {
       yAxes: [
         {
