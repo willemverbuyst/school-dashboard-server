@@ -10,11 +10,11 @@ import './controllers/auth/SignupController'
 import './controllers/auth/ValidUserController'
 import './controllers/data/StudentController'
 import './controllers/data/TeacherController'
-import './controllers/public/TeacherController'
 import './controllers/public/SchoolController'
 import './controllers/public/SubjectController'
+import './controllers/public/TeacherController'
+import './controllers/questions/SubjectController'
 import './controllers/questions/TestController'
-import './controllers/questions/TeacherController'
 
 const app = express()
 
