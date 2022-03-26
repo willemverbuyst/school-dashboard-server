@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { axiosInstance } from '../../../../axiosInstance';
+import { Teacher } from '../../../../models/teacher.models';
 import { queryKeys } from '../../../../react-query/constants';
-import { Teacher } from './interfaces';
 
 export const getTeachers = async () => {
   const { data } = await axiosInstance.get('/public/teachers');
