@@ -1,5 +1,6 @@
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { axiosInstance } from '../../../axiosInstance';
+import { Toast } from '../../../components/toast';
 
 export interface ApiUser {
   token: string;
@@ -14,6 +15,7 @@ export interface ApiError {
 export type AuthResponse = ApiUser | ApiError;
 
 export const useAuth = () => {
+  const serverError = 'There was an error contacting the server!';
   const authServerCall = async (
     urlEndpoint: string,
     email: string,
@@ -30,16 +32,22 @@ export const useAuth = () => {
       );
 
       if (!status.toString().startsWith('2')) {
-        console.log('error');
+        const text = 'message' in data ? data.message : 'Unauthorized';
+        Toast({ text, status: 'warning' });
         return;
       }
 
       if ('data' in data && 'token' in data && 'user' in data.data) {
-        console.log('success!');
-        console.log('data :>> ', data);
+        Toast({ text: data.message, status: 'success' });
+        // update user data
       }
     } catch (errorResponse) {
-      console.log(errorResponse);
+      const text =
+        axios.isAxiosError(errorResponse) &&
+        errorResponse?.response?.data?.message
+          ? errorResponse?.response?.data?.message
+          : serverError;
+      Toast({ text, status: 'error' });
     }
   };
 
