@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllTeachers } from '../../store/schoolInfo/actions';
-import { selectAllTeachers } from '../../store/schoolInfo/selectors';
-import { createStudent } from '../../store/student/actions';
-import { createTeacher } from '../../store/teacher/actions';
+import { fetchAllTeachers } from '../../../store/schoolInfo/actions';
+import { selectAllTeachers } from '../../../store/schoolInfo/selectors';
+import { createStudent } from '../../../store/student/actions';
+import { createTeacher } from '../../../store/teacher/actions';
 import { Layout, Form, Input, Button, Radio, Select, Row, Col } from 'antd';
-import PasswordInput from '../../components/form/PasswordInput';
-import TextInput from '../../components/form/TextInput';
+import PasswordInput from '../../../components/form/PasswordInput';
+import TextInput from '../../../components/form/TextInput';
 import { ReactElement } from 'react';
+import { useTeachers } from './hooks/useTeachers';
+import { useSchools } from './hooks/useSchools';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -21,16 +23,19 @@ export interface ITeacher {
 const Signup = (): ReactElement => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [school, setSchool] = useState<string>('');
   const [status, setStatus] = useState(1);
   const [teacher, setTeacher] = useState(1);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const teachers: ITeacher[] = useSelector(selectAllTeachers);
+  // const teachers: ITeacher[] = useSelector(selectAllTeachers);
+  const schools = useSchools();
+  const teachers = useTeachers();
 
-  useEffect(() => {
-    dispatch(fetchAllTeachers);
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchAllTeachers);
+  // }, [dispatch]);
 
   const createUser = (): void => {
     if (status === 1) {
@@ -54,9 +59,9 @@ const Signup = (): ReactElement => {
           style={{ width: 350 }}
           onChange={(e) => setTeacher(e)}
         >
-          {teachers.map(({ name, id }, i) => (
+          {teachers.map(({ user: { userName }, id }, i) => (
             <Option key={i} value={id}>
-              {name}
+              {userName}
             </Option>
           ))}
         </Select>
@@ -83,6 +88,24 @@ const Signup = (): ReactElement => {
                   <Radio value={1}>Student</Radio>
                   <Radio value={2}>Teacher</Radio>
                 </Radio.Group>
+              </Form.Item>
+
+              <Form.Item
+                name="School"
+                rules={[{ required: true, message: 'Please select a school!' }]}
+              >
+                <Select
+                  placeholder="Select a school"
+                  value={school}
+                  style={{ width: 350 }}
+                  onChange={(e) => setSchool(e)}
+                >
+                  {schools.map(({ name, id }, i) => (
+                    <Option key={id} value={id}>
+                      {name}
+                    </Option>
+                  ))}
+                </Select>
               </Form.Item>
 
               {teachers && status === 1 ? renderExtraInput() : null}

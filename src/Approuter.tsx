@@ -1,7 +1,7 @@
 import { Switch, Route } from 'react-router-dom';
 import Home from './pages/home';
-import Login from './pages/auth/Login';
-import Signup from './pages/auth/Signup';
+import Login from './pages/auth/login/Login';
+import Signup from './pages/auth/signup/Signup';
 import StudentMainPage from './pages/student/mainpage';
 import StudentSubjectDetails from './pages/student/subjectDetails';
 import StudentDoTest from './pages/student/test/StudentDoTest';
