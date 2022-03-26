@@ -3,3 +3,8 @@ export interface School {
   name: string;
   location: string;
 }
+
+export interface ApiSchool {
+  result: number;
+  data: Array<School>;
+}

@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
 import { axiosInstance } from '../../../../axiosInstance';
-import { Teacher } from '../../../../models/teacher.models';
+import { ApiTeacher, Teacher } from '../../../../models/teacher.models';
 import { queryKeys } from '../../../../react-query/constants';
 
-export const getTeachers = async () => {
+export const getTeachers = async (): Promise<ApiTeacher> => {
   const { data } = await axiosInstance.get('/public/teachers');
   return data;
 };

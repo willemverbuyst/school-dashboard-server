@@ -4,3 +4,8 @@ export interface Teacher {
   user: { userName: string };
   userId: string;
 }
+
+export interface ApiTeacher {
+  result: number;
+  data: Array<Teacher>;
+}
