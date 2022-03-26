@@ -10,6 +10,9 @@ import { selectAppLoading } from './store/appState/selectors';
 import { getStudentWithStoredToken } from './store/student/actions';
 import { getTeacherWithStoredToken } from './store/teacher/actions';
 import './App.css';
+import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { queryClient } from './react-query/queryClient';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,13 +25,16 @@ function App() {
 
   return (
     <div>
-      <BarAtTheTop />
-      <AlertBox />
-      <Layout>
-        <Sidebar />
-        {isLoading ? <Spinner /> : null}
-        <AppRouter />
-      </Layout>
+      <QueryClientProvider client={queryClient}>
+        <BarAtTheTop />
+        <AlertBox />
+        <Layout>
+          <Sidebar />
+          {isLoading ? <Spinner /> : null}
+          <AppRouter />
+        </Layout>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </div>
   );
 }
