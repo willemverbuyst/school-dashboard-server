@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { apiUrl } from '../constants/constants';
-import { User } from '../models/User.models';
+import { ApiUser } from '../models/auth.models';
 
-export const getJWTHeader = (user: User): Record<string, string> => ({
+export const getJWTHeader = (user: ApiUser): Record<string, string> => ({
   Authorization: `Bearer ${user.token}`,
 });
 

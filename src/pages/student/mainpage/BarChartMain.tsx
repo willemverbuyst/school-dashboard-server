@@ -16,7 +16,7 @@ const BarChartMain: React.FC<IProps> = ({
   subjects,
 }: IProps): ReactElement => {
   const subjectLabel = subjects.map((subject) => subject.name);
-  const color = [];
+  const color: string[] = [];
   for (let i = 0; i < averages.length; i++) color.push('#008080');
 
   return (

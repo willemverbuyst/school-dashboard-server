@@ -1,12 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { axiosInstance } from '../../../axiosInstance';
 import { Toast } from '../../../components/toast';
-
-export interface ApiUser {
-  token: string;
-  data: any;
-  message: string;
-}
+import { ApiUser } from '../../../models/auth.models';
 
 export interface ApiError {
   message: string;
@@ -32,13 +27,14 @@ export const useAuth = () => {
       );
 
       if (!status.toString().startsWith('2')) {
-        const text = 'message' in data ? data.message : 'Unauthorized';
+        const text = data && data.message ? data.message : 'Unauthorized';
         Toast({ text, status: 'warning' });
         return;
       }
 
       if ('data' in data && 'token' in data && 'user' in data.data) {
-        Toast({ text: data.message, status: 'success' });
+        const text = data && data.message ? data.message : 'Welcome';
+        Toast({ text, status: 'success' });
         // update user data
       }
     } catch (errorResponse) {

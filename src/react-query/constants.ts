@@ -1,4 +1,5 @@
 export const queryKeys = {
-  TEACHERS: 'teachers',
   SCHOOLS: 'schools',
+  TEACHERS: 'teachers',
+  USER: 'user',
 };
