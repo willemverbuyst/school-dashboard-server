@@ -1,12 +1,14 @@
 {
 	"env": {
 		"browser": true,
+		"cypress/globals": true,
 		"es2021": true,
 		"jest": true
 	},
 	"extends": [
 		"standard",
 		"plugin:import/typescript",
+		"plugin:cypress/recommended",
 		"plugin:prettier/recommended"
 	],
 	"parser": "@typescript-eslint/parser",
@@ -15,7 +17,7 @@
 		"sourceType": "module",
 		"project": "./tsconfig.json"
 	},
-	"plugins": ["@typescript-eslint", "prettier"],
+	"plugins": ["@typescript-eslint", "cypress", "prettier"],
 	"rules": {
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": "error",

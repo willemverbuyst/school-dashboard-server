@@ -4,6 +4,7 @@ import { RequestWithBody } from '../../interfaces/Requests'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 import { getUserPlus } from '../../prisma/queries/user'
 import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
+import { toJWT } from '../../auth/jwt'
 
 @controller('/auth')
 export class ValidStudentController {
@@ -17,10 +18,18 @@ export class ValidStudentController {
 				return
 			}
 
+			const token = toJWT({ userId })
 			const subjects = await getAllSubjects()
 			const userWithProfile = await getUserPlus(userId)
 
-			res.status(200).send({ data: { user: userWithProfile, subjects } })
+			res.status(200).send({
+				token,
+				data: {
+					user: userWithProfile,
+					subjects: { results: subjects.length, data: subjects },
+				},
+				message: 'Valid user',
+			})
 		} catch (error) {
 			res.status(500).send({ message: 'Something went wrong' })
 		}
