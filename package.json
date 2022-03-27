@@ -4,18 +4,19 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "ts-node ./src/index.ts",
-		"start:prod": "npm run build && node ./dist/src/server.js",
-		"cy:open": "cypress open",
 		"build": "npx tsc",
+		"cy:open": "cypress open",
+		"cy:run": "cypress run",
 		"dev": "nodemon",
 		"format:fix": "prettier --config .prettierrc 'src/**/*.ts' --write",
 		"lint": "eslint . --ext .ts",
 		"lint:fix": "eslint --fix . ",
+		"prepare": "husky install",
 		"test": "jest --testMatch='**/*.spec.ts' --verbose",
 		"test:coverage": "jest --testMatch='**/*.spec.ts' --coverage",
 		"test:watch": "jest --testMatch='**/*.spec.ts' --watch",
-		"prepare": "husky install"
+		"start": "ts-node ./src/index.ts",
+		"start:prod": "npm run build && node ./dist/src/server.js"
 	},
 	"author": "wv",
 	"license": "ISC",
