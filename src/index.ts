@@ -15,6 +15,7 @@ import './controllers/public/SubjectController'
 import './controllers/public/TeacherController'
 import './controllers/questions/SubjectController'
 import './controllers/questions/TestController'
+import './controllers/student/StudentController'
 
 const app = express()
 

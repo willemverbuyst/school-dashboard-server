@@ -4,8 +4,7 @@ import { getAllSubjects } from '../../prisma/queries/subjects'
 import { controller, get } from '../decorators'
 
 @controller('/public')
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class SubjectController {
+export class SubjectController {
 	@get('/subjects')
 	async getAllSubjects(
 		_req: RequestWithBody,
@@ -24,31 +23,4 @@ class SubjectController {
 			next(error)
 		}
 	}
-	// // TEACHER, post a new subject
-	// @post('/general/subjects')
-	// @bodyValidator('subject')
-	// @use(teacherAuthMiddleware)
-	// async postSubject(
-	// 	req: RequestWithBody,
-	// 	res: Response,
-	// 	next: NextFunction
-	// ): Promise<void> {
-	// 	const { subject } = req.body
-
-	// 	if (subject) {
-	// 		try {
-	// 			const newSubject = await Subject.create({
-	// 				name: subject,
-	// 			})
-
-	// 			res
-	// 				.status(201)
-	// 				.send({ newSubject, message: 'You have added a new subject.' })
-	// 		} catch (error) {
-	// 			next(error)
-	// 		}
-	// 	} else {
-	// 		res.status(400).send({ message: 'Please provide subject' })
-	// 	}
-	// }
 }
