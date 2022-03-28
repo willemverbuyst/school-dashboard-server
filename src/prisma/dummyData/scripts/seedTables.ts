@@ -11,9 +11,9 @@ import {
 	tests,
 	userStudents,
 	userTeachers,
-} from '../dummyData'
+} from '..'
 
-import { logFinishSeed, logInitSeed, logSeed } from './log'
+import { logFinishSeed, logInitSeed, logSeed } from '../log'
 
 const createAnswers = async (prisma: PrismaClient): Promise<void> => {
 	await prisma.answer.createMany({
