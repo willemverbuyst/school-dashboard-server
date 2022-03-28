@@ -11,11 +11,13 @@ const createDate = (day: number): Date =>
 
 export const tests: Array<Test> = subjects.flatMap(subject =>
 	students.flatMap(student =>
-		Array.from(Array(10).keys()).map((_, i) => ({
-			id: uuidv4(),
-			createdAt: createDate(i),
-			subjectId: subject.id,
-			studentId: student.id,
-		}))
+		Array(10)
+			.fill(0)
+			.map((_, i) => ({
+				id: uuidv4(),
+				createdAt: createDate(i),
+				subjectId: subject.id,
+				studentId: student.id,
+			}))
 	)
 )

@@ -20,30 +20,36 @@ const testsHistory = [...tests].filter(
 const testsMath = [...tests].filter(test => test.subjectId === subjects[2].id)
 
 export const scoresGeography: Array<Score> = testsGeography.flatMap(test =>
-	[1, 2, 3].map(() => ({
-		id: uuidv4(),
-		score: createScore(),
-		questionId: questionsGeography[createSubjectIndex()].id,
-		testId: test.id,
-	}))
+	Array(3)
+		.fill(0)
+		.map(() => ({
+			id: uuidv4(),
+			score: createScore(),
+			questionId: questionsGeography[createSubjectIndex()].id,
+			testId: test.id,
+		}))
 )
 
 export const scoresHistory: Array<Score> = testsHistory.flatMap(test =>
-	Array(3).map(() => ({
-		id: uuidv4(),
-		score: createScore(),
-		questionId: questionsHistory[createSubjectIndex()].id,
-		testId: test.id,
-	}))
+	Array(3)
+		.fill(0)
+		.map(() => ({
+			id: uuidv4(),
+			score: createScore(),
+			questionId: questionsHistory[createSubjectIndex()].id,
+			testId: test.id,
+		}))
 )
 
 export const scoresMath: Array<Score> = testsMath.flatMap(test =>
-	Array(3).map(() => ({
-		id: uuidv4(),
-		score: createScore(),
-		questionId: questionsMath[createSubjectIndex()].id,
-		testId: test.id,
-	}))
+	Array(3)
+		.fill(0)
+		.map(() => ({
+			id: uuidv4(),
+			score: createScore(),
+			questionId: questionsMath[createSubjectIndex()].id,
+			testId: test.id,
+		}))
 )
 
 export const scores: Array<Score> = [

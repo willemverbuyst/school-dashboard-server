@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-// import cleanUpTables from './prisma/utils/cleanupTables'
-// import seedData from './prisma/utils/seedTables'
+// import { cleanUpTables } from './prisma/utils/cleanupTables'
+// import { seedData } from './prisma/utils/seedTables'
 
 export const prismaClient = new PrismaClient()
 
