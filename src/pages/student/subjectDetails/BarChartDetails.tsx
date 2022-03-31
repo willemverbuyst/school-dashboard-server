@@ -43,7 +43,7 @@ const BarChartDetails: React.FC<IProps> = ({
       : results;
 
   const data = sortedData.map(({ result }) => result);
-  const color = [];
+  const color: Array<string> = [];
   for (let i = 0; i < results.length; i++) color.push('rgb(255, 99, 132)');
   const labels = results.map(({ at }) => moment(at).format('MMM Do YY'));
 

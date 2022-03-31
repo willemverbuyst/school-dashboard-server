@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectStudentId } from '../../../store/student/selectors';
-import { selectTeacherId } from '../../../store/teacher/selectors';
 import { Layout, Form, Button, Row, Col, PageHeader } from 'antd';
 import TextInput from '../../../components/form/TextInput';
 import PasswordInput from '../../../components/form/PasswordInput';
 import { ButtonEvent } from '../../../models/events.models';
 import { useAuth } from '../hooks/useAuth';
+import { useUser } from '../hooks/useUser';
 
 const { Content } = Layout;
 
@@ -16,17 +14,16 @@ export default function Login() {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const studentId = useSelector(selectStudentId);
-  const teacherId = useSelector(selectTeacherId);
+  const { user } = useUser();
 
-  // useEffect(() => {
-  //   if (studentId !== null) {
-  //     history.push(`/students/${studentId}`);
-  //   }
-  //   if (teacherId !== null) {
-  //     history.push(`/teachers/${teacherId}`);
-  //   }
-  // }, [studentId, teacherId, history]);
+  useEffect(() => {
+    if (user !== null) {
+      history.push(`/students/${user.data.user.id}`);
+    }
+    // if (teacherId !== null) {
+    //   history.push(`/teachers/${teacherId}`);
+    // }
+  }, [user, history]);
 
   const submitForm = (event: ButtonEvent): void => {
     event.preventDefault();

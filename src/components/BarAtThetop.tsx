@@ -1,29 +1,22 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import moment from 'moment';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
-import { selectStudentName } from '../store/student/selectors';
-import { selectTeacherName } from '../store/teacher/selectors';
 import { Layout } from 'antd';
+import { useUser } from '../pages/auth/hooks/useUser';
 
 const { Header } = Layout;
 
 const BarAtThetop = (): ReactElement => {
-  const student = useSelector(selectStudentName);
-  const teacher = useSelector(selectTeacherName);
+  const { user } = useUser();
 
   const renderLoginLogout = (): ReactElement => {
-    return student || teacher ? <LogoutButton /> : <LoginButton />;
+    return user ? <LogoutButton /> : <LoginButton />;
   };
 
   const renderWelcome = (): ReactElement | null => {
-    return student ? (
-      <div>Welcome {student}!</div>
-    ) : teacher ? (
-      <div>Welcome {teacher}!</div>
-    ) : null;
+    return user ? <div>Welcome {user?.data.user.userName}!</div> : null;
   };
 
   const renderDate = (): string => {

@@ -1,26 +1,25 @@
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import {
-  selectStudentSubjects,
-  selectStudentId,
-} from '../../store/student/selectors';
 import { Layout, Menu } from 'antd';
 import { ReactElement } from 'react';
 import renderSideBarNav from '../../components/sidebar/renderSideBarNav';
+import { useUser } from '../auth/hooks/useUser';
 
 const { Sider } = Layout;
 
 const SideBar = (): ReactElement => {
   const history = useHistory();
-  const subjects = useSelector(selectStudentSubjects);
-  const studentId = useSelector(selectStudentId);
+  const { user } = useUser();
 
   const goTo = (goto: string) => {
     history.push(goto);
   };
 
   const renderSubjectNav = () =>
-    renderSideBarNav('sub1', `/students/${studentId}/subjects`, subjects);
+    renderSideBarNav(
+      'sub1',
+      `/students/${user?.data.user.id}/subjects`,
+      user?.data.subjects.data
+    );
 
   return (
     <Sider width={200} className="site-layout-background">
@@ -29,10 +28,13 @@ const SideBar = (): ReactElement => {
         defaultSelectedKeys={['1']}
         style={{ height: '100%', borderRight: 0 }}
       >
-        <Menu.Item key="1" onClick={() => goTo(`/students/${studentId}`)}>
+        <Menu.Item
+          key="1"
+          onClick={() => goTo(`/students/${user?.data.user.id}`)}
+        >
           Home
         </Menu.Item>
-        {subjects ? renderSubjectNav() : null}
+        {user?.data.subjects ? renderSubjectNav() : null}
       </Menu>
     </Sider>
   );

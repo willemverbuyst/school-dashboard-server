@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { axiosInstance } from '../../../axiosInstance';
 import { Toast } from '../../../components/toast';
 import { ApiUser } from '../../../models/auth.models';
+import { useUser } from './useUser';
 
 export interface ApiError {
   message: string;
@@ -11,6 +12,8 @@ export type AuthResponse = ApiUser | ApiError;
 
 export const useAuth = () => {
   const serverError = 'There was an error contacting the server!';
+  const { removeUser, updateUser } = useUser();
+
   const authServerCall = async (
     urlEndpoint: string,
     email: string,
@@ -35,7 +38,7 @@ export const useAuth = () => {
       if ('data' in data && 'token' in data && 'user' in data.data) {
         const text = data && data.message ? data.message : 'Welcome';
         Toast({ text, status: 'success' });
-        // update user data
+        updateUser(data);
       }
     } catch (errorResponse) {
       const text =
@@ -54,7 +57,7 @@ export const useAuth = () => {
   const login = async (email: string, password: string): Promise<void> =>
     authServerCall('/auth/login', email, password);
 
-  const logout = (): void => console.log('logged out');
+  const logout = (): void => removeUser();
 
   return {
     login,

@@ -22,7 +22,7 @@ const BarChartMain: React.FC<IProps> = ({
   subjects,
 }: IProps): ReactElement => {
   const data = scores.map(({ result }) => result);
-  const color = [];
+  const color: Array<string> = [];
   for (let i = 0; i < data.length; i++) color.push('#FF5C84');
   const labels = subjects.map(({ name }) => name);
 
