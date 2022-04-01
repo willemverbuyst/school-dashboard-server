@@ -1,36 +1,28 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Layout, Row } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectTeacherSubjects,
-  selectTeacherToken,
-} from '../../../../store/teacher/selectors';
-import { selectAllQuestionsForSubject } from '../../../../store/questions/selectors';
-import SubjectSelector from './SubjectSelector';
+import { Button, Layout, Row } from 'antd';
 import QuestionsAndAnswers from './QuestionsAndAnswers';
 import Spinner from '../../../../components/Spinner';
-import { getQuestionsForSubject } from '../../../../store/questions/actions';
+import { useUser } from '../../../auth/hooks/useUser';
+import { useQuestions } from './hooks/useQuestion';
+import SubjectSelector from './SubjectSelector';
 
 const { Content } = Layout;
 
 const ListOfQuestions = (): ReactElement => {
-  const dispatch = useDispatch();
   const history = useHistory();
-  const subjects = useSelector(selectTeacherSubjects);
-  const questions = useSelector(selectAllQuestionsForSubject);
-  const token = useSelector(selectTeacherToken);
-  const [subject, setSubject] = useState(0);
+  const { user } = useUser();
+  const subjects = user?.data.subjects.data;
+  const { filter, setFilter, questions } = useQuestions();
 
   useEffect(() => {
-    if (token === null) {
+    if (user?.token === null || user?.data.user.role !== 'TEACHER') {
       history.push('/');
     }
   });
 
-  const getListOfQuestions = (subjectId: number): void => {
-    setSubject(subjectId);
-    dispatch(getQuestionsForSubject(subjectId));
+  const getListOfQuestions = (subjectId: string): void => {
+    setFilter(subjectId);
   };
 
   const renderQuestions = (): ReactElement | null =>
@@ -51,10 +43,13 @@ const ListOfQuestions = (): ReactElement => {
               </Row>
               <Row justify="center">
                 <SubjectSelector
-                  subject={subject}
+                  subject={filter}
                   subjects={subjects}
-                  changeSubject={(e: any) => getListOfQuestions(e)}
+                  changeSubject={getListOfQuestions}
                 />
+                {filter !== 'all' ? (
+                  <Button onClick={() => setFilter('all')}>All</Button>
+                ) : null}
               </Row>
             </>
           ) : (

@@ -10,7 +10,7 @@ import TeacherStudentDetails from './pages/teacher/studentDetails/TeacherStudent
 import TeacherSubjectDetails from './pages/teacher/subjectDetails/TeacherSubjectDetails';
 import ListOfQuestions from './pages/teacher/admin/questions/ListOfQuestions';
 import AddQuestionForm from './pages/teacher/admin/questions/AddQuestionForm';
-import AddSubject from './pages/teacher/admin/subjects/AddSubject';
+import NewSubjectForm from './pages/teacher/admin/subjects/NewSubjectForm';
 import * as ROUTES from './constants/routes';
 
 const AppRouter = (): JSX.Element => {
@@ -47,7 +47,11 @@ const AppRouter = (): JSX.Element => {
         path={ROUTES.TEACHER_QUESTION_ADD}
         component={AddQuestionForm}
       />
-      <Route exact path={ROUTES.TEACHER_SUBJECT_ADD} component={AddSubject} />
+      <Route
+        exact
+        path={ROUTES.TEACHER_SUBJECT_ADD}
+        component={NewSubjectForm}
+      />
     </Switch>
   );
 };

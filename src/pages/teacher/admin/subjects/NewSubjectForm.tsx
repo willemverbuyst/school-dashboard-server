@@ -6,7 +6,7 @@ import { useSubject } from './hooks/useSubject';
 
 const { Content } = Layout;
 
-const AddSubject = (): ReactElement => {
+const NewSubjectForm = (): ReactElement => {
   const [form] = Form.useForm();
   const history = useHistory();
   const { user } = useUser();
@@ -68,4 +68,4 @@ const AddSubject = (): ReactElement => {
   );
 };
 
-export default AddSubject;
+export default NewSubjectForm;

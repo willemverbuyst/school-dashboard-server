@@ -9,6 +9,7 @@ import {
 import { createQuestion } from '../../../../store/questions/actions';
 import { Layout, Form, Input, Button, Select, Row, Col } from 'antd';
 import FormItem from './FormItem';
+import { useUser } from '../../../auth/hooks/useUser';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -29,8 +30,8 @@ interface ISubject {
 
 const AddQuestionForm = (): ReactElement => {
   const history = useHistory();
+  const { user } = useUser();
   const dispatch = useDispatch();
-  const token = useSelector(selectTeacherToken);
   const teacherId = useSelector(selectTeacherId);
   const subjects: ISubject[] = useSelector(selectTeacherSubjects);
   const [newQuestion, setNewQuestion] = useState<IPostNewQuestion>({
@@ -43,14 +44,13 @@ const AddQuestionForm = (): ReactElement => {
   });
 
   useEffect(() => {
-    if (token === null) {
+    if (user?.token === null || user?.data.user.role !== 'TEACHER') {
       history.push('/');
     }
   });
 
   const addQuestion = () => {
     dispatch(createQuestion(newQuestion));
-    history.push(`/teachers/${teacherId}/questions/list`);
   };
 
   const updateValue = (e: any, value: any) => {

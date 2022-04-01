@@ -5,11 +5,11 @@ const { Option } = Select;
 
 interface ISubject {
   name: string;
-  id: number;
+  id: string;
 }
 
 interface IProps {
-  subject: number;
+  subject: string;
   subjects: ISubject[];
   changeSubject: any;
 }
@@ -42,7 +42,7 @@ const SubjectSelector: React.FC<IProps> = ({
         rules={[{ required: true, message: 'Please select a subject' }]}
       >
         <Select
-          placeholder="select a subject"
+          placeholder="all subjects"
           value={subject}
           style={{ width: 160 }}
           onChange={(e) => changeSubject(e)}
