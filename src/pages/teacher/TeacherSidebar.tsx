@@ -1,10 +1,4 @@
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import {
-  selectTeacherStudents,
-  selectTeacherSubjects,
-  selectTeacherId,
-} from '../../store/teacher/selectors';
 import { Layout, Menu } from 'antd';
 import {
   UserOutlined,
@@ -15,41 +9,42 @@ import {
 import { ReactElement } from 'react';
 import renderSideBarNav from '../../components/sidebar/renderSideBarNav';
 import { adminTasks } from '../../constants/constants';
+import { useUser } from '../auth/hooks/useUser';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
-export interface IStudent {
-  name: string;
+export interface NavElement {
   id: number;
-}
-
-export interface ISubject {
-  name: string;
-  id: number;
+  name: string | undefined;
 }
 
 const SideBar = (): ReactElement => {
   const history = useHistory();
-  const subjects: ISubject[] = useSelector(selectTeacherSubjects);
-  const students: IStudent[] = useSelector(selectTeacherStudents);
-  const teacherId: number = useSelector(selectTeacherId);
+  const { user } = useUser();
+  const subjects: Array<NavElement> = user?.data.subjects.data;
+  const students = user?.data.user.teacher?.students;
+  const studentsForNavigation = students?.map((student) => ({
+    id: student.id,
+    name: student.user?.userName,
+  }));
+  const teacherId = user?.data.user.id;
 
   const goTo = (goto: string) => {
     history.push(goto);
   };
 
-  const renderSubjectNav = () =>
+  const renderSubjectsNav = (subjects) =>
     renderSideBarNav('sub2', `/teachers/${teacherId}/subjects`, subjects);
 
-  const renderStudentsNav = () =>
+  const renderStudentsNav = (students) =>
     renderSideBarNav('sub3', `/teachers/${teacherId}/students`, students);
 
   const renderAdminTasksNav = () =>
     renderSideBarNav('sub4', `/teachers/${teacherId}/admintasks`, adminTasks);
 
   return (
-    <Sider width={200} className="site-layout-background">
+    <Sider width={400} className="site-layout-background">
       <Menu
         mode="inline"
         defaultSelectedKeys={['sub1']}
@@ -62,13 +57,13 @@ const SideBar = (): ReactElement => {
         >
           Home
         </Menu.Item>
-        {subjects && students ? (
+        {subjects && studentsForNavigation ? (
           <>
             <SubMenu key="sub2" icon={<LaptopOutlined />} title="Subjects">
-              {renderSubjectNav()}
+              {renderSubjectsNav(subjects)}
             </SubMenu>
             <SubMenu key="sub3" icon={<UserOutlined />} title="Students">
-              {renderStudentsNav()}
+              {renderStudentsNav(studentsForNavigation)}
             </SubMenu>
             <SubMenu key="sub4" icon={<DatabaseOutlined />} title="Admin">
               {renderAdminTasksNav()}

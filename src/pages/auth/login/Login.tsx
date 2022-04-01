@@ -15,15 +15,13 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { user } = useUser();
+  const roleForUrl = user?.data.user.role?.toLowerCase() + 's';
 
   useEffect(() => {
     if (user !== null) {
-      history.push(`/students/${user.data.user.id}`);
+      history.push(`/${roleForUrl}/${user.data.user.id}`);
     }
-    // if (teacherId !== null) {
-    //   history.push(`/teachers/${teacherId}`);
-    // }
-  }, [user, history]);
+  }, [roleForUrl, user, history]);
 
   const submitForm = (event: ButtonEvent): void => {
     event.preventDefault();

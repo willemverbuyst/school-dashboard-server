@@ -2,10 +2,6 @@ import React, { ReactElement, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectTeacherToken,
-  selectTeacherSubjects,
-} from '../../../store/teacher/selectors';
-import {
   selectMainOverview,
   selectMainOverviewScatter,
 } from '../../../store/overviewTeacher/selectors';
@@ -16,38 +12,41 @@ import LineChartMain from './LineChartMain';
 import PieChartMain from './PieChartMain';
 import ScatterChartMain from './ScatterChartMain';
 import Spinner from '../../../components/Spinner';
+import { useUser } from '../../auth/hooks/useUser';
 
 const { Content } = Layout;
 
 const MainPage: React.FC = (): ReactElement => {
+  const { user } = useUser();
   const dispatch = useDispatch();
   const history = useHistory();
-  const token = useSelector(selectTeacherToken);
   const mainPageData = useSelector(selectMainOverview);
-  const subjects = useSelector(selectTeacherSubjects);
+  const subjects = user?.data.subjects;
   const tests = useSelector(selectMainOverviewScatter);
 
   useEffect(() => {
-    if (token === null) {
+    if (user?.token === null) {
       history.push('/');
     }
   });
 
   useEffect(() => {
-    dispatch(getMainOverview());
+    // dispatch(getMainOverview());
   }, [dispatch]);
 
   const renderCharts = (): JSX.Element => {
-    return mainPageData && tests && subjects ? (
+    return subjects ? (
+      // return mainPageData && tests && subjects ? (
       <>
-        <Row justify="space-around">
+        TEACHER
+        {/* <Row justify="space-around">
           <BarChartMain scores={mainPageData} subjects={subjects} />
           <PieChartMain tests={tests} />
         </Row>
         <Row justify="space-around">
           <LineChartMain tests={tests} />
           <ScatterChartMain tests={tests} />
-        </Row>
+        </Row> */}
       </>
     ) : (
       <Spinner />
