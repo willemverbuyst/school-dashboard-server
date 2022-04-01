@@ -1,11 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectTeacherSubjects,
-  selectTeacherToken,
-  selectTeacherId,
-} from '../../../../store/teacher/selectors';
+import { useDispatch } from 'react-redux';
 import { createQuestion } from '../../../../store/questions/actions';
 import { Layout, Form, Input, Button, Select, Row, Col } from 'antd';
 import FormItem from './FormItem';
@@ -32,8 +27,7 @@ const AddQuestionForm = (): ReactElement => {
   const history = useHistory();
   const { user } = useUser();
   const dispatch = useDispatch();
-  const teacherId = useSelector(selectTeacherId);
-  const subjects: ISubject[] = useSelector(selectTeacherSubjects);
+  const subjects: ISubject[] = user?.data.subjects.data;
   const [newQuestion, setNewQuestion] = useState<IPostNewQuestion>({
     subject: 1,
     question: '',

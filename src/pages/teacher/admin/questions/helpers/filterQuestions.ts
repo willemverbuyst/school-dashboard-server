@@ -1,9 +1,4 @@
-interface Question {
-  id: string;
-  text: string;
-  subjectId: string;
-  answers: any;
-}
+import { Question } from '../../../../../models/question.models';
 
 export const filterBySubject = (
   questions: Array<Question>,
