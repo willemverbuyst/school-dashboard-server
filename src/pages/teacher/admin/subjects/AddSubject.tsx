@@ -1,31 +1,26 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectTeacherToken,
-  selectTeacherId,
-} from '../../../../store/teacher/selectors';
-import { createSubject } from '../../../../store/teacher/actions';
 import { Layout, Form, Input, Button, Row, Col } from 'antd';
+import { useUser } from '../../../auth/hooks/useUser';
+import { useSubject } from './hooks/useSubject';
 
 const { Content } = Layout;
 
 const AddSubject = (): ReactElement => {
+  const [form] = Form.useForm();
   const history = useHistory();
-  const dispatch = useDispatch();
-  const token = useSelector(selectTeacherToken);
-  const teacherId = useSelector(selectTeacherId);
-  const [subject, setSubject] = useState('');
+  const { user } = useUser();
+  const addSubject = useSubject();
 
   useEffect(() => {
-    if (token === null) {
+    if (user?.token === null || user?.data.user.role !== 'TEACHER') {
       history.push('/');
     }
   });
 
-  const addSubject = () => {
-    dispatch(createSubject(subject));
-    history.push(`/teachers/${teacherId}/`);
+  const handleSubmit = (input: { subject: string }) => {
+    addSubject(input.subject);
+    form.resetFields();
   };
 
   return (
@@ -38,18 +33,19 @@ const AddSubject = (): ReactElement => {
 
           <Row justify="center">
             <Col style={{ width: 650 }}>
-              <Form name="basic" initialValues={{ remember: true }}>
+              <Form
+                form={form}
+                name="basic"
+                initialValues={{ remember: true }}
+                onFinish={handleSubmit}
+              >
                 <Form.Item
-                  name="Question"
+                  name="subject"
                   rules={[
                     { required: true, message: 'Please input a subject!' },
                   ]}
                 >
-                  <Input
-                    placeholder="Subject"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                  />
+                  <Input type="text" placeholder="Subject" />
                 </Form.Item>
                 <Form.Item>
                   <Button
@@ -59,7 +55,6 @@ const AddSubject = (): ReactElement => {
                     }}
                     type="primary"
                     htmlType="submit"
-                    onClick={addSubject}
                   >
                     Add Subject to the curriculum
                   </Button>
