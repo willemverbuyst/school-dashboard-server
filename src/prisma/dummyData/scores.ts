@@ -1,6 +1,6 @@
 import { Score } from '@prisma/client'
 import { v4 as uuidv4 } from 'uuid'
-import { tests } from './test'
+import { tests } from './tests'
 import {
 	questionsGeography,
 	questionsHistory,
