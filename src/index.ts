@@ -4,19 +4,18 @@ import corsMiddleWare from 'cors'
 import { PORT } from './config/constants'
 import { AppRouter } from './AppRouter'
 
-import './controllers/admin/SubjectController'
 import './controllers/auth/LoginController'
 import './controllers/auth/LogoutController'
 import './controllers/auth/SignupController'
 import './controllers/auth/ValidUserController'
 import './controllers/data/StudentController'
 import './controllers/data/TeacherController'
-import './controllers/public/SchoolController'
-import './controllers/public/SubjectController'
-import './controllers/public/TeacherController'
 import './controllers/questions/SubjectController'
-import './controllers/questions/TestController'
 import './controllers/student/StudentController'
+import './controllers/school/school.controller'
+import './controllers/subject/subject.controller'
+import './controllers/teacher/teacher.controller'
+import './controllers/test/test.controller'
 
 const app = express()
 

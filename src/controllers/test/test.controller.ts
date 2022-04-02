@@ -5,9 +5,9 @@ import { getQuestionsForTest } from '../../prisma/queries/questions'
 import { createTest } from '../../prisma/queries/tests'
 import { controller, get, post, use } from '../decorators'
 
-@controller('/questions')
+@controller('/test')
 export class TestController {
-	@get('/subjects/:id/test')
+	@get('/subjects/:id')
 	@use(studentAuthMiddleware)
 	async getQuestionsForSubject(
 		req: RequestWithBody,
@@ -37,7 +37,7 @@ export class TestController {
 		}
 	}
 
-	@post('/subjects/:id/test')
+	@post('/subjects/:id')
 	@use(studentAuthMiddleware)
 	async postQuestionForSubject(
 		req: RequestWithBody,

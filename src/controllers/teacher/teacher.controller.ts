@@ -3,9 +3,9 @@ import { RequestWithBody } from '../../interfaces/Requests'
 import { getAllTeachers } from '../../prisma/queries/teachers'
 import { controller, get } from '../decorators'
 
-@controller('/public')
+@controller('/teachers')
 export class TeachersController {
-	@get('/teachers')
+	@get('/')
 	async getTeachers(
 		_req: RequestWithBody,
 		res: Response,
