@@ -1,5 +1,5 @@
 describe('School-daschboard api', () => {
-	context('GET /public/schools', () => {
+	context('GET /schools', () => {
 		it('should return a list with all schools', () => {
 			cy.request({
 				method: 'GET',

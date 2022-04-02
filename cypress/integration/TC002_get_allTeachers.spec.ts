@@ -1,5 +1,5 @@
 describe('School-daschboard api', () => {
-	context('GET /public/teachers', () => {
+	context('GET /teachers', () => {
 		it('should return a list with all teachers including user names', () => {
 			cy.request({
 				method: 'GET',
