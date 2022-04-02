@@ -44,7 +44,7 @@ const SideBar = (): ReactElement => {
 		renderSideBarNav('sub4', `/teachers/${teacherId}/admintasks`, adminTasks)
 
 	return (
-		<Sider width={400} className="site-layout-background">
+		<Sider width={250}>
 			<Menu
 				mode="inline"
 				defaultSelectedKeys={['sub1']}

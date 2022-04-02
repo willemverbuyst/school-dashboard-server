@@ -67,7 +67,7 @@ export interface TestWithScores {
 
 export interface Overview {
 	results: number
-	data: TestWithScores[]
+	data: TestWithScores[] | any
 }
 
 export interface Data {
