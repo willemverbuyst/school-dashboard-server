@@ -1,8 +1,10 @@
 import { Request, Response } from 'express'
 import { controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
-import { createUserStudent, createUserTeacher } from '../../prisma/queries/user'
-import { getAllSubjects } from '../../prisma/queries/subjects'
+import { subjectQueries, userQueries } from '../../prisma/queries'
+
+const { getAllSubjects } = subjectQueries
+const { createUserStudent, createUserTeacher } = userQueries
 
 @controller('/auth')
 export class SignupController {

@@ -1,12 +1,11 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
-import {
-	createQuestionWithAnswers,
-	getAllQuestions,
-	getQuestionsForSubject,
-} from '../../prisma/queries/questions'
+import { questionQueries } from '../../prisma/queries'
 import { controller, get, post, use } from '../decorators'
+
+const { createQuestionWithAnswers, getAllQuestions, getQuestionsForSubject } =
+	questionQueries
 
 @controller('/questions')
 export class QuestionController {

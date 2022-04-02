@@ -3,13 +3,12 @@ import { Response } from 'express'
 import { controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { getUserByEmail, getUserPlus } from '../../prisma/queries/user'
-import { getAllSubjects } from '../../prisma/queries/subjects'
+import { subjectQueries, testQueries, userQueries } from '../../prisma/queries'
 import { Role } from '@prisma/client'
-import {
-	getAllTestsForTeacher,
-	getTestsForStudent,
-} from '../../prisma/queries/tests'
+
+const { getAllTestsForTeacher, getTestsForStudent } = testQueries
+const { getAllSubjects } = subjectQueries
+const { getUserByEmail, getUserPlus } = userQueries
 
 @controller('/auth')
 export class LoginController {

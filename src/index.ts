@@ -5,16 +5,6 @@ import { PORT } from './config/constants'
 import { AppRouter } from './AppRouter'
 
 import './controllers'
-// import './controllers/auth/logout.controller'
-// import './controllers/auth/signup.controller'
-// import './controllers/auth/validUser.controller'
-// import './controllers/questions/question.controller'
-// import './controllers/school/school.controller'
-// import './controllers/student/student.controller'
-// import './controllers/subject/subject.controller'
-// import './controllers/teacher/teacher.controller'
-// import './controllers/test/test.controller'
-// import './controllers/user/user.controller'
 
 const app = express()
 

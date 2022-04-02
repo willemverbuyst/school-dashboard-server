@@ -2,7 +2,9 @@ import { Role } from '@prisma/client'
 import { NextFunction, Response } from 'express'
 import { toData } from '../auth/jwt'
 import { RequestWithBody } from '../interfaces/Requests'
-import { getUserById } from '../prisma/queries/user'
+import { userQueries } from '../prisma/queries'
+
+const { getUserById } = userQueries
 
 export const teacherAuthMiddleware = async (
 	req: RequestWithBody,

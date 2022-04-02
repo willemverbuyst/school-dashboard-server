@@ -1,1 +1,3 @@
-export { getStudentWithTests } from './getStudentWithTests'
+import { getStudentWithTests } from './getStudentWithTests'
+
+export const studentQueries = { getStudentWithTests }

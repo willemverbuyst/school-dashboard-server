@@ -1,7 +1,9 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { getAllSchools } from '../../prisma/queries/schools'
+import { schoolQueries } from '../../prisma/queries'
 import { controller, get } from '../decorators'
+
+const { getAllSchools } = schoolQueries
 
 @controller('/schools')
 export class SchoolController {

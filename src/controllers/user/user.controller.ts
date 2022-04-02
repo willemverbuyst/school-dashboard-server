@@ -1,8 +1,10 @@
 import { Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
-import { getTestsForStudent } from '../../prisma/queries/tests'
+import { testQueries } from '../../prisma/queries'
 import { controller, get, use } from '../decorators'
+
+const { getTestsForStudent } = testQueries
 
 @controller('/users')
 export class UserController {

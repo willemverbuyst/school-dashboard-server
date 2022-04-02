@@ -1,10 +1,12 @@
 import { Response } from 'express'
 import { controller, get, use } from '../decorators'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { getAllSubjects } from '../../prisma/queries/subjects'
-import { getUserPlus } from '../../prisma/queries/user'
+import { subjectQueries, userQueries } from '../../prisma/queries'
 import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
 import { toJWT } from '../../auth/jwt'
+
+const { getAllSubjects } = subjectQueries
+const { getUserPlus } = userQueries
 
 @controller('/auth')
 export class ValidUserController {

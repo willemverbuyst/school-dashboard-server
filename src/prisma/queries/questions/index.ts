@@ -1,4 +1,11 @@
-export { createQuestionWithAnswers } from './createQuestionWithAnswers.query'
-export { getAllQuestions } from './getAllQuestions.query'
-export { getQuestionsForSubject } from './getQuestionsForSubject.query'
-export { getQuestionsForTest } from './getQuestionsForTest.query'
+import { createQuestionWithAnswers } from './createQuestionWithAnswers.query'
+import { getAllQuestions } from './getAllQuestions.query'
+import { getQuestionsForSubject } from './getQuestionsForSubject.query'
+import { getQuestionsForTest } from './getQuestionsForTest.query'
+
+export const questionQueries = {
+	createQuestionWithAnswers,
+	getAllQuestions,
+	getQuestionsForSubject,
+	getQuestionsForTest,
+}

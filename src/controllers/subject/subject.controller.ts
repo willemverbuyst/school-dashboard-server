@@ -1,8 +1,10 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
-import { addSubject, getAllSubjects } from '../../prisma/queries/subjects'
+import { subjectQueries } from '../../prisma/queries'
 import { controller, get, post, use } from '../decorators'
+
+const { addSubject, getAllSubjects } = subjectQueries
 
 @controller('/subjects')
 export class SubjectController {
