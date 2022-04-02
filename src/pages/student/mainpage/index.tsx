@@ -20,15 +20,11 @@ const StudentMainPage = (): ReactElement => {
 	}, [user, history])
 
 	return (
-		<Layout>
-			<Layout style={{ padding: '24px', minHeight: '92vh' }}>
-				<Content className="site-layout-background">
-					{user && subjects ? (
-						<AllCharts subjects={subjects} results={testResults} />
-					) : null}
-				</Content>
-			</Layout>
-		</Layout>
+		<Content className="site-layout-content">
+			{user && subjects ? (
+				<AllCharts subjects={subjects} results={testResults} />
+			) : null}
+		</Content>
 	)
 }
 

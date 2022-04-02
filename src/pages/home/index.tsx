@@ -20,36 +20,27 @@ const Home = () => {
 	}, [roleForUrl, user, history])
 
 	return (
-		<Layout>
-			<Layout style={{ padding: '24px', minHeight: '92vh' }}>
-				<Content
-					className="site-layout-background"
-					style={{
-						padding: 24,
-					}}
-				>
-					<Row justify="space-around">
-						<Col>
-							<div style={{ width: '35vw', height: '35vh' }}>
-								<BarChartHome />
-							</div>
-						</Col>
-					</Row>
-					<Row justify="space-around">
-						<Col>
-							<div style={{ width: '35vw', height: '35vh' }}>
-								<PolarChartHome />
-							</div>
-						</Col>
-						<Col>
-							<div style={{ width: '35vw', height: '35vh' }}>
-								<LineChartHome />
-							</div>
-						</Col>
-					</Row>
-				</Content>
-			</Layout>
-		</Layout>
+		<Content className="site-layout-content">
+			<Row justify="space-around">
+				<Col>
+					<div style={{ width: '35vw', height: '35vh' }}>
+						<BarChartHome />
+					</div>
+				</Col>
+			</Row>
+			<Row justify="space-around">
+				<Col>
+					<div style={{ width: '35vw', height: '35vh' }}>
+						<PolarChartHome />
+					</div>
+				</Col>
+				<Col>
+					<div style={{ width: '35vw', height: '35vh' }}>
+						<LineChartHome />
+					</div>
+				</Col>
+			</Row>
+		</Content>
 	)
 }
 

@@ -34,29 +34,25 @@ export default function StudentSubjectDetails() {
 	}
 
 	return (
-		<Layout>
-			<Layout style={{ padding: '24px', minHeight: '92vh' }}>
-				<Content className="site-layout-background">
-					{subject ? (
-						<>
-							<Row justify="space-around">
-								<NumberOfTests results={subject} />
-								<DoughnutChartDetails results={subject} />
-								<TestButton goTo={goTo} />
-							</Row>
-							<Row justify="center">
-								<BarChartDetails
-									results={subject}
-									subjects={subjects}
-									subjectId={subjectid}
-								/>
-							</Row>
-						</>
-					) : (
-						<p>no tests and results found</p>
-					)}
-				</Content>
-			</Layout>
-		</Layout>
+		<Content className="site-layout-content">
+			{subject ? (
+				<>
+					<Row justify="space-around">
+						<NumberOfTests results={subject} />
+						<DoughnutChartDetails results={subject} />
+						<TestButton goTo={goTo} />
+					</Row>
+					<Row justify="center">
+						<BarChartDetails
+							results={subject}
+							subjects={subjects}
+							subjectId={subjectid}
+						/>
+					</Row>
+				</>
+			) : (
+				<p>no tests and results found</p>
+			)}
+		</Content>
 	)
 }
