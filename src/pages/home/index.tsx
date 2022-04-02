@@ -1,28 +1,23 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectStudentId } from '../../store/student/selectors'
-import { selectTeacherId } from '../../store/teacher/selectors'
 import BarChartHome from './BarChartHome'
 import LineChartHome from './LineChartHome'
 import PolarChartHome from './PolarChartHome'
 import { Layout, Row, Col } from 'antd'
+import { useUser } from '../auth/hooks/useUser'
 
 const { Content } = Layout
 
 const Home = () => {
 	const history = useHistory()
-	const studentId = useSelector(selectStudentId)
-	const teacherId = useSelector(selectTeacherId)
+	const { user } = useUser()
+	const roleForUrl = user?.data.user.role?.toLowerCase() + 's'
 
 	useEffect(() => {
-		if (studentId) {
-			history.push(`/students/${studentId}`)
+		if (user) {
+			history.push(`/${roleForUrl}/${user?.data.user.id}`)
 		}
-		if (teacherId) {
-			history.push(`/teachers/${teacherId}`)
-		}
-	})
+	}, [roleForUrl, user, history])
 
 	return (
 		<Layout>
