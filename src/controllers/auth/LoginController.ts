@@ -6,7 +6,10 @@ import { RequestWithBody } from '../../interfaces/Requests'
 import { getUserByEmail, getUserPlus } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
 import { Role } from '@prisma/client'
-import { getTestsForStudent } from '../../prisma/queries/tests'
+import {
+	getAllTestsForTeacher,
+	getTestsForStudent,
+} from '../../prisma/queries/tests'
 
 @controller('/auth')
 export class LoginController {
@@ -50,6 +53,16 @@ export class LoginController {
 				userWithProfile.student.id
 			) {
 				const tests = await getTestsForStudent(userWithProfile.student?.id)
+				response.data.overview = { results: tests.length, data: tests }
+			}
+
+			if (
+				userWithProfile &&
+				userWithProfile.role === Role.TEACHER &&
+				userWithProfile.teacher &&
+				userWithProfile.teacher.id
+			) {
+				const tests = await getAllTestsForTeacher(userWithProfile.teacher?.id)
 				response.data.overview = { results: tests.length, data: tests }
 			}
 

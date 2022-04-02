@@ -24,12 +24,17 @@ export const teacherAuthMiddleware = async (
 		const data = toData(auth[1])
 		const user = await getUserById((<{ userId: string }>data).userId)
 
-		if (!user || user.role !== Role.TEACHER) {
+		if (
+			!user ||
+			!user.teacher ||
+			!user.teacher.id ||
+			user.role !== Role.TEACHER
+		) {
 			res.status(403).send({ message: 'Teacher does not exist' })
 			return
 		}
 
-		req.body.userId = user.id
+		req.body.teacherId = user.teacher.id
 
 		next()
 	} catch (error) {

@@ -1,0 +1,1 @@
+export { getStudentWithTests } from './getStudentWithTests'
