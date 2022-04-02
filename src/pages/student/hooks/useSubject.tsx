@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance'
-import { ApiUser } from '../../../models/auth.models'
+import { ApiUser } from '../../../models/api/user.api'
 import { queryKeys } from '../../../react-query/constants'
 import { useUser } from '../../auth/hooks/useUser'
 

@@ -18,7 +18,7 @@ const SideBar = (): ReactElement => {
 		renderSideBarNav(
 			'sub1',
 			`/students/${user?.data.user.id}/subjects`,
-			user?.data.subjects.data
+			user?.data.subjects.data || []
 		)
 
 	return (

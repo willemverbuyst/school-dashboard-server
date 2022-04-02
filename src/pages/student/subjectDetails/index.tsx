@@ -15,7 +15,7 @@ export default function StudentSubjectDetails() {
 	const history = useHistory()
 	const { user } = useUser()
 	const { subject, subjectId, setSubjectId } = useSubject()
-	const subjects = user?.data.subjects.data
+	const subjects = user?.data.subjects.data || []
 
 	useEffect(() => {
 		if (!user || user.token === null) {

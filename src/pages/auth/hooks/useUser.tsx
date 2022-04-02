@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { useQuery, useQueryClient } from 'react-query'
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance'
-import { ApiUser } from '../../../models/auth.models'
+import { ApiUser } from '../../../models/api/user.api'
 import { queryKeys } from '../../../react-query/constants'
 import {
 	getStoredUser,
