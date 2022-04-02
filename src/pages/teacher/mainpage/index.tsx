@@ -1,11 +1,5 @@
 import React, { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-	selectMainOverview,
-	selectMainOverviewScatter,
-} from '../../../store/overviewTeacher/selectors'
-import { getMainOverview } from '../../../store/overviewTeacher/actions'
 import { Layout, Row } from 'antd'
 import BarChartMain from './BarChartMain'
 import LineChartMain from './LineChartMain'
@@ -18,10 +12,8 @@ const { Content } = Layout
 
 const MainPage: React.FC = (): ReactElement => {
 	const { user } = useUser()
-	const dispatch = useDispatch()
 	const tests = user?.data.overview?.data.testsWithSummedScores || []
 	const history = useHistory()
-	const mainPageData = useSelector(selectMainOverview)
 	const subjects = user?.data.subjects
 
 	useEffect(() => {
@@ -29,10 +21,6 @@ const MainPage: React.FC = (): ReactElement => {
 			history.push('/')
 		}
 	}, [user, history])
-
-	useEffect(() => {
-		// dispatch(getMainOverview());
-	}, [dispatch])
 
 	const renderCharts = (): JSX.Element => {
 		return subjects ? (
