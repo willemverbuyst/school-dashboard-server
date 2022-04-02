@@ -21,6 +21,7 @@ const StudentMainPage = (): ReactElement => {
 
 	return (
 		<Content className="site-layout-content">
+			test
 			{user && subjects ? (
 				<AllCharts subjects={subjects} results={testResults} />
 			) : null}
