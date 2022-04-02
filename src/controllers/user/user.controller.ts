@@ -5,7 +5,7 @@ import { getTestsForStudent } from '../../prisma/queries/tests'
 import { controller, get, use } from '../decorators'
 
 @controller('/users')
-export class StudentController {
+export class UserController {
 	@get('/')
 	@use(studentAuthMiddleware)
 	async getStudentMain(req: RequestWithBody, res: Response): Promise<void> {

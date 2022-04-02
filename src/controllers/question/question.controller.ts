@@ -9,7 +9,7 @@ import {
 import { controller, get, post, use } from '../decorators'
 
 @controller('/questions')
-export class SubjectController {
+export class QuestionController {
 	@get('/')
 	@use(teacherAuthMiddleware)
 	async getAllQuestions(

@@ -4,7 +4,7 @@ import { getAllTeachers } from '../../prisma/queries/teachers'
 import { controller, get } from '../decorators'
 
 @controller('/teachers')
-export class TeachersController {
+export class TeacherController {
 	@get('/')
 	async getTeachers(
 		_req: RequestWithBody,

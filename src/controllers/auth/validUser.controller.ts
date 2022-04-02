@@ -7,10 +7,10 @@ import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
 import { toJWT } from '../../auth/jwt'
 
 @controller('/auth')
-export class ValidStudentController {
+export class ValidUserController {
 	@use(userAuthMiddleware)
 	@get('/user')
-	async getValidStudent(req: RequestWithBody, res: Response): Promise<void> {
+	async getValidUser(req: RequestWithBody, res: Response): Promise<void> {
 		try {
 			const { userId } = req.body
 			if (!userId) {
