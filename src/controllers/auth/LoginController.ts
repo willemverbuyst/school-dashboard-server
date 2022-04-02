@@ -5,6 +5,8 @@ import { toJWT } from '../../auth/jwt'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { getUserByEmail, getUserPlus } from '../../prisma/queries/user'
 import { getAllSubjects } from '../../prisma/queries/subjects'
+import { Role } from '@prisma/client'
+import { getTestsForStudent } from '../../prisma/queries/tests'
 
 @controller('/auth')
 export class LoginController {
@@ -31,14 +33,27 @@ export class LoginController {
 			const subjects = await getAllSubjects()
 			const userWithProfile = await getUserPlus(user.id)
 
-			res.status(200).send({
+			const response = {
 				token,
 				data: {
 					subjects: { results: subjects.length, data: subjects },
 					user: userWithProfile,
+					overview: {},
 				},
 				message: 'Welcome back',
-			})
+			}
+
+			if (
+				userWithProfile &&
+				userWithProfile.role === Role.STUDENT &&
+				userWithProfile.student &&
+				userWithProfile.student.id
+			) {
+				const tests = await getTestsForStudent(userWithProfile.student?.id)
+				response.data.overview = { results: tests.length, data: tests }
+			}
+
+			res.status(200).send(response)
 		} catch (error: unknown) {
 			// console.log(error)
 			res.status(500).send({ message: 'Something went wrong' })
