@@ -1,66 +1,62 @@
-import { useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  selectStudentId,
-  selectStudentSubjects,
-  selectStudentToken,
-} from '../../../store/student/selectors';
-import { getResultsForSubject } from '../../../store/testResults/actions';
-import { selectResultsForSubject } from '../../../store/testResults/selectors';
-import { Layout, Row } from 'antd';
-import DoughnutChartDetails from './DoughnutChartDetails';
-import BarChartDetails from './BarChartDetails';
-import NumberOfTests from './NumberOfTests';
-import TestButton from './TestButton';
+import { useEffect } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+import { Layout, Row } from 'antd'
+import DoughnutChartDetails from './DoughnutChartDetails'
+import BarChartDetails from './BarChartDetails'
+import NumberOfTests from './NumberOfTests'
+import TestButton from './TestButton'
+import { useUser } from '../../auth/hooks/useUser'
+import { useSubject } from '../hooks/useSubject'
 
-const { Content } = Layout;
+const { Content } = Layout
 
 export default function StudentSubjectDetails() {
-  const dispatch = useDispatch();
-  const { subjectid } = useParams<{ subjectid: string }>();
-  const history = useHistory();
-  const token = useSelector(selectStudentToken);
-  const studentId = useSelector(selectStudentId);
-  const results = useSelector(selectResultsForSubject);
-  const subjects = useSelector(selectStudentSubjects);
+	const { subjectid } = useParams<{ subjectid: string }>()
+	const history = useHistory()
+	const { user } = useUser()
+	const { subject, subjectId, setSubjectId } = useSubject()
+	const subjects = user?.data.subjects.data
 
-  useEffect(() => {
-    if (token === null) {
-      history.push('/');
-    }
-  });
+	useEffect(() => {
+		if (!user || user.token === null) {
+			history.push('/')
+		}
+	}, [user, history])
 
-  useEffect(() => {
-    dispatch(getResultsForSubject(subjectid));
-  }, [dispatch, subjectid]);
+	useEffect(() => {
+		setSubjectId(subjectid)
+	}, [subjectid, setSubjectId])
 
-  const goTo = (): void => {
-    history.push(`/students/${studentId}/subjects/${subjectid}/test`);
-  };
+	const goTo = (): void => {
+		history.push(
+			`/students/${user?.data.user.student?.id}/subjects/${subjectId}/test`
+		)
+	}
 
-  return (
-    <Layout>
-      <Layout style={{ padding: '24px', minHeight: '92vh' }}>
-        <Content className="site-layout-background">
-          {subjects && results ? (
-            <>
-              <Row justify="space-around">
-                <NumberOfTests results={results} />
-                <DoughnutChartDetails results={results} />
-                <TestButton goTo={goTo} />
-              </Row>
-              <Row>
-                <BarChartDetails
-                  results={results}
-                  subjects={subjects}
-                  subjectId={subjectid}
-                />
-              </Row>
-            </>
-          ) : null}
-        </Content>
-      </Layout>
-    </Layout>
-  );
+	return (
+		<Layout>
+			<Layout style={{ padding: '24px', minHeight: '92vh' }}>
+				<Content className="site-layout-background">
+					{subject ? (
+						<>
+							<Row justify="space-around">
+								<NumberOfTests results={subject} />
+								<DoughnutChartDetails results={subject} />
+								<TestButton goTo={goTo} />
+							</Row>
+							<Row justify="center">
+								<BarChartDetails
+									results={subject}
+									subjects={subjects}
+									subjectId={subjectid}
+								/>
+							</Row>
+						</>
+					) : (
+						<p>no tests and results found</p>
+					)}
+				</Content>
+			</Layout>
+		</Layout>
+	)
 }
