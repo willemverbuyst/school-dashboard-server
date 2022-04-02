@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import moment from 'moment'
 import LoginButton from './LoginButton'
 import LogoutButton from './LogoutButton'
 import { Layout } from 'antd'
@@ -13,14 +12,6 @@ const BarAtThetop = (): ReactElement => {
 
 	const renderLoginLogout = (): ReactElement => {
 		return user ? <LogoutButton /> : <LoginButton />
-	}
-
-	const renderWelcome = (): ReactElement | null => {
-		return user ? <div>Welcome {user?.data.user.userName}!</div> : null
-	}
-
-	const renderDate = (): string => {
-		return moment().format('MMMM Do YYYY, dddd')
 	}
 
 	return (
@@ -44,9 +35,7 @@ const BarAtThetop = (): ReactElement => {
 			>
 				Dashboard
 			</Link>
-			{renderDate()}
-			{renderWelcome()}
-			{renderLoginLogout()}
+			<div>{renderLoginLogout()}</div>
 		</Header>
 	)
 }
