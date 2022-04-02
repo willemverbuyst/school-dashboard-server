@@ -3,7 +3,7 @@ describe('School-daschboard api', () => {
 		it('should return a list with all subjects', () => {
 			cy.request({
 				method: 'GET',
-				url: '/public/subjects',
+				url: '/subjects',
 			}).should(response => {
 				cy.log(JSON.stringify(response.body))
 
