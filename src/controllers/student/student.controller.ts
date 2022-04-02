@@ -3,33 +3,11 @@ import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
 import { getStudentWithTests } from '../../prisma/queries/student'
-import {
-	getTestForStudentAndSubject,
-	getTestsForStudent,
-} from '../../prisma/queries/tests'
+import { getTestForStudentAndSubject } from '../../prisma/queries/tests'
 import { controller, get, use } from '../decorators'
 
 @controller('/students')
 export class StudentController {
-	@get('/main')
-	@use(studentAuthMiddleware)
-	async getStudentMain(req: RequestWithBody, res: Response): Promise<void> {
-		try {
-			const { studentId } = req.body
-
-			if (!studentId) {
-				res.status(422).send({ message: 'Student id missing' })
-				return
-			}
-
-			const tests = await getTestsForStudent(studentId)
-
-			res.send({ results: tests.length, data: tests })
-		} catch (error) {
-			res.status(400).send({ message: 'Something went wrong, sorry' })
-		}
-	}
-
 	@get('/:studentId')
 	@use(teacherAuthMiddleware)
 	async getStudentForTeacher(
