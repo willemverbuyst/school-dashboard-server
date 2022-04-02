@@ -1,15 +1,38 @@
 import { NextFunction, Response } from 'express'
-
 import { RequestWithBody } from '../../interfaces/Requests'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
 import {
 	createQuestionWithAnswers,
+	getAllQuestions,
 	getQuestionsForSubject,
 } from '../../prisma/queries/questions'
 import { controller, get, post, use } from '../decorators'
 
 @controller('/questions')
 export class SubjectController {
+	@get('/')
+	@use(teacherAuthMiddleware)
+	async getAllQuestions(
+		req: RequestWithBody,
+		res: Response,
+		next: NextFunction
+	): Promise<void> {
+		try {
+			const questions = await getAllQuestions()
+
+			if (!questions) {
+				res.status(404).send({
+					message: 'No questions for that subject found',
+				})
+				return
+			}
+
+			res.send({ results: questions.length, data: questions })
+		} catch (error) {
+			next(error)
+		}
+	}
+
 	@get('/subjects/:id')
 	@use(teacherAuthMiddleware)
 	async getQuestionsForSubject(

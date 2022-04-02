@@ -31,6 +31,6 @@ export const createQuestionWithAnswers = async ({
 		},
 	})
 
-	if (question) return newQuestion
+	if (newQuestion) return newQuestion
 	return null
 }
