@@ -7,6 +7,7 @@ describe('School-daschboard api', () => {
 			}).should(response => {
 				expect(response.status).to.eq(200)
 				expect(response.body).to.have.all.keys('token', 'data', 'message')
+				cy.log(JSON.stringify(response.body))
 			})
 		})
 

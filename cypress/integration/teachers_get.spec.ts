@@ -5,8 +5,6 @@ describe('School-daschboard api', () => {
 				method: 'GET',
 				url: '/teachers',
 			}).should(response => {
-				cy.log(JSON.stringify(response.body))
-
 				expect(response.status).to.eq(200)
 				expect(response.body.results).to.eq(1)
 				expect(response.body.data.length).to.be.eq(1)
