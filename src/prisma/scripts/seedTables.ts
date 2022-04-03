@@ -136,17 +136,17 @@ const createUserTeachers = async (
 }
 
 interface SeedData {
-	answers: Array<Answer>
-	profiles: Array<Profile>
-	questions: Array<Question>
-	scores: Array<Score>
-	schools: Array<School>
-	students: Array<Student>
-	subjects: Array<Subject>
-	teachers: Array<Teacher>
-	tests: Array<Test>
-	userStudents: Array<User>
-	userTeachers: Array<User>
+	answers?: Array<Answer>
+	profiles?: Array<Profile>
+	questions?: Array<Question>
+	scores?: Array<Score>
+	schools?: Array<School>
+	students?: Array<Student>
+	subjects?: Array<Subject>
+	teachers?: Array<Teacher>
+	tests?: Array<Test>
+	userStudents?: Array<User>
+	userTeachers?: Array<User>
 }
 
 export const seedData = async (
@@ -166,16 +166,16 @@ export const seedData = async (
 	}: SeedData
 ): Promise<void> => {
 	logInitSeed()
-	await createSchools(prisma, schools)
-	await createSubjects(prisma, subjects)
-	await createUserTeachers(prisma, userStudents)
-	await createUserStudents(prisma, userTeachers)
-	await createProfiles(prisma, profiles)
-	await createTeachers(prisma, teachers)
-	await createStudents(prisma, students)
-	await createQuestions(prisma, questions)
-	await createAnswers(prisma, answers)
-	await createTests(prisma, tests)
-	await createScores(prisma, scores)
+	if (schools) await createSchools(prisma, schools)
+	if (subjects) await createSubjects(prisma, subjects)
+	if (userStudents) await createUserTeachers(prisma, userStudents)
+	if (userTeachers) await createUserStudents(prisma, userTeachers)
+	if (profiles) await createProfiles(prisma, profiles)
+	if (teachers) await createTeachers(prisma, teachers)
+	if (students) await createStudents(prisma, students)
+	if (questions) await createQuestions(prisma, questions)
+	if (answers) await createAnswers(prisma, answers)
+	if (tests) await createTests(prisma, tests)
+	if (scores) await createScores(prisma, scores)
 	logFinishSeed()
 }

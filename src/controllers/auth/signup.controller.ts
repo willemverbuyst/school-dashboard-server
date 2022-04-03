@@ -11,9 +11,18 @@ export class SignupController {
 	@post('/signup/student')
 	async postSignupStudent(req: Request, res: Response): Promise<void> {
 		try {
-			const { email, userName, password, bio, schoolId, teacherId } = req.body
+			const { email, userName, password, bio, bsn, schoolId, teacherId } =
+				req.body
 
-			if (!email || !userName || !password || !bio || !schoolId || !teacherId) {
+			if (
+				!email ||
+				!userName ||
+				!password ||
+				!bsn ||
+				!bio ||
+				!schoolId ||
+				!teacherId
+			) {
 				res.status(422).send({ message: 'Missing input' })
 				return
 			}
@@ -23,6 +32,7 @@ export class SignupController {
 				userName,
 				password,
 				bio,
+				bsn,
 				schoolId,
 				teacherId
 			)
@@ -51,9 +61,9 @@ export class SignupController {
 	@post('/signup/teacher')
 	async postSignupTeacher(req: Request, res: Response): Promise<void> {
 		try {
-			const { email, userName, password, bio, schoolId } = req.body
+			const { email, userName, password, bio, bsn, schoolId } = req.body
 
-			if (!email || !userName || !password || !bio || !schoolId) {
+			if (!email || !userName || !password || !bsn || !bio || !schoolId) {
 				res.status(422).send({ message: 'Missing input' })
 				return
 			}
@@ -63,6 +73,7 @@ export class SignupController {
 				userName,
 				password,
 				bio,
+				bsn,
 				schoolId
 			)
 

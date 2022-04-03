@@ -28,7 +28,7 @@ Table Question {
 
 Table School {
   id String [pk]
-  name String [not null]
+  name String [unique, not null]
   location String [not null]
   students Student [not null]
   teachers Teacher [not null]
