@@ -8,6 +8,7 @@ export const createUserTeacher = async (
 	email: string,
 	userName: string,
 	passwordPlain: string,
+	bsn: string,
 	bio: string,
 	schoolId: string
 ): Promise<UserPlus | null> => {
@@ -17,6 +18,7 @@ export const createUserTeacher = async (
 			userName,
 			password: bcrypt.hashSync(passwordPlain, SALT_ROUNDS),
 			role: Role.TEACHER,
+			bsn,
 			profile: {
 				create: {
 					bio,

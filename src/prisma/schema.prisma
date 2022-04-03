@@ -67,7 +67,7 @@ model Student {
 
 model Subject {
   id          String      @id @default(uuid())
-  name        String 
+  name        String      @unique
   questions   Question[]
   tests       Test[]    
 }
@@ -96,6 +96,7 @@ model User {
   email       String      @unique
   userName    String
   password    String
+  bsn         String      @unique
   role        Role        @default(STUDENT)
   profile     Profile?
   student     Student?

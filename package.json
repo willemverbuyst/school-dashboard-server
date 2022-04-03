@@ -24,6 +24,7 @@
 		"@faker-js/faker": "^6.0.0",
 		"@prisma/client": "^3.11.0",
 		"bcrypt": "^5.0.1",
+		"bsn-js": "^1.0.4",
 		"concurrently": "^7.0.0",
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.0",

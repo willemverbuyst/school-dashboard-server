@@ -8,6 +8,7 @@ export const createUserStudent = async (
 	email: string,
 	userName: string,
 	passwordPlain: string,
+	bsn: string,
 	bio: string,
 	schoolId: string,
 	teacherId: string
@@ -18,6 +19,7 @@ export const createUserStudent = async (
 			userName,
 			password: bcrypt.hashSync(passwordPlain, SALT_ROUNDS),
 			role: Role.STUDENT,
+			bsn,
 			profile: {
 				create: {
 					bio,

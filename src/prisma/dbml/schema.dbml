@@ -56,7 +56,7 @@ Table Student {
 
 Table Subject {
   id String [pk]
-  name String [not null]
+  name String [unique, not null]
   questions Question [not null]
   tests Test [not null]
 }
@@ -85,6 +85,7 @@ Table User {
   email String [unique, not null]
   userName String [not null]
   password String [not null]
+  bsn String [unique, not null]
   role Role [not null, default: 'STUDENT']
   profile Profile
   student Student
