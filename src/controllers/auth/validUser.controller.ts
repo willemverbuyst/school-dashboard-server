@@ -1,7 +1,7 @@
 import { Response } from 'express'
 import { controller, get, use } from '../decorators'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { subjectQueries, userQueries } from '../../prisma/queries'
+import { subjectQueries, userQueries } from '../../queries'
 import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
 import { toJWT } from '../../auth/jwt'
 

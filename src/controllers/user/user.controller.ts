@@ -1,7 +1,7 @@
 import { Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
-import { testQueries } from '../../prisma/queries'
+import { testQueries } from '../../queries'
 import { controller, get, use } from '../decorators'
 
 const { getTestsForStudent } = testQueries

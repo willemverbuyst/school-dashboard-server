@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express'
 import { toData } from '../auth/jwt'
 import { RequestWithBody } from '../interfaces/Requests'
-import { userQueries } from '../prisma/queries'
+import { userQueries } from '../queries'
 
 const { getUserById } = userQueries
 

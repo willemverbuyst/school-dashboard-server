@@ -3,7 +3,7 @@ import { Response } from 'express'
 import { controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { subjectQueries, testQueries, userQueries } from '../../prisma/queries'
+import { subjectQueries, testQueries, userQueries } from '../../queries'
 import { Role } from '@prisma/client'
 
 const { getAllTestsForTeacher, getTestsForStudent } = testQueries

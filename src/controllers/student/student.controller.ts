@@ -2,7 +2,7 @@ import { Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
-import { studentQueries, testQueries } from '../../prisma/queries'
+import { studentQueries, testQueries } from '../../queries'
 import { controller, get, use } from '../decorators'
 
 const { getStudentWithTests } = studentQueries

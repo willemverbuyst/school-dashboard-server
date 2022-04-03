@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
-import { questionQueries, testQueries } from '../../prisma/queries'
+import { questionQueries, testQueries } from '../../queries'
 import { controller, get, post, use } from '../decorators'
 
 const { getQuestionsForTest } = questionQueries

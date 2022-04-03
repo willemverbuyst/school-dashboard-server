@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
 import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
-import { subjectQueries } from '../../prisma/queries'
+import { subjectQueries } from '../../queries'
 import { controller, get, post, use } from '../decorators'
 
 const { addSubject, getAllSubjects } = subjectQueries

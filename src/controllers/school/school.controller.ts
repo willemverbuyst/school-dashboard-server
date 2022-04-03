@@ -1,6 +1,6 @@
 import { NextFunction, Response } from 'express'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { schoolQueries } from '../../prisma/queries'
+import { schoolQueries } from '../../queries'
 import { controller, get } from '../decorators'
 
 const { getAllSchools } = schoolQueries

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { controller, post } from '../decorators'
 import { toJWT } from '../../auth/jwt'
-import { subjectQueries, userQueries } from '../../prisma/queries'
+import { subjectQueries, userQueries } from '../../queries'
 
 const { getAllSubjects } = subjectQueries
 const { createUserStudent, createUserTeacher } = userQueries
