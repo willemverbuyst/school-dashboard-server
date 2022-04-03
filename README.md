@@ -2,7 +2,9 @@
 
 ## What is this?
 
-This is the repository with the server that is part of my full-stack dashboard project. More details [here](https://github.com/willemverbuyst/school-dashboard-frontend).
+The server that is part of the full-stack school-dashboard project.
+
+More details [here](https://github.com/willemverbuyst/school-dashboard-frontend).
 
 ## Installation
 
@@ -18,11 +20,9 @@ This is the repository with the server that is part of my full-stack dashboard p
 
 ## Prisma
 
-> cd into ./src
+> npx prisma migrate
 
-> npx prisma db push --preview-feature
-
-> npx ts-node ./prisma.ts
+> npx ts-node <NAME_OF_SCRIPT>
 
 > npx prisma studio
 
