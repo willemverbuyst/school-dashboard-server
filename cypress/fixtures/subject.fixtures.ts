@@ -1,9 +1,12 @@
 import { Subject } from '@prisma/client'
-import { v4 as uuidv4 } from 'uuid'
 
-export const subjects: Array<Subject> = Array(3)
-	.fill(0)
-	.map((_, i) => ({
-		id: uuidv4(),
-		name: `test_name_${i + 1}`,
-	}))
+export const subjects: Array<Subject> = [
+	{
+		id: 'bfe7c197-df4d-49db-bfef-eb529d89f4a1',
+		name: 'test_name_1',
+	},
+	{
+		id: '27ba6ec5-497d-4ec6-9c03-bade472b048a',
+		name: 'test_name_2',
+	},
+]

@@ -1,11 +1,10 @@
 import { Role, User } from '@prisma/client'
-import { v4 as uuidv4 } from 'uuid'
 import { SALT_ROUNDS } from '../../src/config/constants'
 const bcrypt = require('bcrypt')
 
 export const userStudents: Array<User> = [
 	{
-		id: uuidv4(),
+		id: 'd9954384-89f2-4de1-a4cd-1bbb5c3a5b92',
 		email: 'test@students.com',
 		userName: 'test_student',
 		role: Role.STUDENT,
@@ -16,7 +15,7 @@ export const userStudents: Array<User> = [
 
 export const userTeachers: Array<User> = [
 	{
-		id: uuidv4(),
+		id: 'd8506c42-bdff-46fb-b0f6-679f1ee22961',
 		email: 'test@teacher.com',
 		userName: 'test_teacher',
 		role: Role.TEACHER,
