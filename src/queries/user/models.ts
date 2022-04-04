@@ -45,3 +45,13 @@ export interface UserWithIds extends UserWithoutPassword {
 	student: { id: string } | null
 	teacher: { id: string } | null
 }
+
+export interface InputCreateUserStudent {
+	email: string
+	userName: string
+	passwordText: string
+	bsn: string
+	bio: string
+	schoolId: string
+	teacherId: string
+}

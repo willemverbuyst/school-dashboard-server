@@ -5,11 +5,11 @@ const bcrypt = require('bcrypt')
 export const userStudents: Array<User> = [
 	{
 		id: 'd9954384-89f2-4de1-a4cd-1bbb5c3a5b92',
-		email: 'test@students.com',
+		email: 'test@student.com',
 		userName: 'test_student',
 		role: Role.STUDENT,
 		password: bcrypt.hashSync('123', SALT_ROUNDS),
-		bsn: '000000000',
+		bsn: '999996575',
 	},
 ]
 
@@ -20,6 +20,6 @@ export const userTeachers: Array<User> = [
 		userName: 'test_teacher',
 		role: Role.TEACHER,
 		password: bcrypt.hashSync('123', SALT_ROUNDS),
-		bsn: '999999999',
+		bsn: '999990469',
 	},
 ]

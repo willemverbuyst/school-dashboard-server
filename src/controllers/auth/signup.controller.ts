@@ -27,15 +27,15 @@ export class SignupController {
 				return
 			}
 
-			const user = await createUserStudent(
+			const user = await createUserStudent({
 				email,
 				userName,
-				password,
+				passwordText: password,
 				bio,
 				bsn,
 				schoolId,
-				teacherId
-			)
+				teacherId,
+			})
 
 			if (!user) {
 				res.status(500).send({ message: 'User not created' })
