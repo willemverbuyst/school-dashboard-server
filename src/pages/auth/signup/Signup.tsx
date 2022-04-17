@@ -99,21 +99,21 @@ const Signup = (): ReactElement => {
 						<Form.Item
 							name="fullName"
 							rules={[
-								{ required: true, message: 'Please input your full name!' },
+								{ required: true, message: 'Please enter your full name!' },
 							]}
 						>
 							<Input placeholder="Full name" />
 						</Form.Item>
 						<Form.Item
 							name="email"
-							rules={[{ required: true, message: 'Please input your email!' }]}
+							rules={[{ required: true, message: 'Please enter your email!' }]}
 						>
 							<Input placeholder="Email" />
 						</Form.Item>
 						<Form.Item
 							name="password"
 							rules={[
-								{ required: true, message: 'Please input your password!' },
+								{ required: true, message: 'Please enter your password!' },
 							]}
 						>
 							<Input.Password placeholder="Password" />

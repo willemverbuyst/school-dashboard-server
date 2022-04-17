@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { Layout, Form, Button, Row, Col, PageHeader } from 'antd'
-import TextInput from '../../../components/form/TextInput'
-import PasswordInput from '../../../components/form/PasswordInput'
-import { ButtonEvent } from '../../../models/events.models'
+import { Button, Col, Form, Input, Layout, Row, PageHeader } from 'antd'
 import { useAuth } from '../hooks/useAuth'
 import { useUser } from '../hooks/useUser'
 
 const { Content } = Layout
 
+interface LoginInput {
+	email: string
+	password: string
+}
+
 export default function Login() {
+	const [form] = Form.useForm()
 	const history = useHistory()
 	const { login } = useAuth()
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
 	const { user } = useUser()
 	const roleForUrl = user?.data.user.role?.toLowerCase() + 's'
 
@@ -23,9 +24,9 @@ export default function Login() {
 		}
 	}, [roleForUrl, user, history])
 
-	const submitForm = (event: ButtonEvent): void => {
-		event.preventDefault()
+	const handleSubmit = ({ email, password }: LoginInput): void => {
 		login(email, password)
+		form.resetFields()
 	}
 
 	return (
@@ -35,19 +36,27 @@ export default function Login() {
 			</Row>
 			<Row justify="center">
 				<Col style={{ width: 350 }}>
-					<Form name="basic" initialValues={{ remember: true }}>
-						<TextInput
-							name="Email"
-							message="Please input your email!"
-							value={email}
-							updateValue={e => setEmail(e.target.value)}
-						/>
-						<PasswordInput
-							name="Password"
-							message="Please input your password!"
-							value={password}
-							updateValue={e => setPassword(e.target.value)}
-						/>
+					<Form
+						form={form}
+						name="basic"
+						initialValues={{ remember: true }}
+						onFinish={handleSubmit}
+					>
+						<Form.Item
+							name="email"
+							rules={[{ required: true, message: 'Please enter your email!' }]}
+						>
+							<Input placeholder="Email" />
+						</Form.Item>
+						<Form.Item
+							name="password"
+							rules={[
+								{ required: true, message: 'Please enter your password!' },
+							]}
+						>
+							<Input.Password placeholder="Password" />
+						</Form.Item>
+
 						<Form.Item>
 							<Link style={{ color: '#FF2694' }} to="/signup">
 								Click here to sign up
@@ -58,7 +67,6 @@ export default function Login() {
 							<Button
 								type="primary"
 								htmlType="submit"
-								onClick={submitForm}
 								style={{ backgroundColor: '#B81D9D', border: 'none' }}
 							>
 								Login
