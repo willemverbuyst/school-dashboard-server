@@ -9,17 +9,29 @@ import {
 	Row,
 	Select,
 } from 'antd'
-import { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { useTeachers } from './hooks/useTeachers'
 import { useSchools } from './hooks/useSchools'
+import { useHistory } from 'react-router-dom'
+import { useUser } from '../hooks/useUser'
 
 const { Content } = Layout
 const { Option } = Select
 
 const Signup = (): ReactElement => {
 	const [form] = Form.useForm()
+	const history = useHistory()
 	const schools = useSchools()
 	const teachers = useTeachers()
+	const { user } = useUser()
+	const roleForUrl = user?.data.user.role?.toLowerCase() + 's'
+	const [showTeachers, setShowTeachers] = useState<boolean>(false)
+
+	useEffect(() => {
+		if (user !== null) {
+			history.push(`/${roleForUrl}/${user.data.user.id}`)
+		}
+	}, [roleForUrl, user, history])
 
 	const handleSubmit = input => {
 		console.log('input :>> ', input)
@@ -27,22 +39,23 @@ const Signup = (): ReactElement => {
 		form.resetFields()
 	}
 
-	const renderExtraInput = (): ReactElement => {
-		return (
-			<Form.Item
-				name="teacher"
-				rules={[{ required: true, message: 'Please select your teacher!' }]}
-			>
-				<Select placeholder="Select your teacher" style={{ width: 350 }}>
-					{teachers.map(({ user: { userName }, id }, i) => (
-						<Option key={i} value={id}>
-							{userName}
-						</Option>
-					))}
-				</Select>
-			</Form.Item>
-		)
-	}
+	const showDropdownWithTeachers = ({ role }): void =>
+		role === 'student' ? setShowTeachers(true) : setShowTeachers(false)
+
+	const renderDropdownWithTeachers = (): ReactElement => (
+		<Form.Item
+			name="teacher"
+			rules={[{ required: true, message: 'Please select your teacher!' }]}
+		>
+			<Select placeholder="Select your teacher" style={{ width: 350 }}>
+				{teachers.map(({ user: { userName }, id }, i) => (
+					<Option key={i} value={id}>
+						{userName}
+					</Option>
+				))}
+			</Select>
+		</Form.Item>
+	)
 
 	return (
 		<Content className="site-layout-content" style={{ padding: 90 }}>
@@ -56,6 +69,7 @@ const Signup = (): ReactElement => {
 						name="basic"
 						initialValues={{ remember: true }}
 						onFinish={handleSubmit}
+						onValuesChange={showDropdownWithTeachers}
 					>
 						<Form.Item
 							name="role"
@@ -80,7 +94,7 @@ const Signup = (): ReactElement => {
 							</Select>
 						</Form.Item>
 
-						{teachers.length ? renderExtraInput() : null}
+						{showTeachers ? renderDropdownWithTeachers() : null}
 
 						<Form.Item
 							name="fullName"
