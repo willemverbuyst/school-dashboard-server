@@ -4,7 +4,7 @@ import { ApiTeacher, Teacher } from '../../../../models/teacher.models'
 import { queryKeys } from '../../../../react-query/constants'
 
 export const getTeachers = async (): Promise<ApiTeacher> => {
-	const { data } = await axiosInstance.get('/teachers')
+	const { data } = await axiosInstance.get('/public/teachers')
 	return data
 }
 

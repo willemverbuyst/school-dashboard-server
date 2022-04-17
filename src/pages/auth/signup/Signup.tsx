@@ -1,7 +1,14 @@
-import { useState } from 'react'
-import { Layout, Form, Input, Button, Radio, Select, Row, Col } from 'antd'
-import PasswordInput from '../../../components/form/PasswordInput'
-import TextInput from '../../../components/form/TextInput'
+import {
+	Button,
+	Col,
+	Form,
+	Input,
+	Layout,
+	PageHeader,
+	Radio,
+	Row,
+	Select,
+} from 'antd'
 import { ReactElement } from 'react'
 import { useTeachers } from './hooks/useTeachers'
 import { useSchools } from './hooks/useSchools'
@@ -10,38 +17,23 @@ const { Content } = Layout
 const { Option } = Select
 
 const Signup = (): ReactElement => {
-	const [school, setSchool] = useState<string>('')
-	const [status, setStatus] = useState(1)
-	const [teacher, setTeacher] = useState(1)
-	const [name, setName] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
+	const [form] = Form.useForm()
 	const schools = useSchools()
 	const teachers = useTeachers()
 
-	const createUser = (): void => {
-		console.log('test')
-		// if (status === 1) {
-		//   dispatch(createStudent(status, name, email, password, teacher));
-		//   history.push(`/`);
-		// } else {
-		//   dispatch(createTeacher(status, name, email, password));
-		//   history.push(`/`);
-		// }
+	const handleSubmit = input => {
+		console.log('input :>> ', input)
+
+		form.resetFields()
 	}
 
 	const renderExtraInput = (): ReactElement => {
 		return (
 			<Form.Item
-				name="Teacher"
+				name="teacher"
 				rules={[{ required: true, message: 'Please select your teacher!' }]}
 			>
-				<Select
-					placeholder="Select your teacher"
-					value={teacher}
-					style={{ width: 350 }}
-					onChange={e => setTeacher(e)}
-				>
+				<Select placeholder="Select your teacher" style={{ width: 350 }}>
 					{teachers.map(({ user: { userName }, id }, i) => (
 						<Option key={i} value={id}>
 							{userName}
@@ -53,85 +45,78 @@ const Signup = (): ReactElement => {
 	}
 
 	return (
-		<Layout style={{ padding: '24px', height: '92vh' }}>
-			<Content
-				className="site-layout-background"
-				style={{
-					padding: 90,
-				}}
-			>
-				<Row justify="center">
-					<Col style={{ width: 350 }}>
-						<Form name="basic" initialValues={{ remember: true }}>
-							<Form.Item>
-								<Radio.Group
-									value={status}
-									onChange={e => setStatus(e.target.value)}
-								>
-									<Radio value={1}>Student</Radio>
-									<Radio value={2}>Teacher</Radio>
-								</Radio.Group>
-							</Form.Item>
+		<Content className="site-layout-content" style={{ padding: 90 }}>
+			<Row justify="center">
+				<PageHeader title="Signup" />
+			</Row>
+			<Row justify="center">
+				<Col style={{ width: 350 }}>
+					<Form
+						form={form}
+						name="basic"
+						initialValues={{ remember: true }}
+						onFinish={handleSubmit}
+					>
+						<Form.Item
+							name="role"
+							rules={[{ required: true, message: 'Please select your role!' }]}
+						>
+							<Radio.Group>
+								<Radio value="student">Student</Radio>
+								<Radio value="teacher">Teacher</Radio>
+							</Radio.Group>
+						</Form.Item>
 
-							<Form.Item
-								name="School"
-								rules={[{ required: true, message: 'Please select a school!' }]}
+						<Form.Item
+							name="school"
+							rules={[{ required: true, message: 'Please select a school!' }]}
+						>
+							<Select placeholder="Select a school" style={{ width: 350 }}>
+								{schools.map(({ name, id }, i) => (
+									<Option key={id} value={id}>
+										{name}
+									</Option>
+								))}
+							</Select>
+						</Form.Item>
+
+						{teachers.length ? renderExtraInput() : null}
+
+						<Form.Item
+							name="fullName"
+							rules={[
+								{ required: true, message: 'Please input your full name!' },
+							]}
+						>
+							<Input placeholder="Full name" />
+						</Form.Item>
+						<Form.Item
+							name="email"
+							rules={[{ required: true, message: 'Please input your email!' }]}
+						>
+							<Input placeholder="Email" />
+						</Form.Item>
+						<Form.Item
+							name="password"
+							rules={[
+								{ required: true, message: 'Please input your password!' },
+							]}
+						>
+							<Input.Password placeholder="Password" />
+						</Form.Item>
+						<Form.Item>
+							<Button
+								type="primary"
+								htmlType="submit"
+								style={{ backgroundColor: '#B81D9D', border: 'none' }}
 							>
-								<Select
-									placeholder="Select a school"
-									value={school}
-									style={{ width: 350 }}
-									onChange={e => setSchool(e)}
-								>
-									{schools.map(({ name, id }, i) => (
-										<Option key={id} value={id}>
-											{name}
-										</Option>
-									))}
-								</Select>
-							</Form.Item>
-
-							{teachers && status === 1 ? renderExtraInput() : null}
-
-							<Form.Item
-								name="Full name"
-								rules={[
-									{ required: true, message: 'Please input your full name!' },
-								]}
-							>
-								<Input
-									placeholder="Full name"
-									value={name}
-									onChange={e => setName(e.target.value)}
-								/>
-							</Form.Item>
-							<TextInput
-								name="Email"
-								message="Please input your email!"
-								value={email}
-								updateValue={e => setEmail(e.target.value)}
-							/>
-							<PasswordInput
-								name="Password"
-								message="Please input your password!"
-								value={password}
-								updateValue={e => setPassword(e.target.value)}
-							/>
-							<Form.Item>
-								<Button
-									type="primary"
-									htmlType="submit"
-									onClick={() => createUser()}
-									style={{ backgroundColor: '#B81D9D', border: 'none' }}
-								>
-									Signup
-								</Button>
-							</Form.Item>
-						</Form>
-					</Col>
-				</Row>
-			</Content>
-		</Layout>
+								Signup
+							</Button>
+						</Form.Item>
+					</Form>
+				</Col>
+			</Row>
+		</Content>
 	)
 }
 
