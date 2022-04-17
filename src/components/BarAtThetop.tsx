@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import LoginButton from './LoginButton'
-import LogoutButton from './LogoutButton'
+import LoginButton from './buttons/LoginButton'
+import LogoutButton from './buttons/LogoutButton'
 import { Layout } from 'antd'
 import { useUser } from '../pages/auth/hooks/useUser'
 
