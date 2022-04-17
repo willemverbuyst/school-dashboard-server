@@ -1,7 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { createQuestion } from '../../../../store/questions/actions'
 import { Layout, Form, Input, Button, Select, Row, Col } from 'antd'
 import FormItem from './FormItem'
 import { useUser } from '../../../auth/hooks/useUser'
@@ -21,7 +19,7 @@ interface IPostNewQuestion {
 const AddQuestionForm = (): ReactElement => {
 	const history = useHistory()
 	const { user } = useUser()
-	const dispatch = useDispatch()
+
 	const subjects = user?.data.subjects.data || []
 	const [newQuestion, setNewQuestion] = useState<IPostNewQuestion>({
 		subject: 1,
@@ -37,10 +35,6 @@ const AddQuestionForm = (): ReactElement => {
 			history.push('/')
 		}
 	})
-
-	const addQuestion = () => {
-		dispatch(createQuestion(newQuestion))
-	}
 
 	const updateValue = (e: any, value: any) => {
 		console.log(e, value)
@@ -186,7 +180,7 @@ const AddQuestionForm = (): ReactElement => {
 										}}
 										type="primary"
 										htmlType="submit"
-										onClick={addQuestion}
+										// onClick={addQuestion}
 									>
 										Add question to the list
 									</Button>
