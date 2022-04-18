@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react'
 import { useQuery } from 'react-query'
-import { axiosInstance, getJWTHeader } from '../axiosInstance'
-import { ApiUser } from '../models/api/user.api'
-import { queryKeys } from '../react-query/constants'
-import { useUser } from '../hooks/useUser'
+import { axiosInstance, getJWTHeader } from '../../axiosInstance'
+import { ApiUser } from '../../models/api/user.api'
+import { queryKeys } from '../../react-query/constants'
+import { useUser } from '../auth/useUser'
 import { filterBySubject } from './helpers/filterQuestions'
 
 const getQuestions = async (user: ApiUser | null) => {

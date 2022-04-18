@@ -1,12 +1,12 @@
 import React, { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout, Row } from 'antd'
-import BarChartMain from './BarChartMain'
+// import BarChartMain from './BarChartMain'
 import LineChartMain from './LineChartMain'
 import PieChartMain from './PieChartMain'
 import ScatterChartMain from './ScatterChartMain'
 import Spinner from '../../../components/Spinner'
-import { useUser } from '../../../hooks/useUser'
+import { useUser } from '../../../hooks'
 
 const { Content } = Layout
 

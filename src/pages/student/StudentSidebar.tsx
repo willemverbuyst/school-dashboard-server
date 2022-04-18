@@ -2,7 +2,7 @@ import { useHistory } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 import { ReactElement } from 'react'
 import renderSideBarNav from '../../components/sidebar/renderSideBarNav'
-import { useUser } from '../../hooks/useUser'
+import { useUser } from '../../hooks'
 
 const { Sider } = Layout
 

@@ -1,12 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
-import { axiosInstance } from '../axiosInstance'
-import { Toast } from '../components/toast'
-import { ApiUser } from '../models/api/user.api'
+import { axiosInstance } from '../../axiosInstance'
+import { Toast } from '../../components/toast'
+import { ApiError } from '../../models/api/error.api'
+import { ApiUser } from '../../models/api/user.api'
 import { useUser } from './useUser'
-
-export interface ApiError {
-	message: string
-}
 
 export type AuthResponse = ApiUser | ApiError
 

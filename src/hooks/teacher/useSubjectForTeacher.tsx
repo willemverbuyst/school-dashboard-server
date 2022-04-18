@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from 'react-query'
-import { useUser } from '../hooks/useUser'
-import { axiosInstance, getJWTHeader } from '../axiosInstance'
-import { ApiUser } from '../models/api/user.api'
-import { queryKeys } from '../react-query/constants'
-import { Toast } from '../components/toast'
+import { useUser } from '../auth/useUser'
+import { axiosInstance, getJWTHeader } from '../../axiosInstance'
+import { ApiUser } from '../../models/api/user.api'
+import { queryKeys } from '../../react-query/constants'
+import { Toast } from '../../components/toast'
 
 const addSubject = async (subjectName: string, user: ApiUser | null) => {
 	try {
@@ -21,7 +21,7 @@ const addSubject = async (subjectName: string, user: ApiUser | null) => {
 	}
 }
 
-export const useSubject = () => {
+export const useSubjectForTeacher = () => {
 	const { user } = useUser()
 	const queryClient = useQueryClient()
 	const { mutate } = useMutation(

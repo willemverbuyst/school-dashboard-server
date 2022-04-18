@@ -1,8 +1,9 @@
 import axios, { AxiosResponse } from 'axios'
-import { axiosInstance } from '../axiosInstance'
-import { Toast } from '../components/toast'
-import { ApiUser } from '../models/api/user.api'
-import { useUser } from '../hooks/useUser'
+import { axiosInstance } from '../../axiosInstance'
+import { Toast } from '../../components/toast'
+import { ApiError } from '../../models/api/error.api'
+import { ApiUser } from '../../models/api/user.api'
+import { useUser } from './useUser'
 
 export interface SignupInput {
 	bio: string
@@ -13,10 +14,6 @@ export interface SignupInput {
 	school: string
 	teacher: string
 	userName: string
-}
-
-export interface ApiError {
-	message: string
 }
 
 export const useSignup = () => {

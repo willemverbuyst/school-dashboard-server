@@ -9,7 +9,7 @@ import {
 import { ReactElement } from 'react'
 import renderSideBarNav from '../../components/sidebar/renderSideBarNav'
 import { adminTasks } from '../../constants/constants'
-import { useUser } from '../../hooks/useUser'
+import { useUser } from '../../hooks'
 
 const { SubMenu } = Menu
 const { Sider } = Layout

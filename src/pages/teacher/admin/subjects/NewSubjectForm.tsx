@@ -1,8 +1,7 @@
 import { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout, Form, Input, Button, Row, Col } from 'antd'
-import { useUser } from '../../../../hooks/useUser'
-import { useSubject } from '../../../../hooks/useSubject'
+import { useSubjectForTeacher, useUser } from '../../../../hooks'
 
 const { Content } = Layout
 
@@ -10,7 +9,7 @@ const NewSubjectForm = (): ReactElement => {
 	const [form] = Form.useForm()
 	const history = useHistory()
 	const { user } = useUser()
-	const addSubject = useSubject()
+	const addSubject = useSubjectForTeacher()
 
 	useEffect(() => {
 		if (user?.token === null || user?.data.user.role !== 'TEACHER') {

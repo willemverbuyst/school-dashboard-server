@@ -5,8 +5,7 @@ import DoughnutChartDetails from './DoughnutChartDetails'
 import BarChartDetails from './BarChartDetails'
 import NumberOfTests from './NumberOfTests'
 import TestButton from './TestButton'
-import { useUser } from '../../../hooks/useUser'
-import { useSubject } from '../hooks/useSubject'
+import { useSubjectForStudent, useUser } from '../../../hooks'
 
 const { Content } = Layout
 
@@ -14,7 +13,7 @@ export default function StudentSubjectDetails() {
 	const { subjectid } = useParams<{ subjectid: string }>()
 	const history = useHistory()
 	const { user } = useUser()
-	const { subject, subjectId, setSubjectId } = useSubject()
+	const { subject, subjectId, setSubjectId } = useSubjectForStudent()
 	const subjects = user?.data.subjects.data || []
 
 	useEffect(() => {

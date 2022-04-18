@@ -3,8 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Button, Layout, Row } from 'antd'
 import QuestionsAndAnswers from './QuestionsAndAnswers'
 import Spinner from '../../../../components/Spinner'
-import { useUser } from '../../../../hooks/useUser'
-import { useQuestions } from '../../../../hooks/useQuestion'
+import { useQuestions, useUser } from '../../../../hooks/'
 import SubjectSelector from './SubjectSelector'
 
 const { Content } = Layout

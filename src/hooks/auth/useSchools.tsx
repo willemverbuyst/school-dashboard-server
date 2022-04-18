@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
-import { axiosInstance } from '../axiosInstance'
-import { ApiSchool, School } from '../models/schools.models'
-import { queryKeys } from '../react-query/constants'
+import { axiosInstance } from '../../axiosInstance'
+import { ApiSchool, School } from '../../models/schools.models'
+import { queryKeys } from '../../react-query/constants'
 
 export const getSchools = async (): Promise<ApiSchool> => {
 	const { data } = await axiosInstance.get('/schools')

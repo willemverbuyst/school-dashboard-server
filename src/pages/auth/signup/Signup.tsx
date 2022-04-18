@@ -10,11 +10,14 @@ import {
 	Select,
 } from 'antd'
 import { ReactElement, useEffect, useState } from 'react'
-import { useTeachers } from '../../../hooks/useTeachers'
-import { useSchools } from '../../../hooks/useSchools'
 import { useHistory } from 'react-router-dom'
-import { useUser } from '../../../hooks/useUser'
-import { SignupInput, useSignup } from '../../../hooks/useSignup'
+import {
+	SignupInput,
+	useSchools,
+	useSignup,
+	useTeachers,
+	useUser,
+} from '../../../hooks'
 
 const { Content } = Layout
 const { Option } = Select
