@@ -9,8 +9,8 @@ const { Content } = Layout
 export default function StudentMainPage(): ReactElement {
 	const history = useHistory()
 	const { user } = useUser()
-	const testResults = user?.data.overview.data || []
-	const subjects = user?.data.subjects.data || []
+	const testResults = user?.data?.overview?.data || []
+	const subjects = user?.data?.subjects?.data || []
 
 	useEffect(() => {
 		if (!user || user.token === null) {

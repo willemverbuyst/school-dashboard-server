@@ -50,10 +50,6 @@ export const useAuth = () => {
 		}
 	}
 
-	// todo add extra input
-	const signup = async (email: string, password: string): Promise<void> =>
-		authServerCall('/auth/signup', email, password)
-
 	const login = async (email: string, password: string): Promise<void> =>
 		authServerCall('/auth/login', email, password)
 
@@ -62,6 +58,5 @@ export const useAuth = () => {
 	return {
 		login,
 		logout,
-		signup,
 	}
 }

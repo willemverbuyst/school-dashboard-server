@@ -14,6 +14,7 @@ import { useTeachers } from './hooks/useTeachers'
 import { useSchools } from './hooks/useSchools'
 import { useHistory } from 'react-router-dom'
 import { useUser } from '../hooks/useUser'
+import { SignupInput, useSignup } from './hooks/useSignup'
 
 const { Content } = Layout
 const { Option } = Select
@@ -22,6 +23,7 @@ const Signup = (): ReactElement => {
 	const [form] = Form.useForm()
 	const history = useHistory()
 	const schools = useSchools()
+	const { signup } = useSignup()
 	const teachers = useTeachers()
 	const { user } = useUser()
 	const roleForUrl = user?.data.user.role?.toLowerCase() + 's'
@@ -33,14 +35,14 @@ const Signup = (): ReactElement => {
 		}
 	}, [roleForUrl, user, history])
 
-	const handleSubmit = input => {
-		console.log('input :>> ', input)
-
+	const handleSubmit = (input: SignupInput) => {
+		signup(input)
 		form.resetFields()
 	}
 
-	const showDropdownWithTeachers = ({ role }): void =>
-		role === 'student' ? setShowTeachers(true) : setShowTeachers(false)
+	const showDropdownWithTeachers = (value: string): void => {
+		value === 'student' ? setShowTeachers(true) : setShowTeachers(false)
+	}
 
 	const renderDropdownWithTeachers = (): ReactElement => (
 		<Form.Item
@@ -62,6 +64,7 @@ const Signup = (): ReactElement => {
 			<Row justify="center">
 				<PageHeader title="Signup" />
 			</Row>
+
 			<Row justify="center">
 				<Col style={{ width: 350 }}>
 					<Form
@@ -69,13 +72,14 @@ const Signup = (): ReactElement => {
 						name="basic"
 						initialValues={{ remember: true }}
 						onFinish={handleSubmit}
-						onValuesChange={showDropdownWithTeachers}
 					>
 						<Form.Item
 							name="role"
 							rules={[{ required: true, message: 'Please select your role!' }]}
 						>
-							<Radio.Group>
+							<Radio.Group
+								onChange={e => showDropdownWithTeachers(e.target.value)}
+							>
 								<Radio value="student">Student</Radio>
 								<Radio value="teacher">Teacher</Radio>
 							</Radio.Group>
@@ -97,19 +101,35 @@ const Signup = (): ReactElement => {
 						{showTeachers ? renderDropdownWithTeachers() : null}
 
 						<Form.Item
-							name="fullName"
+							name="userName"
 							rules={[
-								{ required: true, message: 'Please enter your full name!' },
+								{ required: true, message: 'Please enter your username!' },
 							]}
 						>
-							<Input placeholder="Full name" />
+							<Input placeholder="Username" />
 						</Form.Item>
+
 						<Form.Item
 							name="email"
 							rules={[{ required: true, message: 'Please enter your email!' }]}
 						>
 							<Input placeholder="Email" />
 						</Form.Item>
+
+						<Form.Item
+							name="bsn"
+							rules={[{ required: true, message: 'Please enter your bsn!' }]}
+						>
+							<Input placeholder="BSN" />
+						</Form.Item>
+
+						<Form.Item
+							name="bio"
+							rules={[{ required: true, message: 'Please enter your bio!' }]}
+						>
+							<Input.TextArea placeholder="Bio" />
+						</Form.Item>
+
 						<Form.Item
 							name="password"
 							rules={[
@@ -118,6 +138,7 @@ const Signup = (): ReactElement => {
 						>
 							<Input.Password placeholder="Password" />
 						</Form.Item>
+
 						<Form.Item>
 							<Button
 								type="primary"
