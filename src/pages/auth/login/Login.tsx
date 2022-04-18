@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { Button, Col, Form, Input, Layout, Row, PageHeader } from 'antd'
+import { Button, Col, Form, Input, Layout, Row } from 'antd'
 import { useAuth, useUser } from '../../../hooks'
 
 const { Content } = Layout
@@ -30,8 +30,8 @@ export default function Login() {
 
 	return (
 		<Content className="site-layout-content" style={{ padding: 90 }}>
-			<Row justify="center">
-				<PageHeader title="Login" />
+			<Row justify="center" style={{ padding: '24px' }}>
+				LOGIN
 			</Row>
 			<Row justify="center">
 				<Col style={{ width: 350 }}>

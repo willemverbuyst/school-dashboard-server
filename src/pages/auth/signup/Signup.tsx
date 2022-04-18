@@ -1,14 +1,4 @@
-import {
-	Button,
-	Col,
-	Form,
-	Input,
-	Layout,
-	PageHeader,
-	Radio,
-	Row,
-	Select,
-} from 'antd'
+import { Button, Col, Form, Input, Layout, Radio, Row, Select } from 'antd'
 import { ReactElement, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import {
@@ -64,8 +54,8 @@ const Signup = (): ReactElement => {
 
 	return (
 		<Content className="site-layout-content" style={{ padding: 90 }}>
-			<Row justify="center">
-				<PageHeader title="Signup" />
+			<Row justify="center" style={{ padding: '24px' }}>
+				SIGNUP
 			</Row>
 
 			<Row justify="center">

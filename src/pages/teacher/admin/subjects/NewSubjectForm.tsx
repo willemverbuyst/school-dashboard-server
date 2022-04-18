@@ -25,7 +25,7 @@ const NewSubjectForm = (): ReactElement => {
 	return (
 		<Content className="site-layout-content" style={{ padding: 90 }}>
 			<Row justify="center" style={{ padding: '24px' }}>
-				{'Add a subject'.toUpperCase()}
+				ADD SUBJECT
 			</Row>
 
 			<Row justify="center">
