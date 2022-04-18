@@ -2,16 +2,16 @@ import { Switch, Route } from 'react-router-dom'
 import Home from './pages/home'
 import Login from './pages/auth/login/Login'
 import Signup from './pages/auth/signup/Signup'
-import StudentMainPage from './pages/student/mainpage'
-import StudentSubjectDetails from './pages/student/subjectDetails'
-import StudentDoTest from './pages/student/test/StudentDoTest'
 import TeacherMainPage from './pages/teacher/mainpage'
-import TeacherStudentDetails from './pages/teacher/studentDetails'
-import TeacherSubjectDetails from './pages/teacher/subjectDetails'
+import TeacherStudent from './pages/teacher/student'
+import TeacherSubject from './pages/teacher/subject'
 import ListOfQuestions from './pages/teacher/admin/questions/ListOfQuestions'
 import AddQuestionForm from './pages/teacher/admin/questions/AddQuestionForm'
 import NewSubjectForm from './pages/teacher/admin/subjects/NewSubjectForm'
 import * as ROUTES from './constants/routes'
+import StudentMainPage from './pages/student//mainpage'
+import StudentSubject from './pages/student/subject'
+import StudentTest from './pages/student/test'
 
 const AppRouter = (): JSX.Element => {
 	return (
@@ -20,23 +20,11 @@ const AppRouter = (): JSX.Element => {
 			<Route exact path={ROUTES.LOG_IN} component={Login} />
 			<Route exact path={ROUTES.SIGN_UP} component={Signup} />
 			<Route exact path={ROUTES.STUDENT_MAIN} component={StudentMainPage} />
-			<Route
-				exact
-				path={ROUTES.STUDENT_SUBJECTS}
-				component={StudentSubjectDetails}
-			/>
-			<Route exact path={ROUTES.STUDENT_TEST} component={StudentDoTest} />
+			<Route exact path={ROUTES.STUDENT_SUBJECTS} component={StudentSubject} />
+			<Route exact path={ROUTES.STUDENT_TEST} component={StudentTest} />
 			<Route exact path={ROUTES.TEACHER_MAIN} component={TeacherMainPage} />
-			<Route
-				exact
-				path={ROUTES.TEACHER_STUDENT}
-				component={TeacherStudentDetails}
-			/>
-			<Route
-				exact
-				path={ROUTES.TEACHER_SUBJECT}
-				component={TeacherSubjectDetails}
-			/>
+			<Route exact path={ROUTES.TEACHER_STUDENT} component={TeacherStudent} />
+			<Route exact path={ROUTES.TEACHER_SUBJECT} component={TeacherSubject} />
 			<Route
 				exact
 				path={ROUTES.TEACHER_QUESTIONS_LIST}

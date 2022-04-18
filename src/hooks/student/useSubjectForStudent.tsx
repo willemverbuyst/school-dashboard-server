@@ -11,9 +11,12 @@ const getSubjectWithResults = async (
 ) => {
 	try {
 		if (!user) return null
-		const { data } = await axiosInstance.get(`/student/subjects/${subjectId}`, {
-			headers: getJWTHeader(user),
-		})
+		const { data } = await axiosInstance.get(
+			`/students/subjects/${subjectId}`,
+			{
+				headers: getJWTHeader(user),
+			}
+		)
 
 		return data.data
 	} catch (error) {

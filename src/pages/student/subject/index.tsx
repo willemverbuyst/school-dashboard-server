@@ -9,7 +9,7 @@ import { useSubjectForStudent, useUser } from '../../../hooks'
 
 const { Content } = Layout
 
-export default function StudentSubjectDetails() {
+export default function StudentSubject() {
 	const { subjectid } = useParams<{ subjectid: string }>()
 	const history = useHistory()
 	const { user } = useUser()

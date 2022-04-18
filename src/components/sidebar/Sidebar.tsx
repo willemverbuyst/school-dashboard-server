@@ -1,4 +1,4 @@
-import StudentSidebar from '../../pages/student/StudentSidebar'
+import StudentSidebar from '../../pages/student/sidebar'
 import TeacherSidebar from '../../pages/teacher/TeacherSidebar'
 import { ReactElement } from 'react'
 import { useUser } from '../../hooks'

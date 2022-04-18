@@ -16,9 +16,9 @@ const DoughnutChartDetails: React.FC<IProps> = ({
 	results,
 }: IProps): ReactElement => {
 	const data = results.map(({ score }) => score)
-	const average = Math.round(
-		(data.reduce((a, b) => a + b, 0) / (data.length * 3)) * 100
-	)
+	const average = data.length
+		? Math.round((data.reduce((a, b) => a + b, 0) / (data.length * 3)) * 100)
+		: 0
 	const color = ['#A026FF', '#eee']
 
 	return (

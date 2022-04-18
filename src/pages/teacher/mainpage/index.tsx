@@ -10,7 +10,7 @@ import { useUser } from '../../../hooks'
 
 const { Content } = Layout
 
-const MainPage: React.FC = (): ReactElement => {
+export default function TeacherMainPage(): ReactElement {
 	const { user } = useUser()
 	const tests = user?.data?.overview?.data?.testsWithSummedScores || []
 	const history = useHistory()
@@ -47,5 +47,3 @@ const MainPage: React.FC = (): ReactElement => {
 		</Content>
 	)
 }
-
-export default MainPage

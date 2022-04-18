@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import NavigationPrompt from 'react-router-navigation-prompt'
-import MultipleChoiceQuestion from '../../../components/MultipleChoiceQuestion'
+import MultipleChoiceQuestion from './MultipleChoiceQuestion'
 import { Layout, Button, Modal } from 'antd'
 
 const { Content } = Layout
@@ -29,7 +29,7 @@ interface TestResult {
 // 	answers: IMultipleChoiceAnswer[]
 // }
 
-export default function StudentDoTest() {
+export default function StudentTest() {
 	const history = useHistory()
 	const { subjectid } = useParams<{ subjectid: string }>()
 	const subjects = []
@@ -140,7 +140,7 @@ export default function StudentDoTest() {
 	}
 
 	return (
-		<Layout>
+		<>
 			<NavigationPrompt
 				beforeConfirm={clb => {
 					console.log('submit')
@@ -161,9 +161,10 @@ export default function StudentDoTest() {
 					</Modal>
 				)}
 			</NavigationPrompt>
-			<Layout style={{ padding: '24px', minHeight: '92vh' }}>
-				<Content className="site-layout-background">{renderMCQ()}</Content>
-			</Layout>
-		</Layout>
+
+			<Content className="site-layout-content" style={{ padding: 90 }}>
+				{renderMCQ()}
+			</Content>
+		</>
 	)
 }

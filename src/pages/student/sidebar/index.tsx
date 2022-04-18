@@ -1,12 +1,12 @@
 import { useHistory } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 import { ReactElement } from 'react'
-import renderSideBarNav from '../../components/sidebar/renderSideBarNav'
-import { useUser } from '../../hooks'
+import renderSideBarNav from '../../../components/sidebar/renderSideBarNav'
+import { useUser } from '../../../hooks'
 
 const { Sider } = Layout
 
-const SideBar = (): ReactElement => {
+const StudentSideBar = (): ReactElement => {
 	const history = useHistory()
 	const { user } = useUser()
 
@@ -40,4 +40,4 @@ const SideBar = (): ReactElement => {
 	)
 }
 
-export default SideBar
+export default StudentSideBar
