@@ -32,32 +32,28 @@ const ListOfQuestions = (): ReactElement => {
 		) : null
 
 	return (
-		<Layout>
-			<Layout style={{ padding: '24px', minHeight: '92vh' }}>
-				<Content className="site-layout-background">
-					{subjects ? (
-						<>
-							<Row justify="center" style={{ padding: '24px' }}>
-								{'Select a subject to get all the current questions in the database for that subject.'.toUpperCase()}
-							</Row>
-							<Row justify="center">
-								<SubjectSelector
-									subject={filter}
-									subjects={subjects}
-									changeSubject={getListOfQuestions}
-								/>
-								{filter !== 'all' ? (
-									<Button onClick={() => setFilter('all')}>All</Button>
-								) : null}
-							</Row>
-						</>
-					) : (
-						<Spinner />
-					)}
-					{renderQuestions()}
-				</Content>
-			</Layout>
-		</Layout>
+		<Content className="site-layout-content" style={{ padding: 90 }}>
+			{subjects ? (
+				<>
+					<Row justify="center" style={{ padding: '24px' }}>
+						{'Select a subject to get all the current questions in the database for that subject.'.toUpperCase()}
+					</Row>
+					<Row justify="center">
+						<SubjectSelector
+							subject={filter}
+							subjects={subjects}
+							changeSubject={getListOfQuestions}
+						/>
+						{filter !== 'all' ? (
+							<Button onClick={() => setFilter('all')}>All</Button>
+						) : null}
+					</Row>
+				</>
+			) : (
+				<Spinner />
+			)}
+			{renderQuestions()}
+		</Content>
 	)
 }
 

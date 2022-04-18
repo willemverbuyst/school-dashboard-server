@@ -41,7 +41,11 @@ const MainPage: React.FC = (): ReactElement => {
 		)
 	}
 
-	return <Content className="site-layout-background">{renderCharts()}</Content>
+	return (
+		<Content className="site-layout-content" style={{ padding: 90 }}>
+			{renderCharts()}
+		</Content>
+	)
 }
 
 export default MainPage

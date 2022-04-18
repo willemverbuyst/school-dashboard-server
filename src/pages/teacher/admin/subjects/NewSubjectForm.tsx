@@ -23,47 +23,41 @@ const NewSubjectForm = (): ReactElement => {
 	}
 
 	return (
-		<Layout>
-			<Layout style={{ padding: '24px', height: '92vh' }}>
-				<Content className="site-layout-background">
-					<Row justify="center" style={{ padding: '24px' }}>
-						{'Add a subject'.toUpperCase()}
-					</Row>
+		<Content className="site-layout-content" style={{ padding: 90 }}>
+			<Row justify="center" style={{ padding: '24px' }}>
+				{'Add a subject'.toUpperCase()}
+			</Row>
 
-					<Row justify="center">
-						<Col style={{ width: 650 }}>
-							<Form
-								form={form}
-								name="basic"
-								initialValues={{ remember: true }}
-								onFinish={handleSubmit}
+			<Row justify="center">
+				<Col style={{ width: 650 }}>
+					<Form
+						form={form}
+						name="basic"
+						initialValues={{ remember: true }}
+						onFinish={handleSubmit}
+					>
+						<Form.Item
+							name="subject"
+							rules={[{ required: true, message: 'Please input a subject!' }]}
+						>
+							<Input type="text" placeholder="Subject" />
+						</Form.Item>
+						<Form.Item>
+							<Button
+								style={{
+									backgroundColor: '#B81D9D',
+									border: 'none',
+								}}
+								type="primary"
+								htmlType="submit"
 							>
-								<Form.Item
-									name="subject"
-									rules={[
-										{ required: true, message: 'Please input a subject!' },
-									]}
-								>
-									<Input type="text" placeholder="Subject" />
-								</Form.Item>
-								<Form.Item>
-									<Button
-										style={{
-											backgroundColor: '#B81D9D',
-											border: 'none',
-										}}
-										type="primary"
-										htmlType="submit"
-									>
-										Add Subject to the curriculum
-									</Button>
-								</Form.Item>
-							</Form>
-						</Col>
-					</Row>
-				</Content>
-			</Layout>
-		</Layout>
+								Add Subject to the curriculum
+							</Button>
+						</Form.Item>
+					</Form>
+				</Col>
+			</Row>
+		</Content>
 	)
 }
 

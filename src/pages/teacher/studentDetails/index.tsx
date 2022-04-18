@@ -20,18 +20,14 @@ const TeacherStudentDetails = (): ReactElement => {
 	})
 
 	return (
-		<Layout>
-			<Layout style={{ padding: '24px', minHeight: '92vh' }}>
-				<Content className="site-layout-background">
-					{results && subjects ? (
-						<>
-							<BarChartTestsStudent results={results} />
-							<DoughnutChartStudent results={results} />
-						</>
-					) : null}
-				</Content>
-			</Layout>
-		</Layout>
+		<Content className="site-layout-content" style={{ padding: 90 }}>
+			{results && subjects ? (
+				<>
+					<BarChartTestsStudent results={results} />
+					<DoughnutChartStudent results={results} />
+				</>
+			) : null}
+		</Content>
 	)
 }
 

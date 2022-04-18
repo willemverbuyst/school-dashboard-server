@@ -20,14 +20,10 @@ const TeacherSubjectDetails = (): ReactElement => {
 	}, [user, history])
 
 	return (
-		<Layout>
-			<Layout style={{ padding: '24px', minHeight: '92vh' }}>
-				<Content className="site-layout-background">
-					<BarChartTests results={results} />
-					<DoughnutChartSubject results={results} />
-				</Content>
-			</Layout>
-		</Layout>
+		<Content className="site-layout-content" style={{ padding: 90 }}>
+			<BarChartTests results={results} />
+			<DoughnutChartSubject results={results} />
+		</Content>
 	)
 }
 
