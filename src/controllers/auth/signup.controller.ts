@@ -14,11 +14,6 @@ export class SignupController {
 			const { bio, bsn, email, password, role, schoolId, teacherId, userName } =
 				req.body
 
-			console.log(
-				'{ bio, bsn, email, password, role, schoolId, teacherId, userName } ',
-				{ bio, bsn, email, password, role, schoolId, teacherId, userName }
-			)
-
 			if (
 				!bio ||
 				!bsn ||
