@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import LoginButton from './buttons/LoginButton'
 import LogoutButton from './buttons/LogoutButton'
 import { Layout } from 'antd'
-import { useUser } from '../hooks/useUser'
+import { useUser } from '../hooks'
 
 const { Header } = Layout
 

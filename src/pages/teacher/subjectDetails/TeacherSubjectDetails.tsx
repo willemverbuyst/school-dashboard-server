@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Layout } from 'antd'
 import BarChartTests from './BarChartTestsSubject'
 import DoughnutChartSubject from './DoughnutChartSubject'
@@ -10,7 +10,7 @@ const { Content } = Layout
 const TeacherSubjectDetails = (): ReactElement => {
 	const history = useHistory()
 	const { user } = useUser()
-	const { subjectid } = useParams<{ subjectid: string }>()
+	// const { subjectid } = useParams<{ subjectid: string }>()
 	const results = []
 
 	useEffect(() => {

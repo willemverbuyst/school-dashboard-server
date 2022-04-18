@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Button } from 'antd'
-import { useAuth } from '../../hooks/useAuth'
+import { useAuth } from '../../hooks/'
 
 const LogoutButton = (): ReactElement => {
 	const history = useHistory()

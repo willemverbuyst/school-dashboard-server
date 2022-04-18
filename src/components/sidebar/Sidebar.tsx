@@ -1,7 +1,7 @@
 import StudentSidebar from '../../pages/student/StudentSidebar'
 import TeacherSidebar from '../../pages/teacher/TeacherSidebar'
 import { ReactElement } from 'react'
-import { useUser } from '../../hooks/useUser'
+import { useUser } from '../../hooks'
 
 const SideBar = (): ReactElement | null => {
 	const { user } = useUser()
