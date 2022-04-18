@@ -5,7 +5,7 @@ import DoughnutChartDetails from './DoughnutChartDetails'
 import BarChartDetails from './BarChartDetails'
 import NumberOfTests from './NumberOfTests'
 import TestButton from './TestButton'
-import { useUser } from '../../auth/hooks/useUser'
+import { useUser } from '../../../hooks/useUser'
 import { useSubject } from '../hooks/useSubject'
 
 const { Content } = Layout

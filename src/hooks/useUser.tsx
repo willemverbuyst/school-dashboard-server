@@ -1,13 +1,13 @@
 import { AxiosResponse } from 'axios'
 import { useQuery, useQueryClient } from 'react-query'
-import { axiosInstance, getJWTHeader } from '../../../axiosInstance'
-import { ApiUser } from '../../../models/api/user.api'
-import { queryKeys } from '../../../react-query/constants'
+import { axiosInstance, getJWTHeader } from '../axiosInstance'
+import { ApiUser } from '../models/api/user.api'
+import { queryKeys } from '../react-query/constants'
 import {
 	getStoredUser,
 	removeUserFromLocalstorage,
 	setStoredUser,
-} from '../../../store/user'
+} from '../store/user'
 
 interface UseUser {
 	user: ApiUser | null

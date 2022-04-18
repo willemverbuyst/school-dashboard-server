@@ -1,8 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
-import { axiosInstance } from '../../../../axiosInstance'
-import { Toast } from '../../../../components/toast'
-import { ApiUser } from '../../../../models/api/user.api'
-import { useUser } from '../../../auth/hooks/useUser'
+import { axiosInstance } from '../axiosInstance'
+import { Toast } from '../components/toast'
+import { ApiUser } from '../models/api/user.api'
+import { useUser } from '../hooks/useUser'
 
 export interface SignupInput {
 	bio: string

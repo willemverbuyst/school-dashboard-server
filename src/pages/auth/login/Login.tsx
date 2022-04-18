@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Button, Col, Form, Input, Layout, Row, PageHeader } from 'antd'
-import { useAuth } from '../hooks/useAuth'
-import { useUser } from '../hooks/useUser'
+import { useAuth } from '../../../hooks/useAuth'
+import { useUser } from '../../../hooks/useUser'
 
 const { Content } = Layout
 

@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from 'antd'
 import BarChartTests from './BarChartTestsSubject'
 import DoughnutChartSubject from './DoughnutChartSubject'
-import { useUser } from '../../auth/hooks/useUser'
+import { useUser } from '../../../hooks/useUser'
 
 const { Content } = Layout
 

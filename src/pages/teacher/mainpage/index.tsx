@@ -6,13 +6,13 @@ import LineChartMain from './LineChartMain'
 import PieChartMain from './PieChartMain'
 import ScatterChartMain from './ScatterChartMain'
 import Spinner from '../../../components/Spinner'
-import { useUser } from '../../auth/hooks/useUser'
+import { useUser } from '../../../hooks/useUser'
 
 const { Content } = Layout
 
 const MainPage: React.FC = (): ReactElement => {
 	const { user } = useUser()
-	const tests = user?.data.overview?.data.testsWithSummedScores || []
+	const tests = user?.data?.overview?.data?.testsWithSummedScores || []
 	const history = useHistory()
 	const subjects = user?.data.subjects
 

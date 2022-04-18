@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout } from 'antd'
-import { useUser } from '../../auth/hooks/useUser'
+import { useUser } from '../../../hooks/useUser'
 import AllCharts from './AllChartsMain'
 
 const { Content } = Layout

@@ -4,7 +4,7 @@ import BarChartHome from './BarChartHome'
 import LineChartHome from './LineChartHome'
 import PolarChartHome from './PolarChartHome'
 import { Layout, Row, Col } from 'antd'
-import { useUser } from '../auth/hooks/useUser'
+import { useUser } from '../../hooks/useUser'
 
 const { Content } = Layout
 

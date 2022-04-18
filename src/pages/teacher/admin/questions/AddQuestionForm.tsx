@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout, Form, Input, Button, Select, Row, Col } from 'antd'
 import FormItem from './FormItem'
-import { useUser } from '../../../auth/hooks/useUser'
+import { useUser } from '../../../../hooks/useUser'
 
 const { Content } = Layout
 const { Option } = Select
