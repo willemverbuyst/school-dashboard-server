@@ -9,7 +9,7 @@ const addSubject = async (subjectName: string, user: ApiUser | null) => {
 	try {
 		if (!user) return null
 		const { data } = await axiosInstance.post(
-			`admin/subjects`,
+			'/subjects',
 			{
 				subjectName,
 			},
@@ -28,7 +28,7 @@ export const useSubjectForTeacher = () => {
 		(subjectName: string) => addSubject(subjectName, user),
 		{
 			onSuccess: () => {
-				queryClient.invalidateQueries([queryKeys.USER])
+				queryClient.refetchQueries([queryKeys.USER])
 				const text = 'You have added a subject'
 				Toast({ text, status: 'success' })
 			},
