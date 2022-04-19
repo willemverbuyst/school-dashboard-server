@@ -5,7 +5,7 @@ import { ApiUser } from '../../models/api/user.api'
 import { queryKeys } from '../../react-query/constants'
 import { Toast } from '../../components/toast'
 
-const addSubject = async (subjectName: string, user: ApiUser | null) => {
+const postSubject = async (subjectName: string, user: ApiUser | null) => {
 	try {
 		if (!user) return null
 		const { data } = await axiosInstance.post(
@@ -25,7 +25,7 @@ export const useSubjectForTeacher = () => {
 	const { user } = useUser()
 	const queryClient = useQueryClient()
 	const { mutate } = useMutation(
-		(subjectName: string) => addSubject(subjectName, user),
+		(subjectName: string) => postSubject(subjectName, user),
 		{
 			onSuccess: () => {
 				queryClient.refetchQueries([queryKeys.USER])

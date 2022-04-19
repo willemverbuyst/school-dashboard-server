@@ -9,7 +9,6 @@ import { filterBySubject } from './helpers/filterQuestions'
 const getQuestions = async (user: ApiUser | null) => {
 	try {
 		if (!user) return null
-		console.log('user :>> ', user)
 		const { data } = await axiosInstance.get('/questions/', {
 			headers: getJWTHeader(user),
 		})

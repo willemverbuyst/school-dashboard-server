@@ -1,24 +1,17 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout, Form, Input, Button, Select, Row, Col } from 'antd'
 import { useUser } from '../../../../../hooks'
+import { usePostQuestion } from '../../../../../hooks/teacher/usePostQuestion'
 
 const { Content } = Layout
 const { Option } = Select
-
-interface IPostNewQuestion {
-	subject: number
-	question: string
-	answer1: string
-	answer2: string
-	answer3: string
-	answer4: string
-}
 
 const AddQuestionForm = (): ReactElement => {
 	const [form] = Form.useForm()
 	const history = useHistory()
 	const { user } = useUser()
+	const postQuestion = usePostQuestion()
 
 	const subjects = user?.data.subjects.data || []
 
@@ -29,7 +22,7 @@ const AddQuestionForm = (): ReactElement => {
 	})
 
 	const handleSubmit = input => {
-		console.log('input :>> ', input)
+		postQuestion(input)
 		form.resetFields()
 	}
 
@@ -89,7 +82,7 @@ const AddQuestionForm = (): ReactElement => {
 						</Form.Item>
 
 						<Form.Item
-							name="wrongAnswer3"
+							name="wrongAnswer2"
 							rules={[
 								{ required: true, message: 'Please input a wrong answer' },
 							]}
