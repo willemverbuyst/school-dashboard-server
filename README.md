@@ -1,23 +1,15 @@
-# Dashboard
+# School-Dashboard
 
-## What is this and who am I?
+## What is this?
 
-In short: this is a dashboard where students and teachers can keep track of grades and progress for multiple subjects/students. For the details on the functionality see the [user stories](#userStories).
-
-## Who am I?
-
-I am part of class #40, attending an 11 week JavaScript bootcamp at [Codaisseur](https://codaisseur.com/).
-
-For seven weeks the teachers at Codaisseur have been teaching us a variety of [skills](https://willemverbuyst.github.io/threeJS-react-list/) to prepare us for a career in full-stack web-development. This project is the fruit of this. We got two weeks to build a project from scratch showcasing the techniques we have learned and explore some _terra incognita_.
+This is a dashboard where students and teachers can keep track of grades and progress for multiple subjects/students. For the details on the functionality see the [user stories](#userStories).
 
 ## Table of contents
 
 - [App demos](#appDemos)
-- [Technologies used](#technologiesUsed)
-- [Goals](#goals)
+- [Technologies](#technologies)
 - [User stories](#userStories)
 - [Data models / wireframes / project board](#models-wireframe-projectboard)
-- [Git workflow](#gitWorkflow)
 - [Server repository](#serverRepo)
 - [Installation](#installation)
 
@@ -27,28 +19,22 @@ For seven weeks the teachers at Codaisseur have been teaching us a variety of [s
 ![](./img/dashboard-student.gif)
 ![](./img/dashboard-teacher.gif)
 
-## <a name="technologiesUsed"></a>Technologies used
+## <a name="technologies"></a>Technologies
 
 ### Front-end
 
+- ~~JavaScript~~ TypeScript
 - React
-- Redux
+- ~~Redux~~ React-Query
 - Chart.js
 - Ant Design
 
 ### Back-end
 
-- Sequelize
+- ~~JavaScript~~ TypeScript
+- ~~Sequelize~~ Prisma
 - PostgreSQL
-- Server with Express
-- Authorization middleware
-
-## <a name="goals"></a>Goals
-
-- The goal was to create an application with React and Redux, and build a server with Express and Sequelize.
-- Explore new technology independently like Chart.js and a css framework like Ant Design.
-- Practice good preparation with the use of wireframes, data models and user stories.
-- Follow disciplined Git usage, i.e. make use of commits, branching and pull requests.
+- Express
 
 ## <a name="userStories"></a>User stories
 
@@ -78,21 +64,13 @@ For seven weeks the teachers at Codaisseur have been teaching us a variety of [s
 
 [Project board](https://github.com/willemverbuyst/school-dashboard-frontend/projects/1)
 
-## <a name="gitWorkflow"></a>Git workflow
-
-Work on the development branch. Create a new branch for each feature and commit regularly. Push to github and make a pull request to the development branch. When project was finished I merged it into the master for deployment.
-
-Click the link for a sample of a pull request.
-
-[Feat data teacher](https://github.com/willemverbuyst/school-dashboard-frontend/pull/21)
-
 ## <a name="serverRepo"></a>Server repository
 
 The repository for the backend can be found [here](https://github.com/willemverbuyst/school-dashboard-backend).
 
 This is a REST-ful API using Express.js.
 
-The database is built using Postgres and Sequelize.
+The database is built using Postgres and ~~Sequelize~~ Prisma.
 Have a look at the data [models](https://app.lucidchart.com/invitations/accept/d09a0ec5-92f6-4ac7-b203-e96f708609db).
 
 ## <a name="installation"></a>Installation
