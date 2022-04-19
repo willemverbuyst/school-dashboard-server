@@ -1,15 +1,15 @@
 import { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout, Form, Input, Button, Row, Col } from 'antd'
-import { useSubjectForTeacher, useUser } from '../../../../../hooks'
+import { SubjectInput, usePostSubject, useUser } from '../../../../../hooks'
 
 const { Content } = Layout
 
-const NewSubjectForm = (): ReactElement => {
+export default function NewSubjectForm(): ReactElement {
 	const [form] = Form.useForm()
 	const history = useHistory()
 	const { user } = useUser()
-	const addSubject = useSubjectForTeacher()
+	const postSubject = usePostSubject()
 
 	useEffect(() => {
 		if (user?.token === null || user?.data.user.role !== 'TEACHER') {
@@ -17,8 +17,8 @@ const NewSubjectForm = (): ReactElement => {
 		}
 	})
 
-	const handleSubmit = (input: { subject: string }) => {
-		addSubject(input.subject)
+	const handleSubmit = ({ subjectName }: SubjectInput): void => {
+		postSubject(subjectName)
 		form.resetFields()
 	}
 
@@ -37,11 +37,12 @@ const NewSubjectForm = (): ReactElement => {
 						onFinish={handleSubmit}
 					>
 						<Form.Item
-							name="subject"
+							name="subjectName"
 							rules={[{ required: true, message: 'Please input a subject!' }]}
 						>
 							<Input type="text" placeholder="Subject" />
 						</Form.Item>
+
 						<Form.Item>
 							<Button
 								style={{
@@ -60,5 +61,3 @@ const NewSubjectForm = (): ReactElement => {
 		</Content>
 	)
 }
-
-export default NewSubjectForm

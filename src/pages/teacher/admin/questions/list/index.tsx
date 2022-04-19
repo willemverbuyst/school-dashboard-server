@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Button, Form, Layout, Row, Select } from 'antd'
 import QuestionsAndAnswers from './QuestionsAndAnswers'
 import Spinner from '../../../../../components/Spinner'
-import { useQuestions, useUser } from '../../../../../hooks'
+import { useGetQuestions, useUser } from '../../../../../hooks'
 
 const { Content } = Layout
 const { Option } = Select
@@ -13,7 +13,7 @@ export default function ListOfQuestions(): ReactElement {
 	const history = useHistory()
 	const { user } = useUser()
 	const subjects = user?.data.subjects.data
-	const { filter, setFilter, questions } = useQuestions()
+	const { filter, setFilter, questions } = useGetQuestions()
 
 	useEffect(() => {
 		if (user?.token === null || user?.data.user.role !== 'TEACHER') {

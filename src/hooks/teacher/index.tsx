@@ -1,2 +1,3 @@
-export * from './useQuestion'
-export * from './useSubjectForTeacher'
+export * from './useGetQuestions'
+export * from './usePostQuestion'
+export * from './usePostSubject'

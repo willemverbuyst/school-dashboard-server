@@ -1,18 +1,16 @@
 import { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout, Form, Input, Button, Select, Row, Col } from 'antd'
-import { useUser } from '../../../../../hooks'
-import { usePostQuestion } from '../../../../../hooks/teacher/usePostQuestion'
+import { QuestionInput, usePostQuestion, useUser } from '../../../../../hooks'
 
 const { Content } = Layout
 const { Option } = Select
 
-const AddQuestionForm = (): ReactElement => {
+export default function AddQuestionForm(): ReactElement {
 	const [form] = Form.useForm()
 	const history = useHistory()
 	const { user } = useUser()
 	const postQuestion = usePostQuestion()
-
 	const subjects = user?.data.subjects.data || []
 
 	useEffect(() => {
@@ -21,7 +19,7 @@ const AddQuestionForm = (): ReactElement => {
 		}
 	})
 
-	const handleSubmit = input => {
+	const handleSubmit = (input: QuestionInput): void => {
 		postQuestion(input)
 		form.resetFields()
 	}
@@ -117,5 +115,3 @@ const AddQuestionForm = (): ReactElement => {
 		</Content>
 	)
 }
-
-export default AddQuestionForm

@@ -5,6 +5,10 @@ import { ApiUser } from '../../models/api/user.api'
 import { queryKeys } from '../../react-query/constants'
 import { Toast } from '../../components/toast'
 
+export interface SubjectInput {
+	subjectName: string
+}
+
 const postSubject = async (subjectName: string, user: ApiUser | null) => {
 	try {
 		if (!user) return null
@@ -21,7 +25,7 @@ const postSubject = async (subjectName: string, user: ApiUser | null) => {
 	}
 }
 
-export const useSubjectForTeacher = () => {
+export const usePostSubject = () => {
 	const { user } = useUser()
 	const queryClient = useQueryClient()
 	const { mutate } = useMutation(

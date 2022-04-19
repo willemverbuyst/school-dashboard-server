@@ -5,7 +5,29 @@ import { ApiUser } from '../../models/api/user.api'
 import { queryKeys } from '../../react-query/constants'
 import { useUser } from '../auth/useUser'
 
-const postQuestion = async (newQuestion: any, user: ApiUser | null) => {
+interface NewQuestion {
+	id: string
+	question: string
+	answer1text: string
+	answer2text: string
+	answer3text: string
+	answer4text: string
+	answer1bool: boolean
+	answer2bool: boolean
+	answer3bool: boolean
+	answer4bool: boolean
+}
+
+export interface QuestionInput {
+	subject: string
+	question: string
+	correctAnswer: string
+	wrongAnswer1: string
+	wrongAnswer2: string
+	wrongAnswer3: string
+}
+
+const postQuestion = async (newQuestion: NewQuestion, user: ApiUser | null) => {
 	const {
 		id,
 		question,
@@ -51,7 +73,7 @@ const buildQuestionObject = ({
 	wrongAnswer1,
 	wrongAnswer2,
 	wrongAnswer3,
-}) => ({
+}: QuestionInput): NewQuestion => ({
 	id: subject,
 	question,
 	answer1text: correctAnswer,

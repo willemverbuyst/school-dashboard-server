@@ -20,7 +20,7 @@ const getQuestions = async (user: ApiUser | null) => {
 	}
 }
 
-export const useQuestions = () => {
+export const useGetQuestions = () => {
 	const [filter, setFilter] = useState<string>('all')
 
 	const selectFn = useCallback(
