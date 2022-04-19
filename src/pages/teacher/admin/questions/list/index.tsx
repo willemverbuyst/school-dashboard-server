@@ -1,14 +1,15 @@
 import { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button, Layout, Row } from 'antd'
+import { Button, Form, Layout, Row, Select } from 'antd'
 import QuestionsAndAnswers from './QuestionsAndAnswers'
-import Spinner from '../../../../components/Spinner'
-import { useQuestions, useUser } from '../../../../hooks/'
-import SubjectSelector from './SubjectSelector'
+import Spinner from '../../../../../components/Spinner'
+import { useQuestions, useUser } from '../../../../../hooks'
 
 const { Content } = Layout
+const { Option } = Select
 
-const ListOfQuestions = (): ReactElement => {
+export default function ListOfQuestions(): ReactElement {
+	const [form] = Form.useForm()
 	const history = useHistory()
 	const { user } = useUser()
 	const subjects = user?.data.subjects.data
@@ -20,8 +21,8 @@ const ListOfQuestions = (): ReactElement => {
 		}
 	})
 
-	const getListOfQuestions = (subjectId: string): void => {
-		setFilter(subjectId)
+	const getListOfQuestions = ({ subject }: { subject: string }): void => {
+		setFilter(subject)
 	}
 
 	const renderQuestions = (): ReactElement | null =>
@@ -36,14 +37,31 @@ const ListOfQuestions = (): ReactElement => {
 			{subjects ? (
 				<>
 					<Row justify="center" style={{ padding: '24px' }}>
-						{'Select a subject to get all the current questions in the database for that subject.'.toUpperCase()}
+						SELEXT A SUBJECT TO GET ALL THE CURRENT QUESTIONS IN THE DATABASE
+						FOR THAT SUBJECT
 					</Row>
+
 					<Row justify="center">
-						<SubjectSelector
-							subject={filter}
-							subjects={subjects}
-							changeSubject={getListOfQuestions}
-						/>
+						<Form
+							form={form}
+							name="basic"
+							initialValues={{ remember: true }}
+							onValuesChange={getListOfQuestions}
+						>
+							<Form.Item
+								name="subject"
+								rules={[{ required: true, message: 'Please select a subject' }]}
+							>
+								<Select placeholder="all subjects" style={{ width: 160 }}>
+									{subjects.map(({ name, id }, i) => (
+										<Option key={i} value={id}>
+											{name}
+										</Option>
+									))}
+								</Select>
+							</Form.Item>
+						</Form>
+
 						{filter !== 'all' ? (
 							<Button onClick={() => setFilter('all')}>All</Button>
 						) : null}
@@ -56,5 +74,3 @@ const ListOfQuestions = (): ReactElement => {
 		</Content>
 	)
 }
-
-export default ListOfQuestions

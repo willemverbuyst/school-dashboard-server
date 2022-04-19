@@ -1,7 +1,7 @@
 import { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Layout, Form, Input, Button, Row, Col } from 'antd'
-import { useSubjectForTeacher, useUser } from '../../../../hooks'
+import { useSubjectForTeacher, useUser } from '../../../../../hooks'
 
 const { Content } = Layout
 
