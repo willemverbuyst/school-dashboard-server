@@ -1,23 +1,19 @@
 import { ReactElement, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { Layout, Form, Input, Button, Select, Row, Col } from 'antd'
 import { QuestionInput, usePostQuestion, useUser } from '../../../../../hooks'
+import { useTeacherGuard } from '../../../../../hooks/guard'
 
 const { Content } = Layout
 const { Option } = Select
 
 export default function AddQuestionForm(): ReactElement {
 	const [form] = Form.useForm()
-	const history = useHistory()
 	const { user } = useUser()
 	const postQuestion = usePostQuestion()
 	const subjects = user?.data.subjects.data || []
+	const { guardPage } = useTeacherGuard()
 
-	useEffect(() => {
-		if (user?.token === null || user?.data.user.role !== 'TEACHER') {
-			history.push('/')
-		}
-	})
+	useEffect(() => guardPage())
 
 	const handleSubmit = (input: QuestionInput): void => {
 		postQuestion(input)

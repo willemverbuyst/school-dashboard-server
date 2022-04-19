@@ -12,7 +12,7 @@ export default function NewSubjectForm(): ReactElement {
 	const postSubject = usePostSubject()
 
 	useEffect(() => {
-		if (user?.token === null || user?.data.user.role !== 'TEACHER') {
+		if (user?.token === null || user?.data?.user?.role !== 'TEACHER') {
 			history.push('/')
 		}
 	})
