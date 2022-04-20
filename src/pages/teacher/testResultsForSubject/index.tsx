@@ -1,23 +1,18 @@
 import { ReactElement, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Layout } from 'antd'
 import BarChartTests from './BarChartTestsSubject'
 import DoughnutChartSubject from './DoughnutChartSubject'
-import { useUser } from '../../../hooks'
+import { useTeacherGuard } from '../../../hooks/guard'
 
 const { Content } = Layout
 
 export default function TestResultsForSubject(): ReactElement {
-	const history = useHistory()
-	const { user } = useUser()
 	// const { subjectid } = useParams<{ subjectid: string }>()
 	const results = []
+	const { guardPage } = useTeacherGuard()
 
-	useEffect(() => {
-		if (!user || user.token === null || user.data.user.role !== 'TEACHER') {
-			history.push('/')
-		}
-	}, [user, history])
+	useEffect(() => guardPage())
 
 	return (
 		<Content className="site-layout-content" style={{ padding: 90 }}>
