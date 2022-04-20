@@ -3,8 +3,8 @@ import Home from './pages/home'
 import Login from './pages/auth/login'
 import Signup from './pages/auth/signup'
 import TeacherMainPage from './pages/teacher/mainpage'
-import TeacherStudent from './pages/teacher/student'
-import TeacherSubject from './pages/teacher/subject'
+import TestResultsForStudent from './pages/teacher/testResultsForStudent'
+import TestResultsForSubject from './pages/teacher/testResultsForSubject'
 import ListOfQuestions from './pages/teacher/admin/questions/list'
 import AddQuestionForm from './pages/teacher/admin/questions/form'
 import NewSubjectForm from './pages/teacher/admin/subjects/form'
@@ -23,8 +23,16 @@ const AppRouter = (): JSX.Element => {
 			<Route exact path={ROUTES.STUDENT_SUBJECTS} component={StudentSubject} />
 			<Route exact path={ROUTES.STUDENT_TEST} component={StudentTest} />
 			<Route exact path={ROUTES.TEACHER_MAIN} component={TeacherMainPage} />
-			<Route exact path={ROUTES.TEACHER_STUDENT} component={TeacherStudent} />
-			<Route exact path={ROUTES.TEACHER_SUBJECT} component={TeacherSubject} />
+			<Route
+				exact
+				path={ROUTES.TEACHER_STUDENT}
+				component={TestResultsForStudent}
+			/>
+			<Route
+				exact
+				path={ROUTES.TEACHER_SUBJECT}
+				component={TestResultsForSubject}
+			/>
 			<Route
 				exact
 				path={ROUTES.TEACHER_QUESTIONS_LIST}

@@ -2,7 +2,7 @@ import { ReactElement, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Button, Form, Layout, Row, Select } from 'antd'
 import QuestionsAndAnswers from './QuestionsAndAnswers'
-import Spinner from '../../../../../components/Spinner'
+import Spinner from '../../../../../components/spinner'
 import { useGetQuestions, useUser } from '../../../../../hooks'
 
 const { Content } = Layout

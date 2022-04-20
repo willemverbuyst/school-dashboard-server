@@ -6,7 +6,7 @@ import { useUser } from '../../../hooks'
 
 const { Sider } = Layout
 
-const StudentSideBar = (): ReactElement => {
+export default function SidebarForStudent(): ReactElement {
 	const history = useHistory()
 	const { user } = useUser()
 
@@ -39,5 +39,3 @@ const StudentSideBar = (): ReactElement => {
 		</Sider>
 	)
 }
-
-export default StudentSideBar

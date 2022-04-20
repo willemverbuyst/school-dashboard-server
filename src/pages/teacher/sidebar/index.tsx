@@ -7,9 +7,9 @@ import {
 	HomeOutlined,
 } from '@ant-design/icons'
 import { ReactElement } from 'react'
-import renderSideBarNav from '../../components/sidebar/renderSideBarNav'
-import { adminTasks } from '../../constants/constants'
-import { useUser } from '../../hooks'
+import renderSideBarNav from '../../../components/sidebar/renderSideBarNav'
+import { adminTasks } from '../../../constants/constants'
+import { useUser } from '../../../hooks'
 
 const { SubMenu } = Menu
 const { Sider } = Layout
@@ -19,7 +19,7 @@ export interface NavElement {
 	name: string | undefined
 }
 
-const SideBar = (): ReactElement => {
+export default function SidebarForTeacher(): ReactElement {
 	const history = useHistory()
 	const { user } = useUser()
 	const subjects = user?.data.subjects.data || []
@@ -74,5 +74,3 @@ const SideBar = (): ReactElement => {
 		</Sider>
 	)
 }
-
-export default SideBar

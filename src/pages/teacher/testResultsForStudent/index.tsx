@@ -6,7 +6,7 @@ import DoughnutChartStudent from './DoughnutChartStudents'
 
 const { Content } = Layout
 
-export default function TeacherStudent(): ReactElement {
+export default function TestResultsForStudent(): ReactElement {
 	const history = useHistory()
 	const token = ''
 	const { studentid } = useParams<{ studentid: string }>()

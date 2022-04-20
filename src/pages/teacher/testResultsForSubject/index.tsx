@@ -7,7 +7,7 @@ import { useUser } from '../../../hooks'
 
 const { Content } = Layout
 
-export default function TeacherSubject(): ReactElement {
+export default function TestResultsForSubject(): ReactElement {
 	const history = useHistory()
 	const { user } = useUser()
 	// const { subjectid } = useParams<{ subjectid: string }>()

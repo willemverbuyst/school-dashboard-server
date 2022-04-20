@@ -5,7 +5,7 @@ import { Layout, Row } from 'antd'
 import LineChartMain from './LineChartMain'
 import PieChartMain from './PieChartMain'
 import ScatterChartMain from './ScatterChartMain'
-import Spinner from '../../../components/Spinner'
+import Spinner from '../../../components/spinner'
 import { useUser } from '../../../hooks'
 
 const { Content } = Layout

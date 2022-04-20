@@ -15,6 +15,7 @@ export default function Spinner(): ReactElement | null {
 				left: '50%',
 				opacity: '.3',
 				transition: '.2s ease-in-out',
+				zIndex: 1000,
 			}}
 		/>
 	) : null
