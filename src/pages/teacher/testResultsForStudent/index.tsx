@@ -9,16 +9,15 @@ const { Content } = Layout
 
 export default function TestResultsForStudent(): ReactElement {
 	const { studentid } = useParams<{ studentid: string }>()
-	const results = []
-	const subjects = []
+	const testResultsForStudent = []
 	const { guardPage } = useTeacherGuard()
 
 	useEffect(() => guardPage())
 
 	return (
 		<Content className="site-layout-content" style={{ padding: 90 }}>
-			<BarChartTestsStudent results={results} />
-			<DoughnutChartStudent results={results} />
+			<BarChartTestsStudent results={testResultsForStudent} />
+			<DoughnutChartStudent results={testResultsForStudent} />
 		</Content>
 	)
 }

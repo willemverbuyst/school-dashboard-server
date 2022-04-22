@@ -1,37 +1,37 @@
-import React, { ReactElement, useState } from 'react';
-import { Col, Row } from 'antd';
-import DoughnutChart from '../../../components/charts/DoughnutChart';
-import SortAndSelect from '../../../components/SortAndSelect';
+import React, { ReactElement, useState } from 'react'
+import { Col, Row } from 'antd'
+import DoughnutChart from '../../../components/charts/DoughnutChart'
+import SortAndSelect from '../../../components/SortAndSelect'
 
 interface ISubject {
-  name: string;
-  score: number;
-  subjectId: number;
-  tests: number;
+	name: string
+	score: number
+	subjectId: number
+	tests: number
 }
 
 interface IProps {
-  results: ISubject[];
+	results: ISubject[]
 }
 
 const DoughnutChartStudent: React.FC<IProps> = ({
-  results,
+	results,
 }: IProps): ReactElement => {
-  const [selectionAverage, setSelectionAverage] = useState('name');
-  const [selectSubjectAverage, setSelectSubjectAverage] = useState('');
+	const [selectionAverage, setSelectionAverage] = useState('name')
+	const [selectSubjectAverage, setSelectSubjectAverage] = useState('')
 
-  const sortedResults =
-    selectionAverage === 'name'
-      ? [...results].sort((a, b) => a.name.localeCompare(b.name))
-      : [...results].sort((a, b) => b.score - a.score);
+	const sortedResults =
+		selectionAverage === 'name'
+			? [...results].sort((a, b) => a.name.localeCompare(b.name))
+			: [...results].sort((a, b) => b.score - a.score)
 
-  const filteredResults = selectSubjectAverage
-    ? sortedResults.filter((result) => result.name === selectSubjectAverage)
-    : sortedResults;
+	const filteredResults = selectSubjectAverage
+		? sortedResults.filter(result => result.name === selectSubjectAverage)
+		: sortedResults
 
-  return (
-    <>
-      <SortAndSelect
+	return (
+		<>
+			{/* <SortAndSelect
         title="AVERAGE GRADES"
         radio1="Name"
         radio2="Average"
@@ -43,20 +43,20 @@ const DoughnutChartStudent: React.FC<IProps> = ({
         onClick={() => setSelectSubjectAverage('')}
         placeholder="Select a subject"
         textBtn="All subjects"
-      />
-      <Row justify={'space-around'}>
-        {filteredResults.map(({ score, name }, i) => (
-          <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
-            <DoughnutChart
-              data={[score, 100 - score]}
-              color={['#8F1CB8', '#eee']}
-              title={`${name} ${score}%`}
-            />
-          </Col>
-        ))}
-      </Row>
-    </>
-  );
-};
+      /> */}
+			<Row justify={'space-around'}>
+				{filteredResults.map(({ score, name }, i) => (
+					<Col key={i} style={{ width: 350, paddingBottom: 80 }}>
+						<DoughnutChart
+							data={[score, 100 - score]}
+							color={['#8F1CB8', '#eee']}
+							title={`${name} ${score}%`}
+						/>
+					</Col>
+				))}
+			</Row>
+		</>
+	)
+}
 
-export default DoughnutChartStudent;
+export default DoughnutChartStudent

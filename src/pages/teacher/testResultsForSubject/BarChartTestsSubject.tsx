@@ -1,63 +1,66 @@
-import React, { ReactElement, useState } from 'react';
-import { Col, Row } from 'antd';
-import BarChartTest from '../../../components/charts/BarChartTest';
-import SortAndSelect from '../../../components/SortAndSelect';
+import React, { ReactElement, useState } from 'react'
+import { Col, Row } from 'antd'
+import BarChartTest from '../../../components/charts/BarChartTest'
+import SortAndSelect from '../../../components/SortAndSelect'
 
-interface ISubject {
-  name: string;
-  score: number;
-  subjectId: number;
-  tests: number;
+export interface TestResult {
+	numberOfTests: number
+	score: number
+	studentId: string
+	subjectName: string
+	userName: string
 }
 
 interface IProps {
-  results: ISubject[];
+	results: Array<TestResult>
 }
 
 const BarChartTestsSubject: React.FC<IProps> = ({
-  results,
+	results,
 }: IProps): ReactElement => {
-  const [selectionTests, setSelectionTests] = useState('name');
-  const [selectStudentTests, setSelectStudentTests] = useState('');
+	const [selectionTests, setSelectionTests] = useState('name')
+	const [selectStudentTests, setSelectStudentTests] = useState('')
 
-  const sortedResults =
-    selectionTests === 'name'
-      ? [...results].sort((a, b) => a.name.localeCompare(b.name))
-      : [...results].sort((a, b) => b.tests - a.tests);
+	const sortedResults =
+		selectionTests === 'name'
+			? [...results].sort((a, b) => a.userName.localeCompare(b.userName))
+			: [...results].sort(
+					(a, b) => b.score / b.numberOfTests - a.score / a.numberOfTests
+			  )
 
-  const filteredResults = selectStudentTests
-    ? sortedResults.filter((result) => result.name === selectStudentTests)
-    : sortedResults;
+	const filteredResults = selectStudentTests
+		? sortedResults.filter(result => result.userName === selectStudentTests)
+		: sortedResults
 
-  return (
-    <>
-      <SortAndSelect
-        title="TESTS DONE"
-        radio1="Name"
-        radio2="Amount"
-        onChangeRadio={setSelectionTests}
-        value={selectStudentTests || undefined}
-        onChangeSelection={setSelectStudentTests}
-        results={results}
-        selectStudentData={selectStudentTests}
-        onClick={() => setSelectStudentTests('')}
-        placeholder="Select a student"
-        textBtn="All students"
-      />
-      <Row justify={'space-around'}>
-        {filteredResults.map(({ tests, name }, i) => (
-          <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
-            <BarChartTest
-              data={[tests]}
-              color={['#008080']}
-              labels={[`${name}: ${tests} tests`]}
-              title={''}
-            />
-          </Col>
-        ))}
-      </Row>
-    </>
-  );
-};
+	return (
+		<>
+			<SortAndSelect
+				title="TESTS DONE"
+				radio1="Name"
+				radio2="Amount"
+				onChangeRadio={setSelectionTests}
+				value={selectStudentTests || undefined}
+				onChangeSelection={setSelectStudentTests}
+				results={results}
+				selectStudentData={selectStudentTests}
+				onClick={() => setSelectStudentTests('')}
+				placeholder="Select a student"
+				textBtn="All students"
+			/>
+			<Row justify={'space-around'}>
+				{filteredResults.map(({ numberOfTests, score, userName }, i) => (
+					<Col key={i} style={{ width: 350, paddingBottom: 80 }}>
+						<BarChartTest
+							data={[score]}
+							color={['#008080']}
+							labels={[`${userName}: ${numberOfTests} tests`]}
+							title={''}
+						/>
+					</Col>
+				))}
+			</Row>
+		</>
+	)
+}
 
-export default BarChartTestsSubject;
+export default BarChartTestsSubject
