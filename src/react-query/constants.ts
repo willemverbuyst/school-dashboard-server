@@ -4,5 +4,6 @@ export const queryKeys = {
 	SUBJECTS: 'subjects',
 	STUDENT_SUBJECT: 'student_subject',
 	TEACHERS: 'teachers',
+	TEACHER_SUBJECT: 'teacher_subject',
 	USER: 'user',
 }
