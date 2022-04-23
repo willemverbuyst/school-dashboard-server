@@ -3,16 +3,14 @@ import { useHistory } from 'react-router-dom'
 import { Button } from 'antd'
 import { useAuth } from '../../hooks/'
 
-const LogoutButton = (): ReactElement => {
-	const history = useHistory()
-	const { logout } = useAuth()
+export default function LogoutButton(): ReactElement {
+  const history = useHistory()
+  const { logout } = useAuth()
 
-	const handleLogOut = () => {
-		logout()
-		history.push('/')
-	}
+  const handleLogOut = () => {
+    logout()
+    history.push('/')
+  }
 
-	return <Button onClick={handleLogOut}>Logout</Button>
+  return <Button onClick={handleLogOut}>Logout</Button>
 }
-
-export default LogoutButton
