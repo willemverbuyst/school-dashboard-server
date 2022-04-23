@@ -4,13 +4,6 @@ import { TestResult } from '../pages/teacher/testResultsForSubject/BarChartTests
 
 const { Option } = Select
 
-interface Student {
-	name: string
-	score: number
-	subjectId: number
-	tests: number
-}
-
 interface ISelectorProps {
 	title: string
 	radio1: string
