@@ -118,7 +118,7 @@ export class QuestionController {
 			if (!newQuestion) {
 				res
 					.status(422)
-					.send({ message: 'Something went wrong, question not creaeted' })
+					.send({ message: 'Something went wrong, question not created' })
 				return
 			}
 
