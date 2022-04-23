@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 import { Col, Row } from 'antd'
 import DoughnutChart from '../../../components/charts/DoughnutChart'
 import { TestResult } from './BarChartTestsSubject'

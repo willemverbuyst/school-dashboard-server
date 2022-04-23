@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { Col, Row } from 'antd'
 import BarChartTest from '../../../components/charts/BarChartTest'
 
