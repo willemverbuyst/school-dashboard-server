@@ -1,12 +1,12 @@
+import { Layout } from 'antd'
 import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import { Layout } from 'antd'
-import { useUser } from '../hooks'
-import { LogoutButton, LoginButton } from './buttons'
+import { useUser } from '../../hooks'
+import { LoginButton, LogoutButton } from '../buttons'
 
 const { Header } = Layout
 
-const BarAtThetop = (): ReactElement => {
+export default function BarAtThetop(): ReactElement {
   const { user } = useUser()
 
   const renderLoginLogout = (): ReactElement => {
@@ -38,5 +38,3 @@ const BarAtThetop = (): ReactElement => {
     </Header>
   )
 }
-
-export default BarAtThetop
