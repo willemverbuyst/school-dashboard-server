@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react'
 import * as chartjs from 'chart.js'
+import { ReactElement } from 'react'
 import { ChartData, Scatter } from 'react-chartjs-2'
 
 interface ICoordinates {

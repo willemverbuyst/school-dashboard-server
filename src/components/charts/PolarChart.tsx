@@ -1,5 +1,5 @@
-import { ReactElement } from 'react'
 import * as chartjs from 'chart.js'
+import { ReactElement } from 'react'
 import { ChartData, Polar } from 'react-chartjs-2'
 
 interface IInputPolarChart {
