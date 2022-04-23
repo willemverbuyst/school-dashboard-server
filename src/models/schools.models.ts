@@ -1,10 +1,10 @@
 export interface School {
-  id: string;
-  name: string;
-  location: string;
+  id: string
+  name: string
+  location: string
 }
 
 export interface ApiSchool {
-  result: number;
-  data: Array<School>;
+  result: number
+  data: Array<School>
 }
