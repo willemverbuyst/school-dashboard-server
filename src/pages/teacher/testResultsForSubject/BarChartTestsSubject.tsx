@@ -14,9 +14,9 @@ interface IProps {
 	results: Array<TestResult>
 }
 
-const BarChartTestsSubject: React.FC<IProps> = ({
+export default function BarChartTestsSubject({
 	results,
-}: IProps): ReactElement => {
+}: IProps): ReactElement {
 	return (
 		<Row justify={'space-around'}>
 			{results.map(({ numberOfTests, score, userName }, i) => (
@@ -32,5 +32,3 @@ const BarChartTestsSubject: React.FC<IProps> = ({
 		</Row>
 	)
 }
-
-export default BarChartTestsSubject

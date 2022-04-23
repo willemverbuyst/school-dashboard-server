@@ -14,9 +14,9 @@ interface IProps {
 	results: ISubject[]
 }
 
-const BarChartTestsStudent: React.FC<IProps> = ({
+export default function BarChartTestsStudent({
 	results,
-}: IProps): ReactElement => {
+}: IProps): ReactElement {
 	const [selectionTests, setSelectionTests] = useState('name')
 	const [selectSubjectTests, setSelectSubjectTests] = useState('')
 
@@ -59,5 +59,3 @@ const BarChartTestsStudent: React.FC<IProps> = ({
 		</>
 	)
 }
-
-export default BarChartTestsStudent

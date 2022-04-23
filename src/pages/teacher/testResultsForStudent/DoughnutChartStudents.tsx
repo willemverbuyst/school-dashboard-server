@@ -14,9 +14,9 @@ interface IProps {
 	results: ISubject[]
 }
 
-const DoughnutChartStudent: React.FC<IProps> = ({
+export default function DoughnutChartStudent({
 	results,
-}: IProps): ReactElement => {
+}: IProps): ReactElement {
 	const [selectionAverage, setSelectionAverage] = useState('name')
 	const [selectSubjectAverage, setSelectSubjectAverage] = useState('')
 
@@ -58,5 +58,3 @@ const DoughnutChartStudent: React.FC<IProps> = ({
 		</>
 	)
 }
-
-export default DoughnutChartStudent

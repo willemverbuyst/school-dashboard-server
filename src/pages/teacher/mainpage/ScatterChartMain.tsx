@@ -18,9 +18,7 @@ interface IProps {
 	tests: ITest[]
 }
 
-const ScatterChartMain: React.FC<IProps> = ({
-	tests,
-}: IProps): ReactElement => {
+export default function ScatterChartMain({ tests }: IProps): ReactElement {
 	const color: string[] = []
 	const data: Coordinates[] = []
 	tests.forEach(({ scores, createdAt }) => {
@@ -44,5 +42,3 @@ const ScatterChartMain: React.FC<IProps> = ({
 		</Col>
 	)
 }
-
-export default ScatterChartMain

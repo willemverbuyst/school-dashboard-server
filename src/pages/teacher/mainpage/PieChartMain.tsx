@@ -12,7 +12,7 @@ interface IProps {
 	tests: ITest[]
 }
 
-const PieChartMain: React.FC<IProps> = ({ tests }: IProps): ReactElement => {
+export default function PieChartMain({ tests }: IProps): ReactElement {
 	const reducedTests: number[] = tests.map(test => test.scores)
 	const counts: { [key: string]: number } = {
 		'0/3': 0,
@@ -39,5 +39,3 @@ const PieChartMain: React.FC<IProps> = ({ tests }: IProps): ReactElement => {
 		</Col>
 	)
 }
-
-export default PieChartMain

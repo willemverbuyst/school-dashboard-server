@@ -15,8 +15,7 @@ interface IProps {
 	tests: ITest[]
 }
 
-const LineChartMain: React.FC<IProps> = ({ tests }: IProps): ReactElement => {
-	// console.log('tests :>> ', tests)
+export default function LineChartMain({ tests }: IProps): ReactElement {
 	// https://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
 	const testDates: string[] = tests.map(test =>
 		moment(test.createdAt).format('ll')
@@ -47,5 +46,3 @@ const LineChartMain: React.FC<IProps> = ({ tests }: IProps): ReactElement => {
 		</Col>
 	)
 }
-
-export default LineChartMain

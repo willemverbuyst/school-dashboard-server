@@ -7,9 +7,9 @@ interface IProps {
 	results: TestResult[]
 }
 
-const DoughnutChartSubject: React.FC<IProps> = ({
+export default function DoughnutChartSubject({
 	results,
-}: IProps): ReactElement => {
+}: IProps): ReactElement {
 	return (
 		<Row justify={'space-around'}>
 			{results.map(({ numberOfTests, score, userName }, i) => (
@@ -27,5 +27,3 @@ const DoughnutChartSubject: React.FC<IProps> = ({
 		</Row>
 	)
 }
-
-export default DoughnutChartSubject
