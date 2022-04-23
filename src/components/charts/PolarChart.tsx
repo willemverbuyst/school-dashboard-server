@@ -1,20 +1,20 @@
-import React, { ReactElement } from 'react';
-import * as chartjs from 'chart.js';
-import { ChartData, Polar } from 'react-chartjs-2';
+import { ReactElement } from 'react'
+import * as chartjs from 'chart.js'
+import { ChartData, Polar } from 'react-chartjs-2'
 
 interface IInputPolarChart {
-  labels: string[];
-  data: number[];
-  color: string[];
-  title: string;
+  labels: string[]
+  data: number[]
+  color: string[]
+  title: string
 }
 
-const PolarChart: React.FC<IInputPolarChart> = ({
+export default function PolarChart({
   labels,
   color,
   data,
   title,
-}: IInputPolarChart): ReactElement => {
+}: IInputPolarChart): ReactElement {
   const chartData: ChartData<chartjs.ChartData> = {
     labels: labels,
     datasets: [
@@ -24,7 +24,7 @@ const PolarChart: React.FC<IInputPolarChart> = ({
         borderWidth: 4,
       },
     ],
-  };
+  }
   const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
     legend: {
@@ -37,9 +37,7 @@ const PolarChart: React.FC<IInputPolarChart> = ({
     scale: {
       display: false,
     },
-  };
+  }
 
-  return <Polar data={chartData} options={chartOptions} />;
-};
-
-export default PolarChart;
+  return <Polar data={chartData} options={chartOptions} />
+}

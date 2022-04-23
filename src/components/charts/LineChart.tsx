@@ -1,22 +1,22 @@
-import React, { ReactElement } from 'react';
-import * as chartjs from 'chart.js';
-import { ChartData, Line } from 'react-chartjs-2';
+import { ReactElement } from 'react'
+import * as chartjs from 'chart.js'
+import { ChartData, Line } from 'react-chartjs-2'
 
 interface IInputLineChart {
-  labels: string[];
-  data: number[];
-  color: string;
-  title: string;
-  max: number;
+  labels: string[]
+  data: number[]
+  color: string
+  title: string
+  max: number
 }
 
-const LineChart: React.FC<IInputLineChart> = ({
+export default function LineChart({
   labels,
   data,
   color,
   title,
   max,
-}: IInputLineChart): ReactElement => {
+}: IInputLineChart): ReactElement {
   const chartData: ChartData<chartjs.ChartData> = {
     labels: labels,
     datasets: [
@@ -26,7 +26,7 @@ const LineChart: React.FC<IInputLineChart> = ({
         borderWidth: 0,
       },
     ],
-  };
+  }
 
   const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
@@ -58,9 +58,7 @@ const LineChart: React.FC<IInputLineChart> = ({
         },
       ],
     },
-  };
+  }
 
-  return <Line data={chartData} options={chartOptions} />;
-};
-
-export default LineChart;
+  return <Line data={chartData} options={chartOptions} />
+}
