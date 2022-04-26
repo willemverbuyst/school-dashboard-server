@@ -1,5 +1,5 @@
-import { ReactElement } from 'react'
 import { Col, Row } from 'antd'
+import { ReactElement } from 'react'
 import { DoughnutChart } from '../../../components/charts/'
 import { TestResult } from '../testResultsForSubject/BarChartTestsSubject'
 
@@ -12,7 +12,7 @@ export default function DoughnutChartStudent({
 }: IProps): ReactElement {
   return (
     <Row justify={'space-around'}>
-      {results.map(({ numberOfTests, score, userName }, i) => (
+      {results.map(({ numberOfTests, score, subjectName }, i) => (
         <Col key={i} style={{ width: 350, paddingBottom: 80 }}>
           <DoughnutChart
             data={[
@@ -20,7 +20,7 @@ export default function DoughnutChartStudent({
               100 - (score / 3) * numberOfTests,
             ]}
             color={['#8F1CB8', '#eee']}
-            title={`${userName} ${Math.round((score / 3) * numberOfTests)}%`}
+            title={`${subjectName} ${Math.round((score / 3) * numberOfTests)}%`}
           />
         </Col>
       ))}
