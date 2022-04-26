@@ -1,10 +1,12 @@
 import { Response } from 'express'
 import { controller, get, use } from '../decorators'
 import { RequestWithBody } from '../../interfaces/Requests'
-import { subjectQueries, userQueries } from '../../queries'
+import { subjectQueries, testQueries, userQueries } from '../../queries'
 import { userAuthMiddleware } from '../../middlewares/userAuthMiddleware'
 import { toJWT } from '../../auth/jwt'
+import { Role } from '@prisma/client'
 
+const { getAllTestsForTeacher, getTestsForStudent } = testQueries
 const { getAllSubjects } = subjectQueries
 const { getUserPlus } = userQueries
 
@@ -24,14 +26,37 @@ export class ValidUserController {
 			const subjects = await getAllSubjects()
 			const userWithProfile = await getUserPlus(userId)
 
-			res.status(200).send({
+			const response = {
 				token,
 				data: {
 					user: userWithProfile,
 					subjects: { results: subjects.length, data: subjects },
+					overview: {},
 				},
 				message: 'Valid user',
-			})
+			}
+
+			if (
+				userWithProfile &&
+				userWithProfile.role === Role.STUDENT &&
+				userWithProfile.student &&
+				userWithProfile.student.id
+			) {
+				const tests = await getTestsForStudent(userWithProfile.student?.id)
+				response.data.overview = { results: tests.length, data: tests }
+			}
+
+			if (
+				userWithProfile &&
+				userWithProfile.role === Role.TEACHER &&
+				userWithProfile.teacher &&
+				userWithProfile.teacher.id
+			) {
+				const tests = await getAllTestsForTeacher(userWithProfile.teacher?.id)
+				response.data.overview = { results: tests.length, data: tests }
+			}
+
+			res.status(200).send(response)
 		} catch (error) {
 			res.status(500).send({ message: 'Something went wrong' })
 		}
