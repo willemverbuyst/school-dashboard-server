@@ -11,9 +11,9 @@ export default function AddQuestionForm(): ReactElement {
   const { user } = useUser()
   const postQuestion = usePostQuestion()
   const subjects = user?.data.subjects.data || []
-  const { guardPage } = useTeacherGuard()
+  const { teacherGuard } = useTeacherGuard()
 
-  useEffect(() => guardPage())
+  useEffect(() => teacherGuard())
 
   const handleSubmit = (input: QuestionInput): void => {
     postQuestion(input)

@@ -1,7 +1,7 @@
 import { Layout } from 'antd'
 import { useEffect } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import { useSubjectForStudent, useUser } from '../../../hooks'
+import { useParams } from 'react-router-dom'
+import { useStudentGuard, useSubjectForStudent, useUser } from '../../../hooks'
 import BarChartDetails from './BarChartDetails'
 import DoughnutChartDetails from './DoughnutChartDetails'
 
@@ -9,16 +9,12 @@ const { Content } = Layout
 
 export default function StudentSubject() {
   const { subjectid } = useParams<{ subjectid: string }>()
-  const history = useHistory()
   const { user } = useUser()
   const { subject, setSubjectId } = useSubjectForStudent()
   const subjects = user?.data.subjects.data || []
+  const { studentGuard } = useStudentGuard()
 
-  useEffect(() => {
-    if (!user || user.token === null) {
-      history.push('/')
-    }
-  }, [user, history])
+  useEffect(() => studentGuard())
 
   useEffect(() => {
     setSubjectId(subjectid)

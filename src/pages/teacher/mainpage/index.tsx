@@ -1,8 +1,7 @@
 import { Layout, Row } from 'antd'
-import React, { ReactElement, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { ReactElement, useEffect } from 'react'
 import Spinner from '../../../components/spinner'
-import { useUser } from '../../../hooks'
+import { useTeacherGuard, useUser } from '../../../hooks'
 // import BarChartMain from './BarChartMain'
 import LineChartMain from './LineChartMain'
 import PieChartMain from './PieChartMain'
@@ -13,14 +12,10 @@ const { Content } = Layout
 export default function TeacherMainPage(): ReactElement {
   const { user } = useUser()
   const tests = user?.data?.overview?.data?.testsWithSummedScores || []
-  const history = useHistory()
   const subjects = user?.data.subjects
+  const { teacherGuard } = useTeacherGuard()
 
-  useEffect(() => {
-    if (!user || user.token === null || user.data.user.role !== 'TEACHER') {
-      history.push('/')
-    }
-  }, [user, history])
+  useEffect(() => teacherGuard())
 
   const renderCharts = (): JSX.Element => {
     return subjects ? (

@@ -1,8 +1,7 @@
 import { Button, Form, Layout, Row, Select } from 'antd'
 import { ReactElement, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import Spinner from '../../../../../components/spinner'
-import { useGetQuestions, useUser } from '../../../../../hooks'
+import { useGetQuestions, useTeacherGuard, useUser } from '../../../../../hooks'
 import QuestionsAndAnswers from './QuestionsAndAnswers'
 
 const { Content } = Layout
@@ -10,16 +9,12 @@ const { Option } = Select
 
 export default function ListOfQuestions(): ReactElement {
   const [form] = Form.useForm()
-  const history = useHistory()
   const { user } = useUser()
   const subjects = user?.data.subjects.data
   const { filter, setFilter, questions } = useGetQuestions()
+  const { teacherGuard } = useTeacherGuard()
 
-  useEffect(() => {
-    if (user?.token === null || user?.data.user.role !== 'TEACHER') {
-      history.push('/')
-    }
-  })
+  useEffect(() => teacherGuard())
 
   const getListOfQuestions = ({ subject }: { subject: string }): void => {
     setFilter(subject)

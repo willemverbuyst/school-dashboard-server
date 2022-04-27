@@ -20,7 +20,7 @@ export default function TestResultsForSubject(): ReactElement {
   const { subjectid } = useParams<{ subjectid: string }>()
   const { testResultsForSubject, setSubjectId } = useTestResultForSubject()
   const results: Array<TestResult> = testResultsForSubject || []
-  const { guardPage } = useTeacherGuard()
+  const { teacherGuard } = useTeacherGuard()
   const selectOptions = results.map((result) => result.userName)
 
   const [selectionAverage, setSelectionAverage] = useState('name')
@@ -35,7 +35,7 @@ export default function TestResultsForSubject(): ReactElement {
     ? sortedResults.filter((result) => result.userName === selectStudentAverage)
     : sortedResults
 
-  useEffect(() => guardPage())
+  useEffect(() => teacherGuard())
 
   useEffect(() => {
     setSubjectId(subjectid)
