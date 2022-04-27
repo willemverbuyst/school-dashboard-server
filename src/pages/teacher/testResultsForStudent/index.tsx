@@ -35,7 +35,10 @@ export default function TestResultsForStudent(): ReactElement {
   }, [studentid, setStudentId])
 
   return (
-    <Content className="site-layout-content" style={{ padding: 90 }}>
+    <Content
+      className="site-layout-content"
+      style={{ padding: 90, height: 80, overflow: 'scroll' }}
+    >
       <SortAndSelect
         title="AVERAGE GRADES"
         radio1="Name"

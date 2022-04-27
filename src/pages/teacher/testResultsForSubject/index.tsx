@@ -42,7 +42,10 @@ export default function TestResultsForSubject(): ReactElement {
   }, [subjectid, setSubjectId])
 
   return results.length ? (
-    <Content className="site-layout-content" style={{ padding: 90 }}>
+    <Content
+      className="site-layout-content"
+      style={{ padding: 90, height: 80, overflow: 'scroll' }}
+    >
       <SortAndSelect
         title="AVERAGE GRADES"
         radio1="Name"

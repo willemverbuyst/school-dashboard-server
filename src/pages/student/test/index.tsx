@@ -148,7 +148,10 @@ export default function StudentTest() {
         )}
       </NavigationPrompt> */}
 
-      <Content className="site-layout-content" style={{ padding: 90 }}>
+      <Content
+        className="site-layout-content"
+        style={{ padding: 90, height: 80, overflow: 'scroll' }}
+      >
         {renderMCQ()}
       </Content>
     </>

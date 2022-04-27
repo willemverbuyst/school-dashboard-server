@@ -33,7 +33,10 @@ export default function ListOfQuestions(): ReactElement {
     ) : null
 
   return (
-    <Content className="site-layout-content" style={{ padding: 90 }}>
+    <Content
+      className="site-layout-content"
+      style={{ padding: 90, height: 80, overflow: 'scroll' }}
+    >
       {subjects ? (
         <>
           <Row justify="center" style={{ padding: '12px' }}>
