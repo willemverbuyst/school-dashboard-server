@@ -17,7 +17,7 @@ const { Sider } = Layout
 export default function SidebarForTeacher(): ReactElement {
   const history = useHistory()
   const { user } = useUser()
-  const subjects = user?.data.subjects.data || []
+  const subjects = user?.data.subjects.data
   const students = user?.data.user.teacher?.students
   const studentsForNavigation = students?.map((student) => ({
     id: student.id,
