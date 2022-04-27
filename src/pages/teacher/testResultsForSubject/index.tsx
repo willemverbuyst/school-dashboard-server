@@ -21,6 +21,7 @@ export default function TestResultsForSubject(): ReactElement {
   const { testResultsForSubject, setSubjectId } = useTestResultForSubject()
   const results: Array<TestResult> = testResultsForSubject || []
   const { guardPage } = useTeacherGuard()
+  const selectOptions = results.map((result) => result.userName)
 
   const [selectionAverage, setSelectionAverage] = useState('name')
   const [selectStudentAverage, setSelectStudentAverage] = useState('')
@@ -49,7 +50,7 @@ export default function TestResultsForSubject(): ReactElement {
         onChangeRadio={setSelectionAverage}
         value={selectStudentAverage || undefined}
         onChangeSelection={setSelectStudentAverage}
-        results={results}
+        results={selectOptions}
         selectStudentData={selectStudentAverage}
         onClick={() => setSelectStudentAverage('')}
         placeholder="Select a student"
