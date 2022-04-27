@@ -1,14 +1,6 @@
-import {
-  DatabaseOutlined,
-  HomeOutlined,
-  LaptopOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
 import { Layout, Menu } from 'antd'
 import { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom'
-import renderSideBarNav from '../../../components/sidebar/renderSideBarNav'
-import { adminTasks } from '../../../constants/constants'
 import { useUser } from '../../../hooks'
 
 const { SubMenu } = Menu
@@ -29,18 +21,18 @@ export default function SidebarForTeacher(): ReactElement {
     history.push(goto)
   }
 
-  const renderSubjectsNav = (subjects) =>
-    renderSideBarNav('sub2', `/teachers/${teacherId}/subjects`, subjects)
+  // const renderSubjectsNav = (subjects) =>
+  //   renderSideBarNav('sub2', `/teachers/${teacherId}/subjects`, subjects)
 
-  const renderStudentsNav = (students) =>
-    renderSideBarNav('sub3', `/teachers/${teacherId}/students`, students)
+  // const renderStudentsNav = (students) =>
+  //   renderSideBarNav('sub3', `/teachers/${teacherId}/students`, students)
 
-  const renderAdminTasksNav = () =>
-    renderSideBarNav('sub4', `/teachers/${teacherId}/admintasks`, adminTasks)
+  // const renderAdminTasksNav = () =>
+  //   renderSideBarNav('sub4', `/teachers/${teacherId}/admintasks`, adminTasks)
 
   return (
     <Sider width={250}>
-      <Menu
+      {/* <Menu
         mode="inline"
         defaultSelectedKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
@@ -51,8 +43,8 @@ export default function SidebarForTeacher(): ReactElement {
           onClick={() => goTo('/teachers/1')}
         >
           Home
-        </Menu.Item>
-        {subjects && studentsForNavigation ? (
+        </Menu.Item> */}
+      {/* {subjects && studentsForNavigation ? (
           <>
             <SubMenu key="sub2" icon={<LaptopOutlined />} title="Subjects">
               {renderSubjectsNav(subjects)}
@@ -64,8 +56,8 @@ export default function SidebarForTeacher(): ReactElement {
               {renderAdminTasksNav()}
             </SubMenu>
           </>
-        ) : null}
-      </Menu>
+        ) : null} */}
+      {/* </Menu> */}
     </Sider>
   )
 }

@@ -1,4 +1,8 @@
-import { HomeOutlined, LaptopOutlined } from '@ant-design/icons'
+import {
+  BarChartOutlined,
+  ExperimentOutlined,
+  HomeOutlined,
+} from '@ant-design/icons'
 import { Layout, Menu } from 'antd'
 import { ReactElement } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -18,8 +22,19 @@ export default function SidebarForStudent(): ReactElement {
     history.push(goto)
   }
 
-  const renderSubjectNav = () =>
-    renderSideBarNav('sub2', `/students/${studentId}/subjects`, subjects)
+  const renderSubjectNav = (subjects) =>
+    subjects.map(({ id, name }) =>
+      renderSideBarNav('sub2', `/students/${studentId}/subjects/${id}`, name)
+    )
+
+  const renderTestNav = (subjects) =>
+    subjects.map(({ id, name }) =>
+      renderSideBarNav(
+        'sub3',
+        `/students/${studentId}/subjects/${id}/test`,
+        name
+      )
+    )
 
   return (
     <Sider width={250}>
@@ -35,8 +50,11 @@ export default function SidebarForStudent(): ReactElement {
         >
           Home
         </Menu.Item>
-        <SubMenu key="sub2" icon={<LaptopOutlined />} title="Subjects">
-          {renderSubjectNav()}
+        <SubMenu key="sub2" icon={<BarChartOutlined />} title="Subjects">
+          {renderSubjectNav(subjects)}
+        </SubMenu>
+        <SubMenu key="sub3" icon={<ExperimentOutlined />} title="Test">
+          {renderTestNav(subjects)}
         </SubMenu>
       </Menu>
     </Sider>
