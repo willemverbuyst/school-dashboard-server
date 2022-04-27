@@ -5,7 +5,6 @@ import './App.css'
 import AppRouter from './Approuter'
 import BarAtTheTop from './components/barAtTheTop'
 import Sidebar from './components/sidebar'
-import Spinner from './components/spinner'
 import { queryClient } from './react-query/queryClient'
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
     <>
       <QueryClientProvider client={queryClient}>
         <Layout style={{ minHeight: '100vh' }}>
-          <Spinner />
           <BarAtTheTop />
           <Layout>
             <Sidebar />

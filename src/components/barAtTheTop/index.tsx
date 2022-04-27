@@ -3,6 +3,7 @@ import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { useUser } from '../../hooks'
 import { LoginButton, LogoutButton } from '../buttons'
+import Spinner from '../spinner'
 
 const { Header } = Layout
 
@@ -34,7 +35,10 @@ export default function BarAtThetop(): ReactElement {
       >
         Dashboard
       </Link>
-      <div>{renderLoginLogout()}</div>
+      <div style={{ display: 'flex' }}>
+        <Spinner />
+        <div>{renderLoginLogout()}</div>
+      </div>
     </Header>
   )
 }
