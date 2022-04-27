@@ -49,6 +49,7 @@ export const useUser = (): UseUser => {
     queryClient.setQueriesData(queryKeys.STUDENT_SUBJECT, null)
     queryClient.setQueriesData(queryKeys.TEACHER_STUDENT, null)
     queryClient.setQueriesData(queryKeys.TEACHER_SUBJECT, null)
+    queryClient.setQueriesData(queryKeys.QUESTIONS, null)
   }
 
   return { user, updateUser, removeUser }
