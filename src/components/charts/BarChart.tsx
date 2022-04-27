@@ -6,7 +6,7 @@ interface IInputBarChart {
   labels: string[]
   data: number[]
   color: string[]
-  title: string
+  title?: string
   max: number
 }
 
@@ -14,7 +14,7 @@ export default function BarChart({
   labels,
   data,
   color,
-  title,
+  title = '',
   max,
 }: IInputBarChart): ReactElement {
   const chartData: ChartData<chartjs.ChartData> = {

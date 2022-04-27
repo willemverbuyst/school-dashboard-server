@@ -1,6 +1,6 @@
+import { Col, Row } from 'antd'
 import { ReactElement } from 'react'
 import { DoughnutChart } from '../../../components/charts'
-import { Col } from 'antd'
 
 interface IResult {
   at: string
@@ -22,12 +22,16 @@ const DoughnutChartDetails: React.FC<IProps> = ({
   const color = ['#A026FF', '#eee']
 
   return (
-    <Col style={{ width: 450, paddingBottom: 60 }}>
-      <DoughnutChart
-        color={color}
-        data={[average, 100 - average]}
-        title={`YOUR AVERAGE IS ${average}%`}
-      />
+    <Col>
+      <Row justify="center" style={{ marginBottom: '48px' }}>
+        <Col style={{ width: 450 }}>
+          <DoughnutChart
+            color={color}
+            data={[average, 100 - average]}
+            title={`YOUR AVERAGE OVER ${results.length} TESTS IS ${average}%`}
+          />
+        </Col>
+      </Row>
     </Col>
   )
 }

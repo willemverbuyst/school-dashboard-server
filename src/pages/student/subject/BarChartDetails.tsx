@@ -1,7 +1,7 @@
-import { BarChart } from '../../../components/charts'
+import { Col, Radio, Row, Space } from 'antd'
 import moment from 'moment'
-import { Row, Col, Radio, Space } from 'antd'
 import { ReactElement, useState } from 'react'
+import { BarChart } from '../../../components/charts'
 
 interface IResult {
   createdAt: string
@@ -53,13 +53,7 @@ const BarChartDetails: React.FC<IProps> = ({
     <Col>
       <Row justify="center">
         <Col style={{ width: 650 }}>
-          <BarChart
-            data={data}
-            color={color}
-            labels={labels}
-            title={`RESULTS FOR YOUR ${subject.toUpperCase()} TESTS`}
-            max={3}
-          />
+          <BarChart data={data} color={color} labels={labels} max={3} />
         </Col>
       </Row>
       <Row style={{ paddingTop: 15 }} justify="center">
