@@ -1,58 +1,34 @@
-import { Button, Layout } from 'antd'
-import { useState } from 'react'
+import { Button, Form, Layout, Modal, Radio, Row } from 'antd'
+import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import MultipleChoiceQuestion from './MultipleChoiceQuestion'
+import NavigationPrompt from 'react-router-navigation-prompt'
+import { useGetTest, useStudentGuard, useUser } from '../../../hooks'
 
 const { Content } = Layout
 
-interface TestResult {
-  question1: number
-  question2: number
-  question3: number
-  answer1: string
-  answer2: string
-  answer3: string
-}
-
 export default function StudentTest() {
   const history = useHistory()
+  const [form] = Form.useForm()
   const { subjectid } = useParams<{ subjectid: string }>()
-  const subjects = []
-  const questions = []
-  const [MCResults, setMCResults] = useState<TestResult>({
-    question1: 0,
-    question2: 0,
-    question3: 0,
-    answer1: '0',
-    answer2: '0',
-    answer3: '0',
-  })
+  const { mcQuestions, setSubjectId } = useGetTest()
+  const { user } = useUser()
+  const studentId = user?.data.user.student?.id
+  const questions = mcQuestions || []
+
   const [testDone, setTestDone] = useState(false)
   const [blockNavigation, setBlockNavigation] = useState(true)
-  const studentId = ''
+  const { studentGuard } = useStudentGuard()
 
-  const onPick = (event: any, questionNumber: number, questionId: number) => {
-    if (questionNumber === 1) {
-      event === 1 || event % 4 === 1
-        ? setMCResults({ ...MCResults, question1: questionId, answer1: '1' })
-        : setMCResults({ ...MCResults, question1: questionId, answer1: '0' })
-    } else if (questionNumber === 2) {
-      event === 1 || event % 4 === 1
-        ? setMCResults({ ...MCResults, question2: questionId, answer2: '1' })
-        : setMCResults({ ...MCResults, question2: questionId, answer2: '0' })
-    } else {
-      event === 1 || event % 4 === 1
-        ? setMCResults({ ...MCResults, question3: questionId, answer3: '1' })
-        : setMCResults({ ...MCResults, question3: questionId, answer3: '0' })
-    }
-  }
+  useEffect(() => studentGuard())
 
-  const onFinish = () => {
-    if (studentId) {
-      setTestDone(true)
-      setMCResults({ ...MCResults, answer1: '0', answer2: '0', answer3: '0' })
-      setBlockNavigation(false)
-    }
+  useEffect(() => {
+    setSubjectId(subjectid)
+  }, [subjectid, setSubjectId])
+
+  const handleSubmit = (input: any) => {
+    setTestDone(true)
+    console.log('done', input)
+    setBlockNavigation(false)
   }
 
   const doAnotherTest = () => {
@@ -65,21 +41,66 @@ export default function StudentTest() {
   }
 
   const renderMCQ = () => {
-    if (questions && subjects) {
-      return (
-        <>
-          {subjectid}
-          {questions.map(({ text, answers, id }, i) => (
-            <MultipleChoiceQuestion
-              key={i}
-              text={text}
-              answers={answers}
-              onChange={onPick}
-              questionNumber={i + 1}
-              questionId={id}
-            />
-          ))}
-          {!testDone ? (
+    return (
+      <Form
+        form={form}
+        name="basic"
+        initialValues={{ remember: true }}
+        onFinish={handleSubmit}
+      >
+        {questions.map(({ text, answers, id }) => (
+          <>
+            <Row>{text}</Row>
+
+            <Form.Item
+              name={id}
+              rules={[{ required: true, message: 'Please select an answer!' }]}
+            >
+              <Radio.Group>
+                {answers.map(({ text, id }, i) => (
+                  <Radio
+                    style={{
+                      display: 'block',
+                      height: '30px',
+                      lineHeight: '30px',
+                    }}
+                    value={id}
+                  >
+                    {text}
+                  </Radio>
+                ))}
+              </Radio.Group>
+            </Form.Item>
+          </>
+        ))}
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{
+              backgroundColor: '#B81D9D',
+              border: 'none',
+            }}
+          >
+            Finish
+          </Button>
+        </Form.Item>
+
+        {testDone ? (
+          <>
+            <p>{'You want to take another test?'.toUpperCase()}</p>
+            <Button
+              style={{
+                width: 160,
+                backgroundColor: '#4BC0E7',
+                border: 'none',
+                color: '#fff',
+                marginRight: 20,
+              }}
+              onClick={doAnotherTest}
+            >
+              yes
+            </Button>
             <Button
               style={{
                 width: 160,
@@ -87,47 +108,19 @@ export default function StudentTest() {
                 border: 'none',
                 color: '#fff',
               }}
-              onClick={onFinish}
+              onClick={goToMain}
             >
-              Finish
+              no
             </Button>
-          ) : null}
-          {testDone ? (
-            <>
-              <p>{'You want to take another test?'.toUpperCase()}</p>
-              <Button
-                style={{
-                  width: 160,
-                  backgroundColor: '#4BC0E7',
-                  border: 'none',
-                  color: '#fff',
-                  marginRight: 20,
-                }}
-                onClick={doAnotherTest}
-              >
-                yes
-              </Button>
-              <Button
-                style={{
-                  width: 160,
-                  backgroundColor: '#B81D9D',
-                  border: 'none',
-                  color: '#fff',
-                }}
-                onClick={goToMain}
-              >
-                no
-              </Button>
-            </>
-          ) : null}
-        </>
-      )
-    }
+          </>
+        ) : null}
+      </Form>
+    )
   }
 
   return (
     <>
-      {/* <NavigationPrompt
+      <NavigationPrompt
         beforeConfirm={(clb) => {
           console.log('submit')
           clb()
@@ -146,7 +139,7 @@ export default function StudentTest() {
             </div>
           </Modal>
         )}
-      </NavigationPrompt> */}
+      </NavigationPrompt>
 
       <Content
         className="site-layout-content"
