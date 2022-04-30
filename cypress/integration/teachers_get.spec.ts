@@ -6,7 +6,7 @@ describe('School-daschboard api', () => {
 				url: '/teachers',
 			}).should(response => {
 				expect(response.status).to.eq(200)
-				expect(response.body.results).to.eq(1)
+				expect(response.body.results).to.eq(2)
 				expect(response.body.data.length).to.be.eq(2)
 				expect(response.body.data[0]).to.have.all.keys(
 					'id',

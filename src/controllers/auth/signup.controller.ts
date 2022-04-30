@@ -44,14 +44,14 @@ export class SignupController {
 					teacherId,
 				})
 			} else {
-				user = await createUserTeacher(
+				user = await createUserTeacher({
 					email,
 					userName,
-					password,
+					passwordText: password,
 					bio,
 					bsn,
-					schoolId
-				)
+					schoolId,
+				})
 			}
 
 			if (!user) {

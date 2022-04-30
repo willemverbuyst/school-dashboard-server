@@ -212,6 +212,12 @@ describe('School-daschboard api', () => {
 					'user',
 					'overview'
 				)
+				expect(response.body.data.user.email).to.equal('new@teacher.com')
+				expect(response.body.data.user.bsn).to.equal('999998997')
+				expect(response.body.data.user.role).to.equal('TEACHER')
+				expect(response.body.data.user.profile.bio).to.equal(
+					'Testing the new teacher'
+				)
 				expect(response.body.message).to.equal('Welcome')
 			})
 		})

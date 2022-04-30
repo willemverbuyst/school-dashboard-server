@@ -55,3 +55,12 @@ export interface InputCreateUserStudent {
 	schoolId: string
 	teacherId: string
 }
+
+export interface InputCreateUserTeacher {
+	email: string
+	userName: string
+	passwordText: string
+	bsn: string
+	bio: string
+	schoolId: string
+}
