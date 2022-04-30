@@ -21,7 +21,7 @@ export class QuestionController {
 
 			if (!questions) {
 				res.status(404).send({
-					message: 'No questions for that subject found',
+					message: 'No questions for subjects found',
 				})
 				return
 			}
