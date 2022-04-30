@@ -2,8 +2,8 @@ import { Button, Col, Form, Input, Layout, Radio, Row, Select } from 'antd'
 import { ReactElement, useEffect, useState } from 'react'
 import {
   SignupInput,
+  useGetSchools,
   useLoggedInGuard,
-  useSchools,
   useSignup,
   useTeachers,
 } from '../../../hooks'
@@ -13,7 +13,7 @@ const { Option } = Select
 
 const Signup = (): ReactElement => {
   const [form] = Form.useForm()
-  const schools = useSchools()
+  const schools = useGetSchools()
   const { signup } = useSignup()
   const teachers = useTeachers()
   const { loggedInGuard } = useLoggedInGuard()
