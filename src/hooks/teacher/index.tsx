@@ -1,4 +1,5 @@
 export * from './useGetQuestions'
+export * from './useGetTeachers'
 export * from './usePostQuestion'
 export * from './usePostSubject'
 export * from './useTestResultForStudent'

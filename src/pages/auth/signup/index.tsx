@@ -3,9 +3,9 @@ import { ReactElement, useEffect, useState } from 'react'
 import {
   SignupInput,
   useGetSchools,
+  useGetTeachers,
   useLoggedInGuard,
   useSignup,
-  useTeachers,
 } from '../../../hooks'
 
 const { Content } = Layout
@@ -15,7 +15,7 @@ const Signup = (): ReactElement => {
   const [form] = Form.useForm()
   const schools = useGetSchools()
   const { signup } = useSignup()
-  const teachers = useTeachers()
+  const teachers = useGetTeachers()
   const { loggedInGuard } = useLoggedInGuard()
   const [showTeachers, setShowTeachers] = useState<boolean>(false)
 

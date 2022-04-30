@@ -4,13 +4,13 @@ import { axiosInstance } from '../../axiosInstance'
 import { Toast } from '../../components/toast'
 import { SERVER_ERROR } from '../../constants/constants'
 import { ApiError } from '../../models/api/error.api'
-import { ApiSchool } from '../../models/api/school/school.api'
+import { ApiTeacher } from '../../models/api/teacher/teacher.api'
 import { queryKeys } from '../../react-query/constants'
 
-export const getSchools = async (): Promise<ApiSchool | null> => {
+export const getTeachers = async (): Promise<ApiTeacher | null> => {
   try {
-    const { data }: AxiosResponse<ApiSchool | ApiError> =
-      await axiosInstance.get('/schools')
+    const { data }: AxiosResponse<ApiTeacher | ApiError> =
+      await axiosInstance.get('/teachers')
 
     if ('data' in data) return data
 
@@ -28,10 +28,10 @@ export const getSchools = async (): Promise<ApiSchool | null> => {
   }
 }
 
-export const useGetSchools = () => {
-  const { data } = useQuery(queryKeys.SCHOOLS, getSchools)
+export const useGetTeachers = () => {
+  const { data } = useQuery(queryKeys.TEACHERS, getTeachers)
 
-  const schools = data ? data.data : []
+  const teachers = data ? data.data : []
 
-  return schools
+  return teachers
 }
