@@ -23,11 +23,8 @@ export const useGetTest = () => {
   const [subjectId, setSubjectId] = useState('')
   const fallback = []
   const { data: mcQuestions = fallback } = useQuery(
-    [queryKeys.STUDENT_SUBJECT, subjectId],
-    () => getTest(subjectId, user),
-    {
-      staleTime: 60000,
-    }
+    [queryKeys.STUDENT_TEST, subjectId],
+    () => getTest(subjectId, user)
   )
 
   return { mcQuestions, subjectId, setSubjectId }

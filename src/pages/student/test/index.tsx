@@ -48,31 +48,34 @@ export default function StudentTest() {
         initialValues={{ remember: true }}
         onFinish={handleSubmit}
       >
-        {questions.map(({ text, answers, id }) => (
-          <>
-            <Row>{text}</Row>
+        {questions.length &&
+          questions.map(({ text, answers, id }) => (
+            <div key={id}>
+              <Row>{text}</Row>
 
-            <Form.Item
-              name={id}
-              rules={[{ required: true, message: 'Please select an answer!' }]}
-            >
-              <Radio.Group>
-                {answers.map(({ text, id }, i) => (
-                  <Radio
-                    style={{
-                      display: 'block',
-                      height: '30px',
-                      lineHeight: '30px',
-                    }}
-                    value={id}
-                  >
-                    {text}
-                  </Radio>
-                ))}
-              </Radio.Group>
-            </Form.Item>
-          </>
-        ))}
+              <Form.Item
+                name={id}
+                rules={[
+                  { required: true, message: 'Please select an answer!' },
+                ]}
+              >
+                <Radio.Group>
+                  {answers.map(({ text, id }, i) => (
+                    <Radio
+                      style={{
+                        display: 'block',
+                        height: '30px',
+                        lineHeight: '30px',
+                      }}
+                      value={id}
+                    >
+                      {text}
+                    </Radio>
+                  ))}
+                </Radio.Group>
+              </Form.Item>
+            </div>
+          ))}
         <Form.Item>
           <Button
             type="primary"
@@ -90,11 +93,10 @@ export default function StudentTest() {
           <>
             <p>{'You want to take another test?'.toUpperCase()}</p>
             <Button
+              type="primary"
               style={{
                 width: 160,
                 backgroundColor: '#4BC0E7',
-                border: 'none',
-                color: '#fff',
                 marginRight: 20,
               }}
               onClick={doAnotherTest}
@@ -102,11 +104,10 @@ export default function StudentTest() {
               yes
             </Button>
             <Button
+              type="primary"
               style={{
                 width: 160,
                 backgroundColor: '#B81D9D',
-                border: 'none',
-                color: '#fff',
               }}
               onClick={goToMain}
             >
@@ -122,7 +123,6 @@ export default function StudentTest() {
     <>
       <NavigationPrompt
         beforeConfirm={(clb) => {
-          console.log('submit')
           clb()
         }}
         when={blockNavigation}
