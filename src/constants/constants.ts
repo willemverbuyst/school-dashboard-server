@@ -9,3 +9,5 @@ export const adminTasks = [
   { name: 'Add Question', id: 2 },
   { name: 'Add Subject', id: 3 },
 ]
+
+export const SERVER_ERROR = 'There was an error contacting the server!'

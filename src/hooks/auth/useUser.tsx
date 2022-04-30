@@ -47,6 +47,7 @@ export const useUser = (): UseUser => {
   const removeUser = (): void => {
     queryClient.setQueryData(queryKeys.USER, null)
     queryClient.setQueriesData(queryKeys.STUDENT_SUBJECT, null)
+    queryClient.setQueriesData(queryKeys.STUDENT_TEST, null)
     queryClient.setQueriesData(queryKeys.TEACHER_STUDENT, null)
     queryClient.setQueriesData(queryKeys.TEACHER_SUBJECT, null)
     queryClient.setQueriesData(queryKeys.QUESTIONS, null)

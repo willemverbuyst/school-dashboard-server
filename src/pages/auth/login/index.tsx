@@ -1,7 +1,7 @@
 import { Button, Col, Form, Input, Layout, Row } from 'antd'
 import { ReactElement, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useAuth, useLoggedInGuard } from '../../../hooks'
+import { useLoggedInGuard, useLogin } from '../../../hooks'
 
 const { Content } = Layout
 
@@ -12,7 +12,7 @@ interface LoginInput {
 
 export default function Login(): ReactElement {
   const [form] = Form.useForm()
-  const { login } = useAuth()
+  const login = useLogin()
   const { loggedInGuard } = useLoggedInGuard()
 
   useEffect(() => loggedInGuard())
