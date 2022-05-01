@@ -17,6 +17,10 @@ export interface ApiQuestion {
   data: Array<Question>
 }
 
+export interface ApiNewQuestion {
+  data: { question: Question }
+}
+
 export interface NewQuestion {
   id: string
   question: string

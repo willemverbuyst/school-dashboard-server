@@ -1,26 +1,39 @@
+import axios, { AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 import { axiosInstance, getJWTHeader } from '../../axiosInstance'
 import { Toast } from '../../components/toast'
-import { NewQuestion, QuestionInput } from '../../models'
+import { SERVER_ERROR } from '../../constants/constants'
+import { ApiNewQuestion, NewQuestion, QuestionInput } from '../../models'
+import { ApiError } from '../../models/api/error.api'
 import { ApiUser } from '../../models/api/user.api'
 import { queryKeys } from '../../react-query/constants'
 import { useUser } from '../auth/useUser'
 
-const postQuestion = async (newQuestion: NewQuestion, user: ApiUser | null) => {
+const postQuestion = async (
+  newQuestion: NewQuestion,
+  user: ApiUser | null
+): Promise<ApiNewQuestion | null> => {
   try {
     if (!user) return null
     const { id } = newQuestion
-    const { data } = await axiosInstance.post(
-      `/questions/subjects/${id}`,
-      newQuestion,
-      {
+    const { data }: AxiosResponse<ApiNewQuestion | ApiError> =
+      await axiosInstance.post(`/questions/subjects/${id}`, newQuestion, {
         headers: getJWTHeader(user),
-      }
-    )
+      })
 
-    return data.data
-  } catch (error) {
-    console.log(error)
+    if ('data' in data) return data
+
+    const text = data.message
+    Toast({ text, status: 'error' })
+    return null
+  } catch (errorResponse) {
+    const text =
+      axios.isAxiosError(errorResponse) &&
+      errorResponse?.response?.data?.message
+        ? errorResponse?.response?.data?.message
+        : SERVER_ERROR
+    Toast({ text, status: 'error' })
+    return null
   }
 }
 
