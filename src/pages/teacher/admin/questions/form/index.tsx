@@ -1,7 +1,8 @@
 import { Button, Col, Form, Input, Layout, Row, Select } from 'antd'
 import { ReactElement, useEffect } from 'react'
-import { QuestionInput, usePostQuestion, useUser } from '../../../../../hooks'
+import { usePostQuestion, useUser } from '../../../../../hooks'
 import { useTeacherGuard } from '../../../../../hooks/guard'
+import { QuestionInput } from '../../../../../models'
 
 const { Content } = Layout
 const { Option } = Select

@@ -1,4 +1,4 @@
-import { Question } from '../../models/api/question/question.api'
+import { Question } from '../../models'
 
 export const filterBySubject = (
   questions: Array<Question>,

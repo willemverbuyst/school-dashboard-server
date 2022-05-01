@@ -20,13 +20,6 @@ export default function ListOfQuestions(): ReactElement {
     setFilter(subject)
   }
 
-  const renderQuestions = (): ReactElement | null =>
-    questions ? (
-      <Row justify="center">
-        <QuestionsAndAnswers questions={questions} />
-      </Row>
-    ) : null
-
   return (
     <Content
       className="site-layout-content"
@@ -68,7 +61,7 @@ export default function ListOfQuestions(): ReactElement {
       ) : (
         <Spinner />
       )}
-      {renderQuestions()}
+      <QuestionsAndAnswers questions={questions} />
     </Content>
   )
 }
