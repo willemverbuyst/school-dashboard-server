@@ -27,7 +27,7 @@ export default function StudentTest() {
 
   const handleSubmit = (input: any) => {
     setTestDone(true)
-    console.log('done', input)
+    console.log(input)
     setBlockNavigation(false)
   }
 
