@@ -1,36 +1,53 @@
+import { Col } from 'antd'
 import { ReactElement } from 'react'
 import { BarChart } from '../../../components/charts'
-import { Col } from 'antd'
 
-interface IScore {
-  length: number
-  result: number
+interface ITest {
+  id: string
+  subjectId: string
+  studentId: string
+  scores: number
+  createdAt: string
 }
 
 interface ISubject {
   name: string
-  id: number
+  id: string
 }
 
 interface IProps {
-  scores: IScore[]
+  tests: ITest[]
   subjects: ISubject[]
 }
 
 export default function BarChartMain({
-  scores,
+  tests,
   subjects,
 }: IProps): ReactElement {
-  const data = scores.map(({ result }) => result)
+  const data = tests.map(({ scores }) => scores)
   const color: Array<string> = []
   for (let i = 0; i < data.length; i++) color.push('#FF5C84')
   const labels = subjects.map(({ name }) => name)
 
+  const subjectsGrouped = subjects.map((subject) =>
+    tests.filter((test) => test.subjectId === subject.id)
+  )
+
+  const averages = subjectsGrouped.map((groupedSubject: any) =>
+    Math.round(
+      (groupedSubject
+        .map((sub: any) => sub.scores)
+        .reduce((a: number, b: number) => a + b, 0) /
+        (groupedSubject.length * 3)) *
+        100
+    )
+  )
+
   return (
     <Col style={{ width: 450, paddingBottom: 80 }}>
-      {scores.length ? (
+      {tests.length ? (
         <BarChart
-          data={data}
+          data={averages}
           color={color}
           labels={labels}
           title={`AVERAGES PER SUBJECT`}
