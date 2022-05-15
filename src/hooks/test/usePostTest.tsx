@@ -1,12 +1,11 @@
 import axios, { AxiosResponse } from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
 import { axiosInstance, getJWTHeader } from '../../axiosInstance'
 import { Toast } from '../../components/toast'
 import { SERVER_ERROR } from '../../constants/constants'
 import { ApiNewTest, NewTest, TestInput } from '../../models'
 import { ApiError } from '../../models/api/error.api'
 import { ApiUser } from '../../models/api/user.api'
-import { queryKeys } from '../../react-query/constants'
 import { useUser } from '../auth/useUser'
 
 const postTest = async (
@@ -40,8 +39,8 @@ const postTest = async (
 const buildTestObject = (input: TestInput): NewTest => {
   let testObject = {} as NewTest
   Object.entries(input.test).forEach(([key, value], i) => {
-    const k = `answer${i}`
-    const v = `question${i}`
+    const k = `answer${i + 1}`
+    const v = `question${i + 1}`
     testObject[k] = key
     testObject[v] = value
   })
@@ -53,16 +52,8 @@ const buildTestObject = (input: TestInput): NewTest => {
 
 export const usePostTest = () => {
   const { user } = useUser()
-  const queryClient = useQueryClient()
-  const { mutate } = useMutation(
-    (newTest: TestInput) => postTest(buildTestObject(newTest), user),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries([queryKeys.QUESTIONS])
-        const text = 'You have added a question'
-        Toast({ text, status: 'success' })
-      },
-    }
+  const { mutate } = useMutation((newTest: TestInput) =>
+    postTest(buildTestObject(newTest), user)
   )
 
   return mutate

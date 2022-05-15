@@ -2,7 +2,13 @@ import { Button, Form, Layout, Modal, Radio, Row } from 'antd'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import NavigationPrompt from 'react-router-navigation-prompt'
-import { useGetTest, useStudentGuard, useUser } from '../../../hooks'
+import {
+  useGetTest,
+  usePostTest,
+  useStudentGuard,
+  useUser,
+} from '../../../hooks'
+import { TestInput } from '../../../models'
 
 const { Content } = Layout
 
@@ -11,6 +17,7 @@ export default function StudentTest() {
   const [form] = Form.useForm()
   const { subjectid } = useParams<{ subjectid: string }>()
   const { mcQuestions, setSubjectId } = useGetTest()
+  const postTest = usePostTest()
   const { user } = useUser()
   const studentId = user?.data.user.student?.id
   const questions = mcQuestions || []
@@ -25,10 +32,17 @@ export default function StudentTest() {
     setSubjectId(subjectid)
   }, [subjectid, setSubjectId])
 
-  const handleSubmit = (input: any) => {
-    setTestDone(true)
-    console.log(input)
-    setBlockNavigation(false)
+  const handleSubmit = (input: { [key: string]: string }): void => {
+    if (studentId) {
+      setTestDone(true)
+      let testObj = {} as TestInput
+      testObj.test = input
+      testObj.studentId = studentId
+      testObj.subjectId = subjectid
+      postTest(testObj)
+      setBlockNavigation(false)
+    }
+    return
   }
 
   const doAnotherTest = () => {
@@ -48,34 +62,31 @@ export default function StudentTest() {
         initialValues={{ remember: true }}
         onFinish={handleSubmit}
       >
-        {questions.length &&
-          questions.map(({ text, answers, id }) => (
-            <div key={id}>
-              <Row>{text}</Row>
+        {questions.map(({ text, answers, id }) => (
+          <div key={id}>
+            <Row>{text}</Row>
 
-              <Form.Item
-                name={id}
-                rules={[
-                  { required: true, message: 'Please select an answer!' },
-                ]}
-              >
-                <Radio.Group>
-                  {answers.map(({ text, id }, i) => (
-                    <Radio
-                      style={{
-                        display: 'block',
-                        height: '30px',
-                        lineHeight: '30px',
-                      }}
-                      value={id}
-                    >
-                      {text}
-                    </Radio>
-                  ))}
-                </Radio.Group>
-              </Form.Item>
-            </div>
-          ))}
+            <Form.Item
+              name={id}
+              rules={[{ required: true, message: 'Please select an answer!' }]}
+            >
+              <Radio.Group>
+                {answers.map(({ text, id }, i) => (
+                  <Radio
+                    style={{
+                      display: 'block',
+                      height: '30px',
+                      lineHeight: '30px',
+                    }}
+                    value={id}
+                  >
+                    {text}
+                  </Radio>
+                ))}
+              </Radio.Group>
+            </Form.Item>
+          </div>
+        ))}
         <Form.Item>
           <Button
             type="primary"
@@ -145,7 +156,7 @@ export default function StudentTest() {
         className="site-layout-content"
         style={{ padding: 90, height: 80, overflow: 'scroll' }}
       >
-        {renderMCQ()}
+        {studentId && questions.length > 0 && renderMCQ()}
       </Content>
     </>
   )
