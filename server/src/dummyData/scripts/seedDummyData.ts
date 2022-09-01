@@ -8,7 +8,7 @@ import { students } from '../data/students'
 import { teachers } from '../data/teachers'
 import { tests } from '../data/tests'
 import { userStudents, userTeachers } from '../data/users'
-import { seedData } from '../../../scripts/seedTables'
+import { seedData } from '../../../../scripts/seedTables'
 import { prismaClient } from '../../prisma'
 
 seedData(prismaClient, {
