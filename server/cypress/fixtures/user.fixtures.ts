@@ -1,6 +1,6 @@
 import { Role, User } from '@prisma/client'
 import { SALT_ROUNDS } from '../../src/config/constants'
-const bcrypt = require('bcrypt')
+import bcrypt = require('bcrypt')
 
 export const userStudents: Array<User> = [
 	{
