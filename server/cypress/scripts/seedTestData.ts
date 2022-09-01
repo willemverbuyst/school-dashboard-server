@@ -1,5 +1,5 @@
-import { prismaClient } from '../../server/src/prisma'
-import { seedData } from '../../scripts/seedTables'
+import { prismaClient } from '../../src/prisma'
+import { seedData } from '../../../scripts/seedTables'
 import { schools } from '../fixtures/school.fixtures'
 import { subjects } from '../fixtures/subject.fixtures'
 import { teachers } from '../fixtures/teacher.fixtures'
