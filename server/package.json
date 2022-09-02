@@ -17,7 +17,7 @@
 	"author": "wv",
 	"license": "ISC",
 	"dependencies": {
-		"@faker-js/faker": "^6.0.0",
+		"@faker-js/faker": "^7.5.0",
 		"@prisma/client": "^4.3.0",
 		"bcrypt": "^5.0.1",
 		"bsn-js": "^1.0.4",
