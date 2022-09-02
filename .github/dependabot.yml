@@ -5,3 +5,8 @@ updates:
     schedule:
       interval: 'monthly'
       time: '04:00'
+  - directory: /server
+    package-ecosystem: 'npm'
+    schedule:
+      interval: 'monthly'
+      time: '04:00'
