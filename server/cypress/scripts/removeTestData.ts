@@ -1,4 +1,4 @@
-import { cleanUpTables } from '../../../scripts/cleanupTables'
+import { cleanUpTables } from '../../src/scripts/cleanupTables'
 import { prismaClient } from '../../src/prisma'
 
 cleanUpTables(prismaClient)

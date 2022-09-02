@@ -12,7 +12,7 @@ import {
 	User,
 } from '@prisma/client'
 
-import { logFinishSeed, logInitSeed, logSeed } from './log'
+import { logFinishSeed, logInitSeed, logSeed } from '../log'
 
 const createAnswers = async (
 	prisma: PrismaClient,
