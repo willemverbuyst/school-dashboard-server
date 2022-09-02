@@ -1,6 +1,6 @@
 import { Role, User } from '@prisma/client'
 import bcrypt from 'bcrypt'
-import faker from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 import { v4 as uuidv4 } from 'uuid'
 import { generateBSN } from 'bsn-js'
 import { SALT_ROUNDS } from '../../config/constants'

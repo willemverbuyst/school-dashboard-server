@@ -1,6 +1,6 @@
 import { School } from '@prisma/client'
 import { v4 as uuidv4 } from 'uuid'
-import faker from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 
 export const schools: Array<School> = Array(4)
 	.fill(0)
