@@ -1,7 +1,7 @@
 {
 	"name": "school-dashboard-backend",
 	"version": "1.0.0",
-	"description": "",
+	"description": "node server",
 	"main": "index.js",
 	"scripts": {
 		"build": "npx tsc",
