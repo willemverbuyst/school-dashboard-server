@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "noImplicitAny": false
   },
-  "include": ["client/src"]
+  "include": ["src"]
 }
