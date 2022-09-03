@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { axiosInstance } from '../../axiosInstance'
 import { Toast } from '../../components/toast'
 import { SERVER_ERROR } from '../../constants/constants'
@@ -15,12 +15,14 @@ const getLogout = async (): Promise<void> => {
 
     Toast({ text, status: 'success' })
   } catch (errorResponse) {
-    const text =
-      axios.isAxiosError(errorResponse) &&
-      errorResponse?.response?.data?.message
-        ? errorResponse?.response?.data?.message
-        : SERVER_ERROR
-    Toast({ text, status: 'error' })
+    let errorMessage = SERVER_ERROR
+    if (axios.isAxiosError(errorResponse)) {
+      if (errorResponse.response && errorResponse.response.data) {
+        const { message } = errorResponse.response.data as AxiosError
+        if (message) errorMessage = message
+      }
+    }
+    Toast({ text: errorMessage, status: 'error' })
   }
 }
 

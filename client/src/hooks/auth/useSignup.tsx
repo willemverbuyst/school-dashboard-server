@@ -1,6 +1,7 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { axiosInstance } from '../../axiosInstance'
 import { Toast } from '../../components/toast'
+import { SERVER_ERROR } from '../../constants/constants'
 import { ApiError } from '../../models/api/error.api'
 import { ApiUser } from '../../models/api/user.api'
 import { useUser } from './useUser'
@@ -17,7 +18,6 @@ export interface SignupInput {
 }
 
 export const useSignup = () => {
-  const serverError = 'There was an error contacting the server!'
   const { updateUser } = useUser()
   const urlEndpoint = '/auth/signup'
 
@@ -62,12 +62,14 @@ export const useSignup = () => {
         updateUser(data)
       }
     } catch (errorResponse) {
-      const text =
-        axios.isAxiosError(errorResponse) &&
-        errorResponse?.response?.data?.message
-          ? errorResponse?.response?.data?.message
-          : serverError
-      Toast({ text, status: 'error' })
+      let errorMessage = SERVER_ERROR
+      if (axios.isAxiosError(errorResponse)) {
+        if (errorResponse.response && errorResponse.response.data) {
+          const { message } = errorResponse.response.data as AxiosError
+          if (message) errorMessage = message
+        }
+      }
+      Toast({ text: errorMessage, status: 'error' })
     }
   }
 

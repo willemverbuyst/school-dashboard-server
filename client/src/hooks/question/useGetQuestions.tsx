@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { useCallback, useState } from 'react'
 import { useQuery } from 'react-query'
 import { axiosInstance, getJWTHeader } from '../../axiosInstance'
@@ -13,7 +13,7 @@ import { filterBySubject } from './filterQuestions'
 
 const getQuestions = async (
   user: ApiUser | null
-): Promise<Array<Question> | null> => {
+): Promise<Array<Question> | null | void> => {
   try {
     if (!user) return null
     const { data }: AxiosResponse<ApiQuestion | ApiError> =
@@ -27,13 +27,14 @@ const getQuestions = async (
     Toast({ text, status: 'error' })
     return null
   } catch (errorResponse) {
-    const text =
-      axios.isAxiosError(errorResponse) &&
-      errorResponse?.response?.data?.message
-        ? errorResponse?.response?.data?.message
-        : SERVER_ERROR
-    Toast({ text, status: 'error' })
-    return null
+    let errorMessage = SERVER_ERROR
+    if (axios.isAxiosError(errorResponse)) {
+      if (errorResponse.response && errorResponse.response.data) {
+        const { message } = errorResponse.response.data as AxiosError
+        if (message) errorMessage = message
+      }
+    }
+    Toast({ text: errorMessage, status: 'error' })
   }
 }
 

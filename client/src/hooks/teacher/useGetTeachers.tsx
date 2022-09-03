@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { useQuery } from 'react-query'
 import { axiosInstance } from '../../axiosInstance'
 import { Toast } from '../../components/toast'
@@ -7,7 +7,7 @@ import { ApiError } from '../../models/api/error.api'
 import { ApiTeacher } from '../../models/api/teacher/teacher.api'
 import { queryKeys } from '../../react-query/constants'
 
-export const getTeachers = async (): Promise<ApiTeacher | null> => {
+export const getTeachers = async (): Promise<ApiTeacher | null | void> => {
   try {
     const { data }: AxiosResponse<ApiTeacher | ApiError> =
       await axiosInstance.get('/teachers')
@@ -18,13 +18,14 @@ export const getTeachers = async (): Promise<ApiTeacher | null> => {
     Toast({ text, status: 'error' })
     return null
   } catch (errorResponse) {
-    const text =
-      axios.isAxiosError(errorResponse) &&
-      errorResponse?.response?.data?.message
-        ? errorResponse?.response?.data?.message
-        : SERVER_ERROR
-    Toast({ text, status: 'error' })
-    return null
+    let errorMessage = SERVER_ERROR
+    if (axios.isAxiosError(errorResponse)) {
+      if (errorResponse.response && errorResponse.response.data) {
+        const { message } = errorResponse.response.data as AxiosError
+        if (message) errorMessage = message
+      }
+    }
+    Toast({ text: errorMessage, status: 'error' })
   }
 }
 

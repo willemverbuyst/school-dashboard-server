@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 import { axiosInstance, getJWTHeader } from '../../axiosInstance'
 import { Toast } from '../../components/toast'
@@ -12,7 +12,7 @@ import { useUser } from '../auth/useUser'
 const postQuestion = async (
   newQuestion: NewQuestion,
   user: ApiUser | null
-): Promise<ApiNewQuestion | null> => {
+): Promise<ApiNewQuestion | null | void> => {
   try {
     if (!user) return null
     const { id } = newQuestion
@@ -27,13 +27,14 @@ const postQuestion = async (
     Toast({ text, status: 'error' })
     return null
   } catch (errorResponse) {
-    const text =
-      axios.isAxiosError(errorResponse) &&
-      errorResponse?.response?.data?.message
-        ? errorResponse?.response?.data?.message
-        : SERVER_ERROR
-    Toast({ text, status: 'error' })
-    return null
+    let errorMessage = SERVER_ERROR
+    if (axios.isAxiosError(errorResponse)) {
+      if (errorResponse.response && errorResponse.response.data) {
+        const { message } = errorResponse.response.data as AxiosError
+        if (message) errorMessage = message
+      }
+    }
+    Toast({ text: errorMessage, status: 'error' })
   }
 }
 
