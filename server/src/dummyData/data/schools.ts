@@ -6,6 +6,6 @@ export const schools: Array<School> = Array(4)
 	.fill(0)
 	.map(() => ({
 		id: uuidv4(),
-		name: faker.company.companyName(),
+		name: faker.company.name(),
 		location: faker.address.city(),
 	}))
