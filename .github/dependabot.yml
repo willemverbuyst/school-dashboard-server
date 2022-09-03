@@ -18,3 +18,11 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: 'cypress-localstorage-commands'
         update-types: ['version-update:semver-major']
+  - directory: /client
+    package-ecosystem: 'npm'
+    schedule:
+      interval: 'monthly'
+      time: '04:00'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
