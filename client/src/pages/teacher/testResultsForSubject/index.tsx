@@ -41,7 +41,7 @@ export default function TestResultsForSubject(): ReactElement {
     setSubjectId(subjectid)
   }, [subjectid, setSubjectId])
 
-  return results.length ? (
+  return (
     <Content
       className="site-layout-content"
       style={{ padding: 90, height: 80, overflow: 'scroll' }}
@@ -62,7 +62,5 @@ export default function TestResultsForSubject(): ReactElement {
       <DoughnutChartSubject results={filteredResults} />
       <BarChartTests results={filteredResults} />
     </Content>
-  ) : (
-    <p>No results yet</p>
   )
 }
