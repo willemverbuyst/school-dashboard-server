@@ -1,11 +1,12 @@
+import { faker } from '@faker-js/faker'
 import { Role, User } from '@prisma/client'
 import bcrypt from 'bcrypt'
-import { faker } from '@faker-js/faker'
-import { v4 as uuidv4 } from 'uuid'
 import { generateBSN } from 'bsn-js'
+import { v4 as uuidv4 } from 'uuid'
 import { SALT_ROUNDS } from '../../config/constants'
+import { numberOfTeachers, numbersOfStudents } from './config'
 
-export const userStudents: Array<User> = Array(8)
+export const userStudents: Array<User> = Array(numbersOfStudents)
   .fill(0)
   .map(() => ({
     id: uuidv4(),
@@ -16,7 +17,7 @@ export const userStudents: Array<User> = Array(8)
     bsn: generateBSN(),
   }))
 
-export const userTeachers: Array<User> = Array(4)
+export const userTeachers: Array<User> = Array(numberOfTeachers)
   .fill(0)
   .map(() => ({
     id: uuidv4(),

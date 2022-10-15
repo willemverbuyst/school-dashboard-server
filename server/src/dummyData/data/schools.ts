@@ -1,8 +1,9 @@
+import { faker } from '@faker-js/faker'
 import { School } from '@prisma/client'
 import { v4 as uuidv4 } from 'uuid'
-import { faker } from '@faker-js/faker'
+import { numberOfSchools } from './config'
 
-export const schools: Array<School> = Array(4)
+export const schools: Array<School> = Array(numberOfSchools)
   .fill(0)
   .map(() => ({
     id: uuidv4(),
