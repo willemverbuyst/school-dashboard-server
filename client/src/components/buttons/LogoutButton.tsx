@@ -7,8 +7,8 @@ export default function LogoutButton(): ReactElement {
   const history = useHistory()
   const logout = useLogout()
 
-  const handleLogOut = () => {
-    logout()
+  const handleLogOut = async () => {
+    await logout()
     history.push('/')
   }
 

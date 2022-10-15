@@ -37,7 +37,7 @@ export default function BarAtThetop(): ReactElement {
       </Link>
       <div style={{ display: 'flex' }}>
         <Spinner />
-        <div>{renderLoginLogout()}</div>
+        {renderLoginLogout()}
       </div>
     </Header>
   )
