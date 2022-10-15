@@ -5,129 +5,129 @@ import { questionQueries } from '../../queries'
 import { controller, get, post, use } from '../decorators'
 
 const { createQuestionWithAnswers, getAllQuestions, getQuestionsForSubject } =
-	questionQueries
+  questionQueries
 
 @controller('/questions')
 export class QuestionController {
-	@get('/')
-	@use(teacherAuthMiddleware)
-	async getAllQuestions(
-		req: RequestWithBody,
-		res: Response,
-		next: NextFunction
-	): Promise<void> {
-		try {
-			const questions = await getAllQuestions()
+  @get('/')
+  @use(teacherAuthMiddleware)
+  async getAllQuestions(
+    req: RequestWithBody,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const questions = await getAllQuestions()
 
-			if (!questions) {
-				res.status(404).send({
-					message: 'No questions for subjects found',
-				})
-				return
-			}
+      if (!questions) {
+        res.status(404).send({
+          message: 'No questions for subjects found',
+        })
+        return
+      }
 
-			res.send({ results: questions.length, data: questions })
-		} catch (error) {
-			next(error)
-		}
-	}
+      res.send({ results: questions.length, data: questions })
+    } catch (error) {
+      next(error)
+    }
+  }
 
-	@get('/subjects/:id')
-	@use(teacherAuthMiddleware)
-	async getQuestionsForSubject(
-		req: RequestWithBody,
-		res: Response,
-		next: NextFunction
-	): Promise<void> {
-		const { id: subjectId } = req.params
-		try {
-			if (!subjectId) {
-				res.status(422).send({ message: 'Must provide subject id' })
-				return
-			}
+  @get('/subjects/:id')
+  @use(teacherAuthMiddleware)
+  async getQuestionsForSubject(
+    req: RequestWithBody,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    const { id: subjectId } = req.params
+    try {
+      if (!subjectId) {
+        res.status(422).send({ message: 'Must provide subject id' })
+        return
+      }
 
-			const questions = await getQuestionsForSubject(subjectId)
+      const questions = await getQuestionsForSubject(subjectId)
 
-			if (!questions) {
-				res.status(404).send({
-					message: 'No questions for that subject found',
-				})
-				return
-			}
+      if (!questions) {
+        res.status(404).send({
+          message: 'No questions for that subject found',
+        })
+        return
+      }
 
-			res.send({ results: questions.length, data: questions })
-		} catch (error) {
-			next(error)
-		}
-	}
+      res.send({ results: questions.length, data: questions })
+    } catch (error) {
+      next(error)
+    }
+  }
 
-	@post('/subjects/:id')
-	@use(teacherAuthMiddleware)
-	async postQuestionForSubject(
-		req: RequestWithBody,
-		res: Response,
-		next: NextFunction
-	): Promise<void> {
-		try {
-			const { id: subjectId } = req.params
-			const {
-				question,
-				answer1text,
-				answer2text,
-				answer3text,
-				answer4text,
-				answer1bool,
-				answer2bool,
-				answer3bool,
-				answer4bool,
-			} = req.body
+  @post('/subjects/:id')
+  @use(teacherAuthMiddleware)
+  async postQuestionForSubject(
+    req: RequestWithBody,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const { id: subjectId } = req.params
+      const {
+        question,
+        answer1text,
+        answer2text,
+        answer3text,
+        answer4text,
+        answer1bool,
+        answer2bool,
+        answer3bool,
+        answer4bool,
+      } = req.body
 
-			if (!subjectId) {
-				res.status(422).send({ message: 'Must provide subject id' })
-				return
-			}
+      if (!subjectId) {
+        res.status(422).send({ message: 'Must provide subject id' })
+        return
+      }
 
-			if (
-				!question ||
-				!answer1text ||
-				!answer2text ||
-				!answer3text ||
-				!answer4text ||
-				typeof answer1bool !== 'boolean' ||
-				typeof answer2bool !== 'boolean' ||
-				typeof answer3bool !== 'boolean' ||
-				typeof answer4bool !== 'boolean'
-			) {
-				res.status(422).send({ message: 'Missing input' })
-				return
-			}
+      if (
+        !question ||
+        !answer1text ||
+        !answer2text ||
+        !answer3text ||
+        !answer4text ||
+        typeof answer1bool !== 'boolean' ||
+        typeof answer2bool !== 'boolean' ||
+        typeof answer3bool !== 'boolean' ||
+        typeof answer4bool !== 'boolean'
+      ) {
+        res.status(422).send({ message: 'Missing input' })
+        return
+      }
 
-			const newQuestion = await createQuestionWithAnswers({
-				question,
-				answer1text,
-				answer2text,
-				answer3text,
-				answer4text,
-				answer1bool,
-				answer2bool,
-				answer3bool,
-				answer4bool,
-				subjectId,
-			})
+      const newQuestion = await createQuestionWithAnswers({
+        question,
+        answer1text,
+        answer2text,
+        answer3text,
+        answer4text,
+        answer1bool,
+        answer2bool,
+        answer3bool,
+        answer4bool,
+        subjectId,
+      })
 
-			if (!newQuestion) {
-				res
-					.status(422)
-					.send({ message: 'Something went wrong, question not created' })
-				return
-			}
+      if (!newQuestion) {
+        res
+          .status(422)
+          .send({ message: 'Something went wrong, question not created' })
+        return
+      }
 
-			res.status(201).send({
-				data: { question: newQuestion },
-				message: 'You have added a new question.',
-			})
-		} catch (error) {
-			next(error)
-		}
-	}
+      res.status(201).send({
+        data: { question: newQuestion },
+        message: 'You have added a new question.',
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
 }

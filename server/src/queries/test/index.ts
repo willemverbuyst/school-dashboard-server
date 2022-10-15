@@ -6,10 +6,10 @@ import { getTestForTeacherAndSubject } from './getTestsForTeacherAndSubject.quer
 import { getTestsForStudent } from './getTestsForStudent.query'
 
 export const testQueries = {
-	createTest,
-	getAllTestsForTeacher,
-	getTestForStudentAndSubject,
-	getTestForTeacherAndStudent,
-	getTestForTeacherAndSubject,
-	getTestsForStudent,
+  createTest,
+  getAllTestsForTeacher,
+  getTestForStudentAndSubject,
+  getTestForTeacherAndStudent,
+  getTestForTeacherAndSubject,
+  getTestsForStudent,
 }

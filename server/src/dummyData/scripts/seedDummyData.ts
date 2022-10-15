@@ -12,15 +12,15 @@ import { seedData } from '../../scripts/seedTables'
 import { prismaClient } from '../../prisma'
 
 seedData(prismaClient, {
-	answers,
-	profiles,
-	questions,
-	schools,
-	scores,
-	students,
-	subjects,
-	teachers,
-	tests,
-	userStudents,
-	userTeachers,
+  answers,
+  profiles,
+  questions,
+  schools,
+  scores,
+  students,
+  subjects,
+  teachers,
+  tests,
+  userStudents,
+  userTeachers,
 })

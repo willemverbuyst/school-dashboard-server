@@ -4,8 +4,8 @@ import { getQuestionsForSubject } from './getQuestionsForSubject.query'
 import { getQuestionsForTest } from './getQuestionsForTest.query'
 
 export const questionQueries = {
-	createQuestionWithAnswers,
-	getAllQuestions,
-	getQuestionsForSubject,
-	getQuestionsForTest,
+  createQuestionWithAnswers,
+  getAllQuestions,
+  getQuestionsForSubject,
+  getQuestionsForTest,
 }

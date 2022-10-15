@@ -4,8 +4,8 @@ import { getSchoolWithStudents } from './getSchoolWithStudents.query'
 import { getSchoolWithTeachers } from './getSchoolWithTeachers.query'
 
 export const schoolQueries = {
-	getAllSchools,
-	getSchool,
-	getSchoolWithStudents,
-	getSchoolWithTeachers,
+  getAllSchools,
+  getSchool,
+  getSchoolWithStudents,
+  getSchoolWithTeachers,
 }

@@ -7,22 +7,22 @@ const { getAllSchools } = schoolQueries
 
 @controller('/schools')
 export class SchoolController {
-	@get('/')
-	async getSchools(
-		_req: RequestWithBody,
-		res: Response,
-		next: NextFunction
-	): Promise<void> {
-		try {
-			const schools = await getAllSchools()
+  @get('/')
+  async getSchools(
+    _req: RequestWithBody,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const schools = await getAllSchools()
 
-			if (!schools) {
-				res.send({ message: 'No schools found' })
-			}
+      if (!schools) {
+        res.send({ message: 'No schools found' })
+      }
 
-			res.send({ results: schools.length, data: schools })
-		} catch (error) {
-			next(error)
-		}
-	}
+      res.send({ results: schools.length, data: schools })
+    } catch (error) {
+      next(error)
+    }
+  }
 }

@@ -6,7 +6,7 @@ import { userStudents, userTeachers } from './users'
 const users = [...userStudents, ...userTeachers]
 
 export const profiles: Array<Profile> = users.map(user => ({
-	id: uuidv4(),
-	bio: faker.hacker.phrase(),
-	userId: user.id,
+  id: uuidv4(),
+  bio: faker.hacker.phrase(),
+  userId: user.id,
 }))

@@ -10,53 +10,53 @@ const { getTestForStudentAndSubject } = testQueries
 
 @controller('/students')
 export class StudentController {
-	@get('/:studentId')
-	@use(teacherAuthMiddleware)
-	async getStudentForTeacher(
-		req: RequestWithBody,
-		res: Response
-	): Promise<void> {
-		try {
-			const { studentId } = req.params
+  @get('/:studentId')
+  @use(teacherAuthMiddleware)
+  async getStudentForTeacher(
+    req: RequestWithBody,
+    res: Response
+  ): Promise<void> {
+    try {
+      const { studentId } = req.params
 
-			if (!studentId) {
-				res.status(422).send({ message: 'Student id missing' })
-				return
-			}
+      if (!studentId) {
+        res.status(422).send({ message: 'Student id missing' })
+        return
+      }
 
-			const tests = await getStudentWithTests(studentId)
+      const tests = await getStudentWithTests(studentId)
 
-			res.send({ results: tests.length, data: tests })
-		} catch (error) {
-			res.status(400).send({ message: 'Something went wrong, sorry' })
-		}
-	}
+      res.send({ results: tests.length, data: tests })
+    } catch (error) {
+      res.status(400).send({ message: 'Something went wrong, sorry' })
+    }
+  }
 
-	@get('/subjects/:id')
-	@use(studentAuthMiddleware)
-	async getSubjectForStudent(
-		req: RequestWithBody,
-		res: Response
-	): Promise<void> {
-		try {
-			const { id: subjectId } = req.params
-			const { studentId } = req.body
+  @get('/subjects/:id')
+  @use(studentAuthMiddleware)
+  async getSubjectForStudent(
+    req: RequestWithBody,
+    res: Response
+  ): Promise<void> {
+    try {
+      const { id: subjectId } = req.params
+      const { studentId } = req.body
 
-			if (!subjectId) {
-				res.status(422).send({ message: 'Subject id missing' })
-				return
-			}
+      if (!subjectId) {
+        res.status(422).send({ message: 'Subject id missing' })
+        return
+      }
 
-			if (!studentId) {
-				res.status(422).send({ message: 'Student id missing' })
-				return
-			}
+      if (!studentId) {
+        res.status(422).send({ message: 'Student id missing' })
+        return
+      }
 
-			const tests = await getTestForStudentAndSubject(studentId, subjectId)
+      const tests = await getTestForStudentAndSubject(studentId, subjectId)
 
-			res.send({ results: tests.length, data: tests })
-		} catch (error) {
-			res.status(400).send({ message: 'Something went wrong, sorry' })
-		}
-	}
+      res.send({ results: tests.length, data: tests })
+    } catch (error) {
+      res.status(400).send({ message: 'Something went wrong, sorry' })
+    }
+  }
 }

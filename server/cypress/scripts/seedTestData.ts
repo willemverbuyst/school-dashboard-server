@@ -6,9 +6,9 @@ import { teachers } from '../fixtures/teacher.fixtures'
 import { userStudents, userTeachers } from '../fixtures/user.fixtures'
 
 seedData(prismaClient, {
-	schools,
-	subjects,
-	teachers,
-	userStudents,
-	userTeachers,
+  schools,
+  subjects,
+  teachers,
+  userStudents,
+  userTeachers,
 })

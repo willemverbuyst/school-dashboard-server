@@ -5,9 +5,9 @@ import { getUserById } from './getUserById.query'
 import { getUserPlus } from './getUserPlus.query'
 
 export const userQueries = {
-	createUserStudent,
-	createUserTeacher,
-	getUserByEmail,
-	getUserById,
-	getUserPlus,
+  createUserStudent,
+  createUserTeacher,
+  getUserByEmail,
+  getUserById,
+  getUserPlus,
 }

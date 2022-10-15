@@ -4,8 +4,8 @@ import { SignupController } from './signup.controller'
 import { ValidUserController } from './validUser.controller'
 
 export const authController = {
-	LoginController,
-	LogoutController,
-	SignupController,
-	ValidUserController,
+  LoginController,
+  LogoutController,
+  SignupController,
+  ValidUserController,
 }

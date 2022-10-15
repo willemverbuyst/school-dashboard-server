@@ -2,50 +2,50 @@
 import { prismaClient } from '../../prisma'
 
 const getTestsWithSummedScores = (tests: any): any => {
-	const arr = tests
-		.map((test: any) => ({
-			...test,
-			scores: test.scores
-				.map((score: any) => score.score)
-				.reduce((sum: number, score: number) => sum + score, 0),
-		}))
-		.map((testWithScore: any) => ({
-			score: testWithScore.scores,
-			subjectId: testWithScore.subject.id,
-			name: testWithScore.subject.name,
-		}))
+  const arr = tests
+    .map((test: any) => ({
+      ...test,
+      scores: test.scores
+        .map((score: any) => score.score)
+        .reduce((sum: number, score: number) => sum + score, 0),
+    }))
+    .map((testWithScore: any) => ({
+      score: testWithScore.scores,
+      subjectId: testWithScore.subject.id,
+      name: testWithScore.subject.name,
+    }))
 
-	const res = groupBy(arr, 'subjectId')
+  const res = groupBy(arr, 'subjectId')
 
-	return res
+  return res
 }
 
 // Accepts the array and key
 const groupBy = (array: any, key: any) => {
-	// Return the end result
-	return array.reduce((result: any, currentValue: any) => {
-		// If an array already present for key, push it to the array. Else create an array and push the object
-		;(result[currentValue[key]] = result[currentValue[key]] || []).push(
-			currentValue
-		)
-		// Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
-		return result
-	}, {}) // empty object is the initial value for result object
+  // Return the end result
+  return array.reduce((result: any, currentValue: any) => {
+    // If an array already present for key, push it to the array. Else create an array and push the object
+    ;(result[currentValue[key]] = result[currentValue[key]] || []).push(
+      currentValue
+    )
+    // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
+    return result
+  }, {}) // empty object is the initial value for result object
 }
 
 export const getStudentWithTests = async (
-	studendId: string
+  studendId: string
 ): Promise<any | null> => {
-	const studentAndTests = await prismaClient.student.findUnique({
-		where: { id: studendId },
-		include: { tests: { select: { scores: true, subject: true } } },
-	})
+  const studentAndTests = await prismaClient.student.findUnique({
+    where: { id: studendId },
+    include: { tests: { select: { scores: true, subject: true } } },
+  })
 
-	if (studentAndTests) {
-		return getTestsWithSummedScores(studentAndTests.tests)
-	}
-	return null
-	// return studentAndTests
+  if (studentAndTests) {
+    return getTestsWithSummedScores(studentAndTests.tests)
+  }
+  return null
+  // return studentAndTests
 }
 
 // const subjects = await Subject.findAll({
