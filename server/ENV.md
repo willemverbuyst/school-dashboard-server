@@ -4,4 +4,4 @@ PORT=
 
 SALT_ROUNDS=
 
-DATABASE_URL="postgresql://postgres:<PASSWORD>@localhost:<PORT>/<NAME_OF_DB>?schema=public"
+DATABASE_URL="postgresql://<USER>:<PASSWORD>@localhost:<PORT>/<NAME_OF_DB>?schema=public"
