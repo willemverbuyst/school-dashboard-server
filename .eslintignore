@@ -3,5 +3,3 @@ build
 coverage
 .eslintcache
 .cache
-# to be remove after merging of repos
-client

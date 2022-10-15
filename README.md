@@ -72,19 +72,3 @@ This is a REST-ful API using Express.js.
 
 The database is built using Postgres and ~~Sequelize~~ Prisma.
 Have a look at the data [models](https://app.lucidchart.com/invitations/accept/d09a0ec5-92f6-4ac7-b203-e96f708609db).
-
-## <a name="installation"></a>Installation
-
-When you want to use this dashboard you will also have to install the server. The server details can be found [here](https://github.com/willemverbuyst/school-dashboard-backend).
-
-1. Clone the repo
-2. Run npm install (to install all the dependencies)
-3. In the config folder(link) add the link to your server.
-
-You will start with an empty dashboard. Steps to build up this dashboard.
-
-4. Teacher(s) sign up.
-5. Teacher(s) add subject(s)
-6. Teacher(s) add questions for that subject
-7. Students sign up
-8. Students do tests
