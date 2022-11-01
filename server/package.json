@@ -18,7 +18,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"@faker-js/faker": "^7.5.0",
-		"@prisma/client": "^4.3.0",
+		"@prisma/client": "^4.5.0",
 		"bcrypt": "^5.0.1",
 		"bsn-js": "^1.0.4",
 		"concurrently": "^7.4.0",
