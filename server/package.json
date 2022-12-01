@@ -44,7 +44,7 @@
 		"cypress-localstorage-commands": "^1.7.0",
 		"jest": "^27.5.1",
 		"nodemon": "^2.0.19",
-		"prettier": "^2.7.1",
+		"prettier": "^2.8.0",
 		"prisma": "^4.4.0",
 		"prisma-dbml-generator": "^0.9.1",
 		"ts-jest": "^27.1.3",
