@@ -23,7 +23,7 @@
     "react-router-dom": "^5.3.4",
     "react-router-navigation-prompt": "^1.8.12",
     "react-scripts": "^5.0.1",
-    "typescript": "^4.8.4"
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "start": "react-scripts start",
