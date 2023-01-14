@@ -12,7 +12,7 @@ export function genericSort<T>(
   );
 }
 
-function sortByKey<T>({
+export function sortByKey<T>({
   object1,
   object2,
   key,
