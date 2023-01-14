@@ -37,7 +37,7 @@ export default function SidebarForStudent(): JSX.Element | null {
     testForMenu,
   ]
 
-  const goTo: MenuProps['onClick'] = (e: any) => {
+  const goTo: MenuProps['onClick'] = e => {
     let path: string = '/home'
 
     if (e.key === 'sub1') {
