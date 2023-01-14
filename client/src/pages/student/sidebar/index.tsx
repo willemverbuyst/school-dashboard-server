@@ -3,60 +3,90 @@ import {
   ExperimentOutlined,
   HomeOutlined,
 } from '@ant-design/icons'
-import { Layout, Menu } from 'antd'
-import { ReactElement } from 'react'
+import { Layout, Menu, MenuProps } from 'antd'
 import { useHistory } from 'react-router-dom'
-import renderSideBarNav from '../../../components/sidebar/renderSideBarNav'
+
 import { useUser } from '../../../hooks'
 
-const { SubMenu } = Menu
 const { Sider } = Layout
 
-export default function SidebarForStudent(): ReactElement {
+type MenuItem = Required<MenuProps>['items'][number]
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group'
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem
+}
+
+export default function SidebarForStudent(): JSX.Element | null {
   const history = useHistory()
   const { user } = useUser()
   const studentId = user?.data.user.id
   const subjects = user?.data.subjects.data || []
 
-  const goTo = (goto: string) => {
-    history.push(goto)
+  const subjectsForMenu = getItem(
+    'Subjects',
+    'sub2',
+    <BarChartOutlined />,
+    subjects.map(({ id, name }) => getItem(name, `sub2-${id}`))
+  )
+
+  const testForMenu = getItem(
+    'Test',
+    'sub3',
+    <ExperimentOutlined />,
+    subjects.map(({ id, name }) => getItem(name, `sub3-${id}`))
+  )
+
+  const items = [
+    getItem('Home', 'sub1', <HomeOutlined />),
+    subjectsForMenu,
+    testForMenu,
+  ]
+
+  const goTo: MenuProps['onClick'] = (e: any) => {
+    let path: string = '/home'
+
+    if (e.key === 'sub1') {
+      path = `/students/${studentId}`
+    }
+
+    if (e.keyPath[1] === 'sub2') {
+      path = `/students/${studentId}/subjects/${e.key.replace('sub2-', '')}`
+    }
+
+    if (e.keyPath[1] === 'sub3') {
+      path = `/students/${studentId}/subjects/${e.key.replace(
+        'sub3-',
+        ''
+      )}/test`
+    }
+
+    history.push(path)
   }
 
-  const renderSubjectNav = (subjects) =>
-    subjects.map(({ id, name }) =>
-      renderSideBarNav('sub2', `/students/${studentId}/subjects/${id}`, name)
-    )
-
-  const renderTestNav = (subjects) =>
-    subjects.map(({ id, name }) =>
-      renderSideBarNav(
-        'sub3',
-        `/students/${studentId}/subjects/${id}/test`,
-        name
-      )
-    )
+  if (!studentId) {
+    return null
+  }
 
   return (
     <Sider width={250}>
       <Menu
-        mode="inline"
-        defaultSelectedKeys={['sub1']}
+        items={items}
         style={{ height: '100%', borderRight: 0 }}
-      >
-        <Menu.Item
-          key="sub1"
-          icon={<HomeOutlined />}
-          onClick={() => goTo(`/students/${user?.data.user.id}`)}
-        >
-          Home
-        </Menu.Item>
-        <SubMenu key="sub2" icon={<BarChartOutlined />} title="Subjects">
-          {renderSubjectNav(subjects)}
-        </SubMenu>
-        <SubMenu key="sub3" icon={<ExperimentOutlined />} title="Test">
-          {renderTestNav(subjects)}
-        </SubMenu>
-      </Menu>
+        mode="inline"
+        onClick={goTo}
+      />
     </Sider>
   )
 }
