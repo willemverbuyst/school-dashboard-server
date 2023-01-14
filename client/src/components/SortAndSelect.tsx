@@ -2,10 +2,15 @@ import { Button, Radio, Row, Select } from "antd";
 
 const { Option } = Select;
 
+interface RadioButton {
+  label: string;
+  value: string;
+}
+
 interface Props {
   title: string;
-  radio1: string;
-  radio2: string;
+  radio1: RadioButton;
+  radio2: RadioButton;
   onChangeRadio: any;
   value: string | undefined;
   onChangeSelection: any;
@@ -37,11 +42,11 @@ export function SortAndSelect({
         style={{ marginLeft: 40 }}
         onChange={(e) => onChangeRadio(e.target.value)}
       >
-        <Radio.Button style={{ marginRight: 5 }} value={radio1.toLowerCase()}>
-          {radio1}
+        <Radio.Button style={{ marginRight: 5 }} value={radio1.value}>
+          {radio1.label}
         </Radio.Button>
-        <Radio.Button style={{ marginRight: 5 }} value={radio2.toLowerCase()}>
-          {radio2}
+        <Radio.Button style={{ marginRight: 5 }} value={radio2.value}>
+          {radio2.label}
         </Radio.Button>
       </Radio.Group>
       <Select

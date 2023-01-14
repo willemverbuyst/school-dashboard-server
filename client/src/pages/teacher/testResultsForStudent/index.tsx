@@ -20,12 +20,14 @@ export function TestResultsForStudent(): JSX.Element {
   const [selectSubjectAverage, setSelectSubjectAverage] = useState("");
 
   const sortedResults =
-    selectionAverage === "name"
-      ? [...results].sort((a, b) => a.userName.localeCompare(b.userName))
+    selectionAverage === "subjectName"
+      ? [...results].sort((a, b) => a.subjectName.localeCompare(b.subjectName))
       : [...results].sort((a, b) => b.score - a.score);
 
   const filteredResults = selectSubjectAverage
-    ? sortedResults.filter((result) => result.userName === selectSubjectAverage)
+    ? sortedResults.filter(
+        (result) => result.subjectName === selectSubjectAverage
+      )
     : sortedResults;
 
   useEffect(() => teacherGuard());
@@ -41,8 +43,8 @@ export function TestResultsForStudent(): JSX.Element {
     >
       <SortAndSelect
         title="AVERAGE GRADES"
-        radio1="Name"
-        radio2="Score"
+        radio1={{ label: "Name", value: "subjectName" }}
+        radio2={{ label: "Score", value: "score" }}
         onChangeRadio={setSelectionAverage}
         value={selectSubjectAverage || undefined}
         onChangeSelection={setSelectSubjectAverage}

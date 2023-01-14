@@ -27,7 +27,7 @@ export function TestResultsForSubject(): JSX.Element {
   const [selectStudentAverage, setSelectStudentAverage] = useState("");
 
   const sortedResults =
-    selectionAverage === "name"
+    selectionAverage === "userName"
       ? [...results].sort((a, b) => a.userName.localeCompare(b.userName))
       : [...results].sort((a, b) => b.score - a.score);
 
@@ -48,8 +48,8 @@ export function TestResultsForSubject(): JSX.Element {
     >
       <SortAndSelect
         title="AVERAGE GRADES"
-        radio1="Name"
-        radio2="Score"
+        radio1={{ label: "Name", value: "userName" }}
+        radio2={{ label: "Score", value: "score" }}
         onChangeRadio={setSelectionAverage}
         value={selectStudentAverage || undefined}
         onChangeSelection={setSelectStudentAverage}
