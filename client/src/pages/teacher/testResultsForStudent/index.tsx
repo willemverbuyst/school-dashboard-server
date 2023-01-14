@@ -1,6 +1,7 @@
 import { Layout } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { genericSort } from "../../../business/genericSort";
 import { SortAndSelect } from "../../../components/SortAndSelect";
 import { useTeacherGuard, useTestResultForStudent } from "../../../hooks";
 import { BarChartTestsStudent } from "./BarChartTestsStudents";
@@ -21,8 +22,8 @@ export function TestResultsForStudent(): JSX.Element {
 
   const sortedResults =
     selectionAverage === "subjectName"
-      ? [...results].sort((a, b) => a.subjectName.localeCompare(b.subjectName))
-      : [...results].sort((a, b) => b.score - a.score);
+      ? genericSort(results, "subjectName")
+      : genericSort(results, "score");
 
   const filteredResults = selectSubjectAverage
     ? sortedResults.filter(
