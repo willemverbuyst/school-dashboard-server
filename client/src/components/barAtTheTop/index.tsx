@@ -10,10 +10,6 @@ const { Header } = Layout
 export default function BarAtThetop(): ReactElement {
   const { user } = useUser()
 
-  const renderLoginLogout = (): ReactElement => {
-    return user ? <LogoutButton /> : <LoginButton />
-  }
-
   return (
     <Header
       style={{
@@ -37,7 +33,7 @@ export default function BarAtThetop(): ReactElement {
       </Link>
       <div style={{ display: 'flex' }}>
         <Spinner />
-        {renderLoginLogout()}
+        {user ? <LogoutButton /> : <LoginButton />}
       </div>
     </Header>
   )
