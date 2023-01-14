@@ -1,25 +1,20 @@
-import { ReactElement } from 'react'
-import { DoughnutChart } from '../../../components/charts'
+import { DoughnutChart } from "../../../components/charts";
 
-interface IProps {
-  averages: number[]
+interface Props {
+  averages: number[];
 }
 
-const DoughnutChartMain: React.FC<IProps> = ({
-  averages,
-}: IProps): ReactElement => {
+export function DoughnutChartMain({ averages }: Props): JSX.Element {
   const generalScore = Math.round(
     averages.reduce((a, b) => a + b * 1, 0) / averages.length
-  )
+  );
   return generalScore ? (
     <DoughnutChart
       data={[generalScore, 100 - generalScore]}
-      color={['#8F1CB8', '#eee']}
+      color={["#8F1CB8", "#eee"]}
       title={`YOUR HAVE A GENERAL SCORE OF ${generalScore}%`}
     />
   ) : (
     <p>YOU DON'T HAVE ENOUGH DATA YET TO DISPLAY AVERAGE</p>
-  )
+  );
 }
-
-export default DoughnutChartMain

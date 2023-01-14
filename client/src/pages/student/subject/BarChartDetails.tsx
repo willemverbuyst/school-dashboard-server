@@ -1,53 +1,50 @@
-import { Col, Radio, Row, Space } from 'antd'
-import moment from 'moment'
-import { ReactElement, useState } from 'react'
-import { BarChart } from '../../../components/charts'
+import { Col, Radio, Row, Space } from "antd";
+import moment from "moment";
+import { useState } from "react";
+import { BarChart } from "../../../components/charts";
 
-interface IResult {
-  createdAt: string
-  score: number
-  subject: number
+interface Result {
+  createdAt: string;
+  score: number;
+  subject: number;
 }
 
-interface ISubject {
-  name: string
-  id: string
+interface Subject {
+  name: string;
+  id: string;
 }
 
-interface IProps {
-  results: IResult[]
-  subjects: ISubject[]
-  subjectId: string
+interface Props {
+  results: Result[];
+  subjects: Subject[];
+  subjectId: string;
 }
 
-const BarChartDetails: React.FC<IProps> = ({
+export function BarChartDetails({
   results,
   subjects,
   subjectId,
-}: IProps): ReactElement => {
-  const [radio, setRadio] = useState('date')
-
-  const subject = [...subjects].filter((subject) => subject.id === subjectId)[0]
-    .name
+}: Props): JSX.Element {
+  const [radio, setRadio] = useState("date");
 
   const sortedData =
-    radio === 'date'
+    radio === "date"
       ? results.sort(
           (a, b) =>
             new Date(a.createdAt).getDate() - new Date(b.createdAt).getDate()
         )
-      : radio === 'lowestFirst'
+      : radio === "lowestFirst"
       ? results.sort((a, b) => a.score - b.score)
-      : radio === 'highestFirst'
+      : radio === "highestFirst"
       ? results.sort((a, b) => b.score - a.score)
-      : results
+      : results;
 
-  const data = sortedData.map(({ score }) => score)
-  const color: Array<string> = []
-  for (let i = 0; i < results.length; i++) color.push('rgb(255, 99, 132)')
+  const data = sortedData.map(({ score }) => score);
+  const color: Array<string> = [];
+  for (let i = 0; i < results.length; i++) color.push("rgb(255, 99, 132)");
   const labels = results.map(({ createdAt }) =>
-    moment(createdAt).format('MMM Do YY')
-  )
+    moment(createdAt).format("MMM Do YY")
+  );
 
   return (
     <Col>
@@ -72,7 +69,5 @@ const BarChartDetails: React.FC<IProps> = ({
         </Space>
       </Row>
     </Col>
-  )
+  );
 }
-
-export default BarChartDetails

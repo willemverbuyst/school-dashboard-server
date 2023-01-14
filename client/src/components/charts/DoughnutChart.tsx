@@ -1,18 +1,13 @@
-import * as chartjs from 'chart.js'
-import { ReactElement } from 'react'
-import { ChartData, Doughnut } from 'react-chartjs-2'
+import * as chartjs from "chart.js";
+import { ChartData, Doughnut } from "react-chartjs-2";
 
-interface IInputDoughnutChart {
-  data: number[]
-  color: string[]
-  title: string
+interface Props {
+  data: number[];
+  color: string[];
+  title: string;
 }
 
-export default function DoughnutChart({
-  data,
-  color,
-  title = '',
-}: IInputDoughnutChart): ReactElement {
+export function DoughnutChart({ data, color, title = "" }: Props): JSX.Element {
   const chartData: ChartData<chartjs.ChartData> = {
     datasets: [
       {
@@ -21,7 +16,7 @@ export default function DoughnutChart({
         borderWidth: 0,
       },
     ],
-  }
+  };
 
   const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
@@ -30,7 +25,7 @@ export default function DoughnutChart({
     },
     responsive: true,
     title: { text: title, display: true, padding: 15, fontSize: 14 },
-  }
+  };
 
-  return <Doughnut data={chartData} options={chartOptions} />
+  return <Doughnut data={chartData} options={chartOptions} />;
 }

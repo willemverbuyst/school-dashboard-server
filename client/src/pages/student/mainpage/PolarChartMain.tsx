@@ -1,32 +1,35 @@
-import { PolarChart } from '../../../components/charts'
+import { PolarChart } from "../../../components/charts";
 
-interface IResult {
-  at: string
-  result: number
-  subject: number
+interface Result {
+  at: string;
+  result: number;
+  subject: number;
 }
 
-interface ISubject {
-  name: string
-  id: number
+interface Subject {
+  name: string;
+  id: number;
 }
 
-interface IProps {
-  subjectSorted: IResult[][]
-  subjects: ISubject[]
+interface Props {
+  subjectSorted: Result[][];
+  subjects: Subject[];
 }
 
-const PolarChartMain = ({ subjectSorted, subjects }: IProps) => {
-  const data: number[] = []
-  subjectSorted.forEach((subject) => data.push(subject.length))
-  const labels = subjects.map((subject) => subject.name)
+export function PolarChartMain({
+  subjectSorted,
+  subjects,
+}: Props): JSX.Element {
+  const data: number[] = [];
+  subjectSorted.forEach((subject) => data.push(subject.length));
+  const labels = subjects.map((subject) => subject.name);
   // https://stackoverflow.com/questions/1152024/best-way-to-generate-a-random-color-in-javascript/1152508
-  const color: string[] = []
+  const color: string[] = [];
   subjectSorted.forEach((subject) =>
     color.push(
-      '#' + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6)
+      "#" + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6)
     )
-  )
+  );
   return (
     <PolarChart
       data={data}
@@ -36,7 +39,5 @@ const PolarChartMain = ({ subjectSorted, subjects }: IProps) => {
         subjectSorted.flat().length
       } tests so far`.toUpperCase()}
     />
-  )
+  );
 }
-
-export default PolarChartMain

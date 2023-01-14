@@ -1,39 +1,39 @@
-import { Button, Col, Form, Input, Layout, Radio, Row, Select } from 'antd'
-import { ReactElement, useEffect, useState } from 'react'
+import { Button, Col, Form, Input, Layout, Radio, Row, Select } from "antd";
+import { useEffect, useState } from "react";
 import {
   SignupInput,
   useGetSchools,
   useGetTeachers,
   useLoggedInGuard,
   useSignup,
-} from '../../../hooks'
+} from "../../../hooks";
 
-const { Content } = Layout
-const { Option } = Select
+const { Content } = Layout;
+const { Option } = Select;
 
-const Signup = (): ReactElement => {
-  const [form] = Form.useForm()
-  const schools = useGetSchools()
-  const { signup } = useSignup()
-  const teachers = useGetTeachers()
-  const { loggedInGuard } = useLoggedInGuard()
-  const [showTeachers, setShowTeachers] = useState<boolean>(false)
+export function Signup(): JSX.Element {
+  const [form] = Form.useForm();
+  const schools = useGetSchools();
+  const { signup } = useSignup();
+  const teachers = useGetTeachers();
+  const { loggedInGuard } = useLoggedInGuard();
+  const [showTeachers, setShowTeachers] = useState<boolean>(false);
 
-  useEffect(() => loggedInGuard())
+  useEffect(() => loggedInGuard());
 
   const handleSubmit = (input: SignupInput) => {
-    signup(input)
-    form.resetFields()
-  }
+    signup(input);
+    form.resetFields();
+  };
 
   const showDropdownWithTeachers = (value: string): void => {
-    value === 'student' ? setShowTeachers(true) : setShowTeachers(false)
-  }
+    value === "student" ? setShowTeachers(true) : setShowTeachers(false);
+  };
 
-  const renderDropdownWithTeachers = (): ReactElement => (
+  const renderDropdownWithTeachers = (): JSX.Element => (
     <Form.Item
       name="teacher"
-      rules={[{ required: true, message: 'Please select your teacher!' }]}
+      rules={[{ required: true, message: "Please select your teacher!" }]}
     >
       <Select placeholder="Select your teacher" style={{ width: 350 }}>
         {teachers.map(({ user: { userName }, id }, i) => (
@@ -43,11 +43,11 @@ const Signup = (): ReactElement => {
         ))}
       </Select>
     </Form.Item>
-  )
+  );
 
   return (
     <Content className="site-layout-content" style={{ padding: 90 }}>
-      <Row justify="center" style={{ padding: '24px' }}>
+      <Row justify="center" style={{ padding: "24px" }}>
         SIGNUP
       </Row>
 
@@ -61,7 +61,7 @@ const Signup = (): ReactElement => {
           >
             <Form.Item
               name="role"
-              rules={[{ required: true, message: 'Please select your role!' }]}
+              rules={[{ required: true, message: "Please select your role!" }]}
             >
               <Radio.Group
                 onChange={(e) => showDropdownWithTeachers(e.target.value)}
@@ -73,7 +73,7 @@ const Signup = (): ReactElement => {
 
             <Form.Item
               name="school"
-              rules={[{ required: true, message: 'Please select a school!' }]}
+              rules={[{ required: true, message: "Please select a school!" }]}
             >
               <Select placeholder="Select a school" style={{ width: 350 }}>
                 {schools.map(({ name, id }, i) => (
@@ -89,7 +89,7 @@ const Signup = (): ReactElement => {
             <Form.Item
               name="userName"
               rules={[
-                { required: true, message: 'Please enter your username!' },
+                { required: true, message: "Please enter your username!" },
               ]}
             >
               <Input placeholder="Username" />
@@ -97,21 +97,21 @@ const Signup = (): ReactElement => {
 
             <Form.Item
               name="email"
-              rules={[{ required: true, message: 'Please enter your email!' }]}
+              rules={[{ required: true, message: "Please enter your email!" }]}
             >
               <Input placeholder="Email" />
             </Form.Item>
 
             <Form.Item
               name="bsn"
-              rules={[{ required: true, message: 'Please enter your bsn!' }]}
+              rules={[{ required: true, message: "Please enter your bsn!" }]}
             >
               <Input placeholder="BSN" />
             </Form.Item>
 
             <Form.Item
               name="bio"
-              rules={[{ required: true, message: 'Please enter your bio!' }]}
+              rules={[{ required: true, message: "Please enter your bio!" }]}
             >
               <Input.TextArea placeholder="Bio" />
             </Form.Item>
@@ -119,7 +119,7 @@ const Signup = (): ReactElement => {
             <Form.Item
               name="password"
               rules={[
-                { required: true, message: 'Please enter your password!' },
+                { required: true, message: "Please enter your password!" },
               ]}
             >
               <Input.Password placeholder="Password" />
@@ -129,7 +129,7 @@ const Signup = (): ReactElement => {
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{ backgroundColor: '#B81D9D', border: 'none' }}
+                style={{ backgroundColor: "#B81D9D", border: "none" }}
               >
                 Signup
               </Button>
@@ -138,7 +138,5 @@ const Signup = (): ReactElement => {
         </Col>
       </Row>
     </Content>
-  )
+  );
 }
-
-export default Signup

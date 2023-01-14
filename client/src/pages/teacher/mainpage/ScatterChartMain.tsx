@@ -1,30 +1,29 @@
-import { ReactElement } from 'react'
-import { ScatterChart } from '../../../components/charts'
-import { Col } from 'antd'
-import moment from 'moment'
+import { Col } from "antd";
+import moment from "moment";
+import { ScatterChart } from "../../../components/charts";
 
-interface ITest {
-  subjectId: number
-  scores: number
-  createdAt: string
+interface Test {
+  subjectId: number;
+  scores: number;
+  createdAt: string;
 }
 
 export type Coordinates = {
-  x: string
-  y: number
+  x: string;
+  y: number;
+};
+
+interface Props {
+  tests: Test[];
 }
 
-interface IProps {
-  tests: ITest[]
-}
-
-export default function ScatterChartMain({ tests }: IProps): ReactElement {
-  const color: string[] = []
-  const data: Coordinates[] = []
+export function ScatterChartMain({ tests }: Props): JSX.Element {
+  const color: string[] = [];
+  const data: Coordinates[] = [];
   tests.forEach(({ scores, createdAt }) => {
-    color.push('#4BC0E7')
-    data.push({ x: moment(createdAt).format(), y: scores })
-  })
+    color.push("#4BC0E7");
+    data.push({ x: moment(createdAt).format(), y: scores });
+  });
 
   return (
     <Col style={{ width: 450, paddingBottom: 80 }}>
@@ -33,12 +32,12 @@ export default function ScatterChartMain({ tests }: IProps): ReactElement {
           data={data}
           color={color}
           title={
-            'AT WHAT TIME OF THE DAY STUDENTS TAKE TESTS AND WHAT IS THEIR SCORE'
+            "AT WHAT TIME OF THE DAY STUDENTS TAKE TESTS AND WHAT IS THEIR SCORE"
           }
         />
       ) : (
         <p>THERE IS NOT ENOUGH DATA YET TO DISPLAY SCATTER CHART</p>
       )}
     </Col>
-  )
+  );
 }

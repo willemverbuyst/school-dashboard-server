@@ -1,28 +1,28 @@
-import { Button, Col, Form, Input, Layout, Row } from 'antd'
-import { ReactElement, useEffect } from 'react'
+import { Button, Col, Form, Input, Layout, Row } from "antd";
+import { useEffect } from "react";
 import {
   SubjectInput,
   usePostSubject,
   useTeacherGuard,
-} from '../../../../../hooks'
+} from "../../../../../hooks";
 
-const { Content } = Layout
+const { Content } = Layout;
 
-export default function NewSubjectForm(): ReactElement {
-  const [form] = Form.useForm()
-  const postSubject = usePostSubject()
-  const { teacherGuard } = useTeacherGuard()
+export function NewSubjectForm(): JSX.Element {
+  const [form] = Form.useForm();
+  const postSubject = usePostSubject();
+  const { teacherGuard } = useTeacherGuard();
 
-  useEffect(() => teacherGuard())
+  useEffect(() => teacherGuard());
 
   const handleSubmit = ({ subjectName }: SubjectInput): void => {
-    postSubject(subjectName)
-    form.resetFields()
-  }
+    postSubject(subjectName);
+    form.resetFields();
+  };
 
   return (
     <Content className="site-layout-content" style={{ padding: 90 }}>
-      <Row justify="center" style={{ padding: '24px' }}>
+      <Row justify="center" style={{ padding: "24px" }}>
         ADD SUBJECT
       </Row>
 
@@ -36,7 +36,7 @@ export default function NewSubjectForm(): ReactElement {
           >
             <Form.Item
               name="subjectName"
-              rules={[{ required: true, message: 'Please input a subject!' }]}
+              rules={[{ required: true, message: "Please input a subject!" }]}
             >
               <Input type="text" placeholder="Subject" />
             </Form.Item>
@@ -44,8 +44,8 @@ export default function NewSubjectForm(): ReactElement {
             <Form.Item>
               <Button
                 style={{
-                  backgroundColor: '#B81D9D',
-                  border: 'none',
+                  backgroundColor: "#B81D9D",
+                  border: "none",
                 }}
                 type="primary"
                 htmlType="submit"
@@ -57,5 +57,5 @@ export default function NewSubjectForm(): ReactElement {
         </Col>
       </Row>
     </Content>
-  )
+  );
 }

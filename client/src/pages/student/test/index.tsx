@@ -1,58 +1,58 @@
-import { Button, Form, Layout, Modal, Radio, Row } from 'antd'
-import { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import NavigationPrompt from 'react-router-navigation-prompt'
+import { Button, Form, Layout, Modal, Radio, Row } from "antd";
+import { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import NavigationPrompt from "react-router-navigation-prompt";
 import {
   useGetTest,
   usePostTest,
   useStudentGuard,
   useUser,
-} from '../../../hooks'
-import { TestInput } from '../../../models'
+} from "../../../hooks";
+import { TestInput } from "../../../models";
 
-const { Content } = Layout
+const { Content } = Layout;
 
-export default function StudentTest() {
-  const history = useHistory()
-  const [form] = Form.useForm()
-  const { subjectid } = useParams<{ subjectid: string }>()
-  const { mcQuestions, setSubjectId } = useGetTest()
-  const postTest = usePostTest()
-  const { user } = useUser()
-  const studentId = user?.data.user.student?.id
-  const questions = mcQuestions || []
+export function StudentTest(): JSX.Element {
+  const history = useHistory();
+  const [form] = Form.useForm();
+  const { subjectid } = useParams<{ subjectid: string }>();
+  const { mcQuestions, setSubjectId } = useGetTest();
+  const postTest = usePostTest();
+  const { user } = useUser();
+  const studentId = user?.data.user.student?.id;
+  const questions = mcQuestions || [];
 
-  const [testDone, setTestDone] = useState(false)
-  const [blockNavigation, setBlockNavigation] = useState(true)
-  const { studentGuard } = useStudentGuard()
+  const [testDone, setTestDone] = useState(false);
+  const [blockNavigation, setBlockNavigation] = useState(true);
+  const { studentGuard } = useStudentGuard();
 
-  useEffect(() => studentGuard())
+  useEffect(() => studentGuard());
 
   useEffect(() => {
-    setSubjectId(subjectid)
-  }, [subjectid, setSubjectId])
+    setSubjectId(subjectid);
+  }, [subjectid, setSubjectId]);
 
   const handleSubmit = (input: { [key: string]: string }): void => {
     if (studentId) {
-      setTestDone(true)
-      let testObj = {} as TestInput
-      testObj.test = input
-      testObj.studentId = studentId
-      testObj.subjectId = subjectid
-      postTest(testObj)
-      setBlockNavigation(false)
+      setTestDone(true);
+      let testObj = {} as TestInput;
+      testObj.test = input;
+      testObj.studentId = studentId;
+      testObj.subjectId = subjectid;
+      postTest(testObj);
+      setBlockNavigation(false);
     }
-    return
-  }
+    return;
+  };
 
   const doAnotherTest = () => {
-    setBlockNavigation(true)
-    setTestDone(false)
-  }
+    setBlockNavigation(true);
+    setTestDone(false);
+  };
 
   const goToMain = () => {
-    history.push(`/students/${studentId}/subjects/${subjectid}`)
-  }
+    history.push(`/students/${studentId}/subjects/${subjectid}`);
+  };
 
   const renderMCQ = () => {
     return (
@@ -68,16 +68,16 @@ export default function StudentTest() {
 
             <Form.Item
               name={id}
-              rules={[{ required: true, message: 'Please select an answer!' }]}
+              rules={[{ required: true, message: "Please select an answer!" }]}
             >
               <Radio.Group>
                 {answers.map(({ text, id }, i) => (
                   <Radio
                     key={id}
                     style={{
-                      display: 'block',
-                      height: '30px',
-                      lineHeight: '30px',
+                      display: "block",
+                      height: "30px",
+                      lineHeight: "30px",
                     }}
                     value={id}
                   >
@@ -93,8 +93,8 @@ export default function StudentTest() {
             type="primary"
             htmlType="submit"
             style={{
-              backgroundColor: '#B81D9D',
-              border: 'none',
+              backgroundColor: "#B81D9D",
+              border: "none",
             }}
           >
             Finish
@@ -103,12 +103,12 @@ export default function StudentTest() {
 
         {testDone ? (
           <>
-            <p>{'You want to take another test?'.toUpperCase()}</p>
+            <p>{"You want to take another test?".toUpperCase()}</p>
             <Button
               type="primary"
               style={{
                 width: 160,
-                backgroundColor: '#4BC0E7',
+                backgroundColor: "#4BC0E7",
                 marginRight: 20,
               }}
               onClick={doAnotherTest}
@@ -119,7 +119,7 @@ export default function StudentTest() {
               type="primary"
               style={{
                 width: 160,
-                backgroundColor: '#B81D9D',
+                backgroundColor: "#B81D9D",
               }}
               onClick={goToMain}
             >
@@ -128,20 +128,20 @@ export default function StudentTest() {
           </>
         ) : null}
       </Form>
-    )
-  }
+    );
+  };
 
   return (
     <>
       <NavigationPrompt
-        beforeConfirm={clb => {
-          clb()
+        beforeConfirm={(clb) => {
+          clb();
         }}
         when={blockNavigation}
       >
         {({ onConfirm, onCancel }) => (
           <Modal
-            visible
+            open
             title="Are you sure you want to leave?"
             onCancel={onCancel}
             onOk={onConfirm}
@@ -155,10 +155,10 @@ export default function StudentTest() {
 
       <Content
         className="site-layout-content"
-        style={{ padding: 90, height: 80, overflow: 'scroll' }}
+        style={{ padding: 90, height: 80, overflow: "scroll" }}
       >
         {studentId && questions.length > 0 && renderMCQ()}
       </Content>
     </>
-  )
+  );
 }

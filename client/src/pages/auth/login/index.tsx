@@ -1,30 +1,30 @@
-import { Button, Col, Form, Input, Layout, Row } from 'antd'
-import { ReactElement, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useLoggedInGuard, useLogin } from '../../../hooks'
+import { Button, Col, Form, Input, Layout, Row } from "antd";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useLoggedInGuard, useLogin } from "../../../hooks";
 
-const { Content } = Layout
+const { Content } = Layout;
 
 interface LoginInput {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
-export default function Login(): ReactElement {
-  const [form] = Form.useForm()
-  const login = useLogin()
-  const { loggedInGuard } = useLoggedInGuard()
+export function Login(): JSX.Element {
+  const [form] = Form.useForm();
+  const login = useLogin();
+  const { loggedInGuard } = useLoggedInGuard();
 
-  useEffect(() => loggedInGuard())
+  useEffect(() => loggedInGuard());
 
   const handleSubmit = ({ email, password }: LoginInput): void => {
-    login(email, password)
-    form.resetFields()
-  }
+    login(email, password);
+    form.resetFields();
+  };
 
   return (
     <Content className="site-layout-content" style={{ padding: 90 }}>
-      <Row justify="center" style={{ padding: '24px' }}>
+      <Row justify="center" style={{ padding: "24px" }}>
         LOGIN
       </Row>
       <Row justify="center">
@@ -37,21 +37,21 @@ export default function Login(): ReactElement {
           >
             <Form.Item
               name="email"
-              rules={[{ required: true, message: 'Please enter your email!' }]}
+              rules={[{ required: true, message: "Please enter your email!" }]}
             >
               <Input placeholder="Email" />
             </Form.Item>
             <Form.Item
               name="password"
               rules={[
-                { required: true, message: 'Please enter your password!' },
+                { required: true, message: "Please enter your password!" },
               ]}
             >
               <Input.Password placeholder="Password" />
             </Form.Item>
 
             <Form.Item>
-              <Link style={{ color: '#FF2694' }} to="/signup">
+              <Link style={{ color: "#FF2694" }} to="/signup">
                 Click here to sign up
               </Link>
             </Form.Item>
@@ -60,7 +60,7 @@ export default function Login(): ReactElement {
               <Button
                 type="primary"
                 htmlType="submit"
-                style={{ backgroundColor: '#B81D9D', border: 'none' }}
+                style={{ backgroundColor: "#B81D9D", border: "none" }}
               >
                 Login
               </Button>
@@ -69,5 +69,5 @@ export default function Login(): ReactElement {
         </Col>
       </Row>
     </Content>
-  )
+  );
 }

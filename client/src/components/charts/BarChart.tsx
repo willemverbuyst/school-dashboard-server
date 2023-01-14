@@ -1,22 +1,21 @@
-import * as chartjs from 'chart.js'
-import { ReactElement } from 'react'
-import { Bar, ChartData } from 'react-chartjs-2'
+import * as chartjs from "chart.js";
+import { Bar, ChartData } from "react-chartjs-2";
 
-interface IInputBarChart {
-  labels: string[]
-  data: number[]
-  color: string[]
-  title?: string
-  max: number
+interface Props {
+  labels: string[];
+  data: number[];
+  color: string[];
+  title?: string;
+  max: number;
 }
 
-export default function BarChart({
+export function BarChart({
   labels,
   data,
   color,
-  title = '',
+  title = "",
   max,
-}: IInputBarChart): ReactElement {
+}: Props): JSX.Element {
   const chartData: ChartData<chartjs.ChartData> = {
     labels: labels,
     datasets: [
@@ -26,7 +25,7 @@ export default function BarChart({
         borderWidth: 0,
       },
     ],
-  }
+  };
   const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
     legend: {
@@ -57,7 +56,7 @@ export default function BarChart({
         },
       ],
     },
-  }
+  };
 
-  return <Bar data={chartData} options={chartOptions} />
+  return <Bar data={chartData} options={chartOptions} />;
 }

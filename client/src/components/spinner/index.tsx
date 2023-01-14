@@ -1,27 +1,26 @@
-import { Spin } from 'antd'
-import { ReactElement } from 'react'
-import { useIsFetching, useIsMutating } from 'react-query'
+import { Spin } from "antd";
+import { useIsFetching, useIsMutating } from "react-query";
 
-export default function Spinner(): ReactElement | null {
-  const isFetching = useIsFetching()
-  const isMutating = useIsMutating()
+export function Spinner(): JSX.Element | null {
+  const isFetching = useIsFetching();
+  const isMutating = useIsMutating();
 
   return isFetching || isMutating ? (
     <div
       style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: '1rem',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: "1rem",
       }}
     >
       <Spin
         style={{
-          color: '#fff',
-          transition: '.6 ease-in-out',
+          color: "#fff",
+          transition: ".6 ease-in-out",
           zIndex: 1000,
         }}
       />
     </div>
-  ) : null
+  ) : null;
 }

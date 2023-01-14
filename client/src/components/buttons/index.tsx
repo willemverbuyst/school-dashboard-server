@@ -1,4 +1,2 @@
-import LoginButton from './LoginButton'
-import LogoutButton from './LogoutButton'
-
-export { LoginButton, LogoutButton }
+export * from "./LoginButton";
+export * from "./LogoutButton";

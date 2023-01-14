@@ -1,49 +1,29 @@
-import { Col, Form, Radio, Row } from 'antd'
-import React, { ReactElement } from 'react'
-import { RadioEvent } from '../../../models/events.models'
+import { Col, Form, Radio, Row } from "antd";
+import { RadioEvent } from "../../../models/events.models";
+import { AnswerOptions } from "./AnswerOptions";
 
-interface IMultipleChoiceAnswer {
-  id: number
-  text: string
-  correct: boolean
-  questionId: number
+export interface MultipleChoiceAnswer {
+  id: number;
+  text: string;
+  correct: boolean;
+  questionId: number;
 }
 
-interface IMCquestionDisplay {
-  text: string
-  answers: IMultipleChoiceAnswer[]
-  questionNumber: number
-  questionId: number
-  onChange: RadioEvent
+interface Props {
+  text: string;
+  answers: MultipleChoiceAnswer[];
+  questionNumber: number;
+  questionId: number;
+  onChange: RadioEvent;
 }
 
-const MultipleChoiceQuestion: React.FC<IMCquestionDisplay> = ({
+export function MultipleChoiceQuestion({
   text,
   answers,
   questionNumber,
   questionId,
   onChange,
-}: IMCquestionDisplay): ReactElement => {
-  const generateOptions = (): ReactElement => {
-    return (
-      <>
-        {answers.map(({ text, id }) => (
-          <Radio
-            key={id}
-            style={{
-              display: 'block',
-              height: '30px',
-              lineHeight: '30px',
-            }}
-            value={id}
-          >
-            {text}
-          </Radio>
-        ))}
-      </>
-    )
-  }
-
+}: Props): JSX.Element {
   return (
     <>
       <Row>
@@ -57,13 +37,11 @@ const MultipleChoiceQuestion: React.FC<IMCquestionDisplay> = ({
                 onChange(e.target.value, questionNumber, questionId)
               }
             >
-              {generateOptions()}
+              <AnswerOptions answers={answers} />
             </Radio.Group>
           </Form.Item>
         </Col>
       </Row>
     </>
-  )
+  );
 }
-
-export default MultipleChoiceQuestion

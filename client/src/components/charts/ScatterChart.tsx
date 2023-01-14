@@ -1,23 +1,18 @@
-import * as chartjs from 'chart.js'
-import { ReactElement } from 'react'
-import { ChartData, Scatter } from 'react-chartjs-2'
+import * as chartjs from "chart.js";
+import { ChartData, Scatter } from "react-chartjs-2";
 
-interface ICoordinates {
-  x: string
-  y: number
+interface Coordinates {
+  x: string;
+  y: number;
 }
 
-interface IInputScatterChart {
-  data: ICoordinates[]
-  color: string[]
-  title: string
+interface Props {
+  data: Coordinates[];
+  color: string[];
+  title: string;
 }
 
-export default function ScatterChart({
-  data,
-  color,
-  title,
-}: IInputScatterChart): ReactElement {
+export function ScatterChart({ data, color, title }: Props): JSX.Element {
   const chartData: ChartData<chartjs.ChartData> = {
     datasets: [
       {
@@ -27,7 +22,7 @@ export default function ScatterChart({
         pointRadius: 5,
       },
     ],
-  }
+  };
   const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
     legend: {
@@ -53,12 +48,12 @@ export default function ScatterChart({
           gridLines: {
             display: false,
           },
-          type: 'time',
-          time: { parser: 'YYYY/MM/DD HH:mm:ss' },
+          type: "time",
+          time: { parser: "YYYY/MM/DD HH:mm:ss" },
         },
       ],
     },
-  }
+  };
 
-  return <Scatter data={chartData} options={chartOptions} />
+  return <Scatter data={chartData} options={chartOptions} />;
 }

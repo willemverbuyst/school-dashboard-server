@@ -1,10 +1,10 @@
-import { message, Space } from 'antd';
+import { message, Space } from "antd";
 
-interface IProps {
+interface Props {
   text: string;
-  status: 'success' | 'error' | 'warning';
+  status: "success" | "error" | "warning";
 }
 
-export const Toast = ({ text, status }: IProps) => {
+export function Toast({ text, status }: Props): JSX.Element {
   return <Space>{message[status](text)}</Space>;
-};
+}

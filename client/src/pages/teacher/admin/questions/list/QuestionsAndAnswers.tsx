@@ -1,16 +1,13 @@
-import { Collapse, Row } from 'antd'
-import { ReactElement } from 'react'
-import { Question } from '../../../../../models'
+import { Collapse, Row } from "antd";
+import { Question } from "../../../../../models";
 
-const { Panel } = Collapse
+const { Panel } = Collapse;
 
-interface IProps {
-  questions: Array<Question>
+interface Props {
+  questions: Array<Question>;
 }
 
-export default function QuestionsAndAnswers({
-  questions,
-}: IProps): ReactElement {
+export function QuestionsAndAnswers({ questions }: Props): JSX.Element {
   return (
     <Row justify="center">
       <Collapse style={{ width: 650 }}>
@@ -22,8 +19,8 @@ export default function QuestionsAndAnswers({
                   key={id}
                   style={
                     !correct
-                      ? { color: 'red' }
-                      : { color: 'green', fontWeight: 'bold' }
+                      ? { color: "red" }
+                      : { color: "green", fontWeight: "bold" }
                   }
                 >
                   {text}
@@ -34,5 +31,5 @@ export default function QuestionsAndAnswers({
         ))}
       </Collapse>
     </Row>
-  )
+  );
 }

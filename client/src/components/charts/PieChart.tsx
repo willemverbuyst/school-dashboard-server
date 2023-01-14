@@ -1,20 +1,19 @@
-import * as chartjs from 'chart.js'
-import { ReactElement } from 'react'
-import { ChartData, Pie } from 'react-chartjs-2'
+import * as chartjs from "chart.js";
+import { ChartData, Pie } from "react-chartjs-2";
 
-interface IInputPieChart {
-  labels: string[]
-  data: number[]
-  color: string[]
-  title: string
+interface Props {
+  labels: string[];
+  data: number[];
+  color: string[];
+  title: string;
 }
 
-export default function PieChart({
+export function PieChart({
   labels,
   data,
   color,
-  title = '',
-}: IInputPieChart): ReactElement {
+  title = "",
+}: Props): JSX.Element {
   const chartData: ChartData<chartjs.ChartData> = {
     labels: labels,
     datasets: [
@@ -24,17 +23,17 @@ export default function PieChart({
         borderWidth: 0,
       },
     ],
-  }
+  };
   const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
     legend: {
       display: true,
-      position: 'bottom',
+      position: "bottom",
       labels: { fontSize: 12 },
     },
     responsive: true,
     title: { text: title, display: true, padding: 15, fontSize: 14 },
-  }
+  };
 
-  return <Pie data={chartData} options={chartOptions} />
+  return <Pie data={chartData} options={chartOptions} />;
 }

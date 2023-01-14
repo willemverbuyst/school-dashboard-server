@@ -1,29 +1,26 @@
-import { Col, Row } from 'antd'
-import { ReactElement } from 'react'
-import { DoughnutChart } from '../../../components/charts'
+import { Col, Row } from "antd";
+import { DoughnutChart } from "../../../components/charts";
 
-interface IResult {
-  at: string
-  score: number
-  subject: number
+interface Result {
+  at: string;
+  score: number;
+  subject: number;
 }
 
-interface IProps {
-  results: IResult[]
+interface Props {
+  results: Result[];
 }
 
-const DoughnutChartDetails: React.FC<IProps> = ({
-  results,
-}: IProps): ReactElement => {
-  const data = results.map(({ score }) => score)
+export function DoughnutChartDetails({ results }: Props): JSX.Element {
+  const data = results.map(({ score }) => score);
   const average = data.length
     ? Math.round((data.reduce((a, b) => a + b, 0) / (data.length * 3)) * 100)
-    : 0
-  const color = ['#A026FF', '#eee']
+    : 0;
+  const color = ["#A026FF", "#eee"];
 
   return (
     <Col>
-      <Row justify="center" style={{ marginBottom: '48px' }}>
+      <Row justify="center" style={{ marginBottom: "48px" }}>
         <Col style={{ width: 450 }}>
           <DoughnutChart
             color={color}
@@ -33,7 +30,5 @@ const DoughnutChartDetails: React.FC<IProps> = ({
         </Col>
       </Row>
     </Col>
-  )
+  );
 }
-
-export default DoughnutChartDetails

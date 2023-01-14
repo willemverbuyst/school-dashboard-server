@@ -1,20 +1,14 @@
-import * as chartjs from 'chart.js'
-import { ReactElement } from 'react'
-import { ChartData, Polar } from 'react-chartjs-2'
+import * as chartjs from "chart.js";
+import { ChartData, Polar } from "react-chartjs-2";
 
-interface IInputPolarChart {
-  labels: string[]
-  data: number[]
-  color: string[]
-  title: string
+interface Props {
+  labels: string[];
+  data: number[];
+  color: string[];
+  title: string;
 }
 
-export default function PolarChart({
-  labels,
-  color,
-  data,
-  title,
-}: IInputPolarChart): ReactElement {
+export function PolarChart({ labels, color, data, title }: Props): JSX.Element {
   const chartData: ChartData<chartjs.ChartData> = {
     labels: labels,
     datasets: [
@@ -24,12 +18,12 @@ export default function PolarChart({
         borderWidth: 4,
       },
     ],
-  }
+  };
   const chartOptions: chartjs.ChartOptions = {
     tooltips: { enabled: false },
     legend: {
       display: true,
-      position: 'bottom',
+      position: "bottom",
       labels: { fontSize: 12 },
     },
     responsive: true,
@@ -37,7 +31,7 @@ export default function PolarChart({
     scale: {
       display: false,
     },
-  }
+  };
 
-  return <Polar data={chartData} options={chartOptions} />
+  return <Polar data={chartData} options={chartOptions} />;
 }

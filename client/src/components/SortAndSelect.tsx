@@ -1,23 +1,22 @@
-import { Button, Radio, Row, Select } from 'antd'
-import React, { ReactElement } from 'react'
+import { Button, Radio, Row, Select } from "antd";
 
-const { Option } = Select
+const { Option } = Select;
 
-interface ISelectorProps {
-  title: string
-  radio1: string
-  radio2: string
-  onChangeRadio: any
-  value: string | undefined
-  onChangeSelection: any
-  results: Array<string>
-  selectStudentData: string
-  onClick: any
-  placeholder: string
-  textBtn: string
+interface Props {
+  title: string;
+  radio1: string;
+  radio2: string;
+  onChangeRadio: any;
+  value: string | undefined;
+  onChangeSelection: any;
+  results: Array<string>;
+  selectStudentData: string;
+  onClick: any;
+  placeholder: string;
+  textBtn: string;
 }
 
-const SortAndSelect: React.FC<ISelectorProps> = ({
+export function SortAndSelect({
   title,
   radio1,
   radio2,
@@ -29,7 +28,7 @@ const SortAndSelect: React.FC<ISelectorProps> = ({
   onClick,
   placeholder,
   textBtn,
-}: ISelectorProps): ReactElement => {
+}: Props): JSX.Element {
   return (
     <Row style={{ paddingBottom: 35 }}>
       {title}
@@ -64,7 +63,5 @@ const SortAndSelect: React.FC<ISelectorProps> = ({
         </Button>
       ) : null}
     </Row>
-  )
+  );
 }
-
-export default SortAndSelect

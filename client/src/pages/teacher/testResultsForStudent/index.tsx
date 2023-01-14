@@ -1,43 +1,43 @@
-import { Layout } from 'antd'
-import { ReactElement, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import SortAndSelect from '../../../components/SortAndSelect'
-import { useTeacherGuard, useTestResultForStudent } from '../../../hooks'
-import BarChartTestsStudent from './BarChartTestsStudents'
-import DoughnutChartStudent from './DoughnutChartStudents'
+import { Layout } from "antd";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { SortAndSelect } from "../../../components/SortAndSelect";
+import { useTeacherGuard, useTestResultForStudent } from "../../../hooks";
+import { BarChartTestsStudent } from "./BarChartTestsStudents";
+import { DoughnutChartStudent } from "./DoughnutChartStudents";
 
-const { Content } = Layout
+const { Content } = Layout;
 
-export default function TestResultsForStudent(): ReactElement {
-  const { studentid } = useParams<{ studentid: string }>()
-  const { data, setStudentId } = useTestResultForStudent()
-  const results = data || []
-  const selectOptions = results.map((result) => result.subjectName)
+export function TestResultsForStudent(): JSX.Element {
+  const { studentid } = useParams<{ studentid: string }>();
+  const { data, setStudentId } = useTestResultForStudent();
+  const results = data || [];
+  const selectOptions = results.map((result) => result.subjectName);
 
-  const { teacherGuard } = useTeacherGuard()
+  const { teacherGuard } = useTeacherGuard();
 
-  const [selectionAverage, setSelectionAverage] = useState('name')
-  const [selectSubjectAverage, setSelectSubjectAverage] = useState('')
+  const [selectionAverage, setSelectionAverage] = useState("name");
+  const [selectSubjectAverage, setSelectSubjectAverage] = useState("");
 
   const sortedResults =
-    selectionAverage === 'name'
+    selectionAverage === "name"
       ? [...results].sort((a, b) => a.userName.localeCompare(b.userName))
-      : [...results].sort((a, b) => b.score - a.score)
+      : [...results].sort((a, b) => b.score - a.score);
 
   const filteredResults = selectSubjectAverage
     ? sortedResults.filter((result) => result.userName === selectSubjectAverage)
-    : sortedResults
+    : sortedResults;
 
-  useEffect(() => teacherGuard())
+  useEffect(() => teacherGuard());
 
   useEffect(() => {
-    setStudentId(studentid)
-  }, [studentid, setStudentId])
+    setStudentId(studentid);
+  }, [studentid, setStudentId]);
 
   return (
     <Content
       className="site-layout-content"
-      style={{ padding: 90, height: 80, overflow: 'scroll' }}
+      style={{ padding: 90, height: 80, overflow: "scroll" }}
     >
       <SortAndSelect
         title="AVERAGE GRADES"
@@ -48,12 +48,12 @@ export default function TestResultsForStudent(): ReactElement {
         onChangeSelection={setSelectSubjectAverage}
         results={selectOptions}
         selectStudentData={selectSubjectAverage}
-        onClick={() => setSelectSubjectAverage('')}
+        onClick={() => setSelectSubjectAverage("")}
         placeholder="Select a student"
         textBtn="All students"
       />
       <DoughnutChartStudent results={filteredResults} />
       <BarChartTestsStudent results={filteredResults} />
     </Content>
-  )
+  );
 }

@@ -1,32 +1,32 @@
-import { Button, Col, Form, Input, Layout, Row, Select } from 'antd'
-import { ReactElement, useEffect } from 'react'
-import { usePostQuestion, useUser } from '../../../../../hooks'
-import { useTeacherGuard } from '../../../../../hooks/guard'
-import { QuestionInput } from '../../../../../models'
+import { Button, Col, Form, Input, Layout, Row, Select } from "antd";
+import { useEffect } from "react";
+import { usePostQuestion, useUser } from "../../../../../hooks";
+import { useTeacherGuard } from "../../../../../hooks/guard";
+import { QuestionInput } from "../../../../../models";
 
-const { Content } = Layout
-const { Option } = Select
+const { Content } = Layout;
+const { Option } = Select;
 
-export default function AddQuestionForm(): ReactElement {
-  const [form] = Form.useForm()
-  const { user } = useUser()
-  const postQuestion = usePostQuestion()
-  const subjects = user?.data.subjects.data || []
-  const { teacherGuard } = useTeacherGuard()
+export function AddQuestionForm(): JSX.Element {
+  const [form] = Form.useForm();
+  const { user } = useUser();
+  const postQuestion = usePostQuestion();
+  const subjects = user?.data.subjects.data || [];
+  const { teacherGuard } = useTeacherGuard();
 
-  useEffect(() => teacherGuard())
+  useEffect(() => teacherGuard());
 
   const handleSubmit = (input: QuestionInput): void => {
-    postQuestion(input)
-    form.resetFields()
-  }
+    postQuestion(input);
+    form.resetFields();
+  };
 
   return (
     <Content
       className="site-layout-content"
-      style={{ padding: 90, height: 80, overflow: 'scroll' }}
+      style={{ padding: 90, height: 80, overflow: "scroll" }}
     >
-      <Row justify="center" style={{ padding: '24px' }}>
+      <Row justify="center" style={{ padding: "24px" }}>
         SELECT A SUBJECT AND CREATE A NEW QUESTION WITH ANSWERS
       </Row>
 
@@ -40,7 +40,7 @@ export default function AddQuestionForm(): ReactElement {
           >
             <Form.Item
               name="subject"
-              rules={[{ required: true, message: 'Please select a subject' }]}
+              rules={[{ required: true, message: "Please select a subject" }]}
             >
               <Select placeholder="select a subject">
                 {subjects.map(({ name, id }, i) => (
@@ -53,7 +53,7 @@ export default function AddQuestionForm(): ReactElement {
 
             <Form.Item
               name="question"
-              rules={[{ required: true, message: 'Please enter a question!' }]}
+              rules={[{ required: true, message: "Please enter a question!" }]}
             >
               <Input placeholder="Question" />
             </Form.Item>
@@ -63,7 +63,7 @@ export default function AddQuestionForm(): ReactElement {
               rules={[
                 {
                   required: true,
-                  message: 'Please input the correct answer',
+                  message: "Please input the correct answer",
                 },
               ]}
             >
@@ -73,7 +73,7 @@ export default function AddQuestionForm(): ReactElement {
             <Form.Item
               name="wrongAnswer1"
               rules={[
-                { required: true, message: 'Please input a wrong answer' },
+                { required: true, message: "Please input a wrong answer" },
               ]}
             >
               <Input placeholder="Wrong answer #1" />
@@ -82,7 +82,7 @@ export default function AddQuestionForm(): ReactElement {
             <Form.Item
               name="wrongAnswer2"
               rules={[
-                { required: true, message: 'Please input a wrong answer' },
+                { required: true, message: "Please input a wrong answer" },
               ]}
             >
               <Input placeholder="Wrong answer #2" />
@@ -91,7 +91,7 @@ export default function AddQuestionForm(): ReactElement {
             <Form.Item
               name="wrongAnswer3"
               rules={[
-                { required: true, message: 'Please input a wrong answer' },
+                { required: true, message: "Please input a wrong answer" },
               ]}
             >
               <Input placeholder="Wrong answer #3" />
@@ -100,8 +100,8 @@ export default function AddQuestionForm(): ReactElement {
             <Form.Item>
               <Button
                 style={{
-                  backgroundColor: '#B81D9D',
-                  border: 'none',
+                  backgroundColor: "#B81D9D",
+                  border: "none",
                 }}
                 type="primary"
                 htmlType="submit"
@@ -113,5 +113,5 @@ export default function AddQuestionForm(): ReactElement {
         </Col>
       </Row>
     </Content>
-  )
+  );
 }
