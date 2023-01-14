@@ -3,7 +3,7 @@ import { useUser } from '../../hooks'
 import SidebarForStudent from '../../pages/student/sidebar'
 import SidebarForTeacher from '../../pages/teacher/sidebar'
 
-export default function Sidebar(): ReactElement | null {
+export function Sidebar(): ReactElement | null {
   const { user } = useUser()
   const role = user?.data.user.role
 

@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import './App.css'
 import AppRouter from './Approuter'
 import BarAtTheTop from './components/barAtTheTop'
-import Sidebar from './components/sidebar'
+import { Sidebar } from './components/sidebar'
 import { queryClient } from './react-query/queryClient'
 
 function App() {

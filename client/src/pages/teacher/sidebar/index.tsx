@@ -4,74 +4,104 @@ import {
   LaptopOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { Layout, Menu } from 'antd'
-import { ReactElement } from 'react'
+import { Layout, Menu, MenuProps } from 'antd'
 import { useHistory } from 'react-router-dom'
-import renderSideBarNav from '../../../components/sidebar/renderSideBarNav'
 import { adminTasks } from '../../../constants/constants'
 import { useUser } from '../../../hooks'
 
-const { SubMenu } = Menu
 const { Sider } = Layout
 
-export default function SidebarForTeacher(): ReactElement {
+type MenuItem = Required<MenuProps>['items'][number]
+
+function getItem(
+  label: React.ReactNode,
+  key: React.Key,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  type?: 'group'
+): MenuItem {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  } as MenuItem
+}
+
+export default function SidebarForTeacher(): JSX.Element | null {
   const history = useHistory()
   const { user } = useUser()
-  const subjects = user?.data.subjects.data
-  const students = user?.data.user.teacher?.students
-  const studentsForNavigation = students?.map((student) => ({
+  const subjects = user?.data.subjects.data ?? []
+  const students = user?.data.user.teacher?.students ?? []
+  const studentsForNavigation = students.map(student => ({
     id: student.id,
     name: student.user?.userName,
   }))
   const teacherId = user?.data.user.id
 
-  const goTo = (goto: string) => {
-    history.push(goto)
+  const subjectsForMenu = getItem(
+    'Subjects',
+    'sub2',
+    <LaptopOutlined />,
+    subjects.map(({ id, name }) => getItem(name, `sub2-${id}`))
+  )
+
+  const studentsForMenu = getItem(
+    'Students',
+    'sub3',
+    <UserOutlined />,
+    studentsForNavigation.map(({ id, name }) => getItem(name, `sub3-${id}`))
+  )
+
+  const adminTasksForMenu = getItem(
+    'Admin',
+    'sub4',
+    <DatabaseOutlined />,
+    adminTasks.map(({ id, name }) => getItem(name, `sub4-${id}`))
+  )
+
+  const items = [
+    getItem('Home', 'sub1', <HomeOutlined />),
+    subjectsForMenu,
+    studentsForMenu,
+    adminTasksForMenu,
+  ]
+
+  const goTo: MenuProps['onClick'] = (e: any) => {
+    let path: string = '/home'
+
+    if (e.key === 'sub1') {
+      path = `/teachers/${teacherId}`
+    }
+
+    if (e.keyPath[1] === 'sub2') {
+      path = `/teachers/${teacherId}/subjects/${e.key.replace('sub2-', '')}`
+    }
+
+    if (e.keyPath[1] === 'sub3') {
+      path = `/teachers/${teacherId}/students/${e.key.replace('sub3-', '')}`
+    }
+
+    if (e.keyPath[1] === 'sub4') {
+      path = `/teachers/${teacherId}/admintasks/${e.key.replace('sub4-', '')}`
+    }
+
+    history.push(path)
   }
 
-  const renderSubjectsNav = (subjects) =>
-    subjects.map(({ id, name }) =>
-      renderSideBarNav('sub2', `/teachers/${teacherId}/subjects/${id}`, name)
-    )
-
-  const renderStudentsNav = (students) =>
-    students.map(({ id, name }) =>
-      renderSideBarNav('sub3', `/teachers/${teacherId}/students/${id}`, name)
-    )
-
-  const renderAdminTasksNav = () =>
-    adminTasks.map(({ id, name }) =>
-      renderSideBarNav('sub4', `/teachers/${teacherId}/admintasks/${id}`, name)
-    )
+  if (!teacherId) {
+    return null
+  }
 
   return (
     <Sider width={250}>
       <Menu
-        mode="inline"
-        defaultSelectedKeys={['sub1']}
+        items={items}
         style={{ height: '100%', borderRight: 0 }}
-      >
-        <Menu.Item
-          key="sub1"
-          icon={<HomeOutlined />}
-          onClick={() => goTo('/teachers/1')}
-        >
-          Home
-        </Menu.Item>
-        {subjects && studentsForNavigation ? (
-          <>
-            <SubMenu key="sub2" icon={<LaptopOutlined />} title="Subjects">
-              {renderSubjectsNav(subjects)}
-            </SubMenu>
-            <SubMenu key="sub3" icon={<UserOutlined />} title="Students">
-              {renderStudentsNav(studentsForNavigation)}
-            </SubMenu>
-            <SubMenu key="sub4" icon={<DatabaseOutlined />} title="Admin">
-              {renderAdminTasksNav()}
-            </SubMenu>
-          </>
-        ) : null}
-      </Menu>
+        mode="inline"
+        onClick={goTo}
+      />
     </Sider>
   )
 }

@@ -73,6 +73,7 @@ export default function StudentTest() {
               <Radio.Group>
                 {answers.map(({ text, id }, i) => (
                   <Radio
+                    key={id}
                     style={{
                       display: 'block',
                       height: '30px',
@@ -133,7 +134,7 @@ export default function StudentTest() {
   return (
     <>
       <NavigationPrompt
-        beforeConfirm={(clb) => {
+        beforeConfirm={clb => {
           clb()
         }}
         when={blockNavigation}
