@@ -29,8 +29,8 @@ export function TestResultsForSubject(): JSX.Element {
 
   const sortedResults =
     selectionAverage === "userName"
-      ? genericSort(results, "userName")
-      : genericSort(results, "score");
+      ? genericSort(results, { key: "userName" })
+      : genericSort(results, { key: "score" });
 
   const filteredResults = selectStudentAverage
     ? sortedResults.filter((result) => result.userName === selectStudentAverage)

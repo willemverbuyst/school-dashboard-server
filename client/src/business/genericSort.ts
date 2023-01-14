@@ -1,6 +1,14 @@
-export function genericSort<T>(arr: Array<T>, key: keyof T): Array<T> {
+interface SortData<T> {
+  key: keyof T;
+  isDescending?: boolean;
+}
+
+export function genericSort<T>(
+  arr: Array<T>,
+  { key, isDescending = false }: SortData<T>
+): Array<T> {
   return [...arr].sort((object1, object2) =>
-    sortByKey({ object1, object2, key })
+    sortByKey({ object1, object2, key, isDescending })
   );
 }
 
@@ -8,12 +16,12 @@ function sortByKey<T>({
   object1,
   object2,
   key,
-  isDescending = false,
+  isDescending,
 }: {
   object1: T;
   object2: T;
   key: keyof T;
-  isDescending?: boolean;
+  isDescending: boolean;
 }): number {
   const result = (): number => {
     if (object1[key] > object2[key]) {
