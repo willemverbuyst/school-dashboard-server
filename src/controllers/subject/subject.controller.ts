@@ -1,33 +1,33 @@
-import { NextFunction, Response } from 'express'
-import { RequestWithBody } from '../../interfaces/Requests'
-import { teacherAuthMiddleware } from '../../middlewares/teacherAuthMiddleware'
-import { subjectQueries } from '../../queries'
-import { controller, get, post, use } from '../decorators'
+import { NextFunction, Response } from "express";
+import { RequestWithBody } from "../../interfaces/Requests";
+import { teacherAuthMiddleware } from "../../middlewares/teacherAuthMiddleware";
+import { subjectQueries } from "../../queries";
+import { controller, get, post, use } from "../decorators";
 
-const { addSubject, getAllSubjects } = subjectQueries
+const { addSubject, getAllSubjects } = subjectQueries;
 
-@controller('/subjects')
+@controller("/subjects")
 export class SubjectController {
-  @get('/')
+  @get("/")
   async getAllSubjects(
     _req: RequestWithBody,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     try {
-      const subjects = await getAllSubjects()
+      const subjects = await getAllSubjects();
 
       if (!subjects) {
-        res.send({ message: 'No subjects found' })
+        res.send({ message: "No subjects found" });
       }
 
-      res.send({ results: subjects.length, data: subjects })
+      res.send({ results: subjects.length, data: subjects });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 
-  @post('/')
+  @post("/")
   @use(teacherAuthMiddleware)
   async addSubject(
     req: RequestWithBody,
@@ -35,25 +35,25 @@ export class SubjectController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { subjectName } = req.body
+      const { subjectName } = req.body;
 
       if (!subjectName) {
-        res.status(422).send({ message: 'Must provide name for subject' })
-        return
+        res.status(422).send({ message: "Must provide name for subject" });
+        return;
       }
 
-      const newSubject = await addSubject({ name: subjectName })
+      const newSubject = await addSubject({ name: subjectName });
 
       if (!newSubject) {
         res.status(404).send({
-          message: 'Something went wrong, subject not added',
-        })
-        return
+          message: "Something went wrong, subject not added",
+        });
+        return;
       }
 
-      res.send({ data: newSubject })
+      res.send({ data: newSubject });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

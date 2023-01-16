@@ -1,3 +1,3 @@
-import { QuestionController } from './question.controller'
+import { QuestionController } from "./question.controller";
 
-export const questionController = { QuestionController }
+export const questionController = { QuestionController };

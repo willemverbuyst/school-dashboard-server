@@ -1,3 +1,3 @@
-import { RootController } from './root.controller'
+import { RootController } from "./root.controller";
 
-export const rootController = { RootController }
+export const rootController = { RootController };

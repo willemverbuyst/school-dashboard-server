@@ -1,25 +1,27 @@
-import { Score } from '@prisma/client'
-import { v4 as uuidv4 } from 'uuid'
-import { tests } from './tests'
+import { Score } from "@prisma/client";
+import { v4 as uuidv4 } from "uuid";
+import { tests } from "./tests";
 import {
   questionsGeography,
   questionsHistory,
   questionsMath,
-} from './questions'
-import { subjects } from './subjects'
+} from "./questions";
+import { subjects } from "./subjects";
 
-const createScore = (): 1 | 0 => (Math.random() >= 0.5 ? 1 : 0)
-const createSubjectIndex = (): number => Math.floor(Math.random() * (4 - 0))
+const createScore = (): 1 | 0 => (Math.random() >= 0.5 ? 1 : 0);
+const createSubjectIndex = (): number => Math.floor(Math.random() * (4 - 0));
 
 const testsGeography = [...tests].filter(
-  test => test.subjectId === subjects[0].id
-)
+  (test) => test.subjectId === subjects[0].id
+);
 const testsHistory = [...tests].filter(
-  test => test.subjectId === subjects[1].id
-)
-const testsMath = [...tests].filter(test => test.subjectId === subjects[2].id)
+  (test) => test.subjectId === subjects[1].id
+);
+const testsMath = [...tests].filter(
+  (test) => test.subjectId === subjects[2].id
+);
 
-export const scoresGeography: Array<Score> = testsGeography.flatMap(test =>
+export const scoresGeography: Array<Score> = testsGeography.flatMap((test) =>
   Array(3)
     .fill(0)
     .map(() => ({
@@ -28,9 +30,9 @@ export const scoresGeography: Array<Score> = testsGeography.flatMap(test =>
       questionId: questionsGeography[createSubjectIndex()].id,
       testId: test.id,
     }))
-)
+);
 
-export const scoresHistory: Array<Score> = testsHistory.flatMap(test =>
+export const scoresHistory: Array<Score> = testsHistory.flatMap((test) =>
   Array(3)
     .fill(0)
     .map(() => ({
@@ -39,9 +41,9 @@ export const scoresHistory: Array<Score> = testsHistory.flatMap(test =>
       questionId: questionsHistory[createSubjectIndex()].id,
       testId: test.id,
     }))
-)
+);
 
-export const scoresMath: Array<Score> = testsMath.flatMap(test =>
+export const scoresMath: Array<Score> = testsMath.flatMap((test) =>
   Array(3)
     .fill(0)
     .map(() => ({
@@ -50,10 +52,10 @@ export const scoresMath: Array<Score> = testsMath.flatMap(test =>
       questionId: questionsMath[createSubjectIndex()].id,
       testId: test.id,
     }))
-)
+);
 
 export const scores: Array<Score> = [
   ...scoresGeography,
   ...scoresHistory,
   ...scoresMath,
-]
+];

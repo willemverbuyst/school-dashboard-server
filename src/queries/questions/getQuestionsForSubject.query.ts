@@ -1,5 +1,5 @@
-import { prismaClient } from '../../prisma'
-import { QuestionWithAnswers } from './models'
+import { prismaClient } from "../../prisma";
+import { QuestionWithAnswers } from "./models";
 
 export const getQuestionsForSubject = async (
   id: string
@@ -7,8 +7,8 @@ export const getQuestionsForSubject = async (
   const questionsForSubject = await prismaClient.question.findMany({
     where: { subjectId: id },
     include: { answers: true },
-  })
+  });
 
-  if (questionsForSubject.length > 0) return questionsForSubject
-  return null
-}
+  if (questionsForSubject.length > 0) return questionsForSubject;
+  return null;
+};

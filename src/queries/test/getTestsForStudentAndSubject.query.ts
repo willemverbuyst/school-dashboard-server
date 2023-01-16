@@ -1,9 +1,9 @@
-import { Score } from '@prisma/client'
-import { prismaClient } from '../../prisma'
-import { TestForStudent, TestWithSubjectAndScores } from './models'
+import { Score } from "@prisma/client";
+import { prismaClient } from "../../prisma";
+import { TestForStudent, TestWithSubjectAndScores } from "./models";
 
 const sumScores = (scores: Array<Score>): number =>
-  scores.map(score => score.score).reduce((sum, score) => sum + score, 0)
+  scores.map((score) => score.score).reduce((sum, score) => sum + score, 0);
 
 const formatTestsForStudentAndSubject = (
   tests: Array<TestWithSubjectAndScores>
@@ -13,8 +13,8 @@ const formatTestsForStudentAndSubject = (
     createdAt: test.createdAt,
     subject: test.subject,
     score: sumScores(test.scores),
-  }))
-}
+  }));
+};
 
 export const getTestForStudentAndSubject = async (
   studentId: string,
@@ -26,8 +26,8 @@ export const getTestForStudentAndSubject = async (
       subjectId,
     },
     include: { subject: true, scores: true },
-  })
+  });
 
-  if (tests) return formatTestsForStudentAndSubject(tests)
-  return []
-}
+  if (tests) return formatTestsForStudentAndSubject(tests);
+  return [];
+};

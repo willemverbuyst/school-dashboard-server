@@ -1,5 +1,5 @@
-import { SubjectController } from './subject.controller'
+import { SubjectController } from "./subject.controller";
 
 export const subjectController = {
   SubjectController,
-}
+};

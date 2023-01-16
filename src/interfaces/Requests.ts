@@ -1,7 +1,7 @@
-import { Request } from 'express'
+import { Request } from "express";
 
 export interface RequestWithBody extends Request {
-  body: { [key: string]: string | undefined }
-  teacher?: any
-  student?: any
+  body: { [key: string]: string | undefined };
+  teacher?: any;
+  student?: any;
 }

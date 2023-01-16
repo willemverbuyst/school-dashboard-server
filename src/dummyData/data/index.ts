@@ -1,10 +1,10 @@
-export { answers } from './answers'
-export { profiles } from './profiles'
-export { questions } from './questions'
-export { schools } from './schools'
-export { scores } from './scores'
-export { students } from './students'
-export { subjects } from './subjects'
-export { teachers } from './teachers'
-export { tests } from './tests'
-export { userStudents, userTeachers } from './users'
+export { answers } from "./answers";
+export { profiles } from "./profiles";
+export { questions } from "./questions";
+export { schools } from "./schools";
+export { scores } from "./scores";
+export { students } from "./students";
+export { subjects } from "./subjects";
+export { teachers } from "./teachers";
+export { tests } from "./tests";
+export { userStudents, userTeachers } from "./users";

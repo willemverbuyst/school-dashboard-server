@@ -1,5 +1,5 @@
-import { prismaClient } from '../../prisma'
-import { UserPlus } from './models'
+import { prismaClient } from "../../prisma";
+import { UserPlus } from "./models";
 
 export const getUserPlus = async (id: string): Promise<UserPlus | null> => {
   const user = await prismaClient.user.findUnique({
@@ -55,13 +55,13 @@ export const getUserPlus = async (id: string): Promise<UserPlus | null> => {
         },
       },
     },
-  })
+  });
 
   if (user) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...userWithoutPassword } = user
+    const { password, ...userWithoutPassword } = user;
 
-    return userWithoutPassword
+    return userWithoutPassword;
   }
-  return null
-}
+  return null;
+};

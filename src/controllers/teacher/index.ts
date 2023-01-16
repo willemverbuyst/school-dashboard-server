@@ -1,3 +1,3 @@
-import { TeacherController } from './teacher.controller'
+import { TeacherController } from "./teacher.controller";
 
-export const teacherController = { TeacherController }
+export const teacherController = { TeacherController };

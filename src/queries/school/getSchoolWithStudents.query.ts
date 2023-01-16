@@ -1,5 +1,5 @@
-import { prismaClient } from '../../prisma'
-import { SchoolWithStudents } from './models'
+import { prismaClient } from "../../prisma";
+import { SchoolWithStudents } from "./models";
 
 export const getSchoolWithStudents = async (
   id: string
@@ -7,8 +7,8 @@ export const getSchoolWithStudents = async (
   const schoolWithStudents = await prismaClient.school.findUnique({
     where: { id },
     include: { students: { select: { id: true } } },
-  })
+  });
 
-  if (schoolWithStudents) return schoolWithStudents
-  return null
-}
+  if (schoolWithStudents) return schoolWithStudents;
+  return null;
+};

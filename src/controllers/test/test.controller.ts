@@ -1,15 +1,15 @@
-import { NextFunction, Response } from 'express'
-import { RequestWithBody } from '../../interfaces/Requests'
-import { studentAuthMiddleware } from '../../middlewares/studentAuthMiddleware'
-import { questionQueries, testQueries } from '../../queries'
-import { controller, get, post, use } from '../decorators'
+import { NextFunction, Response } from "express";
+import { RequestWithBody } from "../../interfaces/Requests";
+import { studentAuthMiddleware } from "../../middlewares/studentAuthMiddleware";
+import { questionQueries, testQueries } from "../../queries";
+import { controller, get, post, use } from "../decorators";
 
-const { getQuestionsForTest } = questionQueries
-const { createTest } = testQueries
+const { getQuestionsForTest } = questionQueries;
+const { createTest } = testQueries;
 
-@controller('/test')
+@controller("/test")
 export class TestController {
-  @get('/subjects/:id')
+  @get("/subjects/:id")
   @use(studentAuthMiddleware)
   async getQuestionsForSubject(
     req: RequestWithBody,
@@ -17,29 +17,29 @@ export class TestController {
     next: NextFunction
   ): Promise<void> {
     try {
-      const { id } = req.params
+      const { id } = req.params;
 
       if (!id) {
-        res.status(422).send({ message: 'Must provide subject id' })
-        return
+        res.status(422).send({ message: "Must provide subject id" });
+        return;
       }
 
-      const questions = await getQuestionsForTest(id)
+      const questions = await getQuestionsForTest(id);
 
       if (!questions) {
         res.status(404).send({
-          message: 'No questions for that subject found',
-        })
-        return
+          message: "No questions for that subject found",
+        });
+        return;
       }
 
-      res.send({ results: questions.length, data: questions })
+      res.send({ results: questions.length, data: questions });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 
-  @post('/subjects/:id')
+  @post("/subjects/:id")
   @use(studentAuthMiddleware)
   async postQuestionForSubject(
     req: RequestWithBody,
@@ -54,8 +54,8 @@ export class TestController {
       question2,
       question3,
       studentId,
-    } = req.body
-    const { id } = req.params
+    } = req.body;
+    const { id } = req.params;
 
     if (
       !answer1 ||
@@ -65,13 +65,13 @@ export class TestController {
       !question2 ||
       !question3
     ) {
-      res.status(422).send({ message: 'Missing input' })
-      return
+      res.status(422).send({ message: "Missing input" });
+      return;
     }
 
     if (!studentId) {
-      res.status(422).send({ message: 'Student id missing' })
-      return
+      res.status(422).send({ message: "Student id missing" });
+      return;
     }
 
     try {
@@ -84,13 +84,13 @@ export class TestController {
         question3,
         studentId,
         id
-      )
+      );
 
       res.status(201).send({
         message: `You have finished your test with a score of ${result}/3`,
-      })
+      });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

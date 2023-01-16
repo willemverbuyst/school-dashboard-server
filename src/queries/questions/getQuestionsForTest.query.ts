@@ -1,5 +1,5 @@
-import { prismaClient } from '../../prisma'
-import { QuestionForTest } from './models'
+import { prismaClient } from "../../prisma";
+import { QuestionForTest } from "./models";
 
 // https://stackoverflow.com/questions/19269545/how-to-get-n-no-elements-randomly-from-an-array
 const shuffleQuestions = (
@@ -13,7 +13,7 @@ const shuffleQuestions = (
       subjectId: question.subjectId,
     }))
     .sort(() => 0.5 - Math.random())
-    .slice(0, 3)
+    .slice(0, 3);
 
 export const getQuestionsForTest = async (
   id: string
@@ -33,9 +33,9 @@ export const getQuestionsForTest = async (
         },
       },
     },
-  })
+  });
 
-  const questions = shuffleQuestions(questionsForSubject)
+  const questions = shuffleQuestions(questionsForSubject);
 
-  return questions
-}
+  return questions;
+};

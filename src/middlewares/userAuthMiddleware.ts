@@ -1,9 +1,9 @@
-import { NextFunction, Response } from 'express'
-import { toData } from '../auth/jwt'
-import { RequestWithBody } from '../interfaces/Requests'
-import { userQueries } from '../queries'
+import { NextFunction, Response } from "express";
+import { toData } from "../auth/jwt";
+import { RequestWithBody } from "../interfaces/Requests";
+import { userQueries } from "../queries";
 
-const { getUserById } = userQueries
+const { getUserById } = userQueries;
 
 export const userAuthMiddleware = async (
   req: RequestWithBody,
@@ -12,51 +12,51 @@ export const userAuthMiddleware = async (
 ): Promise<void> => {
   try {
     const auth =
-      req.headers.authorization && req.headers.authorization.split(' ')
+      req.headers.authorization && req.headers.authorization.split(" ");
 
-    if (!auth || !(auth[0] === 'Bearer') || !auth[1]) {
+    if (!auth || !(auth[0] === "Bearer") || !auth[1]) {
       res.status(401).send({
         message:
-          'This endpoint requires an Authorization header with a valid token',
-      })
-      return
+          "This endpoint requires an Authorization header with a valid token",
+      });
+      return;
     }
 
-    const data = toData(auth[1])
-    const user = await getUserById((<{ userId: string }>data).userId)
+    const data = toData(auth[1]);
+    const user = await getUserById((<{ userId: string }>data).userId);
 
     if (!user) {
-      res.status(403).send({ message: 'User does not exist' })
-      return
+      res.status(403).send({ message: "User does not exist" });
+      return;
     }
 
-    req.body.userId = user.id
+    req.body.userId = user.id;
 
-    next()
+    next();
   } catch (error) {
-    let message
-    let name
+    let message;
+    let name;
     if (error instanceof Error) {
-      message = error.message
-      name = error.name
+      message = error.message;
+      name = error.name;
     } else {
-      message = String(error)
-      name = 'Error'
+      message = String(error);
+      name = "Error";
     }
     // console.log('ERROR IN AUTH MIDDLEWARE', error)
 
-    if (name === 'TokenExpiredError') {
-      res.status(401).send({ error: name, message: message })
-      return
+    if (name === "TokenExpiredError") {
+      res.status(401).send({ error: name, message: message });
+      return;
     }
 
-    if (name === 'JsonWebTokenError') {
-      res.status(400).send({ error: name, message: message })
-      return
+    if (name === "JsonWebTokenError") {
+      res.status(400).send({ error: name, message: message });
+      return;
     }
 
     res.status(500).send({
-      message: 'Something went wrong',
-    })
+      message: "Something went wrong",
+    });
   }
-}
+};

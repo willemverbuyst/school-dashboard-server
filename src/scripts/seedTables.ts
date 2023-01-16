@@ -10,9 +10,9 @@ import {
   Teacher,
   Test,
   User,
-} from '@prisma/client'
+} from "@prisma/client";
 
-import { logFinishSeed, logInitSeed, logSeed } from '../log'
+import { logFinishSeed, logInitSeed, logSeed } from "../log";
 
 const createAnswers = async (
   prisma: PrismaClient,
@@ -21,9 +21,9 @@ const createAnswers = async (
   await prisma.answer.createMany({
     data: answers,
     skipDuplicates: true,
-  })
-  logSeed('Answer')
-}
+  });
+  logSeed("Answer");
+};
 
 const createProfiles = async (
   prisma: PrismaClient,
@@ -32,9 +32,9 @@ const createProfiles = async (
   await prisma.profile.createMany({
     data: profiles,
     skipDuplicates: true,
-  })
-  logSeed('Profile')
-}
+  });
+  logSeed("Profile");
+};
 
 const createQuestions = async (
   prisma: PrismaClient,
@@ -43,9 +43,9 @@ const createQuestions = async (
   await prisma.question.createMany({
     data: questions,
     skipDuplicates: true,
-  })
-  logSeed('Question')
-}
+  });
+  logSeed("Question");
+};
 
 const createSchools = async (
   prisma: PrismaClient,
@@ -54,9 +54,9 @@ const createSchools = async (
   await prisma.school.createMany({
     data: schools,
     skipDuplicates: true,
-  })
-  logSeed('School')
-}
+  });
+  logSeed("School");
+};
 
 const createScores = async (
   prisma: PrismaClient,
@@ -65,9 +65,9 @@ const createScores = async (
   await prisma.score.createMany({
     data: scores,
     skipDuplicates: true,
-  })
-  logSeed('School')
-}
+  });
+  logSeed("School");
+};
 
 const createStudents = async (
   prisma: PrismaClient,
@@ -76,9 +76,9 @@ const createStudents = async (
   await prisma.student.createMany({
     data: students,
     skipDuplicates: true,
-  })
-  logSeed('Student')
-}
+  });
+  logSeed("Student");
+};
 
 const createSubjects = async (
   prisma: PrismaClient,
@@ -87,9 +87,9 @@ const createSubjects = async (
   await prisma.subject.createMany({
     data: subjects,
     skipDuplicates: true,
-  })
-  logSeed('Subject')
-}
+  });
+  logSeed("Subject");
+};
 
 const createTeachers = async (
   prisma: PrismaClient,
@@ -98,9 +98,9 @@ const createTeachers = async (
   await prisma.teacher.createMany({
     data: teachers,
     skipDuplicates: true,
-  })
-  logSeed('Teacher')
-}
+  });
+  logSeed("Teacher");
+};
 
 const createTests = async (
   prisma: PrismaClient,
@@ -109,9 +109,9 @@ const createTests = async (
   await prisma.test.createMany({
     data: tests,
     skipDuplicates: true,
-  })
-  logSeed('Tests')
-}
+  });
+  logSeed("Tests");
+};
 
 const createUserStudents = async (
   prisma: PrismaClient,
@@ -120,9 +120,9 @@ const createUserStudents = async (
   await prisma.user.createMany({
     data: userStudents,
     skipDuplicates: true,
-  })
-  logSeed('UserStudent')
-}
+  });
+  logSeed("UserStudent");
+};
 
 const createUserTeachers = async (
   prisma: PrismaClient,
@@ -131,22 +131,22 @@ const createUserTeachers = async (
   await prisma.user.createMany({
     data: userTeachers,
     skipDuplicates: true,
-  })
-  logSeed('UserTeacher')
-}
+  });
+  logSeed("UserTeacher");
+};
 
 interface SeedData {
-  answers?: Array<Answer>
-  profiles?: Array<Profile>
-  questions?: Array<Question>
-  scores?: Array<Score>
-  schools?: Array<School>
-  students?: Array<Student>
-  subjects?: Array<Subject>
-  teachers?: Array<Teacher>
-  tests?: Array<Test>
-  userStudents?: Array<User>
-  userTeachers?: Array<User>
+  answers?: Array<Answer>;
+  profiles?: Array<Profile>;
+  questions?: Array<Question>;
+  scores?: Array<Score>;
+  schools?: Array<School>;
+  students?: Array<Student>;
+  subjects?: Array<Subject>;
+  teachers?: Array<Teacher>;
+  tests?: Array<Test>;
+  userStudents?: Array<User>;
+  userTeachers?: Array<User>;
 }
 
 export const seedData = async (
@@ -165,17 +165,17 @@ export const seedData = async (
     userTeachers,
   }: SeedData
 ): Promise<void> => {
-  logInitSeed()
-  if (schools) await createSchools(prisma, schools)
-  if (subjects) await createSubjects(prisma, subjects)
-  if (userStudents) await createUserTeachers(prisma, userStudents)
-  if (userTeachers) await createUserStudents(prisma, userTeachers)
-  if (profiles) await createProfiles(prisma, profiles)
-  if (teachers) await createTeachers(prisma, teachers)
-  if (students) await createStudents(prisma, students)
-  if (questions) await createQuestions(prisma, questions)
-  if (answers) await createAnswers(prisma, answers)
-  if (tests) await createTests(prisma, tests)
-  if (scores) await createScores(prisma, scores)
-  logFinishSeed()
-}
+  logInitSeed();
+  if (schools) await createSchools(prisma, schools);
+  if (subjects) await createSubjects(prisma, subjects);
+  if (userStudents) await createUserTeachers(prisma, userStudents);
+  if (userTeachers) await createUserStudents(prisma, userTeachers);
+  if (profiles) await createProfiles(prisma, profiles);
+  if (teachers) await createTeachers(prisma, teachers);
+  if (students) await createStudents(prisma, students);
+  if (questions) await createQuestions(prisma, questions);
+  if (answers) await createAnswers(prisma, answers);
+  if (tests) await createTests(prisma, tests);
+  if (scores) await createScores(prisma, scores);
+  logFinishSeed();
+};

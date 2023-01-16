@@ -1,28 +1,28 @@
-import { Score } from '@prisma/client'
-import { prismaClient } from '../../prisma'
-import { TestWithSubjectAndScores } from './models'
+import { Score } from "@prisma/client";
+import { prismaClient } from "../../prisma";
+import { TestWithSubjectAndScores } from "./models";
 
 const groupBy = <T>(
   array: Array<T>,
   predicate: (v: T) => string
 ): { [key: string]: Array<T> } =>
   array.reduce((acc, value) => {
-    ;(acc[predicate(value)] ||= []).push(value)
-    return acc
-  }, {} as { [key: string]: Array<T> })
+    (acc[predicate(value)] ||= []).push(value);
+    return acc;
+  }, {} as { [key: string]: Array<T> });
 
 const sumScores = (scores: Array<Score>): number =>
-  scores.map(score => score.score).reduce((sum, score) => sum + score, 0)
+  scores.map((score) => score.score).reduce((sum, score) => sum + score, 0);
 
 const reduceScores = (obj: any): any => {
   return Object.values(obj).map((o: any) => {
-    const numberOfTests = o.length
+    const numberOfTests = o.length;
     return o.reduce((acc: any, value: any) => {
-      acc.score = (acc.score || 0) + value.score
-      return { ...acc, numberOfTests }
-    })
-  })
-}
+      acc.score = (acc.score || 0) + value.score;
+      return { ...acc, numberOfTests };
+    });
+  });
+};
 
 const formatTestsForTeacherAndSubject = (
   tests: Array<TestWithSubjectAndScores>
@@ -33,8 +33,8 @@ const formatTestsForTeacherAndSubject = (
     score: sumScores(test.scores),
     studentId: test.student.id,
     userName: test.student.user.userName,
-  }))
-}
+  }));
+};
 
 export const getTestForTeacherAndSubject = async (
   subjectId: string,
@@ -52,15 +52,15 @@ export const getTestForTeacherAndSubject = async (
         select: { id: true, user: { select: { id: true, userName: true } } },
       },
     },
-  })
+  });
 
   if (tests) {
-    const formattedTests = formatTestsForTeacherAndSubject(tests)
+    const formattedTests = formatTestsForTeacherAndSubject(tests);
 
     return reduceScores(
-      groupBy(formattedTests, formattedTest => formattedTest.studentId)
-    )
+      groupBy(formattedTests, (formattedTest) => formattedTest.studentId)
+    );
   }
 
-  return []
-}
+  return [];
+};

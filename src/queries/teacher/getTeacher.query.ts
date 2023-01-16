@@ -1,5 +1,5 @@
-import { prismaClient } from '../../prisma'
-import { TeacherWithSchool } from './models'
+import { prismaClient } from "../../prisma";
+import { TeacherWithSchool } from "./models";
 
 export const getTeacher = async (
   id: string
@@ -14,8 +14,8 @@ export const getTeacher = async (
         },
       },
     },
-  })
+  });
 
-  if (teacher) return teacher
-  return null
-}
+  if (teacher) return teacher;
+  return null;
+};

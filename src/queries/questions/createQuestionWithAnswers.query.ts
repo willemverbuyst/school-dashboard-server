@@ -1,6 +1,6 @@
-import { Question } from '@prisma/client'
-import { prismaClient } from '../../prisma'
-import { NewQuestionWithAnswers } from './models'
+import { Question } from "@prisma/client";
+import { prismaClient } from "../../prisma";
+import { NewQuestionWithAnswers } from "./models";
 
 export const createQuestionWithAnswers = async ({
   question,
@@ -29,8 +29,8 @@ export const createQuestionWithAnswers = async ({
         },
       },
     },
-  })
+  });
 
-  if (newQuestion) return newQuestion
-  return null
-}
+  if (newQuestion) return newQuestion;
+  return null;
+};

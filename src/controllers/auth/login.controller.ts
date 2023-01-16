@@ -1,39 +1,39 @@
-import bcrypt from 'bcrypt'
-import { Response } from 'express'
-import { controller, post } from '../decorators'
-import { toJWT } from '../../auth/jwt'
-import { RequestWithBody } from '../../interfaces/Requests'
-import { subjectQueries, testQueries, userQueries } from '../../queries'
-import { Role } from '@prisma/client'
+import bcrypt from "bcrypt";
+import { Response } from "express";
+import { controller, post } from "../decorators";
+import { toJWT } from "../../auth/jwt";
+import { RequestWithBody } from "../../interfaces/Requests";
+import { subjectQueries, testQueries, userQueries } from "../../queries";
+import { Role } from "@prisma/client";
 
-const { getAllTestsForTeacher, getTestsForStudent } = testQueries
-const { getAllSubjects } = subjectQueries
-const { getUserByEmail, getUserPlus } = userQueries
+const { getAllTestsForTeacher, getTestsForStudent } = testQueries;
+const { getAllSubjects } = subjectQueries;
+const { getUserByEmail, getUserPlus } = userQueries;
 
-@controller('/auth')
+@controller("/auth")
 export class LoginController {
-  @post('/login')
+  @post("/login")
   async postLogin(req: RequestWithBody, res: Response): Promise<void> {
     try {
-      const { email, password } = req.body
+      const { email, password } = req.body;
 
       if (!email || !password) {
-        res.status(422).send({ message: 'Missing input' })
-        return
+        res.status(422).send({ message: "Missing input" });
+        return;
       }
 
-      const user = await getUserByEmail(email)
+      const user = await getUserByEmail(email);
 
       if (!user || !bcrypt.compareSync(password, user.password)) {
         res
           .status(404)
-          .send({ message: 'User with this email and/or password not found' })
-        return
+          .send({ message: "User with this email and/or password not found" });
+        return;
       }
 
-      const token = toJWT({ userId: user.id })
-      const subjects = await getAllSubjects()
-      const userWithProfile = await getUserPlus(user.id)
+      const token = toJWT({ userId: user.id });
+      const subjects = await getAllSubjects();
+      const userWithProfile = await getUserPlus(user.id);
 
       const response = {
         token,
@@ -42,8 +42,8 @@ export class LoginController {
           user: userWithProfile,
           overview: {},
         },
-        message: 'Welcome back',
-      }
+        message: "Welcome back",
+      };
 
       if (
         userWithProfile &&
@@ -51,8 +51,8 @@ export class LoginController {
         userWithProfile.student &&
         userWithProfile.student.id
       ) {
-        const tests = await getTestsForStudent(userWithProfile.student?.id)
-        response.data.overview = { results: tests.length, data: tests }
+        const tests = await getTestsForStudent(userWithProfile.student?.id);
+        response.data.overview = { results: tests.length, data: tests };
       }
 
       if (
@@ -61,14 +61,14 @@ export class LoginController {
         userWithProfile.teacher &&
         userWithProfile.teacher.id
       ) {
-        const tests = await getAllTestsForTeacher(userWithProfile.teacher?.id)
-        response.data.overview = { results: tests.length, data: tests }
+        const tests = await getAllTestsForTeacher(userWithProfile.teacher?.id);
+        response.data.overview = { results: tests.length, data: tests };
       }
 
-      res.status(200).send(response)
+      res.status(200).send(response);
     } catch (error: unknown) {
       // console.log(error)
-      res.status(500).send({ message: 'Something went wrong' })
+      res.status(500).send({ message: "Something went wrong" });
     }
   }
 }

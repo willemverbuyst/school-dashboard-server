@@ -1,28 +1,28 @@
-import { NextFunction, Response } from 'express'
-import { RequestWithBody } from '../../interfaces/Requests'
-import { schoolQueries } from '../../queries'
-import { controller, get } from '../decorators'
+import { NextFunction, Response } from "express";
+import { RequestWithBody } from "../../interfaces/Requests";
+import { schoolQueries } from "../../queries";
+import { controller, get } from "../decorators";
 
-const { getAllSchools } = schoolQueries
+const { getAllSchools } = schoolQueries;
 
-@controller('/schools')
+@controller("/schools")
 export class SchoolController {
-  @get('/')
+  @get("/")
   async getSchools(
     _req: RequestWithBody,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     try {
-      const schools = await getAllSchools()
+      const schools = await getAllSchools();
 
       if (!schools) {
-        res.send({ message: 'No schools found' })
+        res.send({ message: "No schools found" });
       }
 
-      res.send({ results: schools.length, data: schools })
+      res.send({ results: schools.length, data: schools });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

@@ -1,18 +1,18 @@
-import { Request, Response } from 'express'
-import { controller, post } from '../decorators'
-import { toJWT } from '../../auth/jwt'
-import { subjectQueries, userQueries } from '../../queries'
+import { Request, Response } from "express";
+import { controller, post } from "../decorators";
+import { toJWT } from "../../auth/jwt";
+import { subjectQueries, userQueries } from "../../queries";
 
-const { getAllSubjects } = subjectQueries
-const { createUserStudent, createUserTeacher } = userQueries
+const { getAllSubjects } = subjectQueries;
+const { createUserStudent, createUserTeacher } = userQueries;
 
-@controller('/auth')
+@controller("/auth")
 export class SignupController {
-  @post('/signup')
+  @post("/signup")
   async postSignup(req: Request, res: Response): Promise<void> {
     try {
       const { bio, bsn, email, password, role, schoolId, teacherId, userName } =
-        req.body
+        req.body;
 
       if (
         !bio ||
@@ -23,17 +23,17 @@ export class SignupController {
         !schoolId ||
         !userName
       ) {
-        res.status(422).send({ message: 'Missing input' })
-        return
+        res.status(422).send({ message: "Missing input" });
+        return;
       }
 
-      if (role === 'student' && !teacherId) {
-        res.status(422).send({ message: 'Missing input' })
-        return
+      if (role === "student" && !teacherId) {
+        res.status(422).send({ message: "Missing input" });
+        return;
       }
 
-      let user
-      if (role === 'student') {
+      let user;
+      if (role === "student") {
         user = await createUserStudent({
           email,
           userName,
@@ -42,7 +42,7 @@ export class SignupController {
           bsn,
           schoolId,
           teacherId,
-        })
+        });
       } else {
         user = await createUserTeacher({
           email,
@@ -51,16 +51,16 @@ export class SignupController {
           bio,
           bsn,
           schoolId,
-        })
+        });
       }
 
       if (!user) {
-        res.status(500).send({ message: 'User not created' })
-        return
+        res.status(500).send({ message: "User not created" });
+        return;
       }
 
-      const token = toJWT({ userId: user.id })
-      const subjects = await getAllSubjects()
+      const token = toJWT({ userId: user.id });
+      const subjects = await getAllSubjects();
 
       res.status(200).send({
         token,
@@ -69,10 +69,10 @@ export class SignupController {
           user,
           overview: {},
         },
-        message: 'Welcome',
-      })
+        message: "Welcome",
+      });
     } catch (error: unknown) {
-      res.status(400).send({ message: String(error) })
+      res.status(400).send({ message: String(error) });
     }
   }
 }

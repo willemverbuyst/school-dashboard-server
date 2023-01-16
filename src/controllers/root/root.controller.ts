@@ -1,10 +1,10 @@
-import { NextFunction, Response } from 'express'
-import { RequestWithBody } from '../../interfaces/Requests'
-import { controller, get } from '../decorators'
+import { NextFunction, Response } from "express";
+import { RequestWithBody } from "../../interfaces/Requests";
+import { controller, get } from "../decorators";
 
-@controller('/')
+@controller("/")
 export class RootController {
-  @get('/')
+  @get("/")
   async getRoot(
     _req: RequestWithBody,
     res: Response,
@@ -12,10 +12,10 @@ export class RootController {
   ): Promise<void> {
     try {
       res.status(200).send({
-        message: 'Hello from the school dashboard server',
-      })
+        message: "Hello from the school dashboard server",
+      });
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }

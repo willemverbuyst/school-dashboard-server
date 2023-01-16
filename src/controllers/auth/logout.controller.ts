@@ -1,10 +1,10 @@
-import { Request, Response } from 'express'
-import { controller, get } from '../decorators'
+import { Request, Response } from "express";
+import { controller, get } from "../decorators";
 
-@controller('/auth')
+@controller("/auth")
 export class LogoutController {
-  @get('/logout')
+  @get("/logout")
   getLogout(_req: Request, res: Response): void {
-    res.send({ message: 'You are logged out' })
+    res.send({ message: "You are logged out" });
   }
 }

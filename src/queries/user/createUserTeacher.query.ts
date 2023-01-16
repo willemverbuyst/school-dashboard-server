@@ -1,8 +1,8 @@
-import { Role } from '@prisma/client'
-import bcrypt from 'bcrypt'
-import { prismaClient } from '../../prisma'
-import { SALT_ROUNDS } from '../../config/constants'
-import { InputCreateUserTeacher, UserPlus } from './models'
+import { Role } from "@prisma/client";
+import bcrypt from "bcrypt";
+import { prismaClient } from "../../prisma";
+import { SALT_ROUNDS } from "../../config/constants";
+import { InputCreateUserTeacher, UserPlus } from "./models";
 
 export const createUserTeacher = async ({
   email,
@@ -81,12 +81,12 @@ export const createUserTeacher = async ({
         },
       },
     },
-  })
+  });
 
   if (user) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...userWithoutPassword } = user
-    return userWithoutPassword
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
   }
-  return null
-}
+  return null;
+};
