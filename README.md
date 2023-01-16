@@ -1,74 +1,31 @@
-# School-Dashboard
+# Dashboard
 
 ## What is this?
 
-This is a dashboard where students and teachers can keep track of grades and progress for multiple subjects/students. For the details on the functionality see the [user stories](#userStories).
+The server that is part of the full-stack school-dashboard project.
 
-## Table of contents
+More details [here](https://github.com/willemverbuyst/school-dashboard-frontend).
 
-- [App demos](#appDemos)
-- [Technologies](#technologies)
-- [User stories](#userStories)
-- [Data models / wireframes / project board](#models-wireframe-projectboard)
-- [Server repository](#serverRepo)
-- [Installation](#installation)
+## Database / server
 
-## <a name="appDemos"></a>App demos
+1. Start up [database](../database/README.md)
 
-![](./img/dashboard-home.png)
-![](./img/dashboard-student.gif)
-![](./img/dashboard-teacher.gif)
+2. Migrate prisma
 
-## <a name="technologies"></a>Technologies
+> npx prisma migrate dev
 
-### Front-end
+3. Run scripts for seeds
 
-- ~~JavaScript~~ TypeScript
-- React
-- ~~Redux~~ React-Query
-- Chart.js
-- Ant Design
+Navigate to server folder and run script
 
-### Back-end
+> cd server && bash scripts/dev-db.sh
 
-- ~~JavaScript~~ TypeScript
-- ~~Sequelize~~ Prisma
-- PostgreSQL
-- Express
+4. Run server
 
-## <a name="userStories"></a>User stories
+> npm run dev
 
-### As a student ...
+5. Use dev tools
 
-- As a student I want to sign up/login in order to use the dashboard and see my grades/progress.
-- When logged in I will see an overview (sidebar) of the classes I am attending.
-- On the main page I will see a chart with my average grade for each subject.
-  -By clicking on a subject in the sidebar I will see an overview of all my scores (per test) for that subject.
-- On this details page there is a button to do a test for that subject.
-- I will see a 'finish test' button, and get a display of a message with the result.
+> npx prisma studio
 
-### As a teacher ...
-
-- As a teacher I want to sign up/login in order to use the dashboard and see my student details.
-- When logged in, I will get an overview with all my students and subjects that I am teaching (sidebar).
-- On the main page I will see a chart with the average grade for the subjects.
-- I can use the links in the sidebar to see the details for a student, or subject.
-- I can click a link in the sidebar to see the list of existing mc questions for a subject and add a mc question.
-- As a teacher I can add a subject
-
-## <a name="models-wireframe-projectboard"></a>Data models / wireframes / project board
-
-[Data models](https://app.lucidchart.com/invitations/accept/d09a0ec5-92f6-4ac7-b203-e96f708609db)
-
-[Wireframes](https://drive.google.com/file/d/1CMpn7W91WxH8KU1kURMbLTiAyhFeMNgq/view?usp=sharing)
-
-[Project board](https://github.com/willemverbuyst/school-dashboard-frontend/projects/1)
-
-## <a name="serverRepo"></a>Server repository
-
-The repository for the backend can be found [here](https://github.com/willemverbuyst/school-dashboard-backend).
-
-This is a REST-ful API using Express.js.
-
-The database is built using Postgres and ~~Sequelize~~ Prisma.
-Have a look at the data [models](https://app.lucidchart.com/invitations/accept/d09a0ec5-92f6-4ac7-b203-e96f708609db).
+https://dbdiagram.io/d
